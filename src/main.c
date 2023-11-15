@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:20:08 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/13 18:13:18 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:23:22 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 int main(void)
 {
-	//hi
+	char *rl;
+	rl = readline("test>>");
+    printf("%s\n", rl);
+    return (0);
 }

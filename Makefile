@@ -13,9 +13,12 @@ SRC_DIR     = src
 MV_DIR      = moves
 BIN_DIR     = bin
 INC_DIR     = include
-RL_DIR		= readline
+RL_DIR		= include/readline
 LIBFT_DIR   = lib/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
+LIBRL		= -L ./include/readline/ -lreadline -lcurses
+READLINE    = $(RL_DIR)/libreadline.a
+HISTORY    = $(RL_DIR)/libhistory.a
 #Shell cmd
 MKDIRP = mkdir -p
 RM = rm -f
@@ -24,7 +27,7 @@ RM_DIR = rm -rf
 # headers to include
 INCLUDES = -I$(LIBFT_DIR) -I$(INC_DIR) -I$(MV_DIR) -I$(RL_DIR)
 # things to link
-LFLAGS =  $(LIBFT)
+LFLAGS =  $(LIBFT) $(LIBRL)
 
 #==============================================================================#
 all: libft $(NAME)

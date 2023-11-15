@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 16:20:08 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/15 15:44:19 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2023/11/15 15:37:33 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2023/11/15 15:43:01 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(void)
+void	prompt_create(t_data *data)
 {
-	t_data *data;
-
-	data = get_data();
-	while(1)
-		prompt_create(data);
-    return (0);
+	data->user_prompt = readline(PROMPT_NAME);
+	// if (!data->user_prompt)
+	// 	printf("no_prompt\n");
 }

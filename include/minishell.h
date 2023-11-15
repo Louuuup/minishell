@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/15 14:21:16 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:43:21 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define FALSE 0
 # define YES 1
 # define NO 0
+# define PROMPT_NAME "\033[35m\033[1mUser \033[0m\033[1m→ \033[0m"
 //==================ERRORS===================//
 # define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"
 # define ERR_EXP "\033[37m\033[1mREASON\033[0m"
@@ -59,7 +60,7 @@ typedef struct cmd_table
 
 typedef struct data
 {
-
+	char	*user_prompt; //to free
 }			t_data;
 //
 //==================[utils.c]===================//
@@ -67,6 +68,7 @@ t_data	*get_data(void);
 void	ft_error(char *str);
 void	my_error(char *str);
 //
-//==================[t_utils.c]===================//
+//==================[prompt.c]===================//
+void	prompt_create(t_data *data);
 
 #endif

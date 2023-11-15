@@ -13,6 +13,7 @@ SRC_DIR     = src
 MV_DIR      = moves
 BIN_DIR     = bin
 INC_DIR     = include
+RL_DIR		= readline
 LIBFT_DIR   = lib/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 #Shell cmd
@@ -21,7 +22,7 @@ RM = rm -f
 RM_DIR = rm -rf
 #==============================================================================#
 # headers to include
-INCLUDES = -I$(LIBFT_DIR) -I$(INC_DIR) -I$(MV_DIR)
+INCLUDES = -I$(LIBFT_DIR) -I$(INC_DIR) -I$(MV_DIR) -I$(RL_DIR)
 # things to link
 LFLAGS =  $(LIBFT)
 
@@ -49,6 +50,22 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "$(GREEN)$(BOLD)✅ Fully cleaned $(PURPLE)MINISHELL$(RESET)"
+PDF		:= minishell_en.pdf
+GIT_URL := https://github.com/SaydRomey/Minishell
+PDF_URL := $(GIT_URL)/blob/main/instructions/minishell_en.pdf?raw=true
+OS		:= $(shell uname -s)
+
+#=================================PDF=========================================#
+pdf:
+	@curl -# -L $(PDF_URL) -o $(PDF)
+ifeq ($(OS),Darwin)
+	@open $(PDF)
+else
+	@xdg-open $(PDF) || echo "Please install a compatible PDF viewer"
+endif
+	@sleep 2
+	@rm -f $(PDF)
+#==============================================================================#
 norm: all
 	norminette
 re: fclean all

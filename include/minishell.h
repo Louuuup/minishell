@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/15 15:43:21 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:41:32 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct cmd_table
 typedef struct data
 {
 	char	*user_prompt; //to free
+	// int		exit_promt;
 }			t_data;
 //
 //==================[utils.c]===================//

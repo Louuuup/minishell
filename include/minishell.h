@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/16 17:41:32 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:39:57 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ struct cmd;
 typedef struct cmd
 {
 	int			argc;
+	char		*cmd_path;
 	char		**args;
 	struct cmd	*next;
 }			t_cmd;

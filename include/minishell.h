@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/13 18:42:51 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/16 20:05:54 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,29 @@
 */
 struct cmd;
 
-typedef struct cmd
+// typedef struct cmd
+// {
+// 	int			argc;
+// 	char		**args;
+// 	struct cmd	*next;
+// }			t_cmd;
+
+typedef	struct	s_redir
 {
-	int			argc;
-	char		**args;
-	struct cmd	*next;
-}			t_cmd;
+	int		i;
+	char	*name;
+	char	*value;
+}	t_redir;
+
+typedef struct	s_copy
+{
+		char	*wc;
+		char	**args;
+		char	*cmd;
+		int		i;
+		int		num;
+		t_redir	redir;
+}	t_copy;
 
 /**
  * NOTE: Multiple cmds when pipe

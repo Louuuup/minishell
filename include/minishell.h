@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 17:43:37 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 18:19:58 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ typedef	struct s_token
 typedef struct s_tab_cmd
 {
 	char	*cmd;
+	char	**args;
 	t_token	*redirections;
 	int		num_redirections;
-	char	**args;
+	int		num_args;
 	char	*last_multiline;
 }	t_tab_cmd;
 typedef struct s_data
@@ -74,6 +75,7 @@ typedef struct s_data
 	t_token		*tokens;
 	int			count_token;
 	t_tab_cmd	*cmdt;
+	int			code_exit;
 }	t_data;
 
 

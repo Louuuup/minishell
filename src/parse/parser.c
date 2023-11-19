@@ -21,17 +21,30 @@ int	counting_arguments(t_data *pointer, int index)
 
 // the function test if the last redirection was multi-line or input redirection
 
-void	test_multiline(t_data *data, int index)
+void	test_multiline(t_data *pointer, int index)
 {
-	int i = data->cmdt[index].num_redirections;
+	int i = pointer->cmdt[index].num_redirections;
 	while(i--)
 	{
-		if (data->cmdt[index].redirections[i].type == REDIRECT_MULTILINE
-			|| data->cmdt[index].redirections[i].type == REDIRECT_IN)
+		if (pointer->cmdt[index].redirections[i].type == REDIRECT_MULTILINE
+			|| pointer->cmdt[index].redirections[i].type == REDIRECT_IN)
 		{
-			if (data->cmdt[index].redirections[i].type == REDIRECT_MULTILINE)
-				data->cmdt[index].redirections[i].no_space = 3;
+			if (pointer->cmdt[index].redirections[i].type == REDIRECT_MULTILINE)
+				pointer->cmdt[index].redirections[i].no_space = 3;
 			break;
 		}
+	}
+}
+
+// the function fills the fields of t_tab_cmd in t_data struct
+
+int	cmdt_init(t_data *pointer, int i, int *index)
+{
+	pointer->cmdt[i].num_args = counting_arguments(pointer, *index);
+	if (pointer->cmdt[i].num_args > 0)
+	{
+		pointer->cmdt[i].args = ft_calloc((pointer->cmdt[i].num_args + 1), sizeof(char *));
+		if (!pointer->cmdt[i].args)
+			return (error_out(pointer, "ft_calloc error"));
 	}
 }

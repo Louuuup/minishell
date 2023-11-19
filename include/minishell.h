@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 15:42:55 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 16:59:13 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ void	ft_error(char *str);
 void	my_error(char *str);
 //
 //==================[t_utils.c]===================//
+
+int		check_arguments(t_type_token type);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 15:08:26 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 15:21:52 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 *@param	argv Array of cmd + all its args.
 *@param	next Next command.
 */
-struct cmd;
+// struct cmd;
 
 // typedef struct cmd
 // {

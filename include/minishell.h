@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 15:21:52 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 15:42:55 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,32 @@
 // 	struct cmd	*next;
 // }			t_cmd;
 
+typedef	enum s_type_token
+{
+	WORD,
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	REDIR_HEREDOC,
+	DQUOTE,
+	SQUOTE
+}	t_type_token;
+
+typedef	struct s_token
+{
+	char			value;
+	t_type_token	type;
+	int				no_space;
+}	t_token;
+
+typedef struct s_data
+{
+	t_token		*tokens;
+	int			count_token;
+}	t_data;
+
+
 typedef	struct	s_redir
 {
 	int		i;
@@ -73,10 +99,6 @@ typedef struct cmd_table
 	t_cmd	*first_cmd;
 }			t_table;
 
-typedef struct data
-{
-
-}			t_data;
 //
 //==================[utils.c]===================//
 t_data	*get_data(void);

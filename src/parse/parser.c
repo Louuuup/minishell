@@ -18,3 +18,20 @@ int	counting_arguments(t_data *pointer, int index)
 	}
 	return (count);
 }
+
+// the function test if the last redirection was multi-line or input redirection
+
+void	test_multiline(t_data *data, int index)
+{
+	int i = data->cmdt[index].num_redirections;
+	while(i--)
+	{
+		if (data->cmdt[index].redirections[i].type == REDIRECT_MULTILINE
+			|| data->cmdt[index].redirections[i].type == REDIRECT_IN)
+		{
+			if (data->cmdt[index].redirections[i].type == REDIRECT_MULTILINE)
+				data->cmdt[index].redirections[i].no_space = 3;
+			break;
+		}
+	}
+}

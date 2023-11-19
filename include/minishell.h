@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 16:59:13 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 17:43:37 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@
 */
 // struct cmd;
 
-// typedef struct cmd
-// {
-// 	int			argc;
-// 	char		**args;
-// 	struct cmd	*next;
-// }			t_cmd;
+typedef struct cmd
+{
+	int			argc;
+	char		**args;
+	struct cmd	*next;
+}			t_cmd;
 
 typedef	enum s_type_token
 {
 	WORD,
 	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
-	REDIR_HEREDOC,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	REDIRECT_APPEND,
+	REDIRECT_MULTILINE,
 	DQUOTE,
 	SQUOTE
 }	t_type_token;
@@ -61,10 +61,19 @@ typedef	struct s_token
 	int				no_space;
 }	t_token;
 
+typedef struct s_tab_cmd
+{
+	char	*cmd;
+	t_token	*redirections;
+	int		num_redirections;
+	char	**args;
+	char	*last_multiline;
+}	t_tab_cmd;
 typedef struct s_data
 {
 	t_token		*tokens;
 	int			count_token;
+	t_tab_cmd	*cmdt;
 }	t_data;
 
 

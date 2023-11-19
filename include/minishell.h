@@ -6,14 +6,14 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/16 20:05:54 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 15:08:26 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
+# include "../lib/libft/libft.h"
 # include <stdio.h>
 
 //==================VALUES===================//

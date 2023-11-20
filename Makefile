@@ -4,7 +4,7 @@ NAME = minishell
 #==============================================================================#
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code -Ofast -g
-SRC = main.c	utils.c		t_utils.c	prompt.c
+SRC = main.c	utils.c		t_utils.c	prompt.c	builtin.c	exec_utils.c
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))

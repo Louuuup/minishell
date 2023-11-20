@@ -6,11 +6,11 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:31:55 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/17 14:39:10 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:01:48 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	run_cmd(char **args, char *cmd_path, int in_fd, int out_fd)
 {
-	
+
 }

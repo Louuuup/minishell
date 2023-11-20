@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:37:33 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/17 14:31:01 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:13:17 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ void	prompt_create(t_data *data)
 // for me, will delete once we have the real parsing
 void	tmp_parse(t_data *data)
 {
-	if (!ft_strncmp(data->user_prompt, "cat", 3))
-		printf("iscat\n");
+	if (!ft_strncmp(data->user_prompt, "echo 1", 6))
+	{
+		char *str[] = {"echo", "-nnnnn", "coucou", "allo", "sheesh", "aaaa"};
+		built_echo(str, 6, STDOUT_FILENO);
+	}
+	else if (!ft_strncmp(data->user_prompt, "echo 2", 6))
+	{
+		char *str[] = {"echo", "-nnnann", "coucou", "allo", "sheesh", "aaaa"};
+		built_echo(str, 6, STDOUT_FILENO);
+	}
+	// else if (!ft_strncmp(data->user_prompt, "echo 2", 6))
+	// {
+	// 	char *stre[] = {"echo", "allo", "allo"};
+	// 	built_echo(stre, 3, STDOUT_FILENO);
+	// }
 }

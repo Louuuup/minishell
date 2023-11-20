@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/17 14:39:57 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:10:21 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <stdio.h>
 # include <readline.h>
+# include <string.h>
+# include <fcntl.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0
@@ -27,6 +29,8 @@
 //==================ERRORS===================//
 # define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"
 # define ERR_EXP "\033[37m\033[1mREASON\033[0m"
+# define ERR_FORK "Forked up!\n"
+# define ERR_DUP "Dup error\n"
 //==================Structs===================//
 
 /**
@@ -72,5 +76,11 @@ void	my_error(char *str);
 //
 //==================[prompt.c]===================//
 void	prompt_create(t_data *data);
+//
+//==================[builtin.c]===================//
+void	built_echo(char **args, int argc, int fd_out);
+//
+//==================[exec_utils.c]===================//
+void	ft_dup2(int fd, int std);
 
 #endif

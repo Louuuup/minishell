@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 13:03:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/17 14:52:33 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2023/11/17 15:24:20 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2023/11/17 16:25:46 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*get_data(void)
+void	ft_dup2(int fd, int std)
 {
-	static t_data	data;
+	int	err;
 
-	return (&data);
-}
-
-void	ft_error(char *str)
-{
-	ft_putstr_fd(ERR_MAIN, STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	perror(ERR_EXP);
-	// free_all(get_data());
-	exit(ERROR);
-}
-
-void	my_error(char *str)
-{
-	ft_putstr_fd(ERR_MAIN, STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	// free_all(get_data());
-	exit (ERROR);
+	err = dup2(fd, std);
+	if (err == -1)
+		ft_error(ERR_DUP);
+	close(fd);
 }

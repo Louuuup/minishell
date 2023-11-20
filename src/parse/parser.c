@@ -47,4 +47,21 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 		if (!pointer->cmdt[i].args)
 			return (error_out(pointer, "ft_calloc error"));
 	}
+	else
+		pointer->cmdt[i].args = 0;
+	pointer->cmdt[i].cmd = 0;
+	pointer->cmdt[i].is_child_process = 0;
+	pointer->cmdt[i].pid = 0;
+	pointer->cmdt[i].fd_in = -1;
+	pointer->cmdt[i].fd_out = -1;
+	pointer->cmdt[i].in_file = -1;
+	pointer->cmdt[i].out_file = -1;
+	pointer->cmdt[i].last_multiline = 0;
+	if (1)// redirection logic
+		return (1);
+	last_multiline(pointer, i);
+	//*index = fill command arguments
+	if (*index == 0)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 18:19:58 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/19 19:34:41 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,15 @@ typedef struct s_tab_cmd
 	t_token	*redirections;
 	int		num_redirections;
 	int		num_args;
+	int		is_child_process;
 	char	*last_multiline;
+	pid_t	pid;
+	int		fd_in;
+	int		fd_out;
+	int		in_file;
+	int		out_file;
 }	t_tab_cmd;
+
 typedef struct s_data
 {
 	t_token		*tokens;

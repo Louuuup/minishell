@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 12:10:21 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:37:54 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <stdio.h>
 # include <readline.h>
+# include <history.h>
 # include <string.h>
 # include <fcntl.h>
 
@@ -79,6 +80,7 @@ void	prompt_create(t_data *data);
 //
 //==================[builtin.c]===================//
 void	built_echo(char **args, int argc, int fd_out);
+void	build_pwd(int fd_out);
 //
 //==================[exec_utils.c]===================//
 void	ft_dup2(int fd, int std);

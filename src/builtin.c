@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:56:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 13:12:58 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:27:39 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ void	built_echo(char **args, int argc, int fd_out)
 		ft_putchar_fd('$', fd_out);
 	ft_putchar_fd('\n', fd_out);
 
+}
+
+void	built_cd(void)
+{
+	// chdir()
+}
+
+void	build_pwd(int fd_out)
+{
+	char *path;
+
+	path = getcwd(NULL, 0);
+	ft_putstr_fd(path, fd_out);
+	ft_putchar_fd('\n', fd_out);
 }

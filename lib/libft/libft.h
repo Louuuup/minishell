@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:15:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/10 13:37:24 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:25:13 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	*charjoinfree(char *str, char c);
 int		ft_has_space(char *str);
 void	print_grid(char **arr);
 void	ft_free(void **ptr);
-void	arr_free(void **arr);
+void	*free_null(void *ptr);
+void	*arr_free(void **arr);
 
 #endif

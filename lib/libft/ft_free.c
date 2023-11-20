@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:23:33 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/13 18:09:26 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:35:38 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,26 @@ void	ft_free(void **ptr)
 	}
 }
 
-void	arr_free(void **arr)
+void	*free_null(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+
+	return (NULL);
+}
+
+void	*arr_free(void **arr)
 {
 	int	i;
 
 	i = 0;
+	if (!arr)
+		return (NULL);
 	while (arr[i] != NULL)
 	{
-		ft_free(&arr[i]);
+		arr[i] = free_null(arr[i]);
 		i++;
 	}
-	ft_free(arr);
+	free_null(arr);
+	return (NULL);
 }

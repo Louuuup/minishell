@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 13:37:54 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:52:48 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define ERR_EXP "\033[37m\033[1mREASON\033[0m"
 # define ERR_FORK "Forked up!\n"
 # define ERR_DUP "Dup error\n"
+# define ERR_CD_ARGS "Too much arguments for CD\n"
 //==================Structs===================//
 
 /**
@@ -81,6 +82,7 @@ void	prompt_create(t_data *data);
 //==================[builtin.c]===================//
 void	built_echo(char **args, int argc, int fd_out);
 void	build_pwd(int fd_out);
+void	built_cd(char **args, int argc, int fd_out);
 //
 //==================[exec_utils.c]===================//
 void	ft_dup2(int fd, int std);

@@ -57,11 +57,32 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 	pointer->cmdt[i].in_file = -1;
 	pointer->cmdt[i].out_file = -1;
 	pointer->cmdt[i].last_multiline = 0;
-	if (1)// redirection logic
+	if (function_fill_redirs(pointer, i, *index) == 1)// redirection logic
 		return (1);
 	last_multiline(pointer, i);
 	//*index = fill command arguments
+	*index = function_fill_cmd_args(pointer, i, *index - 1) + 1;
 	if (*index == 0)
 		return (1);
+	return (0);
+}
+
+int	parser(t_data *pointer)
+{
+	int	j = 0;
+	int	i = 0;
+
+	if (function_to_merge_words(pointer) == 1)
+		return (1);
+	pointer->cmdt_count = count_pipes(pointer) + 1;
+	pointer->cmdt = ft_calloc(pointer->cmdt_count, sizeof(t_tab_cmd));
+	if (!pointer->cmdt)
+		return (error_out(pointer, "ft_calloc_error"));
+	while (j < pointer->cmdt_count)
+	{
+		if (function_fill_cmdt(pointer, j, &i))
+			return (1);
+		j++;
+	}
 	return (0);
 }

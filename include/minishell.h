@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/19 19:34:41 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/20 19:44:29 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_data
 	int			count_token;
 	t_tab_cmd	*cmdt;
 	int			code_exit;
+	int			cmdt_count;
+	int			count_pipes;
 }	t_data;
 
 

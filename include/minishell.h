@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 14:52:48 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:37:30 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@
 # define FALSE 0
 # define YES 1
 # define NO 0
-# define PROMPT_NAME "\033[35m\033[1mUser \033[0m\033[1m→ \033[0m"
+# define PROMPT_NAME "\033[35m\033[1mCoquillage Miniature \033[0m\033[1m→ \033[0m"
+# define EXPORT_PREFIX "declare -x "
 //==================ERRORS===================//
 # define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"
 # define ERR_EXP "\033[37m\033[1mREASON\033[0m"
 # define ERR_FORK "Forked up!\n"
 # define ERR_DUP "Dup error\n"
 # define ERR_CD_ARGS "Too much arguments for CD\n"
+# define ERR_CD "Invalid name or path\n"
 //==================Structs===================//
 
 /**
@@ -68,6 +70,7 @@ typedef struct cmd_table
 typedef struct data
 {
 	char	*user_prompt; //to free
+	char	**env; //to free
 	// int		exit_promt;
 }			t_data;
 //
@@ -80,11 +83,17 @@ void	my_error(char *str);
 void	prompt_create(t_data *data);
 //
 //==================[builtin.c]===================//
-void	built_echo(char **args, int argc, int fd_out);
 void	build_pwd(int fd_out);
-void	built_cd(char **args, int argc, int fd_out);
 //
 //==================[exec_utils.c]===================//
 void	ft_dup2(int fd, int std);
-
+//
+//==================[b_cd.c]===================//
+void	built_cd(char **args, int argc, int fd_out);
+//
+//==================[b_echo.c]===================//
+void	built_echo(char **args, int argc, int fd_out);
+//
+//==================[b_env.c]===================//
+void built_env(t_data *data);
 #endif

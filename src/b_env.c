@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 16:20:08 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/22 17:49:15 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2023/11/22 14:58:04 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2023/11/22 18:10:27 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void env_init(t_data *data, char **env)
+void	print_env(char **env, int fd, char *prefix)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(env[i])
-		i++;
-	data->env = ft_calloc(i, sizeof(char *) + 1);
-	i = 0;
-	while(env[i])
+	while (env[i] != NULL)
 	{
-		data->env[i] = ft_strdup(env[i]);
+		if (prefix)
+			ft_putstr_fd(prefix, fd);
+		ft_putstr_fd(env[i], fd);
+		write(fd, "\n", 1);
 		i++;
 	}
 }
-
-int	main(int argc, char *argv[], char **env_p)
+void built_env(t_data *data)
 {
-	t_data *data;
-
-	(void)argc;
-	(void)argv;
-	data = get_data();
-	env_init(data, env_p);
-	prompt_create(data);
-    return (0);
+	print_env(data->env,   1, EXPORT_PREFIX);
 }
 
+// void	built_export(char **args, int argc, int fd_out)
+// {
+
+// }

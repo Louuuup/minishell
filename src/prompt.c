@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:37:33 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 15:36:29 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:05:59 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,15 @@ void	tmp_parse(t_data *data)
 		char *str[] = {"cd", "/Users/ycyr-roy/Desktop/REPO/minishell"};
 		built_cd(str, 2, STDERR_FILENO);
 	}
+	else if (!ft_strncmp(data->user_prompt, "cd REPO", 7))
+	{
+		char *str[] = {"cd", "REPO"};
+		built_cd(str, 2, STDERR_FILENO);
+	}
+	else if (!ft_strncmp(data->user_prompt, "env", 7))
+	{
+			built_env(data);
+	}
+
+
 }

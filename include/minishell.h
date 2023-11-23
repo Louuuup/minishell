@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 19:44:29 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/22 19:38:54 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef	enum s_type_token
 
 typedef	struct s_token
 {
-	char			value;
+	char			*value;
 	t_type_token	type;
 	int				no_space;
 }	t_token;

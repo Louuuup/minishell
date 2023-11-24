@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/22 17:37:30 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:04:54 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"
 # define ERR_EXP "\033[37m\033[1mREASON\033[0m"
 # define ERR_FORK "Forked up!\n"
+# define ERR_ALLOC "Allocation error\n"
 # define ERR_DUP "Dup error\n"
 # define ERR_CD_ARGS "Too much arguments for CD\n"
 # define ERR_CD "Invalid name or path\n"
@@ -95,5 +96,5 @@ void	built_cd(char **args, int argc, int fd_out);
 void	built_echo(char **args, int argc, int fd_out);
 //
 //==================[b_env.c]===================//
-void built_env(t_data *data);
+void built_env(t_data *data, int fd_out);
 #endif

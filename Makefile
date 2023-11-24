@@ -55,8 +55,8 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "$(GREEN)$(BOLD)✅ Fully cleaned $(PURPLE)MINISHELL$(RESET)"
 PDF		:= minishell_en.pdf
-GIT_URL := https://github.com/SaydRomey/Minishell
-PDF_URL := $(GIT_URL)/blob/main/instructions/minishell_en.pdf?raw=true
+GIT_URL := https://github.com/Louuuup/minishell
+PDF_URL := $(GIT_URL)/instructions/minishell_en.pdf?raw=true
 OS		:= $(shell uname -s)
 
 #=================================PDF=========================================#

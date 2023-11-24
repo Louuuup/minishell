@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:58:04 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/24 17:08:01 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:36:50 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,36 @@ void built_env(t_data *data, int fd_out)
 	print_env(data->env, fd_out, EXPORT_PREFIX);
 }
 
+int	export_valid(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return ;
+	while (str[i])
+	{
+		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
+			return(FALSE);
+		if (str[i] == '=')
+			break ;
+		i++;
+	}
+	return (TRUE);
+}
+
 static void	export_new(char *str)
 {
 	int i;
 
 	i = 0;
-	if (isalpha(str[i]) || str[i] == '_')
-		;
-	while(str[i])
+	if (export_valid == TRUE)
+	{
+		
+	}
+	else
+		return ;
+
 }
 
 void	built_export(char **args, int argc, int fd_out)

@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:03:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/24 16:37:35 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/11/24 17:50:44 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	my_error(char *str)
 	exit (ERROR);
 }
 
-int error_out(t_data *pointer, char *str, int n)
+int error_out(t_data *pointer, int n)
 {
 	if (n == 1)
 	{
-		ft_putnbr_fd(2, "minishell error");
+		ft_putnbr_fd(STDERR_FILENO, n);
 		perror("");
 		pointer->code_exit = n;
 	}

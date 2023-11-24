@@ -1,5 +1,5 @@
-#include "../../include/minishell.h"
-#include "../../lib/libft/libft.h"
+#include "../include/minishell.h"
+#include "../lib/libft/libft.h"
 
 // we need to find the quantity of arguments of the data structure till the pipe sign
 // 'pointer' is a pointer to a structure called t_data with information about the tokens

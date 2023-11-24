@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:27:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/22 17:37:30 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:41:29 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,72 @@ typedef struct cmd
 	struct cmd	*next;
 }			t_cmd;
 
+typedef	enum s_type_token
+{
+	WORD,
+	PIPE,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	REDIRECT_APPEND,
+	REDIRECT_MULTILINE,
+	DQUOTE,
+	SQUOTE
+}	t_type_token;
+
+typedef	struct s_token
+{
+	char			*value;
+	t_type_token	type;
+	int				no_space;
+}	t_token;
+
+typedef struct s_tab_cmd
+{
+	char	*cmd;
+	char	**args;
+	t_token	*redirections;
+	int		num_redirections;
+	int		num_args;
+	int		is_child_process;
+	char	*last_multiline;
+	pid_t	pid;
+	int		fd_in;
+	int		fd_out;
+	int		in_file;
+	int		out_file;
+}	t_tab_cmd;
+
+typedef struct s_data
+{
+	t_token		*tokens;
+	int			count_token;
+	t_tab_cmd	*cmdt;
+	int			code_exit;
+	int			cmdt_count;
+	int			count_pipes;
+	char		*user_prompt; //to free
+	char		**env; //to free
+	// int		exit_promt;	
+}	t_data;
+
+
+typedef	struct	s_redir
+{
+	int		i;
+	char	*name;
+	char	*value;
+}	t_redir;
+
+typedef struct	s_copy
+{
+		char	*wc;
+		char	**args;
+		char	*cmd;
+		int		i;
+		int		num;
+		t_redir	redir;
+}	t_copy;
+
 /**
  * NOTE: Multiple cmds when pipe
 *@param	infile path to infile
@@ -63,16 +129,9 @@ typedef struct cmd_table
 {
 	char	*infile;
 	char	*outfile;
-
 	t_cmd	*first_cmd;
 }			t_table;
 
-typedef struct data
-{
-	char	*user_prompt; //to free
-	char	**env; //to free
-	// int		exit_promt;
-}			t_data;
 //
 //==================[utils.c]===================//
 t_data	*get_data(void);
@@ -95,5 +154,8 @@ void	built_cd(char **args, int argc, int fd_out);
 void	built_echo(char **args, int argc, int fd_out);
 //
 //==================[b_env.c]===================//
-void built_env(t_data *data);
+void	built_env(t_data *data);
+
+int		check_arguments(t_type_token type);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:03:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/17 14:52:33 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:37:35 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,15 @@ void	my_error(char *str)
 	ft_putstr_fd(str, STDERR_FILENO);
 	// free_all(get_data());
 	exit (ERROR);
+}
+
+int error_out(t_data *pointer, char *str, int n)
+{
+	if (n == 1)
+	{
+		ft_putnbr_fd(2, "minishell error");
+		perror("");
+		pointer->code_exit = n;
+	}
+	return (1);
 }

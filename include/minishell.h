@@ -2,10 +2,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
+# include "../lib/libft/libft.h"
 # include <stdio.h>
 # include <readline.h>
+// # include <readline/readline.h>
 # include <history.h>
+// # include <readline/history.h>
 # include <string.h>
 # include <fcntl.h>
 
@@ -127,6 +129,7 @@ typedef struct cmd_table
 t_data	*get_data(void);
 void	ft_error(char *str);
 void	my_error(char *str);
+int		error_out(t_data *pointer, int n);
 //
 //==================[prompt.c]===================//
 void	prompt_create(t_data *data);
@@ -148,5 +151,7 @@ void	built_env(t_data *data);
 //
 //==================[parser.c]===================//
 int		check_arguments(t_type_token type);
+//==================[parser_utils.c]===================//
+int		check_if_redirection(t_type_token type);
 
 #endif

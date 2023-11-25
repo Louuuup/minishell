@@ -80,7 +80,7 @@ int	parser(t_data *pointer)
 		return (error_out(pointer, 1));
 	while (j < pointer->cmdt_count)
 	{
-		if (function_fill_cmdt(pointer, j, &i))
+		if (cmdt_init(pointer, j, &i))
 			return (1);
 		j++;
 	}

@@ -150,8 +150,14 @@ void	built_echo(char **args, int argc, int fd_out);
 void	built_env(t_data *data);
 //
 //==================[parser.c]===================//
-int		check_arguments(t_type_token type);
+int		parser(t_data *pointer);
+//==================[parser_func.c]===================//
+int 	redirections_fill(t_data *pointer, int i, int j);
+int		args_cmd_fill(t_data *pointer, int i, int j);
 //==================[parser_utils.c]===================//
 int		check_if_redirection(t_type_token type);
+int		check_arguments(t_type_token type);
+int		count_pipes(t_data *pointer);
+int		new_tokens_count(t_data *pointer);
 
 #endif

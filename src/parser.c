@@ -57,11 +57,11 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 	pointer->cmdt[i].in_file = -1;
 	pointer->cmdt[i].out_file = -1;
 	pointer->cmdt[i].last_multiline = 0;
-	if (function_fill_redirs(pointer, i, *index) == 1)// redirection logic
+	if (redirections_fill(pointer, i, *index) == 1)// redirection logic
 		return (1);
-	last_multiline(pointer, i);
+	test_multiline(pointer, i);
 	//*index = fill command arguments
-	*index = function_fill_cmd_args(pointer, i, *index - 1) + 1;
+	*index = args_cmd_fill(pointer, i, *index - 1) + 1;
 	if (*index == 0)
 		return (1);
 	return (0);

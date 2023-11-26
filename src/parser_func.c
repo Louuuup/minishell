@@ -62,9 +62,25 @@ int	args_cmd_fill(t_data *pointer, int i, int j)
 	return (i);
 }
 
+//token_copy function takes copies of a token from the t_data struct to
+//the array of new tokens. At the same time it handles different types of
+//tokens and splits words
+
 int	token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j)
 {
-	int	
+	int	buffer;
+
+	tokens_new[*j].type = pointer->tokens[*i].type;
+	if (check_arguments(pointer->tokens[*i].type) == 1)
+	{
+		if (pointer->tokens[*i].type == WORD)
+		{
+			buffer = 
+		}
+	}
+	else
+		*j++;
+	return (0);
 }
 
 //'words_merging' func merge sequent token of the same type into a united token
@@ -84,7 +100,7 @@ int	words_merging(t_data *pointer)
 		return (error_out(pointer, 1));
 	while (pointer->count_token > i)
 	{
-		if (function_to_token_copy(pointer, tokens_new, &i, &j) == 1)	
+		if (token_copy(pointer, tokens_new, &i, &j) == 1)	
 			return (function_to_get_free_tokens(tokens_new, -1, pointer));
 		i++;
 	}

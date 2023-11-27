@@ -24,6 +24,29 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 	return (0);
 }
 
+//'copy_concat_create' function makes a copy of a token's value to a new array of tokens.
+//It could be concatenation of the token's value we had before or creating a new string
+
+int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
+{
+	if (tokens_new[*i].no_space == 1 && *j > 0)
+	{
+		*i--;
+		tokens_new[*i].value = ft_strjoin(tokens_new[*i].value,
+			pntr->tokens[*j].value);
+		if (!tokens_new[*i].value)
+			return (error_out(pntr, 1));
+	}
+	else
+	{
+		tokens_new[*i].value = ft_strdup(pntr->tokens[*j].value);
+		if (!tokens_new[*i].value)
+			return (error_out(pntr, 1));
+	}
+	*i++;
+	return (0);
+}
+
 //token_copy function takes copies of a token from the t_data struct to
 //the array of new tokens. At the same time it handles different types of
 //tokens and splits words
@@ -42,7 +65,7 @@ int	token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j)
 				return (buffer % 2);
 		}
 		else
-			if (function_copy_not_word(pointer, tokens_new, i, j) == 1)
+			if (copy_concat_create(pointer, tokens_new, i, j) == 1)
 				return (1);
 		tokens_new[*j].no_space = pointer->tokens[*i].no_space;
 	}

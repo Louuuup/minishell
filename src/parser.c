@@ -9,10 +9,11 @@ int	counting_arguments(t_data *pointer, int index)
 {
 	int count = 0;
 
-	while (index < pointer->count_token && pointer->tokens[index].type != PIPE)
+	while (pointer->tokens[index].type != PIPE && pointer->count_token > index)
 	{
-		if (check_arguments(pointer->tokens[index].type) && (index == 0
-			|| check_if_redirection(pointer->tokens[index - 1].type)))
+		if ((index == 0
+			|| check_if_redirection(pointer->tokens[index - 1].type))
+			&& check_arguments(pointer->tokens[index].type))
 			count++;
 		index++;
 	}
@@ -49,14 +50,14 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 	}
 	else
 		pointer->cmdt[i].args = 0;
-	pointer->cmdt[i].cmd = 0;
-	pointer->cmdt[i].is_child_process = 0;
-	pointer->cmdt[i].pid = 0;
-	pointer->cmdt[i].fd_in = -1;
-	pointer->cmdt[i].fd_out = -1;
-	pointer->cmdt[i].in_file = -1;
-	pointer->cmdt[i].out_file = -1;
 	pointer->cmdt[i].last_multiline = 0;
+	pointer->cmdt[i].out_file = -1;
+	pointer->cmdt[i].in_file = -1;
+	pointer->cmdt[i].fd_out = -1;
+	pointer->cmdt[i].fd_in = -1;
+	pointer->cmdt[i].pid = 0;
+	pointer->cmdt[i].is_child_process = 0;
+	pointer->cmdt[i].cmd = 0;
 	if (redirections_fill(pointer, i, *index) == 1)// redirection logic
 		return (1);
 	test_multiline(pointer, i);
@@ -72,7 +73,7 @@ int	parser(t_data *pointer)
 	int	j = 0;
 	int	i = 0;
 
-	if (function_to_merge_words(pointer) == 1)
+	if (words_merging(pointer) == 1)
 		return (1);
 	pointer->cmdt_count = count_pipes(pointer) + 1;
 	pointer->cmdt = ft_calloc(pointer->cmdt_count, sizeof(t_tab_cmd));

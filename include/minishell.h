@@ -154,7 +154,7 @@ int		parser(t_data *pointer);
 //==================[parser_func.c]===================//
 int 	redirections_fill(t_data *pointer, int i, int j);
 int		args_cmd_fill(t_data *pointer, int i, int j);
-int		words_merging(t_data *pointer)
+int		words_merging(t_data *pointer);
 //==================[parser_utils.c]===================//
 int		check_if_redirection(t_type_token type);
 int		check_arguments(t_type_token type);

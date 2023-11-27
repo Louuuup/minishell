@@ -12,8 +12,16 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 		return (error_out(pntr, 1));
 	if (!tmp[0])
 	{
-		
+		function_to_free_double_pointer_memory(tmp);
+		return (2);
 	}
+	if (function_proper_copy_from_tmp_to_t_token_array(new_tkns, i, j, tmp) == 1)
+	{
+		function_to_free_double_pointer_memory(tmp);
+		return (error_out(pntr, 1));
+	}
+	function_to_free_double_pointer_memory(tmp);
+	return (0);
 }
 
 //token_copy function takes copies of a token from the t_data struct to
@@ -29,7 +37,7 @@ int	token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j)
 	{
 		if (pointer->tokens[*i].type == WORD)
 		{
-			buffer = function_for_splitting_words(pointer, tokens_new, i, j);
+			buffer = words_splitting(pointer, tokens_new, i, j);
 			if (buffer == 2 || buffer == 1)
 				return (buffer % 2);
 		}

@@ -1,5 +1,22 @@
 #include "../include/minishell.h"
 
+//'redirections_count' counts the # of redirecting tokens in a
+//received array of tokens
+
+int	redirections_count(t_data *pointer, int i)
+{
+	int cnt;
+
+	cnt = 0;
+	while (pointer->tokens[i].type != PIPE && pointer->count_token > i)
+	{
+		if (check_if_redirection(pointer->tokens[i].type) == 0)
+			cnt++;
+		i++;
+	}
+	return (cnt);
+}
+
 // "redirection_fill" fills the array of redirections
 //in the data structure with information from the
 // token array
@@ -8,7 +25,7 @@ int	redirections_fill(t_data *pointer, int i, int j)
 {
 	int cnt;
 
-	cnt = redirections_cnt(pointer, j);
+	cnt = redirections_count(pointer, j);
 	if (cnt <= 0)
 		return (0);
 	pointer->cmdt[i].num_redirections = cnt;
@@ -62,6 +79,23 @@ int	args_cmd_fill(t_data *pointer, int i, int j)
 	return (i);
 }
 
+//'clean_tokens' clean the memory taken for an array of tokens and put zeros in it
+
+int	clean_tokens(t_token *tokens, int max, t_data *pointer)
+{
+	while (pointer->count_token > ++max)
+	{
+		if (tokens[max].value)
+		{
+			free(tokens[max].value);
+			tokens[max].value = NULL;
+		}
+	}
+	free(tokens);
+	tokens = NULL;
+	return (1);
+}
+
 //'words_merging' func merge sequent token of the same type into a united token
 
 int	words_merging(t_data *pointer)
@@ -80,7 +114,7 @@ int	words_merging(t_data *pointer)
 	while (pointer->count_token > i)
 	{
 		if (token_copy(pointer, tokens_new, &i, &j) == 1)	
-			return (function_to_get_free_tokens(tokens_new, -1, pointer));
+			return (clean_tokens(tokens_new, -1, pointer));
 		i++;
 	}
 	while (pointer->count_token > ++k)

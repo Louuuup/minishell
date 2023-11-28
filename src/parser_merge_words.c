@@ -1,5 +1,51 @@
 #include "../include/minishell.h"
 
+//'copy_normalization' copies what we have in 'temp' array to 'new_tokens' array
+//inserting spaces and redirections
+
+int copy_normalization(t_token *new_tokens_array, int *i, int *j, char *tmp)
+{
+	int k = -1;
+	if (new_tokens_array[*j].no_space == 1 && *i > 0)
+	{
+		*j--;
+		new_tokens_array[*j].value = ft_strjoin(new_tokens_array[*j].value, tmp[++k]);
+		if (!new_tokens_array[*j].value)
+			return (1);
+		*j++;
+	}
+	while (tmp[++k])
+	{
+		if (*j > 1 && k == 1
+		&& check_if_redirection(new_tokens_array[*j - 2].type) == 0)
+			new_tokens_array[*j - 2].no_space = 2;
+		new_tokens_array[*j].value = ft_strdup(tmp[k]);
+		if (!new_tokens_array[*j].value)
+			return (1);
+		*j++;
+	}
+	return (0);
+}
+
+//'clean_double_pointer' clean memory for the double pointer and set it to NULL
+
+void	clean_double_pointer(char **pnt)
+{
+	int	i;
+
+	i = -1;
+	if (pnt)
+	{
+		while (pnt[++i])
+		{
+			free(pnt[i]);
+			pnt[i] = NULL;
+		}
+		free(pnt);
+		pnt = NULL;
+	}
+}
+
 //'split_words' breaks a string into separated words and then put them to
 //a new array of tokens
 
@@ -15,7 +61,7 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 		function_to_free_double_pointer_memory(tmp);
 		return (2);
 	}
-	if (function_proper_copy_from_tmp_to_t_token_array(new_tkns, i, j, tmp) == 1)
+	if (copy_normalization(new_tkns, i, j, tmp) == 1)
 	{
 		function_to_free_double_pointer_memory(tmp);
 		return (error_out(pntr, 1));

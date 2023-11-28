@@ -26,7 +26,7 @@ int	export_valid(char *str)
 
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return ;
+		return (FALSE);
 	while (str[i])
 	{
 		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
@@ -38,25 +38,26 @@ int	export_valid(char *str)
 	return (TRUE);
 }
 
-static void	export_new(char *str)
-{
-	int i;
+// static void	export_new(char *str)
+// {
+// 	int i;
 
-	i = 0;
-	if (export_valid == TRUE)
-	{
-		
-	}
-	else
-		return ;
+// 	i = 0;
+// 	if (export_valid(str) == TRUE)
+// 	{
 
-}
+// 	}
+// 	else
+// 		return ;
+
+// }
 
 void	built_export(char **args, int argc, int fd_out)
 {
 	int i;
 
 	i = 1;
+	(void)args;
 	if (argc < 2)
 		return (print_env(get_data()->env, fd_out, EXPORT_PREFIX));
 	while (i < argc)

@@ -147,7 +147,7 @@ void	built_cd(char **args, int argc, int fd_out);
 void	built_echo(char **args, int argc, int fd_out);
 //
 //==================[b_env.c]===================//
-void	built_env(t_data *data);
+void	built_env(t_data *data, int fd_out);
 //
 //==================[parser.c]===================//
 int		parser(t_data *pointer);

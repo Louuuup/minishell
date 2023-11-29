@@ -58,9 +58,30 @@ void	tmp_parse(t_data *data)
 		built_cd(str, 2, STDERR_FILENO);
 	}
 	else if (!ft_strncmp(data->user_prompt, "env", 7))
+		built_env(data, 1);
+	else if (!ft_strncmp(data->user_prompt, "export", 7))
 	{
-			built_env(data);
+		char *str[] = {"export", NULL};
+		built_export(str, 1, 1);
 	}
-
-
+	else if (!ft_strncmp(data->user_prompt, "export ad=wasd", 14))
+	{
+		char *str[] = {"export", "ad=wasd"};
+		built_export(str, 2, 1);
+	}
+	else if (!ft_strncmp(data->user_prompt, "export ad=aa", 14))
+	{
+		char *str[] = {"export", "ad=aa"};
+		built_export(str, 2, 1);
+	}
+	else if (!ft_strncmp(data->user_prompt, "export a b c", 12))
+	{
+		char *str[] = {"export", "a", "b", "c"};
+		built_export(str, 4, 1);
+	}
+	else if (!ft_strncmp(data->user_prompt, "export b=", 9))
+	{
+		char *str[] = {"export", "b="};
+		built_export(str, 2, 1);
+	}
 }

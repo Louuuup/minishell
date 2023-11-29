@@ -27,6 +27,7 @@
 # define ERR_DUP "Dup error\n"
 # define ERR_CD_ARGS "Too much arguments for CD\n"
 # define ERR_CD "Invalid name or path\n"
+# define ERR_EXPORT "Invalid identifier for export\n"
 //==================Structs===================//
 
 /**
@@ -147,7 +148,10 @@ void	built_cd(char **args, int argc, int fd_out);
 void	built_echo(char **args, int argc, int fd_out);
 //
 //==================[b_env.c]===================//
+void	print_env(char **env, int fd);
 void	built_env(t_data *data, int fd_out);
+void	print_export(char **env, int fd);
+void	built_export(char **args, int argc, int fd_out);
 //
 //==================[parser.c]===================//
 int		parser(t_data *pointer);

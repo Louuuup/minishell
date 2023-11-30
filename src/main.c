@@ -7,7 +7,7 @@ void env_init(t_data *data, char **env)
 	i = 0;
 	while(env[i])
 		i++;
-	data->env = ft_calloc(i, sizeof(char *) + 1);
+	data->env = ft_calloc(i + 1, sizeof(char *));
 	i = 0;
 	while(env[i])
 	{

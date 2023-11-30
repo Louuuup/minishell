@@ -3,7 +3,7 @@ a.out
 .DS_Store/
 .bin/
 *.pdf
-./minishell.dSYM
+.minishell.dSYM/
 minishell
 *.o
 

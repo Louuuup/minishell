@@ -3,7 +3,8 @@ a.out
 .DS_Store/
 .bin/
 *.pdf
-./minishell
+./minishell.dSYM
+minishell
 *.o
 
 # Prerequisites

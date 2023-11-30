@@ -5,7 +5,9 @@
 
 int copy_normalization(t_token *new_tokens_array, int *i, int *j, char *tmp)
 {
-	int k = -1;
+	int k;
+	
+	k = -1;
 	if (new_tokens_array[*j].no_space == 1 && *i > 0)
 	{
 		*j--;

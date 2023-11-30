@@ -91,6 +91,8 @@ typedef struct s_data
 	int			count_pipes;
 	char		*user_prompt; //to free
 	char		**env; //to free
+	int			max_token;
+	char		*input;
 	// int		exit_promt;
 }	t_data;
 

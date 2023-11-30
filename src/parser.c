@@ -7,8 +7,9 @@
 
 int	counting_arguments(t_data *pointer, int index)
 {
-	int count = 0;
-
+	int	count;
+	
+	count = 0;
 	while (pointer->tokens[index].type != PIPE && pointer->count_token > index)
 	{
 		if ((index == 0
@@ -24,7 +25,9 @@ int	counting_arguments(t_data *pointer, int index)
 
 void	test_multiline(t_data *pointer, int index)
 {
-	int i = pointer->cmdt[index].num_redirections;
+	int i;
+	
+	i = pointer->cmdt[index].num_redirections;
 	while(i--)
 	{
 		if (pointer->cmdt[index].redirections[i].type == REDIRECT_MULTILINE
@@ -70,9 +73,11 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 
 int	parser(t_data *pointer)
 {
-	int	j = 0;
-	int	i = 0;
-
+	int	j;
+	int	i;
+	
+	i = 0;
+	j = 0;
 	if (words_merging(pointer) == 1)
 		return (1);
 	pointer->cmdt_count = count_pipes(pointer) + 1;

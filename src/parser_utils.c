@@ -16,7 +16,8 @@ int check_if_redirection(t_type_token type)
 
 int	count_pipes(t_data *pointer)
 {
-	int	i, j;
+	int	i;
+	int	j;
 
 	j = -1;
 	i = 0;
@@ -28,7 +29,9 @@ int	count_pipes(t_data *pointer)
 
 int	new_tokens_count(t_data *pointer)
 {
-	int i, j, k;
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	k = 0;

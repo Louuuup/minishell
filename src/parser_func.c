@@ -54,7 +54,9 @@ int	redirections_fill(t_data *pointer, int i, int j)
 
 int	args_cmd_fill(t_data *pointer, int i, int j)
 {
-	int k = 0;
+	int k;
+	
+	k = 0;
 	while (pointer->tokens[j].type != PIPE && pointer->count_token > ++j)
 	{
 		if (check_arguments(pointer->tokens[j].type)

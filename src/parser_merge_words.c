@@ -58,15 +58,15 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 		return (error_out(pntr, 1));
 	if (!tmp[0])
 	{
-		function_to_free_double_pointer_memory(tmp);
+		clean_double_pointer(tmp);
 		return (2);
 	}
 	if (copy_normalization(new_tkns, i, j, tmp) == 1)
 	{
-		function_to_free_double_pointer_memory(tmp);
+		clean_double_pointer(tmp);
 		return (error_out(pntr, 1));
 	}
-	function_to_free_double_pointer_memory(tmp);
+	clean_double_pointer(tmp);
 	return (0);
 }
 

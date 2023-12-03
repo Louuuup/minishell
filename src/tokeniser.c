@@ -1,11 +1,34 @@
 #include "../include/minishell.h"
 
+int	check_syntax_redirection(t_data *pntr, int i)
+{
+
+}
+
+//checks the syntax of the data structure and returns true if it finds syntax error
+//in other case it returns false
+
 int	syntax_checking(t_data *pntr)
 {
 	int	i;
 
 	i = 0;
-	while (pntr->)
+	while (pntr->count_token > i)
+	{
+		if ((pntr->count_token - 1 == i && pntr->tokens[i].type == PIPE)
+			|| (i == 0 && pntr->tokens[i].type == PIPE)
+			|| (pntr->tokens[i].type == PIPE && pntr->tokens[i + 1].type == PIPE)
+			|| (pntr->tokens[i].type == PIPE
+				&& (check_if_redirection(pntr->tokens[i - 1].type) == 0)))
+			return (error_in_syntax(pntr->tokens[i].type, pntr), 1);
+		else if (check_if_redirection(pntr->tokens[i].type) == 0
+			&& pntr->count_token - 1 == i)
+			return (error_in_syntax(0, pntr), 1);
+		else if (check_syntax_redirection(pntr, i) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 //'tokeniser' breaks the input by spaces, quotes, special characters;

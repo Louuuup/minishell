@@ -133,6 +133,7 @@ t_data	*get_data(void);
 void	ft_error(char *str);
 void	my_error(char *str);
 int		error_out(t_data *pointer, int n);
+void	error_in_syntax(int type, t_data *pntr);
 //
 //==================[prompt.c]===================//
 void	prompt_create(t_data *data);

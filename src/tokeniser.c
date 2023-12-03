@@ -1,8 +1,16 @@
 #include "../include/minishell.h"
 
+//this function check the syntax of redirection tokens of the data structure
+
 int	check_syntax_redirection(t_data *pntr, int i)
 {
-
+	if ((check_if_redirection(pntr->tokens[i + 1].type) == 0)
+		&& (pntr->tokens[i].type == REDIRECT_OUT)
+		|| (pntr->tokens[i].type == REDIRECT_IN)
+		|| (pntr->tokens[i].type == REDIRECT_APPEND
+		|| pntr->tokens[i].type == REDIRECT_MULTILINE))
+		return (function_error_in_syntax(pntr->tokens[i + 1].type, pntr), 1);
+	return (0);
 }
 
 //checks the syntax of the data structure and returns true if it finds syntax error

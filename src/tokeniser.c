@@ -9,7 +9,7 @@ int	check_syntax_redirection(t_data *pntr, int i)
 		|| (pntr->tokens[i].type == REDIRECT_IN)
 		|| (pntr->tokens[i].type == REDIRECT_APPEND
 		|| pntr->tokens[i].type == REDIRECT_MULTILINE)))
-		return (function_error_in_syntax(pntr->tokens[i + 1].type, pntr), 1);
+		return (error_in_syntax(pntr->tokens[i + 1].type, pntr), 1);
 	return (0);
 }
 
@@ -35,6 +35,37 @@ int	syntax_checking(t_data *pntr)
 		else if (check_syntax_redirection(pntr, i) == 1)
 			return (1);
 		i++;
+	}
+	return (0);
+}
+
+//the func parses the input & fills the array of tokens with the right types
+
+int	filling_with_tokens(t_data *pntr, int *i, int j)
+{
+	if (pntr->count_token == pntr->max_token)
+		if (function_to_reallocate_tokens_if_max(pntr, pntr->max_token) == 1)
+			return (1);
+	if (pntr->input[*i] == '|')
+	{
+		++pntr;
+		pntr->tokens[pntr->count_token - 1].type = PIPE;
+	}
+	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
+	{
+		j = function_to_fill_tokens_array(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
+		if (j == -1)
+			return (error_in_syntax(pntr->input[*i], pntr), 1);
+		if (j == -2)
+			return (1);
+		*i += j;
+	}
+	else if (pntr->input[*i] != '\t' && pntr->input[*i] != ' ')
+	{
+		j = function_fill_string(pntr, &pntr->input[*i]) - 1;
+		if (j == -1)
+			return (error_out(pntr, 1));
+		*i += j;
 	}
 	return (0);
 }

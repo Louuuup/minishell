@@ -84,4 +84,9 @@ void	tmp_parse(t_data *data)
 		char *str[] = {"export", "b="};
 		built_export(str, 2, 1);
 	}
+	else if (!ft_strncmp(data->user_prompt, "export ALLO=", 9))
+	{
+		char *str[] = {"export", "ALLO="};
+		built_export(str, 2, 1);
+	}
 }

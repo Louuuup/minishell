@@ -151,6 +151,7 @@ void	built_cd(char **args, int argc, int fd_out);
 void	built_echo(char **args, int argc, int fd_out);
 //
 //==================[b_env.c]===================//
+void	index_sort(char **arr, int str_count, int *index);
 void	print_env(char **env, int fd);
 void	built_env(t_data *data, int fd_out);
 void	print_export(char **env, int fd);

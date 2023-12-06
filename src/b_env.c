@@ -1,17 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_env.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 14:22:23 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2023/12/06 15:38:23 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int	find_symbol(char c, char *str)
+void	index_sort(char **arr, int str_count, int *index)
 {
-	int i;
+	int		i;
+	int		swapped;
+	int		tmp;
 
+	i = -1;
+	swapped = 1;
+	while (++i < str_count)
+        index[i] = i;
 	i = 0;
-	while (str[i])
+	while (arr[index[i]] && swapped)
 	{
-		if (str[i] == c)
-			return (i);
-		i++;
+		swapped = 0;
+		i = 0;
+		while (i < str_count - 1)
+		{
+			// printf("i is %d\nstr is %s\n", i, arr[index[i]]);
+			if (ft_strncmp(arr[index[i]], arr[index[i + 1]], ft_strlen(arr[index[i]])) > 0)
+			{
+				tmp = index[i];
+				index[i] = index[i + 1];
+				index[i + 1] = tmp;
+				swapped = 1;
+			}
+			i++;
+		}
 	}
-	return (0);
 }
 
 void	print_env(char **env, int fd)
@@ -35,16 +63,20 @@ void	print_export(char **env, int fd)
 	int	i;
 	int	j;
 	int	equal;
+	int	index[arr_len(env)];
 
+	(void)index;
 	i = 0;
+	printf("str_count = %d\n", arr_len(env));
+	index_sort(env, arr_len(env), index);
 	while (env[i] != NULL)
 	{
 		j = 0;
 		ft_putstr_fd(EXPORT_PREFIX, fd);
 		equal = find_symbol('=', env[i]);
-		while (env[i][j] != '\0')
+		while (env[index[i]][j] != '\0')
 		{
-			ft_putchar_fd(env[i][j], fd);
+			ft_putchar_fd(env[index[i]][j], fd);
 			if (j > 0 && j == equal)
 				ft_putchar_fd('"', fd);
 			j++;

@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:15:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/20 15:25:13 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:24:38 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ void	print_grid(char **arr);
 void	ft_free(void **ptr);
 void	*free_null(void *ptr);
 void	*arr_free(void **arr);
+int		find_symbol(char c, char *str);
+int		arr_len(char **arr);
 
 #endif

@@ -56,7 +56,7 @@ fclean: clean
 	@echo "$(GREEN)$(BOLD)✅ Fully cleaned $(PURPLE)MINISHELL$(RESET)"
 PDF		:= minishell_en.pdf
 GIT_URL := https://github.com/Louuuup/minishell
-PDF_URL := $(GIT_URL)/instructions/minishell_en.pdf?raw=true
+PDF_URL := $(GIT_URL)/instructions/minishell_en.pdf
 OS		:= $(shell uname -s)
 
 #=================================PDF=========================================#

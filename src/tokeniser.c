@@ -39,6 +39,32 @@ int	syntax_checking(t_data *pntr)
 	return (0);
 }
 
+//'fill_redirection' finds the type of redirection based on the input char
+//& updates the token type in the data struct
+
+int	fill_redirection(t_data *pntr, char const *str)
+{
+	int result;
+
+	result = 1;
+	pntr->count_token++;
+	if ('>' == *str)
+	{
+		pntr->tokens[pntr->count_token - 1].type = REDIRECT_OUT;
+		if (result++ && '>' == *(str + 1))
+			pntr->tokens[pntr->count_token - 1].type = REDIRECT_APPEND;
+	}	
+	else if ('<' == *str)
+	{
+		pntr->tokens[pntr->count_token - 1].type = REDIRECT_IN;
+		if (result++ && '<' == *(str + 1))
+			pntr->tokens[pntr->count_token - 1].type = REDIRECT_MULTILINE;
+	}
+	return (result);
+}
+
+
+
 //the func parses the input & fills the array of tokens with the right types
 
 int	filling_with_tokens(t_data *pntr, int *i, int j)
@@ -47,10 +73,7 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 		if (function_to_reallocate_tokens_if_max(pntr, pntr->max_token) == 1)
 			return (1);
 	if (pntr->input[*i] == '|')
-	{
-		++pntr;
-		pntr->tokens[pntr->count_token - 1].type = PIPE;
-	}
+		pntr->tokens[++pntr->count_token - 1].type = PIPE;
 	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
 	{
 		j = function_to_fill_tokens_array(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
@@ -60,6 +83,8 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 			return (1);
 		*i += j;
 	}
+	else if (pntr->input[*i] == '>' || pntr->input[*i] == '<')
+		*i += fill_redirection(pntr, &pntr->input[*i]) - 1;
 	else if (pntr->input[*i] != '\t' && pntr->input[*i] != ' ')
 	{
 		j = function_fill_string(pntr, &pntr->input[*i]) - 1;
@@ -87,7 +112,7 @@ int tokeniser(t_data *pntr)
 		return (error_out(pntr, 1));
 	while (pntr->input[i])
 	{
-		if (function_to_fill_with_tokens(pntr, &i, 0) == 1)
+		if (filling_with_tokens(pntr, &i, 0) == 1)
 			return (1);
 		i++;
 	}

@@ -76,7 +76,7 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 		pntr->tokens[++pntr->count_token - 1].type = PIPE;
 	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
 	{
-		j = function_to_fill_tokens_array(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
+		j = function_fill_quotes(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
 		if (j == -1)
 			return (error_in_syntax(pntr->input[*i], pntr), 1);
 		if (j == -2)

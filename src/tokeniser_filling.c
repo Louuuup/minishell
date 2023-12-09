@@ -25,26 +25,26 @@ int word_filling(t_data *pntr, char const *str)
 //the func finds the type of redirection (with help of the input char)
 //& updates appropriate token type in the data struct
 
-int fill_redirection(t_data *pntr, char const *str)
-{
-	int result;
+// int fill_redirection(t_data *pntr, char const *str)
+// {
+// 	int result;
 
-	result = 1;
-	pntr->count_token++;
-	if (*str == '>')
-	{
-		pntr->tokens[pntr->count_token - 1].type == REDIRECT_OUT;
-		if (result++ && *(str - 1) == '>')
-			pntr->tokens[pntr->count_token - 1].type = REDIRECT_APPEND;
-	}
-	else if (*str == '<')
-	{
-        pntr->tokens[pntr->count_token - 1].type == REDIRECT_IN;
-        if (result++ && *(str - 1) == '<')
-            pntr->tokens[pntr->count_token - 1].type = REDIRECT_MULTILINE;
-	}
-	return (result);
-}
+// 	result = 1;
+// 	pntr->count_token++;
+// 	if (*str == '>')
+// 	{
+// 		pntr->tokens[pntr->count_token - 1].type == REDIRECT_OUT;
+// 		if (result++ && *(str - 1) == '>')
+// 			pntr->tokens[pntr->count_token - 1].type = REDIRECT_APPEND;
+// 	}
+// 	else if (*str == '<')
+// 	{
+//         pntr->tokens[pntr->count_token - 1].type == REDIRECT_IN;
+//         if (result++ && *(str - 1) == '<')
+//             pntr->tokens[pntr->count_token - 1].type = REDIRECT_MULTILINE;
+// 	}
+// 	return (result);
+// }
 
 //the func reallocate memory if there's no more space for tokens
 

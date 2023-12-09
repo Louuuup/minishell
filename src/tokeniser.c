@@ -70,7 +70,7 @@ int	fill_redirection(t_data *pntr, char const *str)
 int	filling_with_tokens(t_data *pntr, int *i, int j)
 {
 	if (pntr->count_token == pntr->max_token)
-		if (function_to_reallocate_tokens_if_max(pntr, pntr->max_token) == 1)
+		if (reallocate_tokens_if_max(pntr, pntr->max_token) == 1)
 			return (1);
 	if (pntr->input[*i] == '|')
 		pntr->tokens[++pntr->count_token - 1].type = PIPE;

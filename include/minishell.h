@@ -4,6 +4,7 @@
 
 # include "../lib/libft/libft.h"
 # include <stdio.h>
+# include <stdlib.h>
 // # include <readline.h>
 # include <readline/readline.h> //i don't know why but it works on my mac's account
 // # include <history.h>
@@ -173,6 +174,8 @@ int		token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j);
 void	clean_double_pointer(char **pnt);
 //==================[tokeniser_filling.c]===================//
 int		word_filling(t_data *pntr, char const *str);
+int		reallocate_tokens_if_max(t_data *pntr, int max_token);
+int		fill_redirection(t_data *pntr, char const *str);
 //==================[tokeniser.c]===================//
 int		tokeniser(t_data *pntr);
 

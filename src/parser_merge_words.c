@@ -3,18 +3,18 @@
 //'copy_normalization' copies what we have in 'temp' array to 'new_tokens' array
 //inserting spaces and redirections
 
-int copy_normalization(t_token *new_tokens_array, int *i, int *j, char *tmp)
+int copy_normalization(t_token *new_tokens_array, int *i, int *j, char **tmp)
 {
 	int k;
 	
 	k = -1;
 	if (new_tokens_array[*j].no_space == 1 && *i > 0)
 	{
-		*j--;
+		*j = *j - 1;
 		new_tokens_array[*j].value = ft_strjoin(new_tokens_array[*j].value, tmp[++k]);
 		if (!new_tokens_array[*j].value)
 			return (1);
-		*j++;
+		*j = *j + 1;
 	}
 	while (tmp[++k])
 	{
@@ -24,7 +24,7 @@ int copy_normalization(t_token *new_tokens_array, int *i, int *j, char *tmp)
 		new_tokens_array[*j].value = ft_strdup(tmp[k]);
 		if (!new_tokens_array[*j].value)
 			return (1);
-		*j++;
+		*j = *j + 1;
 	}
 	return (0);
 }
@@ -79,7 +79,7 @@ int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
 {
 	if (tokens_new[*i].no_space == 1 && *j > 0)
 	{
-		*i--;
+		*i = *i - 1;
 		tokens_new[*i].value = ft_strjoin(tokens_new[*i].value,
 			pntr->tokens[*j].value);
 		if (!tokens_new[*i].value)
@@ -91,7 +91,7 @@ int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
 		if (!tokens_new[*i].value)
 			return (error_out(pntr, 1));
 	}
-	*i++;
+	*i = *i + 1;
 	return (0);
 }
 
@@ -118,6 +118,6 @@ int	token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j)
 		tokens_new[*j].no_space = pointer->tokens[*i].no_space;
 	}
 	else
-		*j++;
+		*j = *j + 1;
 	return (0);
 }

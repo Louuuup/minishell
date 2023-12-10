@@ -83,7 +83,7 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 	}
 	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
 	{
-		j = function_fill_quotes(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
+		j = filling_quotes(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
 		if (j == -1)
 			return (error_in_syntax(pntr->input[*i], pntr), 1);
 		if (j == -2)
@@ -93,14 +93,14 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 	return (0);
 }
 
-//'tokeniser' breaks the input by spaces, quotes, special characters;
+//'tokener' breaks the input by spaces, quotes, special characters;
 //allocate memory for these tokens;
 //also it checks syntax. A token has 3 variables:
 //TYPE (which one?),
-//VALUE (is there speacial characters?),
+//VALUE (is there special characters?),
 //NO_SPACE (followed by token to be concatenated?)
 
-int tokeniser(t_data *pntr)
+int tokener(t_data *pntr)
 {
 	int	i;
 

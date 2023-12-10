@@ -172,12 +172,13 @@ int		new_tokens_count(t_data *pointer);
 //==================[parser_merge_words.c]===================//
 int		token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j);
 void	clean_double_pointer(char **pnt);
-//==================[tokeniser_filling.c]===================//
+//==================[tokener_filling.c]===================//
 int		word_filling(t_data *pntr, char const *str);
 int		reallocate_tokens_if_max(t_data *pntr, int max_token);
 int		word_filling(t_data *pntr, char const *s);
+int		filling_quotes(t_data *pntr, char const *str, char tmp);
 // int		fill_redirection(t_data *pntr, char const *str);
-//==================[tokeniser.c]===================//
-int		tokeniser(t_data *pntr);
+//==================[tokener.c]===================//
+int		tokener(t_data *pntr);
 
 #endif

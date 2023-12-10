@@ -38,7 +38,7 @@ int	redirections_fill(t_data *pointer, int i, int j)
 	{
 		if (check_if_redirection(pointer->tokens[j].type) == 0)
 		{
-			pointer->cmdt[i].redirections[cnt].value = ft_strdup(pointer->tokens[1 + i++].value);
+			pointer->cmdt[i].redirections[cnt].value = ft_strdup(pointer->tokens[1 + j++].value);
 			pointer->cmdt[i].redirections[cnt].no_space = pointer->tokens[j].no_space;
 			pointer->cmdt[i].redirections[cnt].type = pointer->tokens[j].type;
 			if (!pointer->cmdt[i].redirections[cnt++].value)

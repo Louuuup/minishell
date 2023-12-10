@@ -52,6 +52,55 @@ int word_filling(t_data *pntr, char const *s)
 	return (i);
 }
 
+//the func get_length_of_quotes get the length of a part of a given string
+//till it meets the special character
+
+int	get_length_of_quotes(char const *s, char tmp)
+{
+	int	length;
+
+	length = 0;
+	while (*s != tmp && *s)
+	{
+		s++;
+		length++;
+	}
+	if (*s == 0)
+		return (-1);
+	return (length);
+}
+
+//the func receives a token with quotes, gets rid off the quotes
+//& sets the type & no_space
+
+int filling_quotes(t_data *pntr, char const *str, char tmp)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	str++;
+	j = get_length_of_quotes(str, tmp);
+	if (j == -1)
+		return (0);
+	pntr++;
+	pntr->tokens[pntr->count_token - 1].value = ft_calloc(j + 1, sizeof(char));
+	if (!pntr->tokens[pntr->count_token - 1].value)
+		return (error_out(pntr, 1) - 2);
+	while (*str != tmp && *str)
+		pntr->tokens[pntr->count_token - 1].value[i++] = *str++;
+	if (*str++ == '\0')
+		return (-1);
+	if ((*str != 9 && *str != '\0' && *str != '|' && *str != '>' && *str != '<' && *str != 32) || *str == '\'' || *str == '\"')
+		pntr->tokens[pntr->count_token - 1].no_space = 1;
+	pntr->tokens[pntr->count_token - 1].value[i] = '\0';
+	if (tmp == '\"')
+		pntr->tokens[pntr->count_token - 1].type = DQUOTE;
+	else if (tmp == '\'')
+		pntr->tokens[pntr->count_token - 1].type = SQUOTE;
+	return (i + 2);
+}
+
 //the func reallocate memory if there's no more space for tokens
 
 int reallocate_tokens_if_max(t_data *pntr, int max_token)

@@ -72,15 +72,6 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 			return (1);
 	if (pntr->input[*i] == '|')
 		pntr->tokens[++pntr->count_token - 1].type = PIPE;
-	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
-	{
-		j = function_fill_quotes(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
-		if (j == -1)
-			return (error_in_syntax(pntr->input[*i], pntr), 1);
-		if (j == -2)
-			return (1);
-		*i += j;
-	}
 	else if (pntr->input[*i] == '>' || pntr->input[*i] == '<')
 		*i += fill_redirection(pntr, &pntr->input[*i]) - 1;
 	else if (pntr->input[*i] != 9 && pntr->input[*i] != 32)
@@ -90,6 +81,15 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 			return (error_out(pntr, 1));
 		*i += j;
 	}
+	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
+	{
+		j = function_fill_quotes(pntr, &pntr->input[*i], pntr->input[*i]) - 1;
+		if (j == -1)
+			return (error_in_syntax(pntr->input[*i], pntr), 1);
+		if (j == -2)
+			return (1);
+		*i += j;
+	}	
 	return (0);
 }
 

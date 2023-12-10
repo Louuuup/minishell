@@ -63,8 +63,6 @@ int	fill_redirection(t_data *pntr, char const *str)
 	return (result);
 }
 
-
-
 //the func parses the input & fills the array of tokens with the right types
 
 int	filling_with_tokens(t_data *pntr, int *i, int j)

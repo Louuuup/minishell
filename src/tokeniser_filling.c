@@ -17,34 +17,32 @@ int clean_token_array(t_token *array_tokens, int max_number_token, t_data *pntr)
 	return (1);
 }
 
-int word_filling(t_data *pntr, char const *str)
+//the func evaluate the length of a string skipping the delimiters
+
+int	count_characters(char const *s)
 {
-	
+	int	length;
+
+	length = 0;
+	while (*s != ' ' &&  *s != '<' && *s != '>' && *s != '|' && *s != '\'' && *s != '\t' && *s!= '\"' && *s)
+	{
+		s++;
+		length++;
+	}
+	return (length);
 }
 
-//the func finds the type of redirection (with help of the input char)
-//& updates appropriate token type in the data struct
+//the func puts characters in a token. The chars are from a string input. The func goes
+//through till it meets a delimiter. Then it assigns the type of the token as WORD
 
-// int fill_redirection(t_data *pntr, char const *str)
-// {
-// 	int result;
+int word_filling(t_data *pntr, char const *str)
+{
+	int	i;
 
-// 	result = 1;
-// 	pntr->count_token++;
-// 	if (*str == '>')
-// 	{
-// 		pntr->tokens[pntr->count_token - 1].type == REDIRECT_OUT;
-// 		if (result++ && *(str - 1) == '>')
-// 			pntr->tokens[pntr->count_token - 1].type = REDIRECT_APPEND;
-// 	}
-// 	else if (*str == '<')
-// 	{
-//         pntr->tokens[pntr->count_token - 1].type == REDIRECT_IN;
-//         if (result++ && *(str - 1) == '<')
-//             pntr->tokens[pntr->count_token - 1].type = REDIRECT_MULTILINE;
-// 	}
-// 	return (result);
-// }
+	i = 0;
+	pntr->tokens[++pntr->count_token - 1].value = ft_calloc(count_characters(str) + 1, sizeof(char));
+
+}
 
 //the func reallocate memory if there's no more space for tokens
 

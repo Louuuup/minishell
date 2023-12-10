@@ -83,9 +83,9 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 	}
 	else if (pntr->input[*i] == '>' || pntr->input[*i] == '<')
 		*i += fill_redirection(pntr, &pntr->input[*i]) - 1;
-	else if (pntr->input[*i] != '\t' && pntr->input[*i] != ' ')
+	else if (pntr->input[*i] != 9 && pntr->input[*i] != 32)
 	{
-		j = function_fill_string(pntr, &pntr->input[*i]) - 1;
+		j = word_filling(pntr, &pntr->input[*i]) - 1;
 		if (j == -1)
 			return (error_out(pntr, 1));
 		*i += j;

@@ -52,3 +52,19 @@ int	new_tokens_count(t_data *pointer)
 	}
 	return (k);
 }
+
+//the func evaluate the length of a string skipping the delimiters
+
+int	count_characters(char const *s)
+{
+	int	length;
+
+	length = 0;
+	while (*s != 32 && *s != '<' && *s != '>' && *s != '|'
+		&& *s != '\'' && *s != 9 && *s != '\"' && *s)
+	{
+		s++;
+		length++;
+	}
+	return (length);
+}

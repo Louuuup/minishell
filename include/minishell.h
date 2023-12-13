@@ -169,6 +169,7 @@ int		check_if_redirection(t_type_token type);
 int		check_arguments(t_type_token type);
 int		count_pipes(t_data *pointer);
 int		new_tokens_count(t_data *pointer);
+int		count_characters(char const *s);
 //==================[parser_merge_words.c]===================//
 int		token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j);
 void	clean_double_pointer(char **pnt);

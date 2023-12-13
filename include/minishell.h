@@ -29,6 +29,7 @@
 # define ERR_CD_ARGS "Too much arguments for CD\n"
 # define ERR_CD "Invalid name or path\n"
 # define ERR_EXPORT "Invalid identifier for export\n"
+# define ERR_UNSET "Invalid indentifier for unset\n"
 //==================Structs===================//
 
 /**
@@ -148,30 +149,43 @@ void	ft_dup2(int fd, int std);
 //==================[b_cd.c]===================//
 void	built_cd(char **args, int argc, int fd_out);
 //
+//==================[b_exit.c]===================//
+void	built_exit(void);
+//
 //==================[b_echo.c]===================//
 void	built_echo(char **args, int argc, int fd_out);
+//
+//==================[b_unset.c]===================//
+void	built_unset(char **args, int argc, t_data *data);
 //
 //==================[b_env.c]===================//
 void	index_sort(char **arr, int str_count, int *index);
 void	print_env(char **env, int fd);
 void	built_env(t_data *data, int fd_out);
+//
+//==================[b_export.c]===================//
+int		var_in_env(char *str);
 void	print_export(char **env, int fd);
 void	built_export(char **args, int argc, int fd_out);
 //
 //==================[parser.c]===================//
 int		parser(t_data *pointer);
+//
 //==================[parser_func.c]===================//
 int 	redirections_fill(t_data *pointer, int i, int j);
 int		args_cmd_fill(t_data *pointer, int i, int j);
 int		words_merging(t_data *pointer);
+//
 //==================[parser_utils.c]===================//
 int		check_if_redirection(t_type_token type);
 int		check_arguments(t_type_token type);
 int		count_pipes(t_data *pointer);
 int		new_tokens_count(t_data *pointer);
+//
 //==================[parser_merge_words.c]===================//
 int		token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j);
 void	clean_double_pointer(char **pnt);
+//
 //==================[tokener_filling.c]===================//
 int		word_filling(t_data *pntr, char const *str);
 int		reallocate_tokens_if_max(t_data *pntr, int max_token);

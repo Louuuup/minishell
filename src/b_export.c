@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:58:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/11 12:41:23 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:45:45 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	print_export(char **env, int fd)
 	int	equal;
 	int	index[arr_len(env)];
 
-	(void)index;
 	i = 0;
 	printf("str_count = %d\n", arr_len(env));
 	index_sort(env, arr_len(env), index);
@@ -93,7 +92,7 @@ void	print_export(char **env, int fd)
 	{
 		j = 0;
 		ft_putstr_fd(EXPORT_PREFIX, fd);
-		equal = find_symbol('=', env[i]);
+		equal = find_symbol('=', env[index[i]]);
 		while (env[index[i]][j] != '\0')
 		{
 			ft_putchar_fd(env[index[i]][j], fd);

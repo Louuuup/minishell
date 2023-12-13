@@ -18,7 +18,7 @@
 # define FALSE 0
 # define YES 1
 # define NO 0
-# define PROMPT_NAME "\033[35m\033[1mCoquillage Miniature \033[0m\033[1m→ \033[0m"
+# define PROMPT_NAME "\033[35m\033[1mminiSHELL \033[0m\033[1m→ \033[0m"
 # define EXPORT_PREFIX "declare -x "
 //==================ERRORS===================//
 # define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"

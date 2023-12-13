@@ -16,11 +16,13 @@ void	prompt_create(t_data *data)
 		else
 		{
 			add_history(data->user_prompt);
-			tmp_parse(data);
+			if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR)
+				exec_main(data);
 		}
 	}
 
 }
+
 // for me, will delete once we have the real parsing
 void	tmp_parse(t_data *data)
 {

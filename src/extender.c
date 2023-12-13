@@ -1,31 +1,6 @@
 #include "../include/minishell.h"
 
-//finds the length of variables
 
-int length_of_variable(char *n)
-{
-	int	i;
-
-	i = 1;
-	if (n[i] == '?')
-		return (2);
-	while (ft_isalnum(n[i]) || n[i] == '_')
-		i++;
-	return (i);
-}
-
-//auxiliary func, works like strchr
-
-int if_has(const char *n, char c)
-{
-	if (!n)
-		return (0);
-	while (*n)
-	{   if (*n == c)
-			return (1);
-	}
-	return (0);
-}
 
 //the func if there is an exception in the data structure
 

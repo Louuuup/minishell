@@ -181,5 +181,10 @@ int		filling_quotes(t_data *pntr, char const *str, char tmp);
 // int		fill_redirection(t_data *pntr, char const *str);
 //==================[tokener.c]===================//
 int		tokener(t_data *pntr);
+//==================[extender.c]===================//
+int 	extender(t_data *pntr);
+//==================[extender_utils.c]===================//
+int 	length_of_variable(char *n);
+int 	if_has(const char *n, char c);
 
 #endif

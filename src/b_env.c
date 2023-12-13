@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 14:22:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/06 15:38:23 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:43:12 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,37 +58,7 @@ void	print_env(char **env, int fd)
 	}
 }
 
-void	print_export(char **env, int fd)
-{
-	int	i;
-	int	j;
-	int	equal;
-	int	index[arr_len(env)];
-
-	(void)index;
-	i = 0;
-	printf("str_count = %d\n", arr_len(env));
-	index_sort(env, arr_len(env), index);
-	while (env[i] != NULL)
-	{
-		j = 0;
-		ft_putstr_fd(EXPORT_PREFIX, fd);
-		equal = find_symbol('=', env[i]);
-		while (env[index[i]][j] != '\0')
-		{
-			ft_putchar_fd(env[index[i]][j], fd);
-			if (j > 0 && j == equal)
-				ft_putchar_fd('"', fd);
-			j++;
-		}
-		if (equal)
-			ft_putchar_fd('"', fd);
-		write(fd, "\n", 1);
-		i++;
-	}
-}
-
-void built_env(t_data *data, int fd_out)
+void	built_env(t_data *data, int fd_out)
 {
 	print_env(data->env, fd_out);
 }

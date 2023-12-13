@@ -2,7 +2,7 @@
 
 //the func clean the memory of an array for tokens & fill it with 0s
 
-int clean_token_array(t_token *array_tokens, int max_number_token, t_data *pntr)
+int	clean_token_array(t_token *array_tokens, int max_number_token, t_data *pntr)
 {
 	while (++max_number_token < pntr->count_token)
 	{
@@ -17,33 +17,21 @@ int clean_token_array(t_token *array_tokens, int max_number_token, t_data *pntr)
 	return (1);
 }
 
-//the func evaluate the length of a string skipping the delimiters
+//the func puts characters in a token. The chars are from a string input.
+//The func goes through till it meets a delimiter.
+//Then it assigns the type of the token as WORD
 
-int	count_characters(char const *s)
-{
-	int	length;
-
-	length = 0;
-	while (*s != 32 &&  *s != '<' && *s != '>' && *s != '|' && *s != '\'' && *s != 9 && *s!= '\"' && *s)
-	{
-		s++;
-		length++;
-	}
-	return (length);
-}
-
-//the func puts characters in a token. The chars are from a string input. The func goes
-//through till it meets a delimiter. Then it assigns the type of the token as WORD
-
-int word_filling(t_data *pntr, char const *s)
+int	word_filling(t_data *pntr, char const *s)
 {
 	int	i;
 
 	i = 0;
-	pntr->tokens[++pntr->count_token - 1].value = ft_calloc(count_characters(s) + 1, sizeof(char));
+	pntr->tokens[++pntr->count_token - 1].value
+		= ft_calloc(count_characters(s) + 1, sizeof(char));
 	if (!pntr->tokens[pntr->count_token - 1].value)
 		return (error_out(pntr, 1) - 1);
-	while ((*s == 9 || *s == '\'' || *s == '\"' || *s == '|' || *s == 32 || *s == '>' || *s == '<') && *s)
+	while ((*s == 9 || *s == '\'' || *s == '\"' || *s == '|'
+			|| *s == 32 || *s == '>' || *s == '<') && *s)
 		pntr->tokens[pntr->count_token - 1].value[i++] = *s++;
 	pntr->tokens[pntr->count_token - 1].value[i] = '\0';
 	if (*s == '\'' || *s == '\"')
@@ -73,7 +61,7 @@ int	get_length_of_quotes(char const *s, char tmp)
 //the func receives a token with quotes, gets rid off the quotes
 //& sets the type & no_space
 
-int filling_quotes(t_data *pntr, char const *str, char tmp)
+int	filling_quotes(t_data *pntr, char const *str, char tmp)
 {
 	int	i;
 	int	j;
@@ -91,7 +79,8 @@ int filling_quotes(t_data *pntr, char const *str, char tmp)
 		pntr->tokens[pntr->count_token - 1].value[i++] = *str++;
 	if (*str++ == '\0')
 		return (-1);
-	if ((*str != 9 && *str != '\0' && *str != '|' && *str != '>' && *str != '<' && *str != 32) || *str == '\'' || *str == '\"')
+	if ((*str != 9 && *str != '\0' && *str != '|' && *str != '>'
+			&& *str != '<' && *str != 32) || *str == '\'' || *str == '\"')
 		pntr->tokens[pntr->count_token - 1].no_space = 1;
 	pntr->tokens[pntr->count_token - 1].value[i] = '\0';
 	if (tmp == '\"')
@@ -103,7 +92,7 @@ int filling_quotes(t_data *pntr, char const *str, char tmp)
 
 //the func reallocate memory if there's no more space for tokens
 
-int reallocate_tokens_if_max(t_data *pntr, int max_token)
+int	reallocate_tokens_if_max(t_data *pntr, int max_token)
 {
 	t_token *new_tokens_array;
 

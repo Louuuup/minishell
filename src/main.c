@@ -27,4 +27,3 @@ int	main(int argc, char *argv[], char **env_p)
 	prompt_create(data);
     return (0);
 }
-

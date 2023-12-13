@@ -21,7 +21,6 @@ void	prompt_create(t_data *data)
 	}
 
 }
-
 // for me, will delete once we have the real parsing
 void	tmp_parse(t_data *data)
 {
@@ -88,5 +87,22 @@ void	tmp_parse(t_data *data)
 	{
 		char *str[] = {"export", "ALLO="};
 		built_export(str, 2, 1);
+	}
+	else if (!ft_strncmp(data->user_prompt, "exit", 4))
+		built_exit();
+	else if (!ft_strncmp(data->user_prompt, "unset b", 7))
+	{
+		char *str[] = {"unset", "b"};
+		built_unset(str, 2, data);
+	}
+	else if (!ft_strncmp(data->user_prompt, "unset ad", 8))
+	{
+		char *str[] = {"unset", "ad"};
+		built_unset(str, 2, data);
+	}
+	else if (!ft_strncmp(data->user_prompt, "unset", 5))
+	{
+		char *str[] = {"unset"};
+		built_unset(str, 1, data);
 	}
 }

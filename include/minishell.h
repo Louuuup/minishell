@@ -181,6 +181,7 @@ int		check_if_redirection(t_type_token type);
 int		check_arguments(t_type_token type);
 int		count_pipes(t_data *pointer);
 int		new_tokens_count(t_data *pointer);
+int		count_characters(char const *s);
 //
 //==================[parser_merge_words.c]===================//
 int		token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j);
@@ -194,5 +195,11 @@ int		filling_quotes(t_data *pntr, char const *str, char tmp);
 // int		fill_redirection(t_data *pntr, char const *str);
 //==================[tokener.c]===================//
 int		tokener(t_data *pntr);
+//==================[extender.c]===================//
+int 	extender(t_data *pntr);
+//==================[extender_utils.c]===================//
+int 	length_of_variable(char *n);
+int 	if_has(const char *n, char c);
+int		substring_concatenation(char *string, char **pntr);
 
 #endif

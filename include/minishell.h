@@ -186,5 +186,6 @@ int 	extender(t_data *pntr);
 //==================[extender_utils.c]===================//
 int 	length_of_variable(char *n);
 int 	if_has(const char *n, char c);
+int		substring_concatenation(char *string, char **pntr);
 
 #endif

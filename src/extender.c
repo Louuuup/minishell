@@ -1,5 +1,19 @@
 #include "../include/minishell.h"
 
+//finds the length of variables
+
+int length_of_variable(char *n)
+{
+	int	i;
+
+	i = 1;
+	if (n[i] == '?')
+		return (2);
+	while (ft_isalnum(n[i]) || n[i] == '_')
+		i++;
+	return (i);
+}
+
 //auxiliary func, works like strchr
 
 int if_has(const char *n, char c)
@@ -11,6 +25,13 @@ int if_has(const char *n, char c)
 			return (1);
 	}
 	return (0);
+}
+
+//the func if there is an exception in the data structure
+
+int	if_exception(t_data *pntr, int i)
+{
+	return (pntr->tokens[i].type == WORD && pntr->tokens[i + 1].type != WORD && pntr->tokens[i].no_space && ft_strlen(pntr->tokens[i].value) == 1 && pntr->count_token > (i + 1));
 }
 
 //what if we have "$" or "?" inside of a token? we need replace key with exception
@@ -34,6 +55,7 @@ int extender(t_data *pntr)
 		}
 		if (if_has(pntr->tokens[i].value, '$') && (pntr->tokens[i].type == DQUOTE || pntr->tokens[i].type == WORD))
 		{
+			exception = if_exception(pntr, i);
 
 		}
 		i++;

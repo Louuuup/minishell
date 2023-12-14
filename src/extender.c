@@ -1,5 +1,10 @@
 #include "../include/minishell.h"
 
+int	token_expansion()
+{
+	
+}
+
 //the func if there is an exception in the data structure
 
 int	if_exception(t_data *pntr, int i)
@@ -35,7 +40,8 @@ int	extender(t_data *pntr)
 				|| pntr->tokens[i].type == WORD))
 		{
 			exception = if_exception(pntr, i);
-
+			if (token_expansion(pntr->tokens[i].value, pntr, i, exception) == 2)
+				return (2);
 		}
 		i++;
 	}

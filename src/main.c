@@ -25,5 +25,6 @@ int	main(int argc, char *argv[], char **env_p)
 	data = get_data();
 	env_init(data, env_p);
 	prompt_create(data);
+
     return (0);
 }

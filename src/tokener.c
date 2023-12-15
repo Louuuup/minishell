@@ -53,7 +53,7 @@ int	fill_redirection(t_data *pntr, char const *str)
 		pntr->tokens[pntr->count_token - 1].type = REDIRECT_OUT;
 		if (result++ && '>' == *(str + 1))
 			pntr->tokens[pntr->count_token - 1].type = REDIRECT_APPEND;
-	}	
+	}
 	else if ('<' == *str)
 	{
 		pntr->tokens[pntr->count_token - 1].type = REDIRECT_IN;
@@ -89,7 +89,7 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 		if (j == -2)
 			return (1);
 		*i += j;
-	}	
+	}
 	return (0);
 }
 
@@ -108,7 +108,7 @@ int tokener(t_data *pntr)
 	pntr->tokens = ft_calloc(pntr->max_token, sizeof(t_token));
 	if (!pntr->tokens)
 		return (error_out(pntr, 1));
-	while (pntr->input[i])
+	while (pntr->input && pntr->input[i])
 	{
 		if (filling_with_tokens(pntr, &i, 0) == 1)
 			return (1);

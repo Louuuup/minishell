@@ -7,9 +7,17 @@
 
 void	exec_main(t_data *data)
 {
+	// t_cmd	*tmp;
+
 	if (!data->cmdt)
 		return ;
 	if (data->cmdt->cmd)
 		printf("cmd1 = %s\n", data->cmdt->cmd);
-	
+
+	// tmp = data->cmdt->cmd;
+	// while(tmp)
+	// {
+	// 	// if (tmp->)
+	// 	tmp = tmp->next;
+	// }
 }

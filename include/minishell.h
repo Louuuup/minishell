@@ -143,6 +143,9 @@ void	prompt_create(t_data *data);
 //==================[builtin.c]===================//
 void	build_pwd(int fd_out);
 //
+//==================[exec.c]===================//
+void	exec_main(t_data *data);
+//
 //==================[exec_utils.c]===================//
 void	ft_dup2(int fd, int std);
 //

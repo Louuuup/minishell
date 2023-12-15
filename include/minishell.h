@@ -11,6 +11,7 @@
 # include <readline/history.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stddef.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0
@@ -195,7 +196,6 @@ int		word_filling(t_data *pntr, char const *str);
 int		reallocate_tokens_if_max(t_data *pntr, int max_token);
 int		word_filling(t_data *pntr, char const *s);
 int		filling_quotes(t_data *pntr, char const *str, char tmp);
-// int		fill_redirection(t_data *pntr, char const *str);
 //==================[tokener.c]===================//
 int		tokener(t_data *pntr);
 //==================[extender.c]===================//

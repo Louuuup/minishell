@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
+#    By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2023/12/11 13:14:42 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2023/12/14 17:49:49 by mkramer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRC = ft_bzero.c \
 	print_grid.c \
 	ft_free.c \
 	find_symbol.c \
-	arr_len.c
+	arr_len.c \
+	ft_strcat.c
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 BOBJS = $(addprefix $(BIN_DIR)/, $(BSRC:.c=.o))
 NAME = libft.a

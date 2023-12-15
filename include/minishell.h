@@ -11,6 +11,7 @@
 # include <readline/history.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stddef.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0

@@ -25,7 +25,9 @@ int	variable_index(char **env, char *n)
 	i = 0;
 	while (env[i])
 	{
-		if ()
+		if (env[i][ft_strlen(n)] == '=' && substring_beginning(env[i], n))
+			return (i);
+		i++;
 	}
 	return (-1);
 }
@@ -38,7 +40,7 @@ char	*value_of_variable(t_data *pntr, char *i)
 
 	if (ft_strcmp(i, "?") == 0)
 		return (ft_itoa(pntr->code_exit));
-	j = func_get_variable_number(pntr->env, i);
+	j = variable_index(pntr->env, i);
 	if (j == -1)
 		return (NULL);
 	return (ft_strdup(pntr->env[j] + ft_strlen(i) + 1));

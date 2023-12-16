@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:15:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/14 17:45:25 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:04:36 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ void	*arr_free(void **arr);
 int		find_symbol(char c, char *str);
 int		arr_len(char **arr);
 char	*ft_strcat(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

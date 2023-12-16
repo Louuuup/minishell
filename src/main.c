@@ -25,6 +25,10 @@ int	main(int argc, char *argv[], char **env_p)
 	data = get_data();
 	env_init(data, env_p);
 	prompt_create(data);
-
+	while (1)
+	{
+		if (tokener(data) == 0 && extender(data) == 0 && parser(data))
+			write(1, "Hoho!", 5);
+	}
     return (0);
 }

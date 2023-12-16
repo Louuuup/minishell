@@ -1,5 +1,72 @@
 #include "../include/minishell.h"
 
+//it test the beginning of a string whether it starts
+//with the substring we need
+
+int	substring_beginning(char *word, char *start)
+{
+	int	i;
+
+	i = 0;
+	if (!word)
+		return (0);
+	while (start[i] && word[i] && start[i] == word[i])
+		i++;
+	return (start[i] == '\0');
+}
+
+//it looks for a variable in the environment variables array
+//then returns the index of it or -1
+
+int	variable_index(char **env, char *n)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if ()
+	}
+	return (-1);
+}
+
+//it get the value of variable from the data struct
+
+char	*value_of_variable(t_data *pntr, char *i)
+{
+	int	j;
+
+	if (ft_strcmp(i, "?") == 0)
+		return (ft_itoa(pntr->code_exit));
+	j = func_get_variable_number(pntr->env, i);
+	if (j == -1)
+		return (NULL);
+	return (ft_strdup(pntr->env[j] + ft_strlen(i) + 1));
+}
+
+//the func change '$' with the variable value
+
+int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
+{
+	int		length = length_of_variable(string);
+	char	*value_buffer;
+	char	*key;
+
+	if (exception && length == 1)
+		return (*value = ft_strdup(""), length);
+	if (length == 1)
+		return (*value = ft_strdup("$"), length);
+	key = ft_substr(string, 1, length - 1);
+	if (key == NULL)
+		return (length);
+	value_buffer = value_of_variable(pntr, key);
+	free(key);
+	return (length);
+}
+
+//the func spreads a local token with replacement of '$'
+//with the value from 'data' struct
+
 int	token_expansion(char *var, t_data *pntr, int i, int j)
 {
 	char	*buffer;

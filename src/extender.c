@@ -82,9 +82,9 @@ int	token_expansion(char *var, t_data *pntr, int i, int j)
 	{
 		buffer = NULL;
 		if (*var == '$')
-			var += function_replace_dollar(var, &buffer, pntr, j);
+			var += dollar_replacement(var, &buffer, pntr, j);
 		else
-			var += function_concatinate_chars(var, &buffer);
+			var += substring_concatenation(var, &buffer);
 		if (buffer == NULL)
 			return (free(result), 2);
 		buffer_result = ft_strcat(result, buffer);

@@ -20,15 +20,20 @@ int	main(int argc, char *argv[], char **env_p)
 {
 	t_data *data;
 
-	(void)argc;
 	(void)argv;
+	if (argc != 1)
+	{
+		(ft_putstr_fd("Error: too many arguments\n", 2));
+		return (2);
+	}
 	data = get_data();
 	env_init(data, env_p);
 	prompt_create(data);
-	while (1)
+	while (TRUE)
 	{
 		if (tokener(data) == 0 && extender(data) == 0 && parser(data))
-			write(1, "Hoho!", 5);
+			// write(1, "Hoho!", 5);
+			exec_main(data);
 	}
     return (0);
 }

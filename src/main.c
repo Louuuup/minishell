@@ -32,7 +32,6 @@ int	main(int argc, char *argv[], char **env_p)
 	while (TRUE)
 	{
 		if (tokener(data) == 0 && extender(data) == 0 && parser(data))
-			// write(1, "Hoho!", 5);
 			exec_main(data);
 	}
     return (0);

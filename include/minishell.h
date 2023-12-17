@@ -97,6 +97,8 @@ typedef struct s_data
 	int			max_token;
 	char		*input;
 	// int		exit_promt;
+	int			fd_before;
+	int			code_of_exit;
 }	t_data;
 
 

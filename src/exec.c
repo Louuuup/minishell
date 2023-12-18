@@ -28,15 +28,13 @@ void	exec_main(t_data *data)
 {
 	t_cmd	*tmp;
 
-	if (!data->cmdt)
+	if (!data->cmd)
 		return ;
-	if (data->cmdt->cmd)
-		printf("cmd1 = %s\n", data->cmdt->cmd);
 
-	tmp = data->cmdt->cmd;
+	tmp = data->cmd;
 	while(tmp)
 	{
-		// if (tmp->)
+		if (tmp->)
 		tmp = tmp->next;
 	}
 

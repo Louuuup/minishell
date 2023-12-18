@@ -33,14 +33,13 @@
 # define ERR_UNSET "Invalid indentifier for unset\n"
 //==================Structs===================//
 
-/**
- * NOTE: Simple command + args
-*@param	argc Number of args.
-*@param	argv Array of cmd + all its args.
-*@param	next Next command.
-*/
+// /**
+//  * NOTE: Simple command + args
+// *@param	argc Number of args.
+// *@param	argv Array of cmd + all its args.
+// *@param	next Next command.
+// */
 struct cmd;
-
 typedef struct cmd
 {
 	int			argc;    // number of arguments (plus cmd)
@@ -71,8 +70,8 @@ typedef	struct s_token
 
 typedef struct s_tab_cmd
 {
-	char	*cmd; //Confirm if useless, we shouldnt need it.
-	char	**args; //Confirm if useless, we shouldnt need it.
+	char	*cmd; //is usefull?
+	char	**args; //os usefull?
 	t_token	*redirections;
 	int		num_redirections;
 	int		num_args;

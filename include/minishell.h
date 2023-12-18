@@ -43,10 +43,11 @@ struct cmd;
 
 typedef struct cmd
 {
-	int			argc;
-	char		*cmd_path;
-	char		**args;
-	struct cmd	*next;
+	int			argc;    // number of arguments (plus cmd)
+	int			fd[2]; //fd[0] is in and fd[1] is out. FOR ME.
+	char		*cmd_path; //for me
+	char		**args; //args[0] is cmd, and the others are the arguments.
+	struct cmd	*next; //points to another struct like this one with the next command, or NULL if its the last command
 }			t_cmd;
 
 typedef	enum s_type_token
@@ -70,8 +71,8 @@ typedef	struct s_token
 
 typedef struct s_tab_cmd
 {
-	char	*cmd;
-	char	**args;
+	t_cmd	*cmd; //pointer to first cmd, linked to the other ones with chained list. (YOU NEED TO ALLOCATE AND PARSE IN HERE)
+	char	**args; //Confirm if useless, we shouldnt need it.
 	t_token	*redirections;
 	int		num_redirections;
 	int		num_args;

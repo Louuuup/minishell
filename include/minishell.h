@@ -71,7 +71,7 @@ typedef	struct s_token
 
 typedef struct s_tab_cmd
 {
-	t_cmd	*cmd; //pointer to first cmd, linked to the other ones with chained list. (YOU NEED TO ALLOCATE AND PARSE IN HERE)
+	char	*cmd; //Confirm if useless, we shouldnt need it.
 	char	**args; //Confirm if useless, we shouldnt need it.
 	t_token	*redirections;
 	int		num_redirections;
@@ -87,6 +87,7 @@ typedef struct s_tab_cmd
 
 typedef struct s_data
 {
+	t_cmd		*cmd; //pointer to first cmd, linked to the other ones with chained list. (YOU NEED TO ALLOCATE AND PARSE IN HERE)
 	t_token		*tokens;
 	int			count_token;
 	t_tab_cmd	*cmdt;

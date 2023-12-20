@@ -152,6 +152,8 @@ void	build_pwd(int fd_out);
 void	exec_main(t_data *data);
 //
 //==================[exec_utils.c]===================//
+char	*ft_get_env(char *str, char **env);
+char	*cmd_fullpath(t_data *data, char *cmd);
 void	ft_dup2(int fd, int std);
 //
 //==================[b_cd.c]===================//

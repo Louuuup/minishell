@@ -28,11 +28,15 @@ int	main(int argc, char *argv[], char **env_p)
 	}
 	data = get_data();
 	env_init(data, env_p);
-	prompt_create(data);
-	while (TRUE)
-	{
-		if (tokener(data) == 0 && extender(data) == 0 && parser(data))
-			exec_main(data);
-	}
+	built_env(data, 1);
+	printf("\n\nstr is %s.\n", ft_get_env("PATH", data->env));
+	char *str = "cat";
+	printf("path for <%s> is %s.\n", str, cmd_fullpath(data, str));
+	// prompt_create(data);
+	// while (TRUE)
+	// {
+	// 	if (tokener(data) == 0 && extender(data) == 0 && parser(data))
+	// 		exec_main(data);
+	// }
     return (0);
 }

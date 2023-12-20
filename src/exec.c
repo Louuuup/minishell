@@ -74,7 +74,7 @@ void	exec_main(t_data *data)
 {
 	t_cmd	*tmp;
 	int		i;
-	int		pip[2]
+	// int		pip[2];
 
 	i = 0;
 	if (!data->cmd)

@@ -55,9 +55,9 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 		pointer->cmdt[i].args = 0;
 	pointer->cmdt[i].last_multiline = 0;
 	pointer->cmdt[i].out_file = -1;
-	pointer->cmdt[i].in_file = -1;
-	pointer->cmdt[i].fd_out = -1;
-	pointer->cmdt[i].fd_in = -1;
+	pointer->cmdt[i].file_in = -1;
+	pointer->cmdt[i].out_fd = -1;
+	pointer->cmdt[i].in_fd = -1;
 	pointer->cmdt[i].pid = 0;
 	pointer->cmdt[i].is_child_process = 0;
 	pointer->cmdt[i].cmd = 0;

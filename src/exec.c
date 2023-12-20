@@ -4,25 +4,28 @@
 
 int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
-	while (tab_cmd->num_redirections > i)
-	{
-		if (tab_cmd->redirections[i].no_space == 2 && tab_cmd->redirections[i].type != REDIRECT_MULTILINE)
-		{
-			ft_putnbr_fd(2, "minishell: redirect to nowhere\n");
-			pntr->
-		}
-		i++;
-	}
-	return (0);
+	// i = 0;
+	// while (tab_cmd->num_redirections > i)
+	// {
+	// 	if (tab_cmd->redirections[i].no_space == 2 && tab_cmd->redirections[i].type != REDIRECT_MULTILINE)
+	// 	{
+	// 		ft_putnbr_fd(2, "minishell: redirect to nowhere\n");
+	// 		pntr->
+	// 	}
+	// 	i++;
+	// }
+	// return (0);
 }
 
 // void	run_cmd(char **args, char *cmd_path, int in_fd, int out_fd)
 // {
 
 // }
+
+//it waits for childs for end & updates the exit code which
+//based on the status of child process
 
 void	wait_for_childs(t_data *pntr)
 {
@@ -40,6 +43,20 @@ void	wait_for_childs(t_data *pntr)
 		else if (WIFSIGNALED(status))
 			pntr->code_exit = WTERMSIG(status) + 128;
 	}
+}
+
+//sets the output & input file descriptors for a command table based on the specified input & output files or the next & previous files descriptors
+int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
+{
+	if (tab_cmd->file_in != -1)	
+		tab_cmd->in_fd = tab_cmd->file_in;
+	else if (pntr->fd_before != -1 && i != 0)
+		tab_cmd->in_fd = pntr->fd_before;
+	if (tab_cmd->out_file != -1)
+		tab_cmd->out_fd = tab_cmd->out_file;
+	else if (fd[1] != -1 && pntr->cmdt_count - 1 != i)
+		tab_cmd->out_fd = fd[1];
+	return (0);
 }
 
 void	exec_main(t_data *data)
@@ -73,6 +90,7 @@ void	exec_main(t_data *data)
 			;
 		//then
 		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
+		change_fd_input_output(data, &data->cmdt[i], pip, i);
 		//then
 		//if (check the command for builtins)
 			//execute the builtin command

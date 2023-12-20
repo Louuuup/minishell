@@ -78,9 +78,9 @@ typedef struct s_tab_cmd
 	int		is_child_process;
 	char	*last_multiline;
 	pid_t	pid;
-	int		fd_in;
-	int		fd_out;
-	int		in_file;
+	int		in_fd;
+	int		out_fd;
+	int		file_in;
 	int		out_file;
 }	t_tab_cmd;
 
@@ -99,7 +99,6 @@ typedef struct s_data
 	char		*input;
 	// int		exit_promt;
 	int			fd_before;
-	int			code_of_exit;
 }	t_data;
 
 

@@ -2,22 +2,33 @@
 
 //it manages input & output redirects for the command table
 
-int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
-{
-	// int	i;
+// int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
+// {
+// 	int	i;
 
-	// i = 0;
-	// while (tab_cmd->num_redirections > i)
-	// {
-	// 	if (tab_cmd->redirections[i].no_space == 2 && tab_cmd->redirections[i].type != REDIRECT_MULTILINE)
-	// 	{
-	// 		ft_putnbr_fd(2, "minishell: redirect to nowhere\n");
-	// 		pntr->
-	// 	}
-	// 	i++;
-	// }
-	// return (0);
-}
+// 	i = 0;
+// 	while (tab_cmd->num_redirections > i)
+// 	{
+// 		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE && tab_cmd->redirections[i].no_space == 2)
+// 		{
+// 			ft_putstr_fd("minishell: redirect to nowhere\n", 2);
+// 			pntr->code_exit = 1;
+// 			return (1);
+// 		}
+// 		if (tab_cmd->redirections[i].type == REDIRECT_IN)
+// 		{
+// 			if (tab_cmd->file_in != -1)
+// 				close(tab_cmd->file_in);
+// 			tab_cmd->file_in = open(tab_cmd->redirections[i].value, O_RDONLY);
+// 			if (tab_cmd->file_in == -1)
+// 				return (error_out(pntr, 1));
+// 		}
+// 		else if ()
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 // void	run_cmd(char **args, char *cmd_path, int in_fd, int out_fd)
 // {

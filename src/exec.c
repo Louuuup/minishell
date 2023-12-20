@@ -59,7 +59,7 @@ void	wait_for_childs(t_data *pntr)
 //sets the output & input file descriptors for a command table based on the specified input & output files or the next & previous files descriptors
 int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 {
-	if (tab_cmd->file_in != -1)	
+	if (tab_cmd->file_in != -1)
 		tab_cmd->in_fd = tab_cmd->file_in;
 	else if (pntr->fd_before != -1 && i != 0)
 		tab_cmd->in_fd = pntr->fd_before;
@@ -72,41 +72,44 @@ int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 
 void	exec_main(t_data *data)
 {
-	// t_cmd	*tmp;
-
-	// if (!data->cmd)
-	// 	return ;
-
-	// tmp = data->cmd;
-	// while(tmp)
-	// {
-	// 	if (tmp->)
-	// 	tmp = tmp->next;
-	// }
-
-
-//}
-	int	i;
-	int	pip[2];
+	t_cmd	*tmp;
+	int		i;
+	int		pip[2]
 
 	i = 0;
-	//put field in data struct holding state of previous fd to -1
-	data->fd_before = -1;
-	while(i < data->cmdt_count)
+	if (!data->cmd)
+		return ;
+	tmp = data->cmd;
+	while(tmp)
 	{
-		if (pipe(pip) == -1)
-			return ((void)error_out(data, 1));
-		//manage the redirection of input and output for a command in a pipeline
-		if (pipelines_redirect(data, i, pip) && input_output_redirect(data, &data->cmdt[i]) == 1)
-			;
-		//then
-		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
-		change_fd_input_output(data, &data->cmdt[i], pip, i);
-		//then
-		//if (check the command for builtins)
-			//execute the builtin command
-		//else
-		i++;
+		if (i == 0 && data->cmdt->in_fd < 0)
+			tmp->fd[0] = data->cmdt->in_fd;
+		tmp = tmp->next;
 	}
-	wait_for_childs(data);
+
+
 }
+// 	int	i;
+// 	int	pip[2];
+
+// 	i = 0;
+// 	//put field in data struct holding state of previous fd to -1
+// 	data->fd_before = -1;
+// 	while(i < data->cmdt_count)
+// 	{
+// 		if (pipe(pip) == -1)
+// 			return ((void)error_out(data, 1));
+// 		//manage the redirection of input and output for a command in a pipeline
+// 		if (pipelines_redirect(data, i, pip) && input_output_redirect(data, &data->cmdt[i]) == 1)
+// 			;
+// 		//then
+// 		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
+// 		change_fd_input_output(data, &data->cmdt[i], pip, i);
+// 		//then
+// 		//if (check the command for builtins)
+// 			//execute the builtin command
+// 		//else
+// 		i++;
+// 	}
+// 	wait_for_childs(data);
+// }

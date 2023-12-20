@@ -43,7 +43,8 @@ struct cmd;
 typedef struct cmd
 {
 	int			argc;    // number of arguments (plus cmd)
-	int			fd[2]; //fd[0] is in and fd[1] is out. FOR ME.
+	int			fd[2]; //fd[0] is in and fd[1] is out. FOR ME. if =0, std.
+	int			cmd_idx; // starts at 0, index for commands, to keep up more easily.
 	char		*cmd_path; //for me
 	char		**args; //args[0] is cmd, and the others are the arguments.
 	struct cmd	*next; //points to another struct like this one with the next command, or NULL if its the last command
@@ -52,7 +53,7 @@ typedef struct cmd
 typedef	enum s_type_token
 {
 	WORD,
-	PIPE
+	PIPE,
 	REDIRECT_IN,
 	REDIRECT_OUT,
 	REDIRECT_APPEND,
@@ -70,8 +71,8 @@ typedef	struct s_token
 
 typedef struct s_tab_cmd
 {
-	char	*cmd; //is usefull?
-	char	**args; //os usefull?
+	char	*cmd;
+	char	**args;
 	t_token	*redirections;
 	int		num_redirections;
 	int		num_args;
@@ -87,6 +88,7 @@ typedef struct s_tab_cmd
 typedef struct s_data
 {
 	t_cmd		*cmd; //pointer to first cmd, linked to the other ones with chained list. (YOU NEED TO ALLOCATE AND PARSE IN HERE)
+	int			cmd_count; //the amount of commands in the chained list.
 	t_token		*tokens;
 	int			count_token;
 	t_tab_cmd	*cmdt;

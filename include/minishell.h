@@ -99,7 +99,6 @@ typedef struct s_data
 	char		*input;
 	// int		exit_promt;
 	int			fd_before;
-	int			code_of_exit;
 }	t_data;
 
 

@@ -52,7 +52,7 @@ typedef struct cmd
 typedef	enum s_type_token
 {
 	WORD,
-	PIPE,
+	PIPE
 	REDIRECT_IN,
 	REDIRECT_OUT,
 	REDIRECT_APPEND,

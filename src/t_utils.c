@@ -11,3 +11,31 @@ t_cmd	*add_cmd(t_cmd *cmd)
 
 	return (new);
 }
+static void	*t_free(t_cmd *ptr)
+{
+	t_cmd *tmp;
+
+	while(ptr)
+	{
+		tmp = ptr;
+		if (tmp->cmd_path)
+			tmp->cmd_path = free_null(tmp->cmd_path);
+		if (tmp->args)
+			tmp->args = arr_free(tmp->args);
+		ptr = ptr->next;
+		free(tmp);
+	}
+	return (NULL);
+}
+
+void	free_all(t_data *data)
+{
+	t_cmd	*tmp;
+
+
+	if (data->env)
+		data->env = arr_free(data->env);
+	if (data->cmd)
+		data->cmd = t_free(data->cmd);
+	// PLEASE ADD OTHER POINTERS TO FREE
+}

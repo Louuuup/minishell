@@ -38,5 +38,6 @@ int	main(int argc, char *argv[], char **env_p)
 	// 	if (tokener(data) == 0 && extender(data) == 0 && parser(data))
 	// 		exec_main(data);
 	// }
+	free_all(data);
     return (0);
 }

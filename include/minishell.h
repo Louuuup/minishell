@@ -142,6 +142,9 @@ void	my_error(char *str);
 int		error_out(t_data *pointer, int n);
 void	error_in_syntax(int type, t_data *pntr);
 //
+//==================[t_utils.c]===================//
+void	free_all(t_data *data);
+//
 //==================[prompt.c]===================//
 void	prompt_create(t_data *data);
 //

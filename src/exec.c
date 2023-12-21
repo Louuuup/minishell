@@ -74,7 +74,7 @@ void	exec_main(t_data *data)
 {
 	t_cmd	*tmp;
 	int		i;
-	// int		pip[2];
+	int		pip[2];
 
 	i = 0;
 	if (!data->cmd)
@@ -85,8 +85,14 @@ void	exec_main(t_data *data)
 		if (i == 0 && data->cmdt->in_fd < 0)
 			tmp->fd[0] = data->cmdt->in_fd;
 		tmp->cmd_path = cmd_fullpath(data, tmp->args[0]);
+		if (tmp->next)
+			ft_pipe(tmp);
+		else if (data->cmdt->out_fd < 0)
+			tmp->fd[1] = data->cmdt->out_fd;
 		if (!tmp->cmd_path)
 			my_error("Command unknown\n");
+		else
+			run_cmd(tmp->args, tmp->cmd_path, tmp->fd[0], tmp->fd[1]);
 		tmp = tmp->next;
 	}
 

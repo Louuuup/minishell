@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/20 15:27:41 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:17:38 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ void	ft_dup2(int fd, int std)
 	close(fd);
 }
 
+void	ft_pipe(t_cmd *cmd)
+{
+	int	pipefd[2];
+	int	err;
+
+	err = pipe(pipefd);
+	if (err == -1)
+		ft_error(ERR_PIPE);
+	cmd->fd[0] = pipefd[0];
+	cmd->next->fd[1] = pipefd[1];
+}
 char *ft_get_env(char *str, char **env)
 {
 	int		i[2];

@@ -21,7 +21,7 @@ static void	*t_free(t_cmd *ptr)
 		if (tmp->cmd_path)
 			tmp->cmd_path = free_null(tmp->cmd_path);
 		if (tmp->args)
-			tmp->args = arr_free(tmp->args);
+			tmp->args = arr_free((void **)tmp->args);
 		ptr = ptr->next;
 		free(tmp);
 	}
@@ -30,11 +30,8 @@ static void	*t_free(t_cmd *ptr)
 
 void	free_all(t_data *data)
 {
-	t_cmd	*tmp;
-
-
 	if (data->env)
-		data->env = arr_free(data->env);
+		data->env = arr_free((void **)data->env);
 	if (data->cmd)
 		data->cmd = t_free(data->cmd);
 	// PLEASE ADD OTHER POINTERS TO FREE

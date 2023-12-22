@@ -1,34 +1,68 @@
 #include "minishell.h"
 
+//it makes a temp file and write down there what it
+//gets from heredoc
+
+int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
+{
+
+}
+
+//it sends output redirects in the command table
+
+int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
+{
+	if (tab_cmd->redirections[i].type == REDIRECT_MULTILINE)
+		if (create_heredoc(pntr, tab_cmd, i) == 1)
+			return (1);
+	else if (tab_cmd->redirections[i].type == REDIRECT_APPEND)
+	{
+		if (tab_cmd->file_out == -1)
+			return (error_out(pntr, 1));
+		if (tab_cmd->file_out != -1)
+			close(tab_cmd->file_out);
+		tab_cmd->file_out = open(tab_cmd->redirections[i].value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
+	else if (tab_cmd->redirections[i].type == REDIRECT_OUT)
+	{
+		if (tab_cmd->file_out == -1)
+			return (error_out(pntr, 1));
+		if (tab_cmd->file_out != -1)
+			close(tab_cmd->file_out);
+		tab_cmd->file_out = open(tab_cmd->redirections[i].value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
+	return (0);
+}
+
 //it manages input & output redirects for the command table
 
-// int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
-// {
-// 	int	i;
+int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (tab_cmd->num_redirections > i)
-// 	{
-// 		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE && tab_cmd->redirections[i].no_space == 2)
-// 		{
-// 			ft_putstr_fd("minishell: redirect to nowhere\n", 2);
-// 			pntr->code_exit = 1;
-// 			return (1);
-// 		}
-// 		if (tab_cmd->redirections[i].type == REDIRECT_IN)
-// 		{
-// 			if (tab_cmd->file_in != -1)
-// 				close(tab_cmd->file_in);
-// 			tab_cmd->file_in = open(tab_cmd->redirections[i].value, O_RDONLY);
-// 			if (tab_cmd->file_in == -1)
-// 				return (error_out(pntr, 1));
-// 		}
-// 		else if ()
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	while (tab_cmd->num_redirections > i)
+	{
+		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE && tab_cmd->redirections[i].no_space == 2)
+		{
+			ft_putstr_fd("minishell: re-direction to nowhere\n", 2);
+			pntr->code_exit = 1;
+			return (1);
+		}
+		if (tab_cmd->redirections[i].type == REDIRECT_IN)
+		{
+			if (tab_cmd->file_in != -1)
+				close(tab_cmd->file_in);
+			tab_cmd->file_in = open(tab_cmd->redirections[i].value, O_RDONLY);
+			if (tab_cmd->file_in == -1)
+				return (error_out(pntr, 1));
+		}
+		else if (redirects_cmd_tab(pntr, tab_cmd, i) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 // void	run_cmd(char **args, char *cmd_path, int in_fd, int out_fd)
 // {
@@ -63,8 +97,8 @@ int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 		tab_cmd->in_fd = tab_cmd->file_in;
 	else if (pntr->fd_before != -1 && i != 0)
 		tab_cmd->in_fd = pntr->fd_before;
-	if (tab_cmd->out_file != -1)
-		tab_cmd->out_fd = tab_cmd->out_file;
+	if (tab_cmd->file_out != -1)
+		tab_cmd->out_fd = tab_cmd->file_out;
 	else if (fd[1] != -1 && pntr->cmdt_count - 1 != i)
 		tab_cmd->out_fd = fd[1];
 	return (0);
@@ -77,6 +111,7 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 void	exec_main(t_data *data)
 {
 	t_cmd	*tmp;
+	int		i;
 	int		pip[2];
 
 	if (!data->cmd)
@@ -89,9 +124,14 @@ void	exec_main(t_data *data)
 		else if (tmp->cmd_idx < 0)
 			tmp->fd[0] = pip[1]
 		tmp->cmd_path = cmd_fullpath(data, tmp->args[0]);
+		if (tmp->next)
+			ft_pipe(tmp);
+		else if (data->cmdt->out_fd < 0)
+			tmp->fd[1] = data->cmdt->out_fd;
 		if (!tmp->cmd_path)
 			my_error("Command unknown\n");
 		if (tmp->next) //if there is another cmd after pipe
+			;
 		if (pipe(pip) == -1)
 			ft_error(ERR_PIPE);
 		tmp = tmp->next;

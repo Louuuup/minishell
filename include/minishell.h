@@ -82,7 +82,7 @@ typedef struct s_tab_cmd
 	int		in_fd;
 	int		out_fd;
 	int		file_in;
-	int		out_file;
+	int		file_out;
 }	t_tab_cmd;
 
 typedef struct s_data

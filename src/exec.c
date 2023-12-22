@@ -1,13 +1,5 @@
 #include "minishell.h"
 
-//it makes a temp file and write down there what it
-//gets from heredoc
-
-int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
-{
-
-}
-
 //it sends output redirects in the command table
 
 int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
@@ -122,7 +114,7 @@ void	exec_main(t_data *data)
 		if (tmp->cmd_idx == 0 && data->cmdt->in_fd > 0)
 			tmp->fd[0] = data->cmdt->in_fd;
 		else if (tmp->cmd_idx < 0)
-			tmp->fd[0] = pip[1]
+			tmp->fd[0] = pip[1];
 		tmp->cmd_path = cmd_fullpath(data, tmp->args[0]);
 		if (tmp->next)
 			ft_pipe(tmp);

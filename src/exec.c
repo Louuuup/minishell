@@ -69,24 +69,31 @@ int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 		tab_cmd->out_fd = fd[1];
 	return (0);
 }
+void	exec_cmd(t_data *data, t_cmd *cmd)
+{
+
+}
 
 void	exec_main(t_data *data)
 {
 	t_cmd	*tmp;
-	int		i;
-	// int		pip[2];
+	int		pip[2];
 
-	i = 0;
 	if (!data->cmd)
 		return ;
 	tmp = data->cmd;
 	while(tmp)
 	{
-		if (i == 0 && data->cmdt->in_fd < 0)
+		if (tmp->cmd_idx == 0 && data->cmdt->in_fd > 0)
 			tmp->fd[0] = data->cmdt->in_fd;
+		else if (tmp->cmd_idx < 0)
+			tmp->fd[0] = pip[1]
 		tmp->cmd_path = cmd_fullpath(data, tmp->args[0]);
 		if (!tmp->cmd_path)
 			my_error("Command unknown\n");
+		if (tmp->next) //if there is another cmd after pipe
+		if (pipe(pip) == -1)
+			ft_error(ERR_PIPE);
 		tmp = tmp->next;
 	}
 

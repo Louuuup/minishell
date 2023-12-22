@@ -26,6 +26,7 @@
 # define ERR_EXP "\033[37m\033[1mREASON\033[0m"
 # define ERR_FORK "Forked up!\n"
 # define ERR_ALLOC "Allocation error\n"
+# define ERR_PIPE "Couldn't open the pipe\n"
 # define ERR_DUP "Dup error\n"
 # define ERR_CD_ARGS "Too much arguments for CD\n"
 # define ERR_CD "Invalid name or path\n"

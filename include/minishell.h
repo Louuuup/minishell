@@ -64,6 +64,14 @@ typedef	enum s_type_token
 	SQUOTE
 }	t_type_token;
 
+typedef	enum s_set_mode
+{
+	INTERACT,
+	NON_INTERACT,
+	CHILD,
+	MULTILINE
+}	t_set_mode;
+
 typedef	struct s_token
 {
 	char			*value;
@@ -103,6 +111,7 @@ typedef struct s_data
 	char		*input;
 	// int		exit_promt;
 	int			fd_before;
+	t_set_mode	mode;
 }	t_data;
 
 

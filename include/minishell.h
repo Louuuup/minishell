@@ -12,6 +12,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stddef.h>
+# include <signal.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0

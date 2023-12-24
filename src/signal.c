@@ -6,9 +6,12 @@ int global_signal = 0;
 
 void    sigint_manager(int status)
 {
-    global_signal = 1;
-    write(STDERR_FILENO, "\n", 1);
-    rl_redisplay();
+    if (status == SIGINT)
+    {
+        global_signal = 1;
+        write(STDERR_FILENO, "\n", 1);
+        rl_redisplay();        
+    }
 }
 
 //it manages SIGINT with help of a global variable & inputs/outputs
@@ -31,6 +34,22 @@ void    start_signals(t_data *pntr)
     if (pntr->mode == MULTILINE)
     {
         signal(SIGINT, &manage_multiline);
+        signal(SIGQUIT, SIG_IGN);
+    }
+    else if (pntr->mode == CHILD)
+    {
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
+    }
+    else if (pntr->mode == NON_INTERACT)
+    {
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
+    }
+    else if (pntr->mode == INTERACT)
+    {
+        signal(SIGINT, &sigint_manager);
+        signal(SIGQUIT, SIG_IGN);
     }
 }
 

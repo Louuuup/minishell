@@ -15,6 +15,14 @@ char	name_create_multiline(int i)
 	return (file_name);
 }
 
+//it broadens the local token, it replace each '$'
+//with the value from data struct
+
+// char	*broaden_local_token(t_data *pntr, char *letter)
+// {
+
+// }
+
 //it reads user input, stops on the delimiter, writes to a file descriptor
 
 int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
@@ -33,7 +41,7 @@ int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
 			break ;
 		if (ft_strcmp(string, delimiter) == 0)
 			break ;
-		string = function_use_local_token(pntr, string);
+		string = broaden_local_token(pntr, string);
 		if (!string)
 			return (close(fd), 2);
 		ft_putendl_fd(string, fd);

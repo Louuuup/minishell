@@ -19,11 +19,31 @@ char	name_create_multiline(int i)
 
 int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
 {
-	static int		j;
-	char 	*line;
+	char 			*string;
+	static int		i;
 
-	j = 0;
-
+	i = 0;
+	set_mode(pntr, MULTILINE);
+	while (TRUE)
+	{
+		string = readline("> ");
+		if (global_signal == 1)
+			return (free(string), 1);
+		if (string == NULL)
+			break ;
+		if (ft_strcmp(string, delimiter) == 0)
+			break ;
+		string = function_use_local_token(pntr, string);
+		if (!string)
+			return (close(fd), 2);
+		ft_putendl_fd(string, fd);
+		free(string);
+		i++;
+	}
+	set_mode(pntr, NON_INTERACT);
+	if (string != NULL)
+		free(string);
+	return (0);
 }
 
 //it makes a temp file, puts the heredoc into it,

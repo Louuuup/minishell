@@ -35,6 +35,8 @@
 # define ERR_UNSET "Invalid indentifier for unset\n"
 //==================Structs===================//
 
+extern int	global_signal;
+
 // /**
 //  * NOTE: Simple command + args
 // *@param	argc Number of args.
@@ -226,5 +228,6 @@ int 	if_has(const char *n, char c);
 int		substring_concatenation(char *string, char **pntr);
 //==================[multiline.c]===================//
 int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i);
-
+//==================[signal.c]===================//
+void	set_mode(t_data *pntr, t_set_mode mode);
 #endif

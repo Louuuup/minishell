@@ -175,7 +175,7 @@ void	ft_dup2(int fd, int std);
 void	ft_pipe(t_cmd *cmd);
 //
 //==================[b_cd.c]===================//
-void	built_cd(char **args, int argc);
+// void	built_cd(char **args, int argc);
 //
 //==================[b_exit.c]===================//
 void	built_exit(void);

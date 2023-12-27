@@ -1,26 +1,29 @@
 #include "minishell.h"
 
-void	built_cd(char **args, int argc, int fd_out)
+void	built_cd(char **args, int argc)
 {
-	char *new_path;
-	char *pwd;
+	char	*new_path;
+	char	*pwd;
+	int		err;
 
-	(void)fd_out;
+	err = 0;
 	pwd = getcwd(NULL, 0);
 	pwd = charjoinfree(pwd, '/');
 	new_path = ft_strjoin(pwd, args[1]);
 	if (argc > 2)
 		my_error(ERR_CD_ARGS);
 	if (access(new_path, F_OK) != ERROR)
-		chdir(new_path);
+		err = chdir(new_path);
 	else if (access(args[1], F_OK) != ERROR)
-		chdir(args[1]);
+		err = chdir(args[1]);
 	else
 		my_error(ERR_CD);
 	if (new_path)
 		free(new_path);
 	if (pwd)
 		free(pwd);
+	if (err == ERROR)
+		my_error(ERR_CD);
 }
 
 void	build_pwd(int fd_out)

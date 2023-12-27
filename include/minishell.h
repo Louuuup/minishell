@@ -33,6 +33,7 @@
 # define ERR_CD "Invalid name or path\n"
 # define ERR_EXPORT "Invalid identifier for export\n"
 # define ERR_UNSET "Invalid indentifier for unset\n"
+# define ERR_WRITE "Write error\n"
 //==================Structs===================//
 
 extern int	global_signal;
@@ -171,9 +172,10 @@ void	exec_main(t_data *data);
 char	*ft_get_env(char *str, char **env);
 char	*cmd_fullpath(t_data *data, char *cmd);
 void	ft_dup2(int fd, int std);
+void	ft_pipe(t_cmd *cmd);
 //
 //==================[b_cd.c]===================//
-void	built_cd(char **args, int argc, int fd_out);
+void	built_cd(char **args, int argc);
 //
 //==================[b_exit.c]===================//
 void	built_exit(void);

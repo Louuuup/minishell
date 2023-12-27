@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 14:22:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/13 15:16:13 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:15:56 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	print_env(char **env, int fd)
 		if (find_symbol('=', env[i]))
 		{
 			ft_putstr_fd(env[i], fd);
-			write(fd, "\n", 1);
+			if (write(fd, "\n", 1) == ERROR)
+				ft_error(ERR_WRITE);
 		}
 		i++;
 	}

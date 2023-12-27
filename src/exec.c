@@ -97,13 +97,13 @@ int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 }
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
-
+	(void)data;
+	(void)cmd;
 }
 
 void	exec_main(t_data *data)
 {
 	t_cmd	*tmp;
-	int		i;
 	int		pip[2];
 
 	if (!data->cmd)
@@ -123,13 +123,11 @@ void	exec_main(t_data *data)
 		if (!tmp->cmd_path)
 			my_error("Command unknown\n");
 		if (tmp->next) //if there is another cmd after pipe
-			;
+			exec_cmd(data, tmp);
 		if (pipe(pip) == -1)
 			ft_error(ERR_PIPE);
 		tmp = tmp->next;
 	}
-
-
 }
 
 void	alt_exec_main(t_data *data)

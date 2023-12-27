@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:58:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/13 15:45:45 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:17:46 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	print_export(char **env, int fd)
 		}
 		if (equal)
 			ft_putchar_fd('"', fd);
-		write(fd, "\n", 1);
+		ft_putchar_fd('\n', fd);
 		i++;
 	}
 }

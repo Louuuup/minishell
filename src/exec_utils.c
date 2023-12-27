@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/20 21:17:38 by yakary           ###   ########.fr       */
+/*   Updated: 2023/12/27 14:57:22 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ char	*cmd_fullpath(t_data *data, char *cmd)
 {
 	char	*tmp;
 	int		i;
-	int		working_idx;
 	char	**paths;
 
-	working_idx = -1;
 	i = 0;
 	tmp = ft_get_env("PATH", data->env);
 	paths = ft_split(tmp, ':');

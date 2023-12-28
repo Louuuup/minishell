@@ -17,10 +17,29 @@ char	*name_create_multiline(int i)
 
 //it replaces '$' with appropriate value in a string
 
-// int	using_dollar(char *letter, char **result, t_data *pntr, int e)
-// {
-// 	int	length = 
-// }
+int	using_dollar(char *letter, char **result, t_data *pntr, int e)
+{
+	int		length;
+	char	*buffer;
+	char	*sign;
+
+	length = length_of_variable(letter);
+	if (e && length == 1)
+		return (*result = ft_strdup(""), length);
+	if (length == 1)
+		return (*result = ft_strdup("$"), length);
+	sign = ft_substr(letter, 1, length - 1);
+	if (sign == NULL)
+		return (length);
+	buffer = value_of_variable(pntr, sign);
+	free(sign);
+	if (buffer == NULL)
+		*result = ft_strdup("");
+	else
+		*result = ft_strdup(buffer);
+	free(buffer);
+	return (length);
+}
 
 //it broadens the local token and replace each '$'
 //with the value from data struct
@@ -42,7 +61,7 @@ char	*broaden_local_token(t_data *pntr, char *letter)
 		if (*letter == '$')
 			letter += using_dollar(letter, &buffer, pntr, 0);
 		else
-			letter += char_concatenation(result, buffer);
+			letter += substring_concatenation(result, &buffer);
 		if (buffer == NULL)
 			return (free(result), NULL);
 		buffer_result = ft_strcat(result, buffer);

@@ -24,7 +24,7 @@ void    manage_multiline(int status)
 	{
 		global_signal = 1;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 }

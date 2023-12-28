@@ -2,6 +2,7 @@
 
 void	recreate_file_descriptors(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 {
+	
 	write(1, "1", 1);
 }
 
@@ -10,7 +11,15 @@ void	recreate_file_descriptors(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pip
 
 void    create_builtin_fd(t_tab_cmd *cmd_tab, int *pipe_fd)
 {
-	
+	if (cmd_tab->out_fd != -1)
+		dup2(cmd_tab->out_fd, STDOUT_FILENO);
+	if (cmd_tab->in_fd != -1)
+	{
+		dup2(cmd_tab->in_fd, STDIN_FILENO);
+		if (cmd_tab->in_fd != -1)
+			close(cmd_tab->in_fd);
+	}
+	close(pipe_fd[1]);
 }
 
 void    shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)

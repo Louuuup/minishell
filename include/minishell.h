@@ -171,6 +171,7 @@ void	prompt_create(t_data *data);
 //==================[builtin.c]===================//
 void	build_pwd(int fd_out);
 int		if_builtin(t_tab_cmd *cmd_tab);
+void    shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd);
 //
 //==================[exec.c]===================//
 void	exec_main(t_data *data);
@@ -186,7 +187,7 @@ int		change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i);
 // void	built_cd(char **args, int argc);
 //
 //==================[b_exit.c]===================//
-void	built_exit(void);
+void	built_exit(t_data *pntr, t_tab_cmd *cmd_tab);
 //
 //==================[b_echo.c]===================//
 void	built_echo(char **args, int argc, int fd_out);

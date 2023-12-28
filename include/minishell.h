@@ -13,6 +13,10 @@
 # include <fcntl.h>
 # include <stddef.h>
 # include <signal.h>
+# include <sys/ioctl.h>
+# include <sys/wait.h>
+# include <unistd.h>
+# include <errno.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0

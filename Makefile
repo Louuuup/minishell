@@ -8,7 +8,7 @@ SRC = main.c	utils.c		t_utils.c	prompt.c	builtin.c	exec_utils.c \
 		b_cd.c	b_echo.c	b_env.c		b_export.c	b_env_print.c	tokener.c \
 		parser.c	parser_utils.c	tokener_filling.c	parser_merge_words.c \
 		parser_func.c	b_unset.c	b_exit.c	exec.c	extender.c \
-		extender_utils.c
+		extender_utils.c	multiline.c
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))

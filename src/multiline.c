@@ -2,25 +2,40 @@
 
 //it creates a temp filename for a heredoc file
 
-char	name_create_multiline(int i)
+char	*name_create_multiline(int i)
 {
 	char	*with_itoa;
 	char	*file_name;
 
 	with_itoa = ft_itoa(i);
-	if (!with_itoa)
+	if (with_itoa == NULL)
 		return (NULL);
 	file_name = ft_strcat(".tmp_hdoc", with_itoa);
 	free(with_itoa);
 	return (file_name);
 }
 
-//it broadens the local token, it replace each '$'
+//it broadens the local token and replace each '$'
 //with the value from data struct
 
 // char	*broaden_local_token(t_data *pntr, char *letter)
 // {
+// 	char	*result;
+// 	char	*buffer;
+// 	char	*buffer_result;
+// 	char	*buffer_value;
 
+// 	result = NULL;
+// 	buffer_value = letter;
+// 	if (!*letter)
+// 		return (letter);
+// 	while (*letter)
+// 	{
+// 		buffer = NULL;
+// 		if (*letter == '$')
+// 			letter += 
+// 	}
+// 	return (free(buffer_value), result);
 // }
 
 //it reads user input, stops on the delimiter, writes to a file descriptor

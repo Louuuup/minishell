@@ -5,8 +5,10 @@
 int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 {
 	if (tab_cmd->redirections[i].type == REDIRECT_MULTILINE)
+	{
 		if (create_heredoc(pntr, tab_cmd, i) == 1)
-			return (1);
+			return (1);		
+	}
 	else if (tab_cmd->redirections[i].type == REDIRECT_APPEND)
 	{
 		if (tab_cmd->file_out == -1)
@@ -71,14 +73,16 @@ void	wait_for_childs(t_data *pntr)
 
 	i = 0;
 	while(pntr->cmdt_count > i)
+	{
 		if (pntr->cmdt[i].is_child_process == 1)
 			waitpid(pntr->cmdt[i].pid, &status, 0);
+	}
 	if (pntr->cmdt[i - 1].is_child_process == 1)
 	{
-		if (WIFEXITED(status))
-			pntr->code_exit = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
+		if (WIFSIGNALED(status))
 			pntr->code_exit = WTERMSIG(status) + 128;
+		else if (WIFEXITED(status))
+			pntr->code_exit = WEXITSTATUS(status);
 	}
 }
 
@@ -143,8 +147,8 @@ void	alt_exec_main(t_data *data)
 		if (pipe(pip) == -1)
 			return ((void)error_out(data, 1));
 		//manage the redirection of input and output for a command in a pipeline
-		if (pipelines_redirect(data, i, pip) && input_output_redirect(data, &data->cmdt[i]) == 1)
-			;
+		// if (pipelines_redirect(data, i, pip) && input_output_redirect(data, &data->cmdt[i]) == 1)
+		// 	;
 		//then
 		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
 		change_fd_input_output(data, &data->cmdt[i], pip, i);

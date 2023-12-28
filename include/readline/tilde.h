@@ -58,7 +58,7 @@ extern char *tilde_expand (const char *);
    tilde.  If there is no expansion, call tilde_expansion_failure_hook. */
 extern char *tilde_expand_word (const char *);
 
-/* Find the portion of the string beginning with ~ that should be expanded. */
+/* Find the portion of the string beginning with ~ that/Users/mkramer/.brew/Cellar/readline/8.2.7/include/readline/history.h should be expanded. */
 extern char *tilde_find_word (const char *, int, int *);
 
 #ifdef __cplusplus

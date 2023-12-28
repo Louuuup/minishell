@@ -229,7 +229,7 @@ int 	length_of_variable(char *n);
 int 	if_has(const char *n, char c);
 int		substring_concatenation(char *string, char **pntr);
 //==================[multiline.c]===================//
-int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i);
+int		create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i);
 //==================[signal.c]===================//
 void	set_mode(t_data *pntr, t_set_mode mode);
 #endif

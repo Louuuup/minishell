@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/27 14:57:22 by yakary           ###   ########.fr       */
+/*   Updated: 2023/12/28 15:40:01 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,47 @@ char	*cmd_fullpath(t_data *data, char *cmd)
 	}
 	arr_free((void **)paths);
 	return (NULL);
+}
+
+//sets the output & input file descriptors for a command table based on the specified input & output files or the next & previous files descriptors
+int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
+{
+	if (tab_cmd->file_in != -1)
+		tab_cmd->in_fd = tab_cmd->file_in;
+	else if (pntr->fd_before != -1 && i != 0)
+		tab_cmd->in_fd = pntr->fd_before;
+	if (tab_cmd->file_out != -1)
+		tab_cmd->out_fd = tab_cmd->file_out;
+	else if (fd[1] != -1 && pntr->cmdt_count - 1 != i)
+		tab_cmd->out_fd = fd[1];
+	return (0);
+}
+
+//it handles redirects of input/output for pipeline commands
+
+int	pipelines_redirect(t_data *pntr, int i, int *pip)
+{
+	if (dup2(pntr->cmdt[i].in_fd, STDIN_FILENO) > -1 && pntr->cmdt[i].in_fd != -1)
+		close(pntr->cmdt[i].in_fd);
+	if (pntr->cmdt[i].out_fd != -1)
+		dup2(pntr->cmdt[i].out_fd, STDOUT_FILENO);
+	close(pip[1]);
+	if (pntr->fd_before != -1)
+		close(pntr->fd_before);
+	if (pntr->cmdt_count - 1 != i)
+		pntr->fd_before = pip[0];
+	else
+		close(pip[0]);
+	dup2(pntr->first_stdin, STDIN_FILENO);
+	dup2(pntr->first_stdout, STDOUT_FILENO);
+	if (pntr->cmdt[i].in_fd != -1)
+		close(pntr->cmdt[i].in_fd);
+	if (pntr->cmdt[i].out_fd != -1)
+		close(pntr->cmdt[i].out_fd);
+	if (pntr->cmdt[i].last_multiline)
+	{
+		unlink(pntr->cmdt[i].last_multiline);
+		free(pntr->cmdt[i].last_multiline);
+	}
+	return (1);
 }

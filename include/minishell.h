@@ -105,7 +105,7 @@ typedef struct s_tab_cmd
 typedef struct s_data
 {
 	t_cmd		*cmd; //pointer to first cmd, linked to the other ones with chained list. (YOU NEED TO ALLOCATE AND PARSE IN HERE)
-	int			cmd_count; //the amount of commands in the chained list.
+	// int			cmd_count; //the amount of commands in the chained list.
 	t_token		*tokens;
 	int			count_token;
 	t_tab_cmd	*cmdt;
@@ -118,6 +118,8 @@ typedef struct s_data
 	char		*input;
 	// int		exit_promt;
 	int			fd_before;
+	int			first_stdin;
+	int			first_stdout;
 	t_set_mode	mode;
 }	t_data;
 
@@ -168,6 +170,7 @@ void	prompt_create(t_data *data);
 //
 //==================[builtin.c]===================//
 void	build_pwd(int fd_out);
+int		if_builtin(t_tab_cmd *cmd_tab);
 //
 //==================[exec.c]===================//
 void	exec_main(t_data *data);
@@ -177,6 +180,7 @@ char	*ft_get_env(char *str, char **env);
 char	*cmd_fullpath(t_data *data, char *cmd);
 void	ft_dup2(int fd, int std);
 void	ft_pipe(t_cmd *cmd);
+int		change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i);
 //
 //==================[b_cd.c]===================//
 // void	built_cd(char **args, int argc);
@@ -234,6 +238,7 @@ char	*value_of_variable(t_data *pntr, char *i);
 int 	length_of_variable(char *n);
 int 	if_has(const char *n, char c);
 int		substring_concatenation(char *string, char **pntr);
+int		pipelines_redirect(t_data *pntr, int i, int *pip);
 //==================[multiline.c]===================//
 int		create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i);
 //==================[signal.c]===================//

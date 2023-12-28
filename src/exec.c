@@ -86,19 +86,6 @@ void	wait_for_childs(t_data *pntr)
 	}
 }
 
-//sets the output & input file descriptors for a command table based on the specified input & output files or the next & previous files descriptors
-int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
-{
-	if (tab_cmd->file_in != -1)
-		tab_cmd->in_fd = tab_cmd->file_in;
-	else if (pntr->fd_before != -1 && i != 0)
-		tab_cmd->in_fd = pntr->fd_before;
-	if (tab_cmd->file_out != -1)
-		tab_cmd->out_fd = tab_cmd->file_out;
-	else if (fd[1] != -1 && pntr->cmdt_count - 1 != i)
-		tab_cmd->out_fd = fd[1];
-	return (0);
-}
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
 	(void)data;
@@ -134,29 +121,30 @@ void	exec_main(t_data *data)
 	}
 }
 
-void	alt_exec_main(t_data *data)
+void	alt_exec_main(t_data *pntr)
 {
 	int	i;
 	int	pip[2];
 
 	i = 0;
 	//put field in data struct holding state of previous fd to -1
-	data->fd_before = -1;
-	while(i < data->cmdt_count)
+	pntr->fd_before = -1;
+	while(i < pntr->cmdt_count)
 	{
 		if (pipe(pip) == -1)
-			return ((void)error_out(data, 1));
+			return ((void)error_out(pntr, 1));
 		//manage the redirection of input and output for a command in a pipeline
-		// if (pipelines_redirect(data, i, pip) && input_output_redirect(data, &data->cmdt[i]) == 1)
-		// 	;
-		//then
+		if (pipelines_redirect(pntr, i, pip) && input_output_redirect(pntr, &pntr->cmdt[i]) == 1)
+			continue ;
 		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
-		change_fd_input_output(data, &data->cmdt[i], pip, i);
-		//then
-		//if (check the command for builtins)
-			//execute the builtin command
-		//else
+		change_fd_input_output(pntr, &pntr->cmdt[i], pip, i);
+		if (if_builtin(&pntr->cmdt[i]) == 1)
+			
+		else
+		{
+
+		}
 		i++;
 	}
-	wait_for_childs(data);
+	wait_for_childs(pntr);
 }

@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <signal.h>
 
 int global_signal = 0;
 

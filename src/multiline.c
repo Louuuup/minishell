@@ -15,28 +15,44 @@ char	*name_create_multiline(int i)
 	return (file_name);
 }
 
+//it replaces '$' with appropriate value in a string
+
+// int	using_dollar(char *letter, char **result, t_data *pntr, int e)
+// {
+// 	int	length = 
+// }
+
 //it broadens the local token and replace each '$'
 //with the value from data struct
 
-// char	*broaden_local_token(t_data *pntr, char *letter)
-// {
-// 	char	*result;
-// 	char	*buffer;
-// 	char	*buffer_result;
-// 	char	*buffer_value;
+char	*broaden_local_token(t_data *pntr, char *letter)
+{
+	char	*result;
+	char	*buffer;
+	char	*buffer_result;
+	char	*buffer_value;
 
-// 	result = NULL;
-// 	buffer_value = letter;
-// 	if (!*letter)
-// 		return (letter);
-// 	while (*letter)
-// 	{
-// 		buffer = NULL;
-// 		if (*letter == '$')
-// 			letter += 
-// 	}
-// 	return (free(buffer_value), result);
-// }
+	result = NULL;
+	buffer_value = letter;
+	if (!*letter)
+		return (letter);
+	while (*letter)
+	{
+		buffer = NULL;
+		if (*letter == '$')
+			letter += using_dollar(letter, &buffer, pntr, 0);
+		else
+			letter += char_concatenation(result, buffer);
+		if (buffer == NULL)
+			return (free(result), NULL);
+		buffer_result = ft_strcat(result, buffer);
+		(free(buffer), free(result));
+		if (buffer_result == NULL)
+			return (NULL);
+		result = buffer_result;
+	}
+	return (free(buffer_value), result);
+}
 
 //it reads user input, stops on the delimiter, writes to a file descriptor
 

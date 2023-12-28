@@ -63,6 +63,11 @@ int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
 		return (length);
 	value_buffer = value_of_variable(pntr, key);
 	free(key);
+	if (value_buffer == NULL)
+		*value = ft_strdup("");
+	else
+		*value = ft_strdup(value_buffer);
+	free(value_buffer);
 	return (length);
 }
 

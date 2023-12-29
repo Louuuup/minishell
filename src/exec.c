@@ -126,10 +126,10 @@ void	alt_exec_main(t_data *pntr)
 	int	i;
 	int	pip[2];
 
-	i = 0;
+	i = -1;
 	//put field in data struct holding state of previous fd to -1
 	pntr->fd_before = -1;
-	while(i < pntr->cmdt_count)
+	while(pntr->cmdt_count > ++i)
 	{
 		if (pipe(pip) == -1)
 			return ((void)error_out(pntr, 1));
@@ -139,10 +139,13 @@ void	alt_exec_main(t_data *pntr)
 		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
 		change_fd_input_output(pntr, &pntr->cmdt[i], pip, i);
 		if (if_builtin(&pntr->cmdt[i]) == 1)
-			
+			shoot_builtin(pntr, &pntr->cmdt[i], i, pip);
 		else
 		{
+			if (find_exec(pntr, &pntr->cmdt[i]) == 0)
 
+			else
+				pipelines_redirect(pntr, i, pip);
 		}
 		i++;
 	}

@@ -12,10 +12,10 @@ void	recreate_file_descriptors(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pip
 		close(pipe_fd[0]);
 	dup2(pntr->first_stdout, STDOUT_FILENO);
 	dup2(pntr->first_stdin, STDIN_FILENO);
-	if (cmd_tab->in_fd != -1)
-		close(cmd_tab->in_fd);
 	if (cmd_tab->out_fd != -1)
 		close(cmd_tab->out_fd);
+	if (cmd_tab->in_fd != -1)
+		close(cmd_tab->in_fd);
 	if (pntr->cmdt[i].last_multiline)
 	{
 		unlink(pntr->cmdt[i].last_multiline);

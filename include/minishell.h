@@ -244,4 +244,7 @@ int		pipelines_redirect(t_data *pntr, int i, int *pip);
 int		create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i);
 //==================[signal.c]===================//
 void	set_mode(t_data *pntr, t_set_mode mode);
+//==================[find_exec.c]===================//
+int find_exec(t_data *pntr, t_tab_cmd *cmd_tab);
+
 #endif

@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-//the func clean the memory of an array for tokens & fill it with 0s
+//the clean_token_array function is a memory cleanup function that frees the memory associated with the values of each token in the array and then frees the memory for the entire token array. It ensures that all allocated memory is properly released to avoid memory leaks.
 
 int	clean_token_array(t_token *array_tokens, int max_number_token, t_data *pntr)
 {
@@ -17,9 +17,7 @@ int	clean_token_array(t_token *array_tokens, int max_number_token, t_data *pntr)
 	return (1);
 }
 
-//the func puts characters in a token. The chars are from a string input.
-//The func goes through till it meets a delimiter.
-//Then it assigns the type of the token as WORD
+//the word_filling function is used to identify and set the appropriate information for words (tokens) in the pntr structure based on the provided string (s). It allocates memory for the token value, skips certain characters, and sets flags and types accordingly. The function returns the number of characters processed.
 
 int	word_filling(t_data *pntr, char const *s)
 {
@@ -40,8 +38,7 @@ int	word_filling(t_data *pntr, char const *s)
 	return (i);
 }
 
-//the func get_length_of_quotes get the length of a part of a given string
-//till it meets the special character
+//this function is a utility that calculates the length of a substring enclosed in quotes, given a starting position in the string (s) and the type of quotes to look for (tmp). If the specified quote type is not found before the end of the string, it returns -1. Otherwise, it returns the length of the quoted substring.
 
 int	get_length_of_quotes(char const *s, char tmp)
 {
@@ -58,8 +55,7 @@ int	get_length_of_quotes(char const *s, char tmp)
 	return (length);
 }
 
-//the func receives a token with quotes, gets rid off the quotes
-//& sets the type & no_space
+//the filling_quotes function handles the filling of tokens for substrings enclosed in quotes. It calculates the length of the quoted substring, allocates memory for the token value, fills the token value while skipping the closing quote character, and sets various attributes of the token. The function returns the total number of characters processed, including the opening and closing quotes.
 
 int	filling_quotes(t_data *pntr, char const *str, char tmp)
 {
@@ -90,7 +86,7 @@ int	filling_quotes(t_data *pntr, char const *str, char tmp)
 	return (i + 2);
 }
 
-//the func reallocate memory if there's no more space for tokens
+//this function is used to resize and reallocate the array of tokens when the number of tokens exceeds the specified maximum. It creates a new array with double the size, copies existing tokens, frees the old array, and updates the relevant pointers and counters.
 
 int	reallocate_tokens_if_max(t_data *pntr, int max_token)
 {

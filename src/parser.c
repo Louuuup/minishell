@@ -1,9 +1,7 @@
 #include "../include/minishell.h"
 #include "../lib/libft/libft.h"
 
-// we need to find the quantity of arguments of the data structure till the pipe sign
-// 'pointer' is a pointer to a structure called t_data with information about the tokens
-// The index is for counting the arguments in the data->tokens array
+//the counting_arguments function iterates through a range of tokens, counting the number of arguments in a command. It considers the position of the token in the command and the validity of the token type to determine whether it should be counted as an argument. The count is then returned as the result of the function.
 
 int	counting_arguments(t_data *pointer, int index)
 {
@@ -21,7 +19,7 @@ int	counting_arguments(t_data *pointer, int index)
 	return (count);
 }
 
-// the function test if the last redirection was multi-line or input redirection
+//the test_multiline function checks for the presence of certain redirection types (REDIRECT_MULTILINE and REDIRECT_IN) in a command and adjusts the no_space attribute accordingly for the first matching redirection. The loop iterates in reverse order through the redirections, and the function breaks out of the loop after processing the first matching redirection.
 
 void	test_multiline(t_data *pointer, int index)
 {
@@ -40,7 +38,7 @@ void	test_multiline(t_data *pointer, int index)
 	}
 }
 
-// the function fills the fields of t_tab_cmd in t_data struct
+// cmdt_init serves as an initialization function for a command table entry, setting up various attributes and handling the initialization of command arguments, redirections, and multiline-related properties based on the given parameters.
 
 int	cmdt_init(t_data *pointer, int i, int *index)
 {
@@ -61,15 +59,16 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 	pointer->cmdt[i].pid = 0;
 	pointer->cmdt[i].is_child_process = 0;
 	pointer->cmdt[i].cmd = 0;
-	if (redirections_fill(pointer, i, *index) == 1)// redirection logic
+	if (redirections_fill(pointer, i, *index) == 1)
 		return (1);
 	test_multiline(pointer, i);
-	//*index = fill command arguments
 	*index = args_cmd_fill(pointer, i, *index - 1) + 1;
 	if (*index == 0)
 		return (1);
 	return (0);
 }
+
+//the parser function is responsible for parsing the input data, merging words, counting pipes, allocating memory for command tables, and initializing each command table entry using the cmdt_init function. The function returns 0 on success and 1 on failure.
 
 int	parser(t_data *pointer)
 {

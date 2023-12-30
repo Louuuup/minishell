@@ -143,7 +143,7 @@ void	alt_exec_main(t_data *pntr)
 		else
 		{
 			if (find_exec(pntr, &pntr->cmdt[i]) == 0)
-
+				return ("LATER");
 			else
 				pipelines_redirect(pntr, i, pip);
 		}

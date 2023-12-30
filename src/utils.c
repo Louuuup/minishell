@@ -35,8 +35,18 @@ int error_out(t_data *pointer, int n)
 	return (1);
 }
 
-//checking for type ('0' for new line) for printing appropriate error
-//the func to print out a message with syntax error
+// is designed to handle syntax errors in the input provided to the shell. It takes a type parameter to determine the specific type of syntax error and prints an appropriate error message along with setting the exit code for the shell.
+// The types and their corresponding messages are as follows:
+
+// 39: Unexpected single quote: prints "''\n"
+// 0: Unexpected newline: prints "newline'\n"
+// 34: Unexpected double quote: prints "\"'\n"
+// 5: Unexpected token for here document (<<): prints "<<'\n"
+// 4: Unexpected token for appending output (>>): prints ">>'\n"
+// 3: Unexpected token for redirecting output (>): prints ">'\n"
+// 2: Unexpected token for redirecting input (<): prints "<'\n"
+// 1: Unexpected token for pipe (|): prints "|'\n"
+
 
 void	error_in_syntax(int type, t_data *pntr)
 {

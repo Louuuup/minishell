@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-//this function check the syntax of redirection tokens of the data structure
+//is designed to check the syntax of redirections in the command tokens. It specifically checks whether the next token after a redirection operator is valid and prints a syntax error message if it's not.
 
 int	check_syntax_redirection(t_data *pntr, int i)
 {
@@ -13,8 +13,7 @@ int	check_syntax_redirection(t_data *pntr, int i)
 	return (0);
 }
 
-//checks the syntax of the data structure and returns true if it finds syntax error
-//in other case it returns false
+//this function performs syntax checking on command tokens, specifically checking for errors related to pipes and redirections. If it encounters a syntax error, it calls error_in_syntax and returns 1; otherwise, it returns 0.
 
 int	syntax_checking(t_data *pntr)
 {
@@ -39,15 +38,14 @@ int	syntax_checking(t_data *pntr)
 	return (0);
 }
 
-//'fill_redirection' finds the type of redirection based on the input char
-//& updates the token type in the data struct
+//the fill_redirection function is used to identify and set the appropriate redirection type in the pntr structure based on the provided string (str). It updates the token type according to the encountered redirection symbol ('>' or '<') and, if applicable, the presence of consecutive symbols. The function returns the total number of updates made to the pntr structure (initially set to 1).
 
 int	fill_redirection(t_data *pntr, char const *str)
 {
 	int result;
 
+	pntr->count_token += 1;
 	result = 1;
-	pntr->count_token++;
 	if ('>' == *str)
 	{
 		pntr->tokens[pntr->count_token - 1].type = REDIRECT_OUT;
@@ -93,9 +91,7 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 	return (0);
 }
 
-//'tokener' breaks the input by spaces, quotes, special characters;
-//allocate memory for these tokens;
-//also it checks syntax. A token has 3 variables:
+//the tokener function is responsible for tokenizing the input provided to the shell. It allocates memory for tokens, iterates through the input, fills token information using filling_with_tokens, and performs syntax checking on the generated tokens. If any error occurs during these processes, it returns 1; otherwise, it returns the result of the syntax checking. A token has 3 variables:
 //TYPE (which one?),
 //VALUE (is there special characters?),
 //NO_SPACE (followed by token to be concatenated?)

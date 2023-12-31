@@ -1,7 +1,6 @@
 #include "../include/minishell.h"
 
-//'redirections_count' counts the # of redirecting tokens in a
-//received array of tokens
+//the redirections_count function counts the number of redirections in a command by iterating through the tokens and incrementing the count for each token that is not a redirection
 
 int	redirections_count(t_data *pointer, int i)
 {
@@ -17,9 +16,7 @@ int	redirections_count(t_data *pointer, int i)
 	return (cnt);
 }
 
-// "redirection_fill" fills the array of redirections
-//in the data structure with information from the
-// token array
+//the redirections_fill function fills in information about redirections for a specific command in the project. It updates the command table with the number of redirections and details about each redirection
 
 int	redirections_fill(t_data *pointer, int i, int j)
 {
@@ -49,8 +46,7 @@ int	redirections_fill(t_data *pointer, int i, int j)
 	return (0);
 }
 
-//"args_cmds_fill" fills arrays of arguments & commands in the data structure
-//taking them from the tokens
+//the args_cmd_fill function fills in the arguments and the command itself for a specific command in the project. It iterates through the tokens, identifies arguments, and populates the corresponding fields in the command table
 
 int	args_cmd_fill(t_data *pointer, int i, int j)
 {
@@ -81,7 +77,7 @@ int	args_cmd_fill(t_data *pointer, int i, int j)
 	return (i);
 }
 
-//'clean_tokens' clean the memory taken for an array of tokens and put zeros in it
+//the clean_tokens function is used to free the memory allocated for the values of tokens in the array and then free the memory allocated for the tokens array itself. After cleanup, it sets the pointers to NULL to avoid potential issues with dangling pointers
 
 int	clean_tokens(t_token *tokens, int max, t_data *pointer)
 {
@@ -98,7 +94,7 @@ int	clean_tokens(t_token *tokens, int max, t_data *pointer)
 	return (1);
 }
 
-//'words_merging' func merge sequent token of the same type into a united token
+//the words_merging function performs the merging of adjacent WORD tokens and updates the count_token and tokens accordingly. It also deallocates the memory used by the original tokens array
 
 int	words_merging(t_data *pointer)
 {

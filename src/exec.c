@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-//it sends output redirects in the command table
+//function, redirects_cmd_tab, handles the redirections for a command in the t_tab_cmd structure based on the type of redirection specified. function, redirects_cmd_tab, handles the redirections for a command in the t_tab_cmd structure based on the type of redirection specified.
 
 int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 {
@@ -28,7 +28,7 @@ int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	return (0);
 }
 
-//it manages input & output redirects for the command table
+//This function, input_output_redirect, manages input and output redirection for a command specified in the t_tab_cmd structure
 
 int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 {
@@ -63,8 +63,7 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 
 // }
 
-//it waits for childs for end & updates the exit code which
-//based on the status of child process
+//This function, wait_for_childs, is responsible for waiting for the child processes to complete and updating the exit status of the minishell accordingly
 
 void	wait_for_childs(t_data *pntr)
 {

@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-//finds the length of variables
+//function, length_of_variable, calculates the length of a variable name starting from a given position in the input string n. It assumes that the variable name starts at index 1 in the string 'n' (i.e., after the initial '$' character). The function stops counting characters when it encounters a character that is not alphanumeric or an underscore ('_').
 
 int length_of_variable(char *n)
 {
@@ -14,7 +14,7 @@ int length_of_variable(char *n)
 	return (i);
 }
 
-//auxiliary func, works like strchr
+//function if_has checks if a given character 'c' is present in the string n. If the character is found, the function returns 1; otherwise, it returns 0. Works like strchr
 
 int if_has(const char *n, char c)
 {
@@ -27,9 +27,7 @@ int if_has(const char *n, char c)
 	return (0);
 }
 
-//it uses a string & a double pointer & returns the length of the part
-//of the string till the 1st occurrence of '$'. Then assign the part
-//to the first argument
+//function, substring_concatenation, searches for the first occurrence of the character $ in the provided string (string). When it finds the $ character or reaches the end of the string, it extracts a substring from the beginning of the string up to the position of the first $. The extracted substring is then stored in the pointer pntr. The function returns the index of the first $ character in the string.
 
 int	substring_concatenation(char *string, char **pntr)
 {

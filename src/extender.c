@@ -1,22 +1,20 @@
 #include "../include/minishell.h"
 
-//it test the beginning of a string whether it starts
-//with the substring we need
+//The substring_beginning function in the  project is designed to check whether the string start is a substring that appears at the beginning of the string word
 
 int	substring_beginning(char *word, char *start)
 {
-	int	i;
-
-	i = 0;
 	if (!word)
 		return (0);
-	while (start[i] && word[i] && start[i] == word[i])
-		i++;
-	return (start[i] == '\0');
+	while (*start && *word && *start == *word)
+	{
+		start++;
+		word++;
+	}
+	return (*start == '\0');
 }
 
-//it looks for a variable in the environment variables array
-//then returns the index of it or -1
+//function, variable_index, is designed to find the index of an environment variable in the given array of environment strings (env). It searches for a variable with a name matching the provided string n and returns the index of the matching variable in the array.
 
 int	variable_index(char **env, char *n)
 {
@@ -32,7 +30,7 @@ int	variable_index(char **env, char *n)
 	return (-1);
 }
 
-//it get the value of variable from the data struct
+//function value_of_variable is responsible for retrieving the value of a given environment variable from the environment variable array (pntr->env)
 
 char	*value_of_variable(t_data *pntr, char *i)
 {
@@ -46,14 +44,15 @@ char	*value_of_variable(t_data *pntr, char *i)
 	return (ft_strdup(pntr->env[j] + ft_strlen(i) + 1));
 }
 
-//the func change '$' with the variable value
+//The dollar_replacement function is responsible for replacing a variable reference (starting with '$') with its corresponding value in the given string
 
 int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
 {
-	int		length = length_of_variable(string);
+	int		length;
 	char	*value_buffer;
 	char	*key;
 
+	length = length_of_variable(string);
 	if (exception && length == 1)
 		return (*value = ft_strdup(""), length);
 	if (length == 1)
@@ -71,8 +70,7 @@ int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
 	return (length);
 }
 
-//the func spreads a local token with replacement of '$'
-//with the value from 'data' struct
+//The token_expansion function handle the expansion of tokens in a shell, specifically focusing on replacing variables prefixed with the '$' symbol.
 
 int	token_expansion(char *var, t_data *pntr, int i, int j)
 {
@@ -103,7 +101,7 @@ int	token_expansion(char *var, t_data *pntr, int i, int j)
 	return (0);
 }
 
-// the func if there is an exception in the data structure
+// the func checks if there is an exception in the data structure
 
 int	if_exception(t_data *pntr, int i)
 {
@@ -112,18 +110,15 @@ int	if_exception(t_data *pntr, int i)
 		&& pntr->count_token > (i + 1));
 }
 
-// what if we have "$" or "?" inside of a token? we need replace
-// key with exception the func extends tokens after checking variables
+//The extender function is a part of the tokenization process in a shell program, specifically handling token expansion
 
 int	extender(t_data *pntr)
 {
 	int	exception;
-	int	stop;
 	int	i;
 
-	stop = pntr->count_token;
 	i = 0;
-	while (i < stop)
+	while (i < pntr->count_token)
 	{
 		if (pntr->tokens[i].type == REDIRECT_MULTILINE)
 		{

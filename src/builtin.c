@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-//it's responsible for restoring file descriptors to their original states after executing a command
+//recreate_file_descriptors is responsible for resetting file descriptors, closing unnecessary file descriptors, and performing cleanup tasks after executing a command in the shell.
 
 void	recreate_file_descriptors(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 {
@@ -23,8 +23,7 @@ void	recreate_file_descriptors(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pip
 	}
 }
 
-//it creates file descriptors for input/output in the builtin command
-//finishes a pipe file descriptor
+//create_builtin_fd prepares the file descriptors for input and output redirection and handles pipes for a built-in command before its execution.
 
 void	create_builtin_fd(t_tab_cmd *cmd_tab, int *pipe_fd)
 {
@@ -63,7 +62,7 @@ void	shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 	recreate_file_descriptors(pntr, cmd_tab, i, pipe_fd);
 }
 
-//check whether a given command is a built-in command
+//This function, if_builtin, checks if a given command is a built-in command by comparing its name (cmd_tab->cmd) with a list of known built-in command names. 
 
 int	if_builtin(t_tab_cmd *cmd_tab)
 {

@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/28 20:18:15 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/12/30 22:32:11 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ char	*cmd_fullpath(t_data *data, char *cmd)
 	return (NULL);
 }
 
-//sets the output & input file descriptors for a command table based on the specified input & output files or the next & previous files descriptors
+//This function, change_fd_input_output, is responsible for updating the input and output file descriptors (in_fd and out_fd) of a command in the t_tab_cmd structure
+
 int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 {
 	if (tab_cmd->file_in != -1)
@@ -103,7 +104,7 @@ int	change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i)
 	return (0);
 }
 
-//it handles redirects of input/output for pipeline commands
+//This function, pipelines_redirect, is responsible for managing file descriptors and closing unnecessary pipes during the execution of a command within a pipeline
 
 int	pipelines_redirect(t_data *pntr, int i, int *pip)
 {

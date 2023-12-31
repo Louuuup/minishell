@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-//it creates a temp filename for a heredoc file
+//the name_create_multiline function generates a unique file name for a temporary file used in the context of a multiline input (here document) by combining a constant string with the string representation of an integer
 
 char	*name_create_multiline(int i)
 {
@@ -15,7 +15,7 @@ char	*name_create_multiline(int i)
 	return (file_name);
 }
 
-//it replaces '$' with appropriate value in a string
+//the using_dollar function handles the expansion of variables prefixed with a dollar sign ('$') in a given string. It calculates the length of the variable name, extracts the variable name, retrieves its value, and sets the result accordingly. If the expansion is within an arithmetic expression, it returns an empty string for length 1
 
 int	using_dollar(char *letter, char **result, t_data *pntr, int e)
 {
@@ -41,8 +41,7 @@ int	using_dollar(char *letter, char **result, t_data *pntr, int e)
 	return (length);
 }
 
-//it broadens the local token and replace each '$'
-//with the value from data struct
+//the broaden_local_token function iterates through each character in the input string, expanding local variables starting with a dollar sign ('$'). It uses the using_dollar function for variable expansion and handles character concatenation. The result is the expanded string with resolved local variables
 
 char	*broaden_local_token(t_data *pntr, char *letter)
 {
@@ -73,7 +72,7 @@ char	*broaden_local_token(t_data *pntr, char *letter)
 	return (free(buffer_value), result);
 }
 
-//it reads user input, stops on the delimiter, writes to a file descriptor
+//function provides a mechanism for the user to input multiple lines until a specified delimiter is encountered. Each line is processed using broaden_local_token and written to the specified file descriptor. The function takes care of handling user interrupts and memory allocation errors.
 
 int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
 {
@@ -104,8 +103,7 @@ int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
 	return (0);
 }
 
-//it makes a temp file, puts the heredoc into it,
-//then unlinks the file or sets it as the input
+//function provides a way to handle here-documents by creating temporary files, capturing user input, and then processing the input based on the redirection specifications. The temporary file is deleted after use unless additional redirection is specified (tab_cmd->redirections[i].no_space == 3)
 
 int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 {

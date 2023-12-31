@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+//function in the minishell project of Ecole 42 is responsible for initializing the environment data in the t_data structure. It takes as input the t_data pointer (data) and an array of strings (env) representing the environment variables.
+
 void env_init(t_data *data, char **env)
 {
 	int i;

@@ -1,7 +1,6 @@
 #include "../include/minishell.h"
 
-//'copy_normalization' copies what we have in 'temp' array to 'new_tokens' array
-//inserting spaces and redirections
+//the copy_normalization function copies tokens from a temporary array to a new array while performing certain normalization checks, such as merging tokens with the previous one if necessary and marking specific tokens with no_space values.
 
 int copy_normalization(t_token *new_tokens_array, int *i, int *j, char **tmp)
 {
@@ -29,7 +28,7 @@ int copy_normalization(t_token *new_tokens_array, int *i, int *j, char **tmp)
 	return (0);
 }
 
-//'clean_double_pointer' clean memory for the double pointer and set it to NULL
+//the clean_double_pointer function is a memory cleanup function that frees the memory associated with a dynamically allocated array of strings and sets the double pointer to NULL to avoid potential dangling pointers
 
 void	clean_double_pointer(char **pnt)
 {
@@ -48,8 +47,7 @@ void	clean_double_pointer(char **pnt)
 	}
 }
 
-//'split_words' breaks a string into separated words and then put them to
-//a new array of tokens
+//the words_splitting function splits a token's value into words, copies and normalizes those words into a new array of tokens, and then cleans up the temporary array of words
 
 int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 {
@@ -72,8 +70,7 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 	return (0);
 }
 
-//'copy_concat_create' function makes a copy of a token's value to a new array of tokens.
-//It could be concatenation of the token's value we had before or creating a new string
+//the copy_concat_create function handles the copying and concatenation of values from the original array of tokens to a new array of tokens, taking into account the no_space flag for proper concatenation
 
 int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
 {
@@ -95,9 +92,7 @@ int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
 	return (0);
 }
 
-//token_copy function takes copies of a token from the t_data struct to
-//the array of new tokens. At the same time it handles different types of
-//tokens and splits words
+//the token_copy function copies tokens from the original array to the new array, handling different token types appropriately and considering the no_space flag. If the token is of type WORD, it may call words_splitting to handle potential splitting of the token's value.
 
 int	token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j)
 {

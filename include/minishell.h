@@ -17,6 +17,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <errno.h>
+# include <dirent.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0

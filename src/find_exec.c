@@ -47,7 +47,7 @@ int find_exec(t_data *pntr, t_tab_cmd *cmd_tab)
 		return (1);
 	}
 	if (cmd_tab->cmd[0] == '.' || ft_strchr(cmd_tab->cmd, '/') != 0)
-		return ("LATER!!!");
+		return (check_valid_execution(cmd_tab, pntr));
 	
 	return (1);
 }

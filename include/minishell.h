@@ -122,6 +122,7 @@ typedef struct s_data
 	int			first_stdin;
 	int			first_stdout;
 	t_set_mode	mode;
+	char		**path;
 }	t_data;
 
 

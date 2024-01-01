@@ -36,7 +36,7 @@ int	path_searching(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	char	*result;
 	char	*temporary;
 
-	while (pntr->path && pntr->path[++i])
+	while (pntr->path[++i] && pntr->path)
 	{
 		if (tab_cmd->cmd[0] == '\0')
 			break ;
@@ -57,7 +57,7 @@ int	path_searching(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 		}
 		free(result);
 	}
-	return (1);
+	return (find_path);
 }
 
 //is responsible for locating an executable binary in the system
@@ -79,6 +79,6 @@ int find_exec(t_data *pntr, t_tab_cmd *cmd_tab)
 	}
 	if (cmd_tab->cmd[0] == '.' || ft_strchr(cmd_tab->cmd, '/') != 0)
 		return (check_valid_execution(cmd_tab, pntr));
-	
+	result = 
 	return (1);
 }

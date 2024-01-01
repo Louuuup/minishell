@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/30 22:32:11 by mkramer          ###   ########.fr       */
+/*   Updated: 2023/12/31 20:25:43 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,33 @@ int	pipelines_redirect(t_data *pntr, int i, int *pip)
 		unlink(pntr->cmdt[i].last_multiline);
 		free(pntr->cmdt[i].last_multiline);
 	}
+	return (1);
+}
+
+//function finds the executable path of a command by looking in the current directory. If successful, it updates the command with the full path, and if not, it returns an error code. The function also handles memory allocation errors gracefully
+
+int	find_path(t_data *pntr, t_tab_cmd *tab_cmd)
+{
+	char	*temporary;
+	char	*result;
+
+	if (tab_cmd->cmd[0] == '\0')
+		return (1);
+	if (pntr->path != NULL)
+		return (1);
+	temporary = ft_strdup("./");
+	if (!temporary)
+		return (error_out(pntr, 1) + 1);
+	result = ft_strjoin(temporary, tab_cmd->cmd);
+	if (!result)
+		return (error_out(pntr, 1) + 1);
+	if (access(result, X_OK) == 0)
+	{
+		temporary = tab_cmd->cmd;
+		tab_cmd->cmd = result;
+		free(temporary);
+		return (0);
+	}
+	free(result);
 	return (1);
 }

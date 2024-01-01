@@ -184,6 +184,7 @@ char	*cmd_fullpath(t_data *data, char *cmd);
 void	ft_dup2(int fd, int std);
 void	ft_pipe(t_cmd *cmd);
 int		change_fd_input_output(t_data *pntr, t_tab_cmd *tab_cmd, int *fd, int i);
+int		find_path(t_data *pntr, t_tab_cmd *tab_cmd);
 //
 //==================[b_cd.c]===================//
 // void	built_cd(char **args, int argc);

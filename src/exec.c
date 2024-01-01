@@ -1,5 +1,46 @@
 #include "minishell.h"
 
+void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i)
+{
+
+}
+
+void	total_clean(t_data *pntr)
+{
+
+}
+
+// The function creates a child process to execute the specified command, handling input and output redirection, executes the commands using execve and managing file descriptors in the parent process.
+
+void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
+{
+	tab_cmd->pid = fork();
+
+	if (tab_cmd->pid < 0)
+		return ((void)error_out(pntr, 1));
+	if (!tab_cmd->pid)
+	{
+		if (dup2(tab_cmd->in_fd, STDIN_FILENO) && tab_cmd->in_fd != -1)
+			close(tab_cmd->in_fd);
+		close(fd_pipe[0]);
+		if (dup2(tab_cmd->out_fd, STDOUT_FILENO) && tab_cmd->out_fd != -1)
+			close(tab_cmd->out_fd);
+		set_mode(pntr, CHILD);
+		execve(tab_cmd->cmd, tab_cmd->args, pntr->env);
+		error_out(pntr, 1);
+		total_clean(pntr);
+		exit(1);
+	}
+	close(fd_pipe[1]);
+	if (pntr->fd_before != -1)
+		close(pntr->fd_before);
+	if (pntr->cmdt_count - 1 != i)
+		pntr->fd_before = fd_pipe[0];
+	else
+		close(fd_pipe[0]);
+	fd_cleaning(pntr, tab_cmd, i);
+}
+
 //function, redirects_cmd_tab, handles the redirections for a command in the t_tab_cmd structure based on the type of redirection specified. function, redirects_cmd_tab, handles the redirections for a command in the t_tab_cmd structure based on the type of redirection specified.
 
 int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
@@ -126,23 +167,20 @@ void	alt_exec_main(t_data *pntr)
 	int	pip[2];
 
 	i = -1;
-	//put field in data struct holding state of previous fd to -1
 	pntr->fd_before = -1;
 	while(pntr->cmdt_count > ++i)
 	{
 		if (pipe(pip) == -1)
 			return ((void)error_out(pntr, 1));
-		//manage the redirection of input and output for a command in a pipeline
 		if (pipelines_redirect(pntr, i, pip) && input_output_redirect(pntr, &pntr->cmdt[i]) == 1)
 			continue ;
-		//sets the input and output file descriptors for a command table based on the specified input & output files or the previous files descriptors
 		change_fd_input_output(pntr, &pntr->cmdt[i], pip, i);
 		if (if_builtin(&pntr->cmdt[i]) == 1)
 			shoot_builtin(pntr, &pntr->cmdt[i], i, pip);
 		else
 		{
-			if (find_exec(pntr, &pntr->cmdt[i]) == 0)
-				return ("LATER");
+			if (++pntr->cmdt[i].is_child_process && find_exec(pntr, &pntr->cmdt[i]) == 0)
+				command_execution(pntr, &pntr->cmdt[i], i, pip);
 			else
 				pipelines_redirect(pntr, i, pip);
 		}

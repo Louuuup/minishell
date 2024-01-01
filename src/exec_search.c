@@ -141,7 +141,7 @@ int find_exec(t_data *pntr, t_tab_cmd *tab_cmd)
 		return (0);
 	else if (result == 2)
 		return (1);
-	if ()
+	if (is_exist(pntr, tab_cmd, i) == 1)
 	{
 		ft_putstr_fd("minishell: command not found\n", 2);
 		pntr->code_exit = 127;

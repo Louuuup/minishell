@@ -1,24 +1,5 @@
 #include "minishell.h"
 
-
-void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i)
-{
-	if (tab_cmd->out_fd	!= -1)
-		close(tab_cmd->out_fd);
-	else if (tab_cmd->in_fd != -1)
-		close(tab_cmd->in_fd);
-	if (pntr->cmdt[i].last_multiline)
-	{
-		unlink(pntr->cmdt[i].last_multiline);
-		free(pntr->cmdt[i].last_multiline);
-	}
-}
-
-void	total_clean(t_data *pntr)
-{
-
-}
-
 // The function creates a child process to execute the specified command, handling input and output redirection, executes the commands using execve and managing file descriptors in the parent process.
 
 void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)

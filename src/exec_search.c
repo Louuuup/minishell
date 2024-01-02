@@ -137,7 +137,7 @@ int find_exec(t_data *pntr, t_tab_cmd *tab_cmd)
 	if (tab_cmd->cmd[0] == '.' || ft_strchr(tab_cmd->cmd, '/') != 0)
 		return (check_valid_execution(tab_cmd, pntr));
 	result = path_searching(pntr, tab_cmd, i);
-	if (result == NULL)
+	if (result == 0)
 		return (0);
 	else if (result == 2)
 		return (1);

@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <dirent.h>
+# include <limits.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0

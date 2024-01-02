@@ -6,11 +6,26 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:58:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/02 16:51:47 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/02 17:13:54 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// function checks if a given string is a valid argument for numeric operations. It ensures that the string represents a valid number by examining its characters.
+
+int ok_for_numeric(char *s)
+{
+    while (*s == '-' || *s == '+' || *s == ' ')
+        s++;
+    while (*s)
+    {
+        if (!ft_isdigit(*s))
+            return (1);
+        s++;
+    }
+    return (0);
+}
 
 //function is designed to convert a string representation of a number to a long int, considering leading whitespace and sign, and it includes checks for overflow conditions.
 

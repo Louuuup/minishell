@@ -1,10 +1,32 @@
 #include "minishell.h"
 
-//cleans memory taken by pntr->cmdt
+//cleans memory allocated by the command table (pntr->cmdt)
 
 void	cmdt_cleaning(t_data *pntr)
 {
-
+	if (pntr->cmdt)
+	{
+		while (0 < pntr->cmdt_count--)
+		{
+			if (pntr->cmdt[pntr->cmdt_count].args)
+				while (0 < pntr->cmdt[pntr->cmdt_count].num_args--)
+					free(pntr->cmdt[pntr->cmdt_count].args[pntr->cmdt[pntr->cmdt_count].num_args]);
+			if (pntr->cmdt[pntr->cmdt_count].args)
+				free(pntr->cmdt[pntr->cmdt_count].args);
+			pntr->cmdt[pntr->cmdt_count].args = NULL;
+			if (pntr->cmdt[pntr->cmdt_count].redirections)
+				while (0 < pntr->cmdt[pntr->cmdt_count].num_redirections--)
+					free(pntr->cmdt[pntr->cmdt_count].redirections[pntr->cmdt[pntr->cmdt_count].num_redirections].value);
+			if (pntr->cmdt[pntr->cmdt_count].redirections)
+				free(pntr->cmdt[pntr->cmdt_count].redirections);
+			pntr->cmdt[pntr->cmdt_count].redirections = NULL;
+			if (pntr->cmdt[pntr->cmdt_count].cmd)
+				free(pntr->cmdt[pntr->cmdt_count].cmd);
+			pntr->cmdt[pntr->cmdt_count].cmd = NULL;
+		}
+		free(pntr->cmdt);
+		pntr->cmdt = NULL;
+	}
 }
 
 //the function is responsible for freeing memory allocated for various components of the t_data structure
@@ -30,10 +52,7 @@ void	pntr_cleaning(t_data *pntr)
 	if (pntr->path)
 	{
 		while (pntr->path[i])
-		{
-			free(pntr->path[i]);
-			i++;
-		}
+			free(pntr->path[i++]);
 		free(pntr->path);
 		pntr->path = NULL;
 	}
@@ -44,14 +63,12 @@ void	pntr_cleaning(t_data *pntr)
 void	double_pntr_cleaning(char **pntr)
 {
 	if (!pntr)
-		return;
-
+		return ;
 	while (*pntr)
 	{
 		free(*pntr);
 		*pntr++ = NULL;
 	}
-
 	free(pntr);
 	pntr = NULL;
 }
@@ -60,7 +77,7 @@ void	double_pntr_cleaning(char **pntr)
 
 void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 {
-	if (tab_cmd->out_fd	!= -1)
+	if (tab_cmd->out_fd != -1)
 		close(tab_cmd->out_fd);
 	else if (tab_cmd->in_fd != -1)
 		close(tab_cmd->in_fd);
@@ -76,7 +93,7 @@ void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 void	total_clean(t_data *pntr)
 {
 	double_pntr_cleaning(pntr->env);
-
+	pntr_cleaning(pntr);
 	close(pntr->first_stdin);
 	close(pntr->first_stdout);
 }

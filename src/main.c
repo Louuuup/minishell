@@ -20,8 +20,9 @@ void env_init(t_data *data, char **env)
 
 int	main(int argc, char *argv[], char **env_p)
 {
+	// t_data *data;
 	t_data *data;
-
+	
 	(void)argv;
 	if (argc != 1)
 	{

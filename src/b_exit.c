@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:58:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/02 22:10:26 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/03 18:04:17 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,13 @@ void	built_exit(t_data *pntr, t_tab_cmd *tab_cmd)
 		return ;
 	}
 	built_exit_annex(pntr, tab_cmd, 0, cnt);
+}
+
+//function is used to exit the shell program with a specified exit code
+void	fd_exit(t_data *pntr, int code_exit)
+{
+	if (code_exit == 1)
+		perror("An error!");
+	total_clean(pntr);
+	exit(1);
 }

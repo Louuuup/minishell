@@ -151,6 +151,8 @@ void	exec_main(t_data *data)
 	}
 }
 
+//the function is responsible for managing the execution of multiple commands in a shell program, handling pipelines, redirections, and executing both built-in and external commands.
+
 void	alt_exec_main(t_data *pntr)
 {
 	int	i;

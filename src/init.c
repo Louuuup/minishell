@@ -27,7 +27,8 @@ char	**string_to_array(char **source)
 	{
 		copy[i] = ft_strdup(source[i]);
 		if (copy[i] == NULL)
-			return ()
+			return (free_string_array(copy), NULL);
+		i++;
 	}
 	copy[i] = NULL;
 	return (copy);

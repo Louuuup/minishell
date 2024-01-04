@@ -74,4 +74,16 @@ int	increase_shlvl(t_data *pntr)
 	if (shlvl == -1)
 		return (create_env_var(pntr, "SHLVL", "1"));
 	curr = ft_atoi(pntr->env[shlvl] + 6);
+	if (curr == 0)
+		return (1);
+	new_value = ft_itoa(curr + 1);
+	if (!new_value)
+		return (1);
+	new_shlvl = ft_strcat("SHLVL=", new_value);
+	free(new_value);
+	if (!new_shlvl)
+		return (1);
+	free(pntr->env[shlvl]);
+	pntr->env[shlvl] = new_shlvl;
+	return (0);
 }

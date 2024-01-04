@@ -20,7 +20,6 @@ void env_init(t_data *data, char **env)
 
 int	main(int argc, char *argv[], char **env_p)
 {
-	// t_data *data;
 	t_data *data;
 	
 	(void)argv;
@@ -44,3 +43,23 @@ int	main(int argc, char *argv[], char **env_p)
 	free_all(data);
     return (0);
 }
+
+// int	main(int argc, char *argv[], char **env_p)
+// {
+// 	t_data pnt;
+	
+// 	(void)argv;
+// 	if (argc != 1)
+// 	{
+// 		(ft_putstr_fd("Error: too many arguments\n", 2));
+// 		return (2);
+// 	}
+// 	init_pntr(&pnt, env_p);
+// 	while (TRUE)
+// 	{
+// 		set_mode(&pnt, INTERACT);
+// 		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt))
+// 			alt_exec_main(&pnt);
+// 	}
+//     return (0);
+// }

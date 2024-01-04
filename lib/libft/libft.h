@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:15:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/03 18:25:24 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/04 17:21:41 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int		arr_len(char **arr);
 char	*ft_strcat(const char *s1, const char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_split_length(char **arr);
+char	*ft_strstr(const char *s1, const char *s2);
 
 #endif

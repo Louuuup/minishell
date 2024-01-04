@@ -178,6 +178,7 @@ void    shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd);
 //
 //==================[exec.c]===================//
 void	exec_main(t_data *data);
+void	alt_exec_main(t_data *pntr);
 //
 //==================[exec_utils.c]===================//
 char	*ft_get_env(char *str, char **env);

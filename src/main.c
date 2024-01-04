@@ -9,8 +9,16 @@ char	**path_getter(t_data *pnt, int i)
 
 	while (pnt->env[i++])
 	{
-		found = ft_strnstr();
+		found = ft_strstr(pnt->env[i], "PATH=");
+		if (found)
+			break ;
 	}
+	if (!pnt->env[i])
+		return (NULL);
+	result = ft_split(found, ':');
+	if (!result)
+		return (error_out(pnt, 1), NULL);
+	return (result);
 }
 
 //function in the minishell project of Ecole 42 is responsible for initializing the environment data in the t_data structure. It takes as input the t_data pointer (data) and an array of strings (env) representing the environment variables. (130 == CTRL+C)
@@ -79,7 +87,7 @@ int	main(int argc, char *argv[], char **env_p)
 			built_exit(&pnt, NULL);
 		if (pnt.input[0] != '\0')
 			add_history(pnt.input);
-		pnt.path = 
+		pnt.path = path_getter(&pnt, -1);
 		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt))
 			alt_exec_main(&pnt);
 	}

@@ -52,4 +52,9 @@ void    init_pntr(t_data *pntr, char **env)
 	pntr->count_token = 0;
 	init_start_file_desc(pntr);
 	copy_env = string_to_array(env);
+	if (copy_env == NULL)
+		fd_exit(pntr, 1);
+	pntr->env = copy_env;
+	if (increase_shlvl(pntr) == 1)
+		fd_exit(pntr, 0);
 }

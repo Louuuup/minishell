@@ -19,3 +19,13 @@ void	free_string_array(char **pnt)
 		pnt = NULL;
 	}
 }
+
+
+//function is used to exit the shell program with a specified exit code
+void	fd_exit(t_data *pntr, int code_exit)
+{
+	if (code_exit == 1)
+		perror("An error!");
+	total_clean(pntr);
+	exit(1);
+}

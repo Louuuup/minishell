@@ -192,7 +192,6 @@ int		find_path(t_data *pntr, t_tab_cmd *tab_cmd);
 //
 //==================[b_exit.c]===================//
 void	built_exit(t_data *pntr, t_tab_cmd *cmd_tab);
-void	fd_exit(t_data *pntr, int code_exit);
 //
 //==================[b_echo.c]===================//
 void	built_echo(char **args, int argc, int fd_out);
@@ -258,5 +257,8 @@ void	total_clean(t_data *pntr);
 void    init_pntr(t_data *pntr, char **env);
 //==================[exit_utils.c]===================//
 void	free_string_array(char **pnt);
+void	fd_exit(t_data *pntr, int code_exit);
+//==================[env.c]===================//
+int		increase_shlvl(t_data *pntr);
 
 #endif

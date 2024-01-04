@@ -256,5 +256,7 @@ void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i);
 void	total_clean(t_data *pntr);
 //==================[init.c]===================//
 void    init_pntr(t_data *pntr, char **env);
+//==================[exit_utils.c]===================//
+void	free_string_array(char **pnt);
 
 #endif

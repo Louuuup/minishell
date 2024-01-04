@@ -20,6 +20,17 @@ char	**string_to_array(char **source)
 	int		i;
 
 	copy = (char **)ft_calloc(sizeof(char *), ft_split_length(source) + 1);
+	if (copy == NULL)
+		return (NULL);
+	i = 0;
+	while (source[i] != NULL)
+	{
+		copy[i] = ft_strdup(source[i]);
+		if (copy[i] == NULL)
+			return ()
+	}
+	copy[i] = NULL;
+	return (copy);
 }
 
 //initiates the variables to defaults

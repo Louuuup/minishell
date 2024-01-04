@@ -9,7 +9,7 @@ SRC = main.c	utils.c		t_utils.c	prompt.c	builtin.c	exec_utils.c \
 		parser.c	parser_utils.c	tokener_filling.c	parser_merge_words.c \
 		parser_func.c	b_unset.c	b_exit.c	exec.c	extender.c \
 		extender_utils.c	multiline.c	signal.c	exec_search.c cleaning.c \
-		init.c
+		init.c	exit_utils.c
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))

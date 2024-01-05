@@ -46,7 +46,7 @@ void	shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 {
 	create_builtin_fd(cmd_tab, pipe_fd);
 	if (ft_strcmp(cmd_tab->cmd, "exit") == 0)
-		// built_exit(pntr, cmd_tab);
+		built_exit(pntr, cmd_tab);
 	if (ft_strcmp(cmd_tab->cmd, "env") == 0)
 		// built_env(pntr, cmd_tab);
 	if (ft_strcmp(cmd_tab->cmd, "unset") == 0)
@@ -64,21 +64,21 @@ void	shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 
 //This function, if_builtin, checks if a given command is a built-in command by comparing its name (cmd_tab->cmd) with a list of known built-in command names. 
 
-int	if_builtin(t_tab_cmd *cmd_tab)
+int	if_builtin(t_tab_cmd *tab_cmd)
 {
-	if (ft_strcmp(cmd_tab->cmd, "exit") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "exit") == 0)
 		return (1);
-	if (ft_strcmp(cmd_tab->cmd, "cd") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "cd") == 0)
 		return (1);
-	if (ft_strcmp(cmd_tab->cmd, "env") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "env") == 0)
 		return (1);
-	if (ft_strcmp(cmd_tab->cmd, "unset") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "unset") == 0)
 		return (1);
-	if (ft_strcmp(cmd_tab->cmd, "export") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "export") == 0)
 		return (1);
-	if (ft_strcmp(cmd_tab->cmd, "pwd") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "pwd") == 0)
 		return (1);
-	if (ft_strcmp(cmd_tab->cmd, "echo") == 0)
+	if (ft_strcmp(tab_cmd->cmd, "echo") == 0)
 		return (1);
 	return (0);
 }

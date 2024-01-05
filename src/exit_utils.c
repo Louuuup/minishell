@@ -7,19 +7,16 @@ void	free_string_array(char **pnt)
 	int	i;
 	i = 0;
 	if (pnt)
-	{
-		
+	{	
 		while (pnt[i])
 		{
 			free(pnt[i]);
 			pnt[i++] = NULL;
 		}
-
 		free(pnt);
 		pnt = NULL;
 	}
 }
-
 
 //function is used to exit the shell program with a specified exit code
 void	fd_exit(t_data *pntr, int code_exit)

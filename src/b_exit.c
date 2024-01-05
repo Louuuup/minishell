@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:58:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/03 19:20:08 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/05 16:12:17 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 int	ok_for_numeric(char *s)
 {
-	while (*s == '-' || *s == '+' || *s == ' ')
+	if (ft_isdigit(*s) == 1 || *s == '-' || *s == '+')
 		s++;
+	else
+		return (1);
 	while (*s)
 	{
 		if (!ft_isdigit(*s))
@@ -104,17 +106,19 @@ void	built_exit(t_data *pntr, t_tab_cmd *tab_cmd)
 		total_clean(pntr);
 		exit(pntr->code_exit);
 	}
-	if (tab_cmd && tab_cmd->num_args > 2)
-		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2)),
-			(void)(pntr->code_exit = 1);
 	if (tab_cmd && tab_cmd->num_args > 1
 		&& ok_for_numeric(tab_cmd->args[1]) == 1)
 	{
 		ft_putstr_fd("minishell: exit: need numeric args\n", 2);
 		pntr->code_exit = 2;
 		if (cnt < 2)
+			total_clean(pntr);
+		if (cnt < 2)
 			exit(pntr->code_exit);
 		return ;
 	}
+	if (tab_cmd && tab_cmd->num_args > 2)
+		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2)),
+			(void)(pntr->code_exit = 1);
 	built_exit_annex(pntr, tab_cmd, 0, cnt);
 }

@@ -1,11 +1,12 @@
 #include "minishell.h"
 
-// The function creates a child process to execute the specified command, handling input and output redirection, executes the commands using execve and managing file descriptors in the parent process.
+// The function creates a child process to execute the specified command,
+//handling input and output redirection, executes the commands using
+//execve and managing file descriptors in the parent process.
 
 void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 {
 	tab_cmd->pid = fork();
-
 	if (tab_cmd->pid < 0)
 		return ((void)error_out(pntr, 1));
 	if (!tab_cmd->pid)
@@ -31,14 +32,17 @@ void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 	fd_cleaning(pntr, tab_cmd, i);
 }
 
-//function, redirects_cmd_tab, handles the redirections for a command in the t_tab_cmd structure based on the type of redirection specified. function, redirects_cmd_tab, handles the redirections for a command in the t_tab_cmd structure based on the type of redirection specified.
+//function, redirects_cmd_tab, handles the redirections for a command in
+//the t_tab_cmd structure based on the type of redirection specified.
+//function, redirects_cmd_tab, handles the redirections for a command in
+//the t_tab_cmd structure based on the type of redirection specified.
 
 int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 {
 	if (tab_cmd->redirections[i].type == REDIRECT_MULTILINE)
 	{
 		if (create_heredoc(pntr, tab_cmd, i) == 1)
-			return (1);		
+			return (1);
 	}
 	else if (tab_cmd->redirections[i].type == REDIRECT_APPEND)
 	{
@@ -46,7 +50,8 @@ int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 			return (error_out(pntr, 1));
 		if (tab_cmd->file_out != -1)
 			close(tab_cmd->file_out);
-		tab_cmd->file_out = open(tab_cmd->redirections[i].value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	else if (tab_cmd->redirections[i].type == REDIRECT_OUT)
 	{
@@ -54,12 +59,14 @@ int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 			return (error_out(pntr, 1));
 		if (tab_cmd->file_out != -1)
 			close(tab_cmd->file_out);
-		tab_cmd->file_out = open(tab_cmd->redirections[i].value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	return (0);
 }
 
-//This function, input_output_redirect, manages input and output redirection for a command specified in the t_tab_cmd structure
+//This function, input_output_redirect, manages input and output
+//redirection for a command specified in the t_tab_cmd structure
 
 int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 {
@@ -68,7 +75,8 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 	i = 0;
 	while (tab_cmd->num_redirections > i)
 	{
-		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE && tab_cmd->redirections[i].no_space == 2)
+		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE
+			&& tab_cmd->redirections[i].no_space == 2)
 		{
 			ft_putstr_fd("minishell: re-direction to nowhere\n", 2);
 			pntr->code_exit = 1;
@@ -94,7 +102,9 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 
 // }
 
-//This function, wait_for_childs, is responsible for waiting for the child processes to complete and updating the exit status of the minishell accordingly
+//This function, wait_for_childs, is responsible for waiting for the
+//child processes to complete and updating the exit status of the
+//minishell accordingly
 
 void	wait_for_childs(t_data *pntr)
 {
@@ -102,7 +112,7 @@ void	wait_for_childs(t_data *pntr)
 	int	status;
 
 	i = 0;
-	while(pntr->cmdt_count > i)
+	while (pntr->cmdt_count > i)
 	{
 		if (pntr->cmdt[i].is_child_process == 1)
 			waitpid(pntr->cmdt[i].pid, &status, 0);
@@ -130,7 +140,7 @@ void	exec_main(t_data *data)
 	if (!data->cmd)
 		return ;
 	tmp = data->cmd;
-	while(tmp)
+	while (tmp)
 	{
 		if (tmp->cmd_idx == 0 && data->cmdt->in_fd > 0)
 			tmp->fd[0] = data->cmdt->in_fd;
@@ -151,7 +161,9 @@ void	exec_main(t_data *data)
 	}
 }
 
-//the function is responsible for managing the execution of multiple commands in a shell program, handling pipelines, redirections, and executing both built-in and external commands.
+//the function is responsible for managing the execution of multiple
+//commands in a shell program, handling pipelines, redirections, and
+//executing both built-in and external commands.
 
 void	alt_exec_main(t_data *pntr)
 {
@@ -160,23 +172,24 @@ void	alt_exec_main(t_data *pntr)
 
 	i = -1;
 	pntr->fd_before = -1;
-	while(pntr->cmdt_count > ++i)
+	while (pntr->cmdt_count > ++i)
 	{
 		if (pipe(pip) == -1)
 			return ((void)error_out(pntr, 1));
-		if (pipelines_redirect(pntr, i, pip) && input_output_redirect(pntr, &pntr->cmdt[i]) == 1)
+		if (pipelines_redirect(pntr, i, pip)
+			&& input_output_redirect(pntr, &pntr->cmdt[i]) == 1)
 			continue ;
 		change_fd_input_output(pntr, &pntr->cmdt[i], pip, i);
 		if (if_builtin(&pntr->cmdt[i]) == 1)
 			shoot_builtin(pntr, &pntr->cmdt[i], i, pip);
 		else
 		{
-			if (++pntr->cmdt[i].is_child_process && find_exec(pntr, &pntr->cmdt[i]) == 0)
+			if (++pntr->cmdt[i].is_child_process
+				&& find_exec(pntr, &pntr->cmdt[i]) == 0)
 				command_execution(pntr, &pntr->cmdt[i], i, pip);
 			else
 				pipelines_redirect(pntr, i, pip);
 		}
-		i++;
 	}
 	wait_for_childs(pntr);
 }

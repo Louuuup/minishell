@@ -5,6 +5,7 @@
 void	free_string_array(char **pnt)
 {
 	int	i;
+	
 	i = 0;
 	if (pnt)
 	{	

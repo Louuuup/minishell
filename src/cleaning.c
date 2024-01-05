@@ -45,17 +45,15 @@ void	pntr_cleaning(t_data *pntr)
 	}
 	cmdt_cleaning(pntr);
 	if (pntr->input)
-	{
 		free(pntr->input);
-		pntr->input = NULL;
-	}
+	pntr->input = NULL;
 	if (pntr->path)
 	{
 		while (pntr->path[i])
 			free(pntr->path[i++]);
 		free(pntr->path);
-		pntr->path = NULL;
 	}
+	pntr->path = NULL;
 }
 
 //function for safely freeing the memory associated with an array of strings

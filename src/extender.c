@@ -103,7 +103,7 @@ int	token_expansion(char *var, t_data *pntr, int i, int j)
 
 // the func checks if there is an exception in the data structure
 
-int	if_exception(t_data *pntr, int i)
+int	check_exception(t_data *pntr, int i)
 {
 	return (pntr->tokens[i].type == WORD && pntr->tokens[i + 1].type != WORD
 		&& pntr->tokens[i].no_space && ft_strlen(pntr->tokens[i].value) == 1
@@ -129,7 +129,7 @@ int	extender(t_data *pntr)
 		if (if_has(pntr->tokens[i].value, '$')
 			&& (pntr->tokens[i].type == DQUOTE || pntr->tokens[i].type == WORD))
 		{
-			exception = if_exception(pntr, i);
+			exception = check_exception(pntr, i);
 			if (token_expansion(pntr->tokens[i].value, pntr, i, exception) == 2)
 				return (2);
 		}

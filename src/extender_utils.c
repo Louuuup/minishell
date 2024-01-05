@@ -21,8 +21,10 @@ int if_has(const char *n, char c)
 	if (!n)
 		return (0);
 	while (*n)
-	{   if (*n == c)
+	{   
+		if (*n == c)
 			return (1);
+		n++;
 	}
 	return (0);
 }

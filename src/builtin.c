@@ -4,14 +4,14 @@
 
 void	recreate_file_descriptors(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 {
-	if (cmd_tab->out_fd != -1)
-		close(cmd_tab->out_fd);
 	if (pntr->cmdt_count - 1 != i)
 		pntr->fd_before = pipe_fd[0];
+	if (cmd_tab->out_fd != -1)
+		close(cmd_tab->out_fd);
 	else
 		close(pipe_fd[0]);
-	dup2(pntr->first_stdout, STDOUT_FILENO);
 	dup2(pntr->first_stdin, STDIN_FILENO);
+	dup2(pntr->first_stdout, STDOUT_FILENO);
 	if (cmd_tab->out_fd != -1)
 		close(cmd_tab->out_fd);
 	if (cmd_tab->in_fd != -1)

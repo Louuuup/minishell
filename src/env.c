@@ -23,7 +23,7 @@ int	search_variable(char **ev, char *name)
 	i = 0;
 	while (ev[i])
 	{
-		if (begin_with(ev[i], name) && ev[i][ft_strlen(name)] == '=')
+		if (ev[i][ft_strlen(name)] == '=' && begin_with(ev[i], name))
 			return (i);
 		i++;
 	}

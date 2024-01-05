@@ -240,6 +240,7 @@ int		tokener(t_data *pntr);
 int 	extender(t_data *pntr);
 int		dollar_replacement(char *string, char **value, t_data *pntr, int exception);
 char	*value_of_variable(t_data *pntr, char *i);
+int		variable_index(char **env, char *n);
 //==================[extender_utils.c]===================//
 int 	length_of_variable(char *n);
 int 	if_has(const char *n, char c);

@@ -2,33 +2,33 @@
 
 //the code checks whether a given string (word) starts with a specified prefix (start)
 
-int	begin_with(const char *word, const char *start)
-{
-	if (!word || !start)
-		return (0);
-	while (*start && (*start == *word))
-	{
-		start++;
-		word++;
-	}
-	return (*start == '\0');
-}
+// int	begin_with(const char *word, const char *start)
+// {
+// 	if (!word || !start)
+// 		return (0);
+// 	while (*start && (*start == *word))
+// 	{
+// 		start++;
+// 		word++;
+// 	}
+// 	return (*start == '\0');
+// }
 
 //the function searches for a specific environment variable (name) in the array of environment variables (ev). It returns the index of the variable if found and -1 if the variable is not present in the array
 
-int	search_variable(char **ev, char *name)
-{
-	int	i;
+// int	search_variable(char **ev, char *name)
+// {
+// 	int	i;
 
-	i = 0;
-	while (ev[i])
-	{
-		if (ev[i][ft_strlen(name)] == '=' && begin_with(ev[i], name))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
+// 	i = 0;
+// 	while (ev[i])
+// 	{
+// 		if (ev[i][ft_strlen(name)] == '=' && substring_beginning(ev[i], name))
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (-1);
+// }
 
 //the code adds a new environment variable with a specified key and value to the env array in a t_data structure
 
@@ -70,7 +70,7 @@ int	increase_shlvl(t_data *pntr)
 	char	*new_shlvl;
 	char	*new_value;
 
-	shlvl = search_variable(pntr->env, "SHLVL");
+	shlvl = variable_index(pntr->env, "SHLVL");
 	if (shlvl == -1)
 		return (create_env_var(pntr, "SHLVL", "1"));
 	curr = ft_atoi(pntr->env[shlvl] + 6);

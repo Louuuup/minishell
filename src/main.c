@@ -90,6 +90,7 @@ int	main(int argc, char *argv[], char **env_p)
 		pnt.path = path_getter(&pnt, -1);
 		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt))
 			alt_exec_main(&pnt);
+		pntr_cleaning(&pnt);
 	}
     return (0);
 }

@@ -255,6 +255,7 @@ int 	find_exec(t_data *pntr, t_tab_cmd *cmd_tab);
 //==================[cleaning.c]===================//
 void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i);
 void	total_clean(t_data *pntr);
+void	pntr_cleaning(t_data *pntr);
 //==================[init.c]===================//
 void    init_pntr(t_data *pntr, char **env);
 //==================[exit_utils.c]===================//

@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:58:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/05 16:12:17 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/06 00:07:24 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ok_for_numeric(char *s)
 		return (1);
 	while (*s)
 	{
-		if (!ft_isdigit(*s))
+		if (ft_isdigit(*s) == 0)
 			return (1);
 		s++;
 	}
@@ -38,7 +38,7 @@ long int	to_long_int(char *s)
 {
 	long int	n;
 	int			sgn;
-	int			dgt;
+	// int			dgt;
 
 	n = 0;
 	sgn = 1;
@@ -49,12 +49,19 @@ long int	to_long_int(char *s)
 	if (*s == '-' || *s == '+')
 		if (*s++ == '-')
 			sgn *= -1;
-	while (*s >= '0' && *s <= '9')
+	while (*s)
 	{
-		dgt = *s - '0';
-		if ((n > LONG_MAX && sgn == 1) || (sgn == -1 && n > LONG_MAX))
+		// dgt = *s - '0';
+		// if ((n > LONG_MAX && sgn == 1) || (sgn == -1 && n > LONG_MAX))
+		// 	return (9999999999);
+		// n = n * 10 + dgt;
+		// s++;
+		if (*s >= '0' && *s <= '9')
+			n = n * 10 + *s - '0';
+		else
+			break ;
+		if ((n > 4294967295 && sgn == 1) || (sgn == -1 && n > 4294967296)) 
 			return (9999999999);
-		n = n * 10 + dgt;
 		s++;
 	}
 	return (sgn * n);
@@ -67,8 +74,8 @@ void	built_exit_annex(t_data *pntr, t_tab_cmd *tab_cmd,
 	long int exit_code, int cnt)
 {
 	if (cnt < 2)
-		ft_putstr_fd("exit\n", 2);
-	if (!tab_cmd || tab_cmd->num_args == 1)
+		ft_printf_fd(2, "exit\n");
+	if ((!tab_cmd || tab_cmd->num_args == 1) && cnt < 2)
 	{
 		total_clean(pntr);
 		exit(pntr->code_exit);
@@ -102,14 +109,15 @@ void	built_exit(t_data *pntr, t_tab_cmd *tab_cmd)
 	cnt = pntr->cmdt_count;
 	if (!tab_cmd)
 	{
-		ft_putstr_fd("exit\n", 2);
+		ft_printf_fd(2, "exit\n");
 		total_clean(pntr);
 		exit(pntr->code_exit);
 	}
 	if (tab_cmd && tab_cmd->num_args > 1
 		&& ok_for_numeric(tab_cmd->args[1]) == 1)
 	{
-		ft_putstr_fd("minishell: exit: need numeric args\n", 2);
+		ft_printf_fd(2, "minishell: exit: %s: numeric argument required\n",
+			tab_cmd->args[1]);
 		pntr->code_exit = 2;
 		if (cnt < 2)
 			total_clean(pntr);
@@ -118,7 +126,7 @@ void	built_exit(t_data *pntr, t_tab_cmd *tab_cmd)
 		return ;
 	}
 	if (tab_cmd && tab_cmd->num_args > 2)
-		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2)),
-			(void)(pntr->code_exit = 1);
+		return (ft_printf_fd(2, "minishell: exit: too many arguments\n"),
+			(void)(pntr->code_exit = 1));
 	built_exit_annex(pntr, tab_cmd, 0, cnt);
 }

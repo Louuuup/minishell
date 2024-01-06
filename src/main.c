@@ -71,10 +71,7 @@ int	main(int argc, char *argv[], char **env_p)
 	// (void)argc;
 	(void)argv;
 	if (argc != 1)
-	{
-		(ft_putstr_fd("Error: too many arguments\n", 2));
-		return (2);
-	}
+		ft_putstr_int("Error: too many arguments\n", 2);
 	init_pntr(&pnt, env_p);
 	while (TRUE)
 	{

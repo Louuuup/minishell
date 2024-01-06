@@ -79,14 +79,14 @@ int	main(int argc, char *argv[], char **env_p)
 	while (TRUE)
 	{
 		set_mode(&pnt, INTERACT);
-		pnt.input = readline("minishell42$ ");
+		// pnt.input = readline("minishell42$ ");
 		set_mode(&pnt, NON_INTERACT);
 		if (global_signal == 1 && global_signal--)
 			pnt.code_exit = 130;
 		if (!pnt.input)
 			built_exit(&pnt, NULL);
-		if (pnt.input[0] != '\0')
-			add_history(pnt.input);
+		// if (pnt.input[0] != '\0')
+		// 	add_history(pnt.input);
 		pnt.path = path_getter(&pnt, -1);
 		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt))
 			alt_exec_main(&pnt);

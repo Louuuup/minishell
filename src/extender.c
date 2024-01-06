@@ -4,14 +4,22 @@
 
 int	substring_beginning(char *word, char *start)
 {
+	// if (!word)
+	// 	return (0);
+	// while (*start && *word && *start == *word)
+	// {
+	// 	start++;
+	// 	word++;
+	// }
+	// return (*start == '\0');
+	int	i;
+
+	i = 0;
 	if (!word)
 		return (0);
-	while (*start && *word && *start == *word)
-	{
-		start++;
-		word++;
-	}
-	return (*start == '\0');
+	while (start[i] && word[i] && start[i] == word[i])
+		i++;
+	return (start[i] == '\0');
 }
 
 //function, variable_index, is designed to find the index of an environment variable in the given array of environment strings (env). It searches for a variable with a name matching the provided string n and returns the index of the matching variable in the array.

@@ -12,7 +12,8 @@ void	free_string_array(char **pnt)
 		while (pnt[i])
 		{
 			free(pnt[i]);
-			pnt[i++] = NULL;
+			pnt[i] = NULL;
+			i++;
 		}
 		free(pnt);
 		pnt = NULL;
@@ -26,4 +27,19 @@ void	fd_exit(t_data *pntr, int code_exit)
 		perror("An error!");
 	total_clean(pntr);
 	exit(1);
+}
+
+int	ft_putstr_int(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (*s)
+	{
+		ft_putchar_fd(*s++, fd);
+		i++;
+	}
+	return (i);
 }

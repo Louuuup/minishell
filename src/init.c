@@ -4,11 +4,11 @@
 
 void	init_start_file_desc(t_data *pntr)
 {
-	pntr->first_stdout = dup(STDOUT_FILENO);
-	if (pntr->first_stdout == -1)
-		fd_exit(pntr, 1);
 	pntr->first_stdin = dup(STDIN_FILENO);
 	if (pntr->first_stdin == -1)
+		fd_exit(pntr, 1);
+	pntr->first_stdout = dup(STDOUT_FILENO);
+	if (pntr->first_stdout == -1)
 		fd_exit(pntr, 1);
 }
 

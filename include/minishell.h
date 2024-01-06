@@ -261,6 +261,7 @@ void    init_pntr(t_data *pntr, char **env);
 //==================[exit_utils.c]===================//
 void	free_string_array(char **pnt);
 void	fd_exit(t_data *pntr, int code_exit);
+int		ft_putstr_int(char *s, int fd);
 //==================[env.c]===================//
 int		increase_shlvl(t_data *pntr);
 

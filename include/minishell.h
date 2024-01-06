@@ -240,6 +240,7 @@ int		tokener(t_data *pntr);
 int 	extender(t_data *pntr);
 int		dollar_replacement(char *string, char **value, t_data *pntr, int exception);
 char	*value_of_variable(t_data *pntr, char *i);
+int		variable_index(char **env, char *n);
 //==================[extender_utils.c]===================//
 int 	length_of_variable(char *n);
 int 	if_has(const char *n, char c);
@@ -254,11 +255,13 @@ int 	find_exec(t_data *pntr, t_tab_cmd *cmd_tab);
 //==================[cleaning.c]===================//
 void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i);
 void	total_clean(t_data *pntr);
+void	pntr_cleaning(t_data *pntr);
 //==================[init.c]===================//
 void    init_pntr(t_data *pntr, char **env);
 //==================[exit_utils.c]===================//
 void	free_string_array(char **pnt);
 void	fd_exit(t_data *pntr, int code_exit);
+int		ft_putstr_int(char *s, int fd);
 //==================[env.c]===================//
 int		increase_shlvl(t_data *pntr);
 

@@ -45,32 +45,44 @@ void	pntr_cleaning(t_data *pntr)
 	}
 	cmdt_cleaning(pntr);
 	if (pntr->input)
-	{
 		free(pntr->input);
-		pntr->input = NULL;
-	}
+	pntr->input = NULL;
 	if (pntr->path)
 	{
 		while (pntr->path[i])
 			free(pntr->path[i++]);
 		free(pntr->path);
-		pntr->path = NULL;
 	}
+	pntr->path = NULL;
 }
 
 //function for safely freeing the memory associated with an array of strings
 
 void	double_pntr_cleaning(char **pntr)
 {
-	if (!pntr)
-		return ;
-	while (*pntr)
+	// if (!pntr)
+	// 	return ;
+	// while (*pntr)
+	// {
+	// 	free(*pntr);
+	// 	*pntr++ = NULL;
+	// }
+	// free(pntr);
+	// pntr = NULL;
+	int	i;
+
+	i = 0;
+	if (pntr)
 	{
-		free(*pntr);
-		*pntr++ = NULL;
+		while(pntr[i])
+		{
+			free(pntr[i]);
+			pntr[i] = NULL;
+			i++;
+		}
+		free(pntr);
+		pntr = NULL;
 	}
-	free(pntr);
-	pntr = NULL;
 }
 
 //the function is responsible for cleaning up file descriptors and resources associated with output redirection and here documents
@@ -94,6 +106,6 @@ void	total_clean(t_data *pntr)
 {
 	double_pntr_cleaning(pntr->env);
 	pntr_cleaning(pntr);
-	close(pntr->first_stdin);
 	close(pntr->first_stdout);
+	close(pntr->first_stdin);
 }

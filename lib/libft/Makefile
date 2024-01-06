@@ -6,7 +6,7 @@
 #    By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2024/01/04 17:21:52 by mkramer          ###   ########.fr        #
+#    Updated: 2024/01/05 23:14:51 by mkramer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SRC = ft_bzero.c \
 	ft_strcat.c \
 	ft_strcmp.c \
 	ft_split_length.c \
-	ft_strstr.c
+	ft_strstr.c \
+	ft_printf_fd.c
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 BOBJS = $(addprefix $(BIN_DIR)/, $(BSRC:.c=.o))
 NAME = libft.a

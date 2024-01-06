@@ -9,6 +9,7 @@ minishell
 include/readline_old_27_12/
 .include/.DS_Store
 .include/readline/.DS_Store/
+test.c
 
 # Prerequisites
 *.d

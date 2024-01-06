@@ -50,7 +50,7 @@ extern int	global_signal;
 // *@param	argv Array of cmd + all its args.
 // *@param	next Next command.
 // */
-struct cmd;
+// struct cmd;
 typedef struct cmd
 {
 	int			argc;    // number of arguments (plus cmd)
@@ -92,38 +92,37 @@ typedef struct s_tab_cmd
 {
 	char	*cmd;
 	char	**args;
+	int		in_fd;
+	int		out_fd;
 	t_token	*redirections;
+	int		file_in;
+	int		file_out;
 	int		num_redirections;
 	int		num_args;
 	int		is_child_process;
 	char	*last_multiline;
 	pid_t	pid;
-	int		in_fd;
-	int		out_fd;
-	int		file_in;
-	int		file_out;
 }	t_tab_cmd;
 
 typedef struct s_data
 {
 	t_cmd		*cmd; //pointer to first cmd, linked to the other ones with chained list. (YOU NEED TO ALLOCATE AND PARSE IN HERE)
 	// int			cmd_count; //the amount of commands in the chained list.
+	char		**env; //to free
+	char		**path;
+	char		*input;
 	t_token		*tokens;
 	int			count_token;
-	t_tab_cmd	*cmdt;
-	int			code_exit;
-	int			cmdt_count;
-	int			count_pipes;
-	char		*user_prompt; //to free
-	char		**env; //to free
 	int			max_token;
-	char		*input;
+	t_tab_cmd	*cmdt;
+	int			cmdt_count;
+	char		*user_prompt; //to free
+	int			code_exit;
 	// int		exit_promt;
 	int			fd_before;
 	int			first_stdin;
 	int			first_stdout;
 	t_set_mode	mode;
-	char		**path;
 }	t_data;
 
 
@@ -162,7 +161,7 @@ typedef struct cmd_table
 t_data	*get_data(void);
 void	ft_error(char *str);
 void	my_error(char *str);
-int		error_out(t_data *pointer, int n);
+int 	error_out(t_data *pnt, char *s, int n);
 void	error_in_syntax(int type, t_data *pntr);
 //
 //==================[t_utils.c]===================//

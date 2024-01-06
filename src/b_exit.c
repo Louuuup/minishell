@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:58:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/06 00:07:24 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/06 00:15:55 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	built_exit_annex(t_data *pntr, t_tab_cmd *tab_cmd,
 		exit(pntr->code_exit);
 	}
 	exit_code = to_long_int(tab_cmd->args[1]);
-	if (exit_code == 9999999999)
+	if (exit_code == 9999999999 && ft_printf_fd(2, "minishell: exit: \
+		 %s: numeric argument required\n", tab_cmd->args[1]))
 	{
 		pntr->code_exit = 2;
 		if (cnt != 1)
@@ -94,10 +95,9 @@ void	built_exit_annex(t_data *pntr, t_tab_cmd *tab_cmd,
 	else
 		pntr->code_exit = exit_code % 256;
 	if (cnt == 1)
-	{
 		total_clean(pntr);
+	if (cnt == 1)
 		exit(pntr->code_exit);
-	}
 }
 
 //the function handles the "exit" command in a shell program

@@ -10,8 +10,11 @@ void    sigint_manager(int status)
 	if (status == SIGINT)
 	{
 		global_signal = 1;
-		if (write(STDERR_FILENO, "\n", 1))
-			global_signal = global_signal; //add an action for error
+		// if (write(STDERR_FILENO, "\n", 1))
+			// global_signal = global_signal; //add an action for error
+			// Maksim's comment below:
+			// it's already writing an error
+		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();        
@@ -26,8 +29,8 @@ void    manage_multiline(int status)
 	{
 		global_signal = 1;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_on_new_line();
 	}
 }
 

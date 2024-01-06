@@ -7,13 +7,13 @@ char	**path_getter(t_data *pnt, int i)
 	char	**result;
 	char	*found;
 
-	while (pnt->env[i++])
+	while (pnt->env[++i])
 	{
 		found = ft_strstr(pnt->env[i], "PATH=");
-		if (found)
+		if (found != NULL)
 			break ;
 	}
-	if (!pnt->env[i])
+	if (pnt->env[i] == NULL)
 		return (NULL);
 	result = ft_split(found, ':');
 	if (!result)
@@ -71,19 +71,19 @@ int	main(int argc, char *argv[], char **env_p)
 	// (void)argc;
 	(void)argv;
 	if (argc != 1)
-		ft_putstr_int("Error: too many arguments\n", 2);
+		return (ft_putstr_int("Error: too many arguments\n", 2));
 	init_pntr(&pnt, env_p);
 	while (TRUE)
 	{
 		set_mode(&pnt, INTERACT);
-		// pnt.input = readline("minishell42$ ");
+		pnt.input = readline("minishell42$ ");
 		set_mode(&pnt, NON_INTERACT);
 		if (global_signal == 1 && global_signal--)
 			pnt.code_exit = 130;
 		if (!pnt.input)
 			built_exit(&pnt, NULL);
-		// if (pnt.input[0] != '\0')
-		// 	add_history(pnt.input);
+		if (pnt.input[0] != '\0')
+			add_history(pnt.input);
 		pnt.path = path_getter(&pnt, -1);
 		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt))
 			alt_exec_main(&pnt);

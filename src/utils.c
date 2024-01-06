@@ -24,13 +24,13 @@ void	my_error(char *str)
 	exit (ERROR);
 }
 
-int error_out(t_data *pointer, int n)
+int error_out(t_data *pnt, char *s, int n)
 {
 	if (n == 1)
 	{
-		ft_putnbr_fd(STDERR_FILENO, n);
+		ft_printf_fd(2, "minishell: %s: ", s);
 		perror("");
-		pointer->code_exit = n;
+		pnt->code_exit = n;
 	}
 	return (1);
 }

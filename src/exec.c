@@ -8,7 +8,7 @@ void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 {
 	tab_cmd->pid = fork();
 	if (tab_cmd->pid < 0)
-		return ((void)error_out(pntr, 1));
+		return ((void)error_out(pntr, "fork", 1));
 	if (!tab_cmd->pid)
 	{
 		if (dup2(tab_cmd->in_fd, STDIN_FILENO) && tab_cmd->in_fd != -1)
@@ -18,7 +18,7 @@ void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 			close(tab_cmd->out_fd);
 		set_mode(pntr, CHILD);
 		execve(tab_cmd->cmd, tab_cmd->args, pntr->env);
-		error_out(pntr, 1);
+		error_out(pntr, tab_cmd->cmd, 1);
 		total_clean(pntr);
 		exit(1);
 	}
@@ -47,7 +47,7 @@ int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	else if (tab_cmd->redirections[i].type == REDIRECT_APPEND)
 	{
 		if (tab_cmd->file_out == -1)
-			return (error_out(pntr, 1));
+			return (error_out(pntr, tab_cmd->redirections[i].value, 1));
 		if (tab_cmd->file_out != -1)
 			close(tab_cmd->file_out);
 		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
@@ -56,7 +56,7 @@ int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	else if (tab_cmd->redirections[i].type == REDIRECT_OUT)
 	{
 		if (tab_cmd->file_out == -1)
-			return (error_out(pntr, 1));
+			return (error_out(pntr, tab_cmd->redirections[i].value,1));
 		if (tab_cmd->file_out != -1)
 			close(tab_cmd->file_out);
 		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
@@ -72,8 +72,8 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 {
 	int	i;
 
-	i = 0;
-	while (tab_cmd->num_redirections > i)
+	i = -1;
+	while (tab_cmd->num_redirections > ++i)
 	{
 		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE
 			&& tab_cmd->redirections[i].no_space == 2)
@@ -88,11 +88,10 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 				close(tab_cmd->file_in);
 			tab_cmd->file_in = open(tab_cmd->redirections[i].value, O_RDONLY);
 			if (tab_cmd->file_in == -1)
-				return (error_out(pntr, 1));
+				return (error_out(pntr, tab_cmd->redirections[i].value, 1));
 		}
 		else if (redirects_cmd_tab(pntr, tab_cmd, i) == 1)
 			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -175,7 +174,7 @@ void	alt_exec_main(t_data *pntr)
 	while (pntr->cmdt_count > ++i)
 	{
 		if (pipe(pip) == -1)
-			return ((void)error_out(pntr, 1));
+			return ((void)error_out(pntr, "pipe", 1));
 		if (pipelines_redirect(pntr, i, pip)
 			&& input_output_redirect(pntr, &pntr->cmdt[i]) == 1)
 			continue ;

@@ -29,7 +29,7 @@ int	redirections_fill(t_data *pointer, int i, int j)
 	pointer->cmdt[i].redirections = NULL;
 	pointer->cmdt[i].redirections = ft_calloc(cnt, sizeof(t_token));
 	if (!pointer->cmdt[i].redirections)
-		return (error_out(pointer, 1));
+		return (error_out(pointer, "ft_calloc", 1));
 	cnt = 0;
 	while (pointer->tokens[j].type != PIPE && pointer->count_token > j)
 	{
@@ -39,7 +39,7 @@ int	redirections_fill(t_data *pointer, int i, int j)
 			pointer->cmdt[i].redirections[cnt].no_space = pointer->tokens[j].no_space;
 			pointer->cmdt[i].redirections[cnt].type = pointer->tokens[j].type;
 			if (!pointer->cmdt[i].redirections[cnt++].value)
-				return (error_out(pointer, 1));
+				return (error_out(pointer, "ft_strdup", 1));
 		}
 		j++;
 	}
@@ -62,14 +62,14 @@ int	args_cmd_fill(t_data *pointer, int i, int j)
 			{
 				pointer->cmdt[i].cmd = ft_strdup(pointer->tokens[j].value);
 				if (!pointer->cmdt[i].cmd)
-					return (error_out(pointer, 1) - 2);
+					return (error_out(pointer, "ft_strdup", 1) - 2);
 			}
 			if (pointer->cmdt[i].num_args-- > 0 && pointer->tokens[j].type == WORD
 				&& pointer->tokens[j].value[0] == '\0')
 					continue ;			
 			pointer->cmdt[i].args[k++] = ft_strdup(pointer->tokens[j].value);
 			if (!pointer->cmdt[i].args[k - 1])
-				return (error_out(pointer, 1) - 2);
+				return (error_out(pointer, "ft_strdup", 1) - 2);
 		}
 	}
 	if (pointer->cmdt[i].cmd != NULL)
@@ -108,7 +108,7 @@ int	words_merging(t_data *pointer)
 	i = 0;
 	tokens_new = ft_calloc(new_tokens_count(pointer) + 1, sizeof(t_token));
 	if (!tokens_new)
-		return (error_out(pointer, 1));
+		return (error_out(pointer, "ft_calloc", 1));
 	while (pointer->count_token > i)
 	{
 		if (token_copy(pointer, tokens_new, &i, &j) == 1)	

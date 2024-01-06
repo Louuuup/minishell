@@ -17,7 +17,7 @@ char	**path_getter(t_data *pnt, int i)
 		return (NULL);
 	result = ft_split(found, ':');
 	if (!result)
-		return (error_out(pnt, 1), NULL);
+		return (error_out(pnt, "ft_split", 1), NULL);
 	return (result);
 }
 

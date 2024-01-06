@@ -47,7 +47,7 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 	{
 		pointer->cmdt[i].args = ft_calloc((pointer->cmdt[i].num_args + 1), sizeof(char *));
 		if (!pointer->cmdt[i].args)
-			return (error_out(pointer, 1));
+			return (error_out(pointer, "ft_calloc", 1));
 	}
 	else
 		pointer->cmdt[i].args = 0;
@@ -82,7 +82,7 @@ int	parser(t_data *pointer)
 	pointer->cmdt_count = count_pipes(pointer) + 1;
 	pointer->cmdt = ft_calloc(pointer->cmdt_count, sizeof(t_tab_cmd));
 	if (!pointer->cmdt)
-		return (error_out(pointer, 1));
+		return (error_out(pointer, "ft_calloc", 1));
 	while (j < pointer->cmdt_count)
 	{
 		if (cmdt_init(pointer, j, &i))

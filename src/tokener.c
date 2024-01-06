@@ -76,7 +76,7 @@ int	filling_with_tokens(t_data *pntr, int *i, int j)
 	{
 		j = word_filling(pntr, &pntr->input[*i]) - 1;
 		if (j == -1)
-			return (error_out(pntr, 1));
+			return (error_out(pntr, "ft_calloc", 1));
 		*i += j;
 	}
 	else if (pntr->input[*i] == '\"' || pntr->input[*i] == '\'')
@@ -103,7 +103,7 @@ int tokener(t_data *pntr)
 	i = 0;
 	pntr->tokens = ft_calloc(pntr->max_token, sizeof(t_token));
 	if (!pntr->tokens)
-		return (error_out(pntr, 1));
+		return (error_out(pntr, "ft_calloc", 1));
 	while (pntr->input && pntr->input[i])
 	{
 		if (filling_with_tokens(pntr, &i, 0) == 1)

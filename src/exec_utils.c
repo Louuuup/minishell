@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/31 20:33:49 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/06 17:28:59 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ int	find_path(t_data *pntr, t_tab_cmd *tab_cmd)
 		return (1);
 	temporary = ft_strdup("./");
 	if (!temporary)
-		return (error_out(pntr, 1) + 1);
+		return (error_out(pntr, "ft_strdup", 1) + 1);
 	result = ft_strjoin(temporary, tab_cmd->cmd);
 	if (!result)
-		return (error_out(pntr, 1) + 1);
+		return (error_out(pntr, "ft_strjoin", 1) + 1);
 	if (access(result, X_OK) == 0)
 	{
 		temporary = tab_cmd->cmd;

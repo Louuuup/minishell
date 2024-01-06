@@ -55,7 +55,7 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 
 	tmp = ft_split(pntr->tokens[*i].value, ' ');
 	if (!tmp)
-		return (error_out(pntr, 1));
+		return (error_out(pntr, "ft_split", 1));
 	if (!tmp[0])
 	{
 		clean_double_pointer(tmp);
@@ -64,7 +64,7 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 	if (copy_normalization(new_tkns, i, j, tmp) == 1)
 	{
 		clean_double_pointer(tmp);
-		return (error_out(pntr, 1));
+		return (error_out(pntr, "malloc", 1));
 	}
 	clean_double_pointer(tmp);
 	return (0);
@@ -80,13 +80,13 @@ int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
 		tokens_new[*i].value = ft_strjoin(tokens_new[*i].value,
 			pntr->tokens[*j].value);
 		if (!tokens_new[*i].value)
-			return (error_out(pntr, 1));
+			return (error_out(pntr, "ft_strjoin", 1));
 	}
 	else
 	{
 		tokens_new[*i].value = ft_strdup(pntr->tokens[*j].value);
 		if (!tokens_new[*i].value)
-			return (error_out(pntr, 1));
+			return (error_out(pntr, "ft_strdup", 1));
 	}
 	*i = *i + 1;
 	return (0);

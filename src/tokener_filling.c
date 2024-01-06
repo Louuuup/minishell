@@ -27,7 +27,7 @@ int	word_filling(t_data *pntr, char const *s)
 	pntr->tokens[++pntr->count_token - 1].value
 		= ft_calloc(count_characters(s) + 1, sizeof(char));
 	if (!pntr->tokens[pntr->count_token - 1].value)
-		return (error_out(pntr, 1) - 1);
+		return (error_out(pntr, "ft_calloc", 1) - 1);
 	while ((*s == 9 || *s == '\'' || *s == '\"' || *s == '|'
 			|| *s == 32 || *s == '>' || *s == '<') && *s)
 		pntr->tokens[pntr->count_token - 1].value[i++] = *s++;
@@ -70,7 +70,7 @@ int	filling_quotes(t_data *pntr, char const *str, char tmp)
 	pntr++;
 	pntr->tokens[pntr->count_token - 1].value = ft_calloc(j + 1, sizeof(char));
 	if (!pntr->tokens[pntr->count_token - 1].value)
-		return (error_out(pntr, 1) - 2);
+		return (error_out(pntr, "ft_calloc", 1) - 2);
 	while (*str != tmp && *str)
 		pntr->tokens[pntr->count_token - 1].value[i++] = *str++;
 	if (*str++ == '\0')
@@ -94,7 +94,7 @@ int	reallocate_tokens_if_max(t_data *pntr, int max_token)
 
 	new_tokens_array = ft_calloc(max_token * 2, sizeof(t_token));
 	if (!new_tokens_array)
-		return (error_out(pntr, 1));
+		return (error_out(pntr, "ft_calloc", 1));
 	while (--max_token >= 0)
 	{
 		new_tokens_array[max_token].type = pntr->tokens[max_token].type;

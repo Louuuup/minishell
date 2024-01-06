@@ -11,10 +11,10 @@ int	is_command(t_data *pntr, t_tab_cmd *tab_cmd)
 		return (1);
 	temporary = ft_strdup("./");
 	if (!temporary)
-		return(error_out(pntr, 1) + 1);
+		return(error_out(pntr, "ft_strdup", 1) + 1);
 	result = ft_strjoin(temporary, tab_cmd->cmd);
 	if (!result)
-		return (error_out(pntr, 1) + 1);
+		return (error_out(pntr, "ft_strjoin", 1) + 1);
 	if (access(result, 0) == 0)
 	{
 		temporary = tab_cmd->cmd;
@@ -70,13 +70,13 @@ int	path_searching(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 			break ;
 		temporary = ft_strdup(pntr->path[i]);
 		if (!temporary)
-			return (error_out(pntr, 1) + 1);
+			return (error_out(pntr, "ft_strdup", 1) + 1);
 		temporary = ft_strjoin(temporary, "/");
 		if (!temporary)
-			return (error_out(pntr, 1) + 1);
+			return (error_out(pntr, "ft_strjoin", 1) + 1);
 		result = ft_strjoin(temporary, tab_cmd->cmd);
 		if (!result)
-			return (error_out(pntr, 1) + 1);
+			return (error_out(pntr, "ft_strjoin", 1) + 1);
 		if (access(result, X_OK) == 0)
 		{
 			temporary = tab_cmd->cmd;
@@ -99,10 +99,10 @@ int	is_exist(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	{
 		temporary = ft_strdup(pntr->path[i]);
 		if (!temporary)
-			return (error_out(pntr, 1) + 1);
+			return (error_out(pntr, "ft_strdup", 1) + 1);
 		result = ft_strjoin(temporary, tab_cmd->cmd);
 		if (!result)
-			return(error_out(pntr, 1) + 1);
+			return(error_out(pntr, "ft_strjoin", 1) + 1);
 		if (access(result, 0) == 0)
 		{
 			temporary = tab_cmd->cmd;

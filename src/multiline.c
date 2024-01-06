@@ -113,10 +113,10 @@ int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 
 	object = name_create_multiline(i);
 	if (!object)
-		return (error_out(pntr, 1), 1);
+		return (error_out(pntr, "malloc issue", 1), 1);
 	file_descriptor = open(object, O_CREAT | O_TRUNC | O_RDWR, 0666);
 	if (file_descriptor < 0)
-		return (free(object), error_out(pntr, 1));
+		return (free(object), error_out(pntr, "minishell: open: ", 1));
 	status = input_to_file_descriptor(pntr, file_descriptor, tab_cmd->redirections[i].value);
 	if (status == 1 || status == 2)
 		return (unlink(object), free(object), 1);
@@ -127,7 +127,7 @@ int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	{
 		tab_cmd->file_in = open(object, O_RDONLY);
 		if (tab_cmd->file_in == -1)
-			return (free(object), error_out(pntr, 1));
+			return (free(object), error_out(pntr, "minishell: open: ", 1));
 		tab_cmd->last_multiline = ft_strdup(object);
 	}
 	free(object);

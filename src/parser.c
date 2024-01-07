@@ -33,7 +33,7 @@ void	test_multiline(t_data *pointer, int index)
 		{
 			if (pointer->cmdt[index].redirections[i].type == REDIRECT_MULTILINE)
 				pointer->cmdt[index].redirections[i].no_space = 3;
-			break;
+			break ;
 		}
 	}
 }
@@ -50,15 +50,15 @@ int	cmdt_init(t_data *pointer, int i, int *index)
 			return (error_out(pointer, "ft_calloc", 1));
 	}
 	else
-		pointer->cmdt[i].args = 0;
-	pointer->cmdt[i].last_multiline = 0;
+		pointer->cmdt[i].args = NULL;
+	pointer->cmdt[i].last_multiline = NULL;
 	pointer->cmdt[i].file_out = -1;
 	pointer->cmdt[i].file_in = -1;
 	pointer->cmdt[i].out_fd = -1;
 	pointer->cmdt[i].in_fd = -1;
 	pointer->cmdt[i].pid = 0;
 	pointer->cmdt[i].is_child_process = 0;
-	pointer->cmdt[i].cmd = 0;
+	pointer->cmdt[i].cmd = NULL;
 	if (redirections_fill(pointer, i, *index) == 1)
 		return (1);
 	test_multiline(pointer, i);

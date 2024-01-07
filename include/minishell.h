@@ -222,7 +222,7 @@ int		check_if_redirection(t_type_token type);
 int		check_arguments(t_type_token type);
 int		count_pipes(t_data *pointer);
 int		new_tokens_count(t_data *pointer);
-int		count_characters(char const *s);
+// int		count_characters(char const *s);
 //
 //==================[parser_merge_words.c]===================//
 int		token_copy(t_data *pointer, t_token *tokens_new, int *i, int *j);
@@ -241,7 +241,7 @@ int		dollar_replacement(char *string, char **value, t_data *pntr, int exception)
 char	*value_of_variable(t_data *pntr, char *i);
 int		variable_index(char **env, char *n);
 //==================[extender_utils.c]===================//
-int 	length_of_variable(char *n);
+int 	length_of_variable(const char *n);
 int 	if_has(const char *n, char c);
 int		substring_concatenation(char *string, char **pntr);
 int		pipelines_redirect(t_data *pntr, int i, int *pip);

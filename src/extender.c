@@ -38,29 +38,28 @@ int	variable_index(char **env, char *n)
 	return (-1);
 }
 
-//function value_of_variable is responsible for retrieving the value of a given environment variable from the environment variable array (pntr->env)
+//function value_of_variable is responsible for retrieving the value of a given environment variable from the environment variable array (pnt->env)
 
-char	*value_of_variable(t_data *pntr, char *i)
+char	*value_of_variable(t_data *pnt, char *i)
 {
 	int	j;
 
 	if (ft_strcmp(i, "?") == 0)
-		return (ft_itoa(pntr->code_exit));
-	j = variable_index(pntr->env, i);
+		return (ft_itoa(pnt->code_exit));
+	j = variable_index(pnt->env, i);
 	if (j == -1)
 		return (NULL);
-	return (ft_strdup(pntr->env[j] + ft_strlen(i) + 1));
+	return (ft_strdup(pnt->env[j] + ft_strlen(i) + 1));
 }
 
 //The dollar_replacement function is responsible for replacing a variable reference (starting with '$') with its corresponding value in the given string
 
-int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
+int	dollar_replacement(char *string, char **value, t_data *pnt, int exception)
 {
-	int		length;
+	const int		length = length_of_variable(string);
 	char	*value_buffer;
 	char	*key;
 
-	length = length_of_variable(string);
 	if (exception && length == 1)
 		return (*value = ft_strdup(""), length);
 	if (length == 1)
@@ -68,7 +67,7 @@ int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
 	key = ft_substr(string, 1, length - 1);
 	if (key == NULL)
 		return (length);
-	value_buffer = value_of_variable(pntr, key);
+	value_buffer = value_of_variable(pnt, key);
 	free(key);
 	if (value_buffer == NULL)
 		*value = ft_strdup("");
@@ -80,7 +79,7 @@ int	dollar_replacement(char *string, char **value, t_data *pntr, int exception)
 
 //The token_expansion function handle the expansion of tokens in a shell, specifically focusing on replacing variables prefixed with the '$' symbol.
 
-int	token_expansion(char *var, t_data *pntr, int i, int j)
+static int	token_expansion(char *var, t_data *pnt, int i, int j)
 {
 	char	*buffer;
 	char	*result;
@@ -93,7 +92,7 @@ int	token_expansion(char *var, t_data *pntr, int i, int j)
 	{
 		buffer = NULL;
 		if (*var == '$')
-			var += dollar_replacement(var, &buffer, pntr, j);
+			var += dollar_replacement(var, &buffer, pnt, j);
 		else
 			var += substring_concatenation(var, &buffer);
 		if (buffer == NULL)
@@ -105,40 +104,44 @@ int	token_expansion(char *var, t_data *pntr, int i, int j)
 		result = buffer_result;
 	}
 	free(buffer_value);
-	pntr->tokens[i].value = result;
+	pnt->tokens[i].value = result;
 	return (0);
 }
 
 // the func checks if there is an exception in the data structure
 
-int	check_exception(t_data *pntr, int i)
+int	check_exception(t_data *pnt, int i)
 {
-	return (pntr->tokens[i].type == WORD && pntr->tokens[i + 1].type != WORD
-		&& pntr->tokens[i].no_space && ft_strlen(pntr->tokens[i].value) == 1
-		&& pntr->count_token > (i + 1));
+	return (pnt->tokens[i].type == WORD
+		&& i + 1 < pnt->count_token
+		&& pnt->tokens[i + 1].type != WORD
+		&& pnt-> tokens[i].no_space
+		&& ft_strlen(pnt->tokens[i].value) == 1);
 }
 
 //The extender function is a part of the tokenization process in a shell program, specifically handling token expansion
 
-int	extender(t_data *pntr)
+int	extender(t_data *pnt)
 {
 	int	exception;
 	int	i;
+	int	stop;
 
 	i = 0;
-	while (i < pntr->count_token)
+	stop = pnt->count_token;
+	while (i < stop)
 	{
-		if (pntr->tokens[i].type == REDIRECT_MULTILINE)
+		if (pnt->tokens[i].type == REDIRECT_MULTILINE)
 		{
 			i += 2;
-			while (pntr->tokens[i].no_space)
+			while (pnt->tokens[i].no_space)
 				i++;
 		}
-		if (if_has(pntr->tokens[i].value, '$')
-			&& (pntr->tokens[i].type == DQUOTE || pntr->tokens[i].type == WORD))
+		if (if_has(pnt->tokens[i].value, '$')
+			&& (pnt->tokens[i].type == DQUOTE || pnt->tokens[i].type == WORD))
 		{
-			exception = check_exception(pntr, i);
-			if (token_expansion(pntr->tokens[i].value, pntr, i, exception) == 2)
+			exception = check_exception(pnt, i);
+			if (token_expansion(pnt->tokens[i].value, pnt, i, exception) == 2)
 				return (2);
 		}
 		i++;

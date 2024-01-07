@@ -2,14 +2,14 @@
 
 //is responsible for duplicating the standard input (stdin) and standard output (stdout) file descriptors and storing the duplicated descriptors in a t_data structure
 
-void	init_start_file_desc(t_data *pntr)
+void	init_start_file_desc(t_data *pnt)
 {
-	pntr->first_stdin = dup(STDIN_FILENO);
-	if (pntr->first_stdin == -1)
-		fd_exit(pntr, 1);
-	pntr->first_stdout = dup(STDOUT_FILENO);
-	if (pntr->first_stdout == -1)
-		fd_exit(pntr, 1);
+	pnt->first_stdin = dup(STDIN_FILENO);
+	if (pnt->first_stdin == -1)
+		fd_exit(pnt, 1);
+	pnt->first_stdout = dup(STDOUT_FILENO);
+	if (pnt->first_stdout == -1)
+		fd_exit(pnt, 1);
 }
 
 //the function defines a function named split_dup that takes an array of strings (char **old) and returns a new dynamically allocated array of strings (char **new), where each string in the new array is a duplicate of the corresponding string in the input array.
@@ -36,25 +36,25 @@ char	**string_to_array(char **source)
 
 //initiates the variables to defaults
 
-void    init_pntr(t_data *pntr, char **env)
+void    init_pntr(t_data *pnt, char **env)
 {
 	char	**copy_env;
 
-	pntr->mode = INTERACT;
-	pntr->code_exit = 0;
-	pntr->tokens = NULL;
-	pntr->cmdt_count = 0;
-	pntr->path = NULL;
-	pntr->cmdt = NULL;
-	pntr->input = NULL;
-	pntr->max_token = 1;
-	pntr->env = NULL;
-	pntr->count_token = 0;
-	init_start_file_desc(pntr);
+	pnt->env = NULL;
+	pnt->path = NULL;
+	pnt->input = NULL;
+	pnt->tokens = NULL;
+	pnt->count_token = 0;
+	pnt->max_token = 1;
+	pnt->code_exit = 0;
+	pnt->cmdt = NULL;
+	pnt->cmdt_count = 0;
+	pnt->mode = INTERACT;
+	init_start_file_desc(pnt);
 	copy_env = string_to_array(env);
 	if (copy_env == NULL)
-		fd_exit(pntr, 1);
-	pntr->env = copy_env;
-	if (increase_shlvl(pntr) == 1)
-		fd_exit(pntr, 0);
+		fd_exit(pnt, 1);
+	pnt->env = copy_env;
+	if (increase_shlvl(pnt) == 1)
+		fd_exit(pnt, 0);
 }

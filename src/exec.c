@@ -4,11 +4,11 @@
 //handling input and output redirection, executes the commands using
 //execve and managing file descriptors in the parent process.
 
-void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
+void	command_execution(t_data *pnt, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 {
 	tab_cmd->pid = fork();
 	if (tab_cmd->pid < 0)
-		return ((void)error_out(pntr, "fork", 1));
+		return ((void)error_out(pnt, "fork", 1));
 	if (!tab_cmd->pid)
 	{
 		if (dup2(tab_cmd->in_fd, STDIN_FILENO) && tab_cmd->in_fd != -1)
@@ -16,20 +16,20 @@ void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 		close(fd_pipe[0]);
 		if (dup2(tab_cmd->out_fd, STDOUT_FILENO) && tab_cmd->out_fd != -1)
 			close(tab_cmd->out_fd);
-		set_mode(pntr, CHILD);
-		execve(tab_cmd->cmd, tab_cmd->args, pntr->env);
-		error_out(pntr, tab_cmd->cmd, 1);
-		total_clean(pntr);
+		set_mode(pnt, CHILD);
+		execve(tab_cmd->cmd, tab_cmd->args, pnt->env);
+		error_out(pnt, tab_cmd->cmd, 1);
+		total_clean(pnt);
 		exit(1);
 	}
 	close(fd_pipe[1]);
-	if (pntr->fd_before != -1)
-		close(pntr->fd_before);
-	if (pntr->cmdt_count - 1 != i)
-		pntr->fd_before = fd_pipe[0];
+	if (pnt->fd_before != -1)
+		close(pnt->fd_before);
+	if (pnt->cmdt_count - 1 != i)
+		pnt->fd_before = fd_pipe[0];
 	else
 		close(fd_pipe[0]);
-	fd_cleaning(pntr, tab_cmd, i);
+	fd_cleaning(pnt, tab_cmd, i);
 }
 
 //function, redirects_cmd_tab, handles the redirections for a command in
@@ -37,38 +37,37 @@ void	command_execution(t_data *pntr, t_tab_cmd *tab_cmd, int i, int *fd_pipe)
 //function, redirects_cmd_tab, handles the redirections for a command in
 //the t_tab_cmd structure based on the type of redirection specified.
 
-int	redirects_cmd_tab(t_data *pntr, t_tab_cmd *tab_cmd, int i)
+int	redirects_cmd_tab(t_data *pnt, t_tab_cmd *tab_cmd, int i)
 {
-	if (tab_cmd->redirections[i].type == REDIRECT_MULTILINE)
+	
+	if (tab_cmd->redirections[i].type == REDIRECT_OUT)
 	{
-		if (create_heredoc(pntr, tab_cmd, i) == 1)
-			return (1);
-	}
-	else if (tab_cmd->redirections[i].type == REDIRECT_APPEND)
-	{
-		if (tab_cmd->file_out == -1)
-			return (error_out(pntr, tab_cmd->redirections[i].value, 1));
-		if (tab_cmd->file_out != -1)
-			close(tab_cmd->file_out);
-		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
-				O_WRONLY | O_CREAT | O_APPEND, 0644);
-	}
-	else if (tab_cmd->redirections[i].type == REDIRECT_OUT)
-	{
-		if (tab_cmd->file_out == -1)
-			return (error_out(pntr, tab_cmd->redirections[i].value,1));
 		if (tab_cmd->file_out != -1)
 			close(tab_cmd->file_out);
 		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (tab_cmd->file_out == -1)
+			return (error_out(pnt, tab_cmd->redirections[i].value,1));
 	}
+	else if (tab_cmd->redirections[i].type == REDIRECT_APPEND)
+	{
+		if (tab_cmd->file_out != -1)
+			close(tab_cmd->file_out);
+		tab_cmd->file_out = open(tab_cmd->redirections[i].value,
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (tab_cmd->file_out == -1)
+			return (error_out(pnt, tab_cmd->redirections[i].value, 1));
+	}
+	else if (tab_cmd->redirections[i].type == REDIRECT_MULTILINE)
+		if (create_heredoc(pnt, tab_cmd, i) == 1)
+			return (1);
 	return (0);
 }
 
 //This function, input_output_redirect, manages input and output
 //redirection for a command specified in the t_tab_cmd structure
 
-int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
+int	input_output_redirect(t_data *pnt, t_tab_cmd *tab_cmd)
 {
 	int	i;
 
@@ -78,8 +77,8 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 		if (tab_cmd->redirections[i].type != REDIRECT_MULTILINE
 			&& tab_cmd->redirections[i].no_space == 2)
 		{
-			ft_putstr_fd("minishell: re-direction to nowhere\n", 2);
-			pntr->code_exit = 1;
+			ft_printf_fd(2, "minishell: redirect to nowhere\n");
+			pnt->code_exit = 1;
 			return (1);
 		}
 		if (tab_cmd->redirections[i].type == REDIRECT_IN)
@@ -88,9 +87,9 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 				close(tab_cmd->file_in);
 			tab_cmd->file_in = open(tab_cmd->redirections[i].value, O_RDONLY);
 			if (tab_cmd->file_in == -1)
-				return (error_out(pntr, tab_cmd->redirections[i].value, 1));
+				return (error_out(pnt, tab_cmd->redirections[i].value, 1));
 		}
-		else if (redirects_cmd_tab(pntr, tab_cmd, i) == 1)
+		else if (redirects_cmd_tab(pnt, tab_cmd, i) == 1)
 			return (1);
 	}
 	return (0);
@@ -105,23 +104,23 @@ int	input_output_redirect(t_data *pntr, t_tab_cmd *tab_cmd)
 //child processes to complete and updating the exit status of the
 //minishell accordingly
 
-void	wait_for_childs(t_data *pntr)
+void	wait_for_childs(t_data *pnt)
 {
 	int	i;
 	int	status;
 
-	i = 0;
-	while (pntr->cmdt_count > i)
+	i = -1;
+	while (pnt->cmdt_count > ++i)
 	{
-		if (pntr->cmdt[i].is_child_process == 1)
-			waitpid(pntr->cmdt[i].pid, &status, 0);
+		if (pnt->cmdt[i].is_child_process == 1)
+			waitpid(pnt->cmdt[i].pid, &status, 0);
 	}
-	if (pntr->cmdt[i - 1].is_child_process == 1)
+	if (pnt->cmdt[i - 1].is_child_process == 1)
 	{
 		if (WIFSIGNALED(status))
-			pntr->code_exit = WTERMSIG(status) + 128;
+			pnt->code_exit = WTERMSIG(status) + 128;
 		else if (WIFEXITED(status))
-			pntr->code_exit = WEXITSTATUS(status);
+			pnt->code_exit = WEXITSTATUS(status);
 	}
 }
 
@@ -164,31 +163,31 @@ void	exec_main(t_data *data)
 //commands in a shell program, handling pipelines, redirections, and
 //executing both built-in and external commands.
 
-void	alt_exec_main(t_data *pntr)
+void	alt_exec_main(t_data *pnt)
 {
 	int	i;
 	int	pip[2];
 
 	i = -1;
-	pntr->fd_before = -1;
-	while (pntr->cmdt_count > ++i)
+	pnt->fd_before = -1;
+	while (pnt->cmdt_count > ++i)
 	{
 		if (pipe(pip) == -1)
-			return ((void)error_out(pntr, "pipe", 1));
-		if (pipelines_redirect(pntr, i, pip)
-			&& input_output_redirect(pntr, &pntr->cmdt[i]) == 1)
+			return ((void)error_out(pnt, "pipe", 1));
+		if (pipelines_redirect(pnt, i, pip)
+			&& input_output_redirect(pnt, &pnt->cmdt[i]) == 1)
 			continue ;
-		change_fd_input_output(pntr, &pntr->cmdt[i], pip, i);
-		if (if_builtin(&pntr->cmdt[i]) == 1)
-			shoot_builtin(pntr, &pntr->cmdt[i], i, pip);
+		change_fd_input_output(pnt, &pnt->cmdt[i], pip, i);
+		if (if_builtin(&pnt->cmdt[i]) == 1)
+			shoot_builtin(pnt, &pnt->cmdt[i], i, pip);
 		else
 		{
-			if (++pntr->cmdt[i].is_child_process
-				&& find_exec(pntr, &pntr->cmdt[i]) == 0)
-				command_execution(pntr, &pntr->cmdt[i], i, pip);
+			if (++pnt->cmdt[i].is_child_process
+				&& find_exec(pnt, &pnt->cmdt[i]) == 0)
+				command_execution(pnt, &pnt->cmdt[i], i, pip);
 			else
-				pipelines_redirect(pntr, i, pip);
+				pipelines_redirect(pnt, i, pip);
 		}
 	}
-	wait_for_childs(pntr);
+	wait_for_childs(pnt);
 }

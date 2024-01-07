@@ -73,7 +73,7 @@ int	main(int argc, char *argv[], char **env_p)
 	if (argc != 1)
 		return (ft_putstr_int("Error: too many arguments\n", 2));
 	init_pntr(&pnt, env_p);
-	while (TRUE)
+	while (1)
 	{
 		set_mode(&pnt, INTERACT);
 		pnt.input = readline("minishell42$ ");

@@ -36,34 +36,34 @@ void    manage_multiline(int status)
 
 //the start_signals function adapts the signal handling behavior based on the execution mode of the shell, ensuring appropriate responses to signals in different scenarios such as multiline input, child process execution, non-interactive mode, and interactive mode.
 
-void    start_signals(t_data *pntr)
+void    start_signals(t_data *pnt)
 {
-	if (pntr->mode == MULTILINE)
+	if (pnt->mode == INTERACT)
 	{
-		signal(SIGINT, &manage_multiline);
+		signal(SIGINT, &sigint_manager);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else if (pntr->mode == CHILD)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-	}
-	else if (pntr->mode == NON_INTERACT)
+	else if (pnt->mode == NON_INTERACT)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else if (pntr->mode == INTERACT)
+	else if (pnt->mode == CHILD)
 	{
-		signal(SIGINT, &sigint_manager);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	else if (pnt->mode == MULTILINE)
+	{
+		signal(SIGINT, &manage_multiline);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }
 
 //The set_mode function provides a convenient way to update the execution mode and configure signal handlers accordingly. It encapsulates the logic of setting the mode and applying the necessary signal handling setup. 
 
-void	set_mode(t_data *pntr, t_set_mode mode)
+void	set_mode(t_data *pnt, t_set_mode mode)
 {
-	pntr->mode = mode;
-	start_signals(pntr);
+	pnt->mode = mode;
+	start_signals(pnt);
 }

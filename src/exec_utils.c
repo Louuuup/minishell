@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 15:38:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/06 17:28:59 by mkramer          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-
 #include "minishell.h"
 
 void	ft_dup2(int fd, int std)
@@ -119,8 +106,8 @@ int	pipelines_redirect(t_data *pntr, int i, int *pip)
 		pntr->fd_before = pip[0];
 	else
 		close(pip[0]);
-	dup2(pntr->first_stdin, STDIN_FILENO);
 	dup2(pntr->first_stdout, STDOUT_FILENO);
+	dup2(pntr->first_stdin, STDIN_FILENO);
 	if (pntr->cmdt[i].in_fd != -1)
 		close(pntr->cmdt[i].in_fd);
 	if (pntr->cmdt[i].out_fd != -1)
@@ -140,9 +127,9 @@ int	find_path(t_data *pntr, t_tab_cmd *tab_cmd)
 	char	*temporary;
 	char	*result;
 
-	if (tab_cmd->cmd[0] == '\0')
-		return (1);
 	if (pntr->path != NULL)
+		return (1);
+	if (tab_cmd->cmd[0] == '\0')
 		return (1);
 	temporary = ft_strdup("./");
 	if (!temporary)

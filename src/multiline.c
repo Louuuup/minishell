@@ -2,7 +2,7 @@
 
 //the name_create_multiline function generates a unique file name for a temporary file used in the context of a multiline input (here document) by combining a constant string with the string representation of an integer
 
-char	*name_create_multiline(int i)
+static char	*name_create_multiline(int i)
 {
 	char	*with_itoa;
 	char	*file_name;
@@ -17,13 +17,12 @@ char	*name_create_multiline(int i)
 
 //the using_dollar function handles the expansion of variables prefixed with a dollar sign ('$') in a given string. It calculates the length of the variable name, extracts the variable name, retrieves its value, and sets the result accordingly. If the expansion is within an arithmetic expression, it returns an empty string for length 1
 
-int	using_dollar(char *letter, char **result, t_data *pntr, int e)
+int	using_dollar(char *letter, char **result, t_data *pnt, int e)
 {
-	int		length;
-	char	*buffer;
-	char	*sign;
+	const int	length = length_of_variable(letter);
+	char		*buffer;
+	char		*sign;
 
-	length = length_of_variable(letter);
 	if (e && length == 1)
 		return (*result = ft_strdup(""), length);
 	if (length == 1)
@@ -31,7 +30,7 @@ int	using_dollar(char *letter, char **result, t_data *pntr, int e)
 	sign = ft_substr(letter, 1, length - 1);
 	if (sign == NULL)
 		return (length);
-	buffer = value_of_variable(pntr, sign);
+	buffer = value_of_variable(pnt, sign);
 	free(sign);
 	if (buffer == NULL)
 		*result = ft_strdup("");
@@ -43,7 +42,7 @@ int	using_dollar(char *letter, char **result, t_data *pntr, int e)
 
 //the broaden_local_token function iterates through each character in the input string, expanding local variables starting with a dollar sign ('$'). It uses the using_dollar function for variable expansion and handles character concatenation. The result is the expanded string with resolved local variables
 
-char	*broaden_local_token(t_data *pntr, char *letter)
+static char	*broaden_local_token(t_data *pnt, char *letter)
 {
 	char	*result;
 	char	*buffer;
@@ -58,7 +57,7 @@ char	*broaden_local_token(t_data *pntr, char *letter)
 	{
 		buffer = NULL;
 		if (*letter == '$')
-			letter += using_dollar(letter, &buffer, pntr, 0);
+			letter += using_dollar(letter, &buffer, pnt, 0);
 		else
 			letter += substring_concatenation(result, &buffer);
 		if (buffer == NULL)
@@ -74,30 +73,31 @@ char	*broaden_local_token(t_data *pntr, char *letter)
 
 //function provides a mechanism for the user to input multiple lines until a specified delimiter is encountered. Each line is processed using broaden_local_token and written to the specified file descriptor. The function takes care of handling user interrupts and memory allocation errors.
 
-int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
+static int	input_to_file_descriptor(t_data *pnt, int fd, char *delimiter)
 {
 	char 			*string;
 	static int		i;
 
 	i = 0;
-	set_mode(pntr, MULTILINE);
-	while (TRUE)
+	set_mode(pnt, MULTILINE);
+	while (1)
 	{
 		string = readline("> ");
 		if (global_signal == 1)
 			return (free(string), 1);
-		if (string == NULL)
+		if (string == NULL  && ft_printf_fd(STDERR_FILENO, "minishell: warning: \
+here-document at line %d delimited by end-of-file(wanted `%s')\n", i, delimiter))
 			break ;
 		if (ft_strcmp(string, delimiter) == 0)
 			break ;
-		string = broaden_local_token(pntr, string);
+		string = broaden_local_token(pnt, string);
 		if (!string)
 			return (close(fd), 2);
 		ft_putendl_fd(string, fd);
 		free(string);
 		i++;
 	}
-	set_mode(pntr, NON_INTERACT);
+	set_mode(pnt, NON_INTERACT);
 	if (string != NULL)
 		free(string);
 	return (0);
@@ -105,7 +105,7 @@ int	input_to_file_descriptor(t_data *pntr, int fd, char *delimiter)
 
 //function provides a way to handle here-documents by creating temporary files, capturing user input, and then processing the input based on the redirection specifications. The temporary file is deleted after use unless additional redirection is specified (tab_cmd->redirections[i].no_space == 3)
 
-int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
+int	create_heredoc(t_data *pnt, t_tab_cmd *tab_cmd, int i)
 {
 	char	*object;
 	int		status;
@@ -113,11 +113,11 @@ int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 
 	object = name_create_multiline(i);
 	if (!object)
-		return (error_out(pntr, "malloc issue", 1), 1);
+		return (error_out(pnt, "malloc issue", 1), 1);
 	file_descriptor = open(object, O_CREAT | O_TRUNC | O_RDWR, 0666);
 	if (file_descriptor < 0)
-		return (free(object), error_out(pntr, "minishell: open: ", 1));
-	status = input_to_file_descriptor(pntr, file_descriptor, tab_cmd->redirections[i].value);
+		return (free(object), error_out(pnt, "minishell: open: ", 1));
+	status = input_to_file_descriptor(pnt, file_descriptor, tab_cmd->redirections[i].value);
 	if (status == 1 || status == 2)
 		return (unlink(object), free(object), 1);
 	close(file_descriptor);
@@ -127,7 +127,7 @@ int	create_heredoc(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 	{
 		tab_cmd->file_in = open(object, O_RDONLY);
 		if (tab_cmd->file_in == -1)
-			return (free(object), error_out(pntr, "minishell: open: ", 1));
+			return (free(object), error_out(pnt, "minishell: open: ", 1));
 		tab_cmd->last_multiline = ft_strdup(object);
 	}
 	free(object);

@@ -34,13 +34,14 @@ void	clean_double_pointer(char **pnt)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (pnt)
 	{
-		while (pnt[++i])
+		while (pnt[i])
 		{
 			free(pnt[i]);
 			pnt[i] = NULL;
+			i++;
 		}
 		free(pnt);
 		pnt = NULL;
@@ -72,23 +73,23 @@ int words_splitting(t_data *pntr, t_token *new_tkns, int *i, int *j)
 
 //the copy_concat_create function handles the copying and concatenation of values from the original array of tokens to a new array of tokens, taking into account the no_space flag for proper concatenation
 
-int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *j, int *i)
+int	copy_concat_create(t_data *pntr, t_token *tokens_new, int *i, int *j)
 {
-	if (tokens_new[*i].no_space == 1 && *j > 0)
+	if (tokens_new[*j].no_space == 1 && *i > 0)
 	{
-		*i = *i - 1;
-		tokens_new[*i].value = ft_strjoin(tokens_new[*i].value,
-			pntr->tokens[*j].value);
-		if (!tokens_new[*i].value)
+		*j = *j - 1;
+		tokens_new[*j].value = ft_strjoin(tokens_new[*j].value,
+			pntr->tokens[*i].value);
+		if (!tokens_new[*j].value)
 			return (error_out(pntr, "ft_strjoin", 1));
 	}
 	else
 	{
-		tokens_new[*i].value = ft_strdup(pntr->tokens[*j].value);
-		if (!tokens_new[*i].value)
+		tokens_new[*j].value = ft_strdup(pntr->tokens[*i].value);
+		if (!tokens_new[*j].value)
 			return (error_out(pntr, "ft_strdup", 1));
 	}
-	*i = *i + 1;
+	*j = *j + 1;
 	return (0);
 }
 

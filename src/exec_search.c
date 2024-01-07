@@ -20,7 +20,7 @@ int	is_command(t_data *pntr, t_tab_cmd *tab_cmd)
 		temporary = tab_cmd->cmd;
 		tab_cmd->cmd = result;
 		free(temporary);
-		ft_putstr_fd("minishell: No permission\n", 2);
+				ft_printf_fd(2, "minishell: %s: Permission denied\n", tab_cmd->cmd);
 		pntr->code_exit = 126;
 		return (0);
 	}
@@ -39,21 +39,23 @@ int check_valid_execution(t_tab_cmd *tab_cmd, t_data *pntr)
 		directory = opendir(tab_cmd->cmd);
 		if (directory)
 		{
+			ft_printf_fd(2, "minishell: %s: Is a directory\n", tab_cmd->cmd);
 			pntr->code_exit = 126;
-			ft_putstr_fd("minishell: that's a directory", 2);
 			closedir(directory);
 		}
 		else if (access(tab_cmd->cmd, X_OK) == 0)
 			return (0);
 		else
 		{
+			ft_printf_fd(2, "minishell: %s: No permission\n",
+				tab_cmd->cmd);
 			pntr->code_exit = 126;
-			ft_putstr_fd("minishell: No permission\n", 2);
 		}
 		return (1);
 	}
+	ft_printf_fd(2, "minishell: %s: No such file or directory\n",
+		tab_cmd->cmd);
 	pntr->code_exit = 127;
-	ft_putstr_fd("minishell: No file / directory\n", 2);
 	return (1);
 }
 
@@ -108,7 +110,8 @@ int	is_exist(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 			temporary = tab_cmd->cmd;
 			tab_cmd->cmd = result;
 			free(temporary);
-			ft_putstr_fd("minishell: No permission\n", 2);
+			ft_printf_fd(2, "minishell: %s: No permission\n",
+				tab_cmd->cmd);
 			pntr->code_exit = 126;
 			return (0);
 		}
@@ -130,7 +133,7 @@ int find_exec(t_data *pntr, t_tab_cmd *tab_cmd)
 		return (1);
 	if (tab_cmd->cmd[0] == '\0')
 	{
-		ft_putstr_fd("minishell: command not found\n", 2);
+		ft_printf_fd(2, "minishell: %s: command not found\n", tab_cmd->cmd);
 		pntr->code_exit = 127;
 		return (1);
 	}
@@ -143,7 +146,7 @@ int find_exec(t_data *pntr, t_tab_cmd *tab_cmd)
 		return (1);
 	if (is_exist(pntr, tab_cmd, i) == 1)
 	{
-		ft_putstr_fd("minishell: command not found\n", 2);
+		ft_printf_fd(2, "minishell: %s: command not found\n", tab_cmd->cmd);
 		pntr->code_exit = 127;
 	}
 	return (1);

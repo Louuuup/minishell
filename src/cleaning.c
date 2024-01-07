@@ -58,32 +58,32 @@ void	pntr_cleaning(t_data *pntr)
 
 //function for safely freeing the memory associated with an array of strings
 
-void	double_pntr_cleaning(char **pntr)
-{
-	// if (!pntr)
-	// 	return ;
-	// while (*pntr)
-	// {
-	// 	free(*pntr);
-	// 	*pntr++ = NULL;
-	// }
-	// free(pntr);
-	// pntr = NULL;
-	int	i;
+// void	double_pntr_cleaning(char **pntr)
+// {
+// 	// if (!pntr)
+// 	// 	return ;
+// 	// while (*pntr)
+// 	// {
+// 	// 	free(*pntr);
+// 	// 	*pntr++ = NULL;
+// 	// }
+// 	// free(pntr);
+// 	// pntr = NULL;
+// 	int	i;
 
-	i = 0;
-	if (pntr)
-	{
-		while(pntr[i])
-		{
-			free(pntr[i]);
-			pntr[i] = NULL;
-			i++;
-		}
-		free(pntr);
-		pntr = NULL;
-	}
-}
+// 	i = 0;
+// 	if (pntr)
+// 	{
+// 		while(pntr[i])
+// 		{
+// 			free(pntr[i]);
+// 			pntr[i] = NULL;
+// 			i++;
+// 		}
+// 		free(pntr);
+// 		pntr = NULL;
+// 	}
+// }
 
 //the function is responsible for cleaning up file descriptors and resources associated with output redirection and here documents
 
@@ -104,7 +104,7 @@ void	fd_cleaning(t_data *pntr, t_tab_cmd *tab_cmd, int i)
 
 void	total_clean(t_data *pntr)
 {
-	double_pntr_cleaning(pntr->env);
+	clean_double_pointer(pntr->env);
 	pntr_cleaning(pntr);
 	close(pntr->first_stdout);
 	close(pntr->first_stdin);

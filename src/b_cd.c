@@ -33,5 +33,6 @@ void	build_pwd(t_data *pnt)
 	pnt->code_exit = 0;
 	path = getcwd(NULL, 0);
 	if (path)
-	ft_printf_fd("%s\n", path);
+		ft_printf_fd(STDOUT_FILENO, "%s\n", path);
+	free(path);
 }

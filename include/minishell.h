@@ -170,7 +170,7 @@ void	free_all(t_data *data);
 void	prompt_create(t_data *data);
 //
 //==================[builtin.c]===================//
-void	build_pwd(int fd_out);
+void	build_pwd(t_data *pnt);
 int		if_builtin(t_tab_cmd *cmd_tab);
 void    shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd);
 //

@@ -15,7 +15,7 @@ char	**path_getter(t_data *pnt, int i)
 	}
 	if (pnt->env[i] == NULL)
 		return (NULL);
-	result = ft_split(found, ':');
+	result = ft_split_fd(found, ':');
 	if (!result)
 		return (error_out(pnt, "ft_split", 1), NULL);
 	return (result);
@@ -76,7 +76,7 @@ int	main(int argc, char *argv[], char **env_p)
 	while (1)
 	{
 		set_mode(&pnt, INTERACT);
-		pnt.input = readline("minishell42$ ");
+		pnt.input = readline("So,_Max,_still_cannot_find_the_bug?$ ");
 		set_mode(&pnt, NON_INTERACT);
 		if (global_signal == 1 && global_signal--)
 			pnt.code_exit = 130;
@@ -85,7 +85,7 @@ int	main(int argc, char *argv[], char **env_p)
 		if (pnt.input[0] != '\0')
 			add_history(pnt.input);
 		pnt.path = path_getter(&pnt, -1);
-		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt))
+		if (tokener(&pnt) == 0 && extender(&pnt) == 0 && parser(&pnt) == 0)
 			alt_exec_main(&pnt);
 		pntr_cleaning(&pnt);
 	}

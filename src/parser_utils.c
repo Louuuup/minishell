@@ -20,22 +20,22 @@ int check_if_redirection(t_type_token type)
 
 //the purpose of the count_pipes function is to iterate through the tokenized input and count the number of pipe symbols present. The final count is then returned.
 
-int	count_pipes(t_data *pointer)
+int	count_pipes(t_data *pnt)
 {
 	int	i;
 	int	pipeCount;
 
 	i = -1;
 	pipeCount = 0;
-	while (++i < pointer->count_token)
-		if (pointer->tokens[i].type == PIPE)
+	while (++i < pnt->count_token)
+		if (pnt->tokens[i].type == PIPE)
 			pipeCount++;
 	return (pipeCount);
 }
 
 //the new_tokens_count function counts the total number of tokens that would result after splitting WORD tokens based on spaces within their values.
 
-int	new_tokens_count(t_data *pointer)
+int	new_tokens_count(t_data *pnt)
 {
 	int	i;
 	int	j;
@@ -43,14 +43,14 @@ int	new_tokens_count(t_data *pointer)
 
 	i = 0;
 	k = 0;
-	while (i < pointer->count_token)
+	while (i < pnt->count_token)
 	{
-		if (pointer->tokens[i].type == WORD)
+		if (pnt->tokens[i].type == WORD)
 		{
 			j = 0;
-			while (pointer->tokens[i].value[j])
+			while (pnt->tokens[i].value[j])
 			{
-				if (pointer->tokens[i].value[j] == ' ')
+				if (pnt->tokens[i].value[j] == ' ')
 					k++;
 				j++;
 			}

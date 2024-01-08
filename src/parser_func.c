@@ -53,10 +53,10 @@ int	args_cmd_fill(t_data *pnt, int j, int i)
 	int k;
 	
 	k = 0;
-	while (pnt->tokens[i].type != PIPE && pnt->count_token > ++i)
+	while (++i < pnt->count_token && pnt->tokens[i].type != PIPE)
 	{
 		if (check_arguments(pnt->tokens[i].type)
-			&& (check_if_redirection(pnt->tokens[i - 1].type) || (i == 0)))
+			&& (i == 0 || check_if_redirection(pnt->tokens[i - 1].type)))
 		{
 			if (pnt->cmdt[j].num_args-- > 0 && pnt->tokens[i].type == WORD
 				&& pnt->tokens[i].value[0] == '\0')
@@ -98,10 +98,10 @@ int	clean_tokens(t_token *tokens, int max, t_data *pnt)
 
 int	words_merging(t_data *pnt)
 {
+	t_token	*tokens_new;
 	int		k;
 	int		j;
 	int		i;
-	t_token	*tokens_new;
 
 	k = -1;
 	j = 0;

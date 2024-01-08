@@ -58,7 +58,7 @@ char	*cmd_fullpath(t_data *data, char *cmd)
 
 	i = 0;
 	tmp = ft_get_env("PATH", data->env);
-	paths = ft_split(tmp, ':');
+	paths = ft_split_fd(tmp, ':');
 	free(tmp);
 	while (paths[i])
 	{

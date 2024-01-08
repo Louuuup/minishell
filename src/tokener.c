@@ -119,7 +119,7 @@ int tokener(t_data *pnt)
 	pnt->tokens = ft_calloc(pnt->max_token, sizeof(t_token));
 	if (!pnt->tokens)
 		return (error_out(pnt, "ft_calloc", 1));
-	while (pnt->input && pnt->input[++i])
+	while (pnt->input[++i])
 		if (filling_with_tokens(pnt, &i, 0) == 1)
 			return (1);
 	return (syntax_checking(pnt));

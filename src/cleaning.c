@@ -35,7 +35,6 @@ void	pntr_cleaning(t_data *pntr)
 {
 	int	i;
 
-	i = 0;
 	if (pntr->tokens)
 	{
 		while (0 < pntr->count_token)
@@ -47,6 +46,7 @@ void	pntr_cleaning(t_data *pntr)
 	if (pntr->input)
 		free(pntr->input);
 	pntr->input = NULL;
+	i = 0;
 	if (pntr->path)
 	{
 		while (pntr->path[i])

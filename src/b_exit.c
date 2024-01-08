@@ -6,7 +6,7 @@
 /*   By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:58:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/06 00:15:55 by mkramer          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:36:28 by mkramer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ok_for_numeric(char *s)
 long int	to_long_int(char *s)
 {
 	long int	n;
-	int			sgn;
+	long int	sgn;
 	// int			dgt;
 
 	n = 0;

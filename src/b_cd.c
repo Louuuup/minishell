@@ -26,11 +26,12 @@ void	built_cd(char **args, int argc)
 		my_error(ERR_CD);
 }
 
-void	build_pwd(int fd_out)
+void	build_pwd(t_data *pnt)
 {
 	char *path;
 
+	pnt->code_exit = 0;
 	path = getcwd(NULL, 0);
-	ft_putstr_fd(path, fd_out);
-	ft_putchar_fd('\n', fd_out);
+	if (path)
+	ft_printf_fd("%s\n", path);
 }

@@ -47,7 +47,13 @@ void	print_env(char **env, int fd)
 	}
 }
 
-void	built_env(t_data *data, int fd_out)
+void	built_env(t_data *data)
 {
-	print_env(data->env, fd_out);
+	int	i;
+
+	i = -1;
+	data->code_exit = 0;
+	while (data->env[++i])
+		ft_putendl_fd(data->env[i], STDOUT_FILENO);
+	// print_env(data->env, fd_out);
 }

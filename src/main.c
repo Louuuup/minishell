@@ -76,7 +76,7 @@ int	main(int argc, char *argv[], char **env_p)
 	while (1)
 	{
 		set_mode(&pnt, INTERACT);
-		pnt.input = readline("So,_Max,_still_cannot_find_the_bug?$ ");
+		pnt.input = readline("Yo-ho-ho!$ ");
 		set_mode(&pnt, NON_INTERACT);
 		if (global_signal == 1 && global_signal--)
 			pnt.code_exit = 130;

@@ -36,3 +36,8 @@ void	build_pwd(t_data *pnt)
 		ft_printf_fd(STDOUT_FILENO, "%s\n", path);
 	free(path);
 }
+
+// int	build_cd(t_data *pnt, t_tab_cmd *tab_cmd)
+// {
+// 	char	*way
+// }

@@ -47,8 +47,8 @@ void	shoot_builtin(t_data *pntr, t_tab_cmd *cmd_tab, int i, int *pipe_fd)
 	create_builtin_fd(cmd_tab, pipe_fd);
 	if (ft_strcmp(cmd_tab->cmd, "exit") == 0)
 		built_exit(pntr, cmd_tab);
-	// if (ft_strcmp(cmd_tab->cmd, "env") == 0)
-		// built_env(pntr, cmd_tab);
+	if (ft_strcmp(cmd_tab->cmd, "env") == 0)
+		built_env(pntr);
 	// if (ft_strcmp(cmd_tab->cmd, "unset") == 0)
 		// built_unset(pntr, cmd_tab);
 	// if (ft_strcmp(cmd_tab->cmd, "export") == 0)

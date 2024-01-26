@@ -8,19 +8,6 @@ t_data	*get_data(void)
 	return (&data);
 }
 
-void bonjour(char **env)
-{
-	t_data *data;
-
-	data = get_data();
-	data->env = env;
-}
-
-void allo(void)
-{
-	printf("env is %s\n", get_data()->env[0]);
-}
-
 int main(int argc, char *argv[], char *envp[])
 {
 	t_data *data;

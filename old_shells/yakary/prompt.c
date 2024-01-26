@@ -2,25 +2,25 @@
 
 // void	tmp_parse(t_data *data);
 
-// void	prompt_create(t_data *data)
-// {
-// 	data->user_prompt = NULL;
-// 	while (TRUE)
-// 	{
-// 		data->user_prompt = readline(PROMPT_NAME);
-// 		if (data->user_prompt && !strncmp(data->user_prompt, "\0", 2))
-// 		{
-// 			free(data->user_prompt);
-// 			data->user_prompt = NULL;
-// 		}
-// 		else
-// 		{
-// 			add_history(data->user_prompt);
-// 			if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR)
-// 				exec_main(data);
-// 		}
-// 	}
-// }
+void	prompt_create(t_data *data)
+{
+	data->user_prompt = NULL;
+	while (TRUE)
+	{
+		data->user_prompt = readline(PROMPT_NAME);
+		if (data->user_prompt && !strncmp(data->user_prompt, "\0", 2))
+		{
+			free(data->user_prompt);
+			data->user_prompt = NULL;
+		}
+		else
+		{
+			add_history(data->user_prompt);
+			if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR)
+				exec_main(data);
+		}
+	}
+}
 
 // // for me, will delete once we have the real parsing
 // void	tmp_parse(t_data *data)

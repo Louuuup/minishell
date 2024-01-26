@@ -42,32 +42,6 @@ void env_init(t_data *data, char **env)
 	}
 }
 
-// int	main(int argc, char *argv[], char **env_p)
-// {
-// 	t_data *data;
-
-// 	(void)argv;
-// 	if (argc != 1)
-// 	{
-// 		(ft_putstr_fd("Error: too many arguments\n", 2));
-// 		return (2);
-// 	}
-// 	data = get_data();
-// 	env_init(data, env_p);
-// 	built_env(data, 1);
-// 	printf("\n\nstr is %s.\n", ft_get_env("PATH", data->env));
-// 	char *str = "cat";
-// 	printf("path for <%s> is %s.\n", str, cmd_fullpath(data, str));
-// 	// prompt_create(data);
-// 	// while (TRUE)
-// 	// {
-// 	// 	if (tokener(data) == 0 && extender(data) == 0 && parser(data))
-// 	// 		exec_main(data);
-// 	// }
-// 	free_all(data);
-//     return (0);
-// }
-
 int	main(int argc, char *argv[], char **env_p)
 {
 	t_data pnt;

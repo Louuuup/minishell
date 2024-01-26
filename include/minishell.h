@@ -23,26 +23,55 @@
 # define FALSE 0
 # define YES 1
 # define NO 0
+# define MINISHELL_ERR "\033[31m\033[1mminiSHELL: \033[0m"
 # define PROMPT_NAME "\033[35m\033[1mminiSHELL \033[0m\033[1m→ \033[0m"
 # define EXPORT_PREFIX "declare -x "
-//==================ERRORS===================//
-# define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"
-# define ERR_EXP "\033[37m\033[1mREASON\033[0m"
-# define ERR_FORK "Forked up!\n"
-# define ERR_ALLOC "Allocation error\n"
-# define ERR_PIPE "Couldn't open the pipe\n"
-# define ERR_DUP "Dup error\n"
-# define ERR_CD_ARGS "Too much arguments for CD\n"
-# define ERR_CD "Invalid name or path\n"
-# define ERR_EXPORT "Invalid identifier for export\n"
-# define ERR_UNSET "Invalid indentifier for unset\n"
-# define ERR_WRITE "Write error\n"
 //==================Structs===================//
 
 typedef struct s_data
 {
-	char	**env;
-	int		code_exit;
+	char		**env; //environnement, allocated and dynamicly updated (no garbo)
+	char		*user_prompt; //prompt entered by user. (no garbo)
+	int			code_exit;
+	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
+
+//chainlist for allocated memory blocks (for garbage collector)
+typedef struct s_memblock
+{
+	void				*ptr;
+	struct s_memblock	*next;
+}				t_memblock;
+
+
+//==================init.c===================//
+
+void	init_all(t_data *data, char **envp);
+//==================utils.c===================//
+
+//==================t_utils.c===================//
+
+t_data	*get_data(void);
+//==================parsing_main.c===================//
+
+int		parser(t_data *data);
+int		tokener(t_data *data);
+//==================exec_main.c===================//
+
+void	exec_main(t_data *data);
+//==================garbage_handler.c===================//
+
+//works like malloc but adds the pointer to the memblock list
+void		*gc_malloc(size_t size);
+//works like calloc but adds the pointer to the memblock list
+void		*gc_calloc(size_t count, size_t size);
+//adds a block on top of the list
+t_memblock	*memblock_add(t_memblock *memblock, void *ptr);
+//frees all the blocks in the list
+void		gc_free(t_memblock *memblock);
+
+//==================error_handler.c===================//
+int		shell_error(void);
+int		error_str(char *str);
 
 #endif

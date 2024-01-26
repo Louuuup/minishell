@@ -1,0 +1,33 @@
+void restore_fds(t_data *data, t_cmd_table *cmd_table, int i, int *pipe_fd)
+{
+    // Close the output file descriptor if it is not -1
+    if (cmd_table->fd_out != -1)
+        close(cmd_table->fd_out);
+
+    // If the current command is not the last one, set the previous file descriptor
+    // to the read end of the pipe; otherwise, close the read end of the pipe
+    if (i != data->cmdt_count - 1)
+        data->prev_fd = pipe_fd[0];
+    else
+        close(pipe_fd[0]);
+
+    // Restore standard output and standard input file descriptors
+    dup2(data->original_stdout, STDOUT_FILENO);
+    dup2(data->original_stdin, STDIN_FILENO);
+
+    // Close the input file descriptor if it is not -1
+    if (cmd_table->fd_in != -1)
+        close(cmd_table->fd_in);
+
+    // Close the output file descriptor if it is not -1 (again, for redundancy)
+    if (cmd_table->fd_out != -1)
+        close(cmd_table->fd_out);
+
+    // If the last_heredoc flag is set for the current command,
+    // unlink and free the associated file (last_heredoc)
+    if (data->cmdt[i].last_heredoc)
+    {
+        unlink(data->cmdt[i].last_heredoc);
+        free(data->cmdt[i].last_heredoc);
+    }
+}

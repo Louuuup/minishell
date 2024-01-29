@@ -4,8 +4,8 @@
 # include "../lib/libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
-# include <readline.h>
-# include <history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <string.h>
 # include <fcntl.h>
 # include <stddef.h>
@@ -28,6 +28,13 @@
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
+//chainlist for allocated memory blocks (for garbage collector)
+typedef struct s_memblock
+{
+	void				*ptr;
+	struct s_memblock	*next;
+}				t_memblock;
+
 typedef struct s_data
 {
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
@@ -35,13 +42,6 @@ typedef struct s_data
 	int			code_exit;
 	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
-
-//chainlist for allocated memory blocks (for garbage collector)
-typedef struct s_memblock
-{
-	void				*ptr;
-	struct s_memblock	*next;
-}				t_memblock;
 
 
 //==================init.c===================//

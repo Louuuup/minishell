@@ -16,6 +16,7 @@ int main(int argc, char *argv[], char *envp[])
 			free(data->user_prompt);
 			data->user_prompt = NULL;
 		}
+
 		else //if user input is not empty
 		{
 			add_history(data->user_prompt);

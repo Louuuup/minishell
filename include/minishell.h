@@ -89,6 +89,18 @@ t_data	*get_data(void);
 
 int		parser(t_data *data);
 int		tokener(t_data *data);
+
+//==================pipe_parsing.c===================//
+
+int		ft_pipeparse(char *str);
+void    ft_sglbool(bool *single, bool *dbl);
+void    ft_dblbool(bool *single,bool *dbl);
+//==================parsing_utils.c===================//
+
+//check if there's  any unclosed quote
+int 	ft_closedquote(char *str);
+//splits on delim by adding 0 inside the string without malloc
+char    *ft_strtok(char *str, const char delim);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);

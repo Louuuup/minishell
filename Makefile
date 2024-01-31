@@ -73,7 +73,8 @@ fclean: clean
 	$(MUTE)echo "$(GREEN)$(BOLD)✅ Fully cleaned $(PURPLE)MINISHELL$(RESET)"
 rclean:
 	$(MUTE)$(DELETE) $(READLINE_DIR)
-
+ffclean: fclean rclean
+	$(MUTE)echo "$(GREEN)$(BOLD)✅ Fully Fully cleaned $(PURPLE)MINISHELL$(RESET)"
 PDF		:= minishell_en.pdf
 GIT_URL := https://github.com/Louuuup/minishell
 PDF_URL := $(GIT_URL)/instructions/minishell_en.pdf

@@ -48,7 +48,6 @@ typedef struct s_cmd
 	int				out_type;
 	char 			*infile;
 	char			*outfile;
-	int				check;
 	struct s_cmd	*next;
 	bool			built_in;
 }			t_cmd;
@@ -94,6 +93,12 @@ int		tokener(t_data *data);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);
+
+//==================exec_utils.c===================//
+
+void	exec_cmd(t_data *data);
+int		ft_pipe(t_cmd *cmd);
+int		ft_dup2(t_cmd *cmd);
 //==================garbage_handler.c===================//
 
 //works like malloc but adds the pointer to the memblock list

@@ -9,6 +9,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include <signal.h>
 # include <sys/ioctl.h>
 # include <sys/wait.h>
@@ -43,7 +44,7 @@ typedef struct s_data
 	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
 
-//base for command struct can be modified if needed 
+//base for command struct can be modified if needed
 
 typedef struct s_cmd
 {
@@ -62,7 +63,7 @@ typedef struct s_cmd
 	bool			built_in;
 }			t_cmd;
 
-//flag fo redirection 
+//flag fo redirection
 
 enum e_redir_type
 {

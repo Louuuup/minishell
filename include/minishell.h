@@ -36,16 +36,6 @@ typedef struct s_memblock
 	struct s_memblock	*next;
 }				t_memblock;
 
-typedef struct s_data
-{
-	char		**env; //environnement, allocated and dynamicly updated (no garbo)
-	char		*user_prompt; //prompt entered by user. (no garbo)
-	int			code_exit;
-	t_memblock	*memblock; //head of allocated memory blocks
-}				t_data;
-
-//base for command struct can be modified if needed
-
 typedef struct s_cmd
 {
 	char			**cmd;
@@ -62,6 +52,18 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	bool			built_in;
 }			t_cmd;
+
+typedef struct s_data
+{
+	t_cmd		*cmd;
+	char		**env; //environnement, allocated and dynamicly updated (no garbo)
+	char		*user_prompt; //prompt entered by user. (no garbo)
+	int			code_exit;
+	t_memblock	*memblock; //head of allocated memory blocks
+}				t_data;
+
+//base for command struct can be modified if needed
+
 
 //flag fo redirection
 

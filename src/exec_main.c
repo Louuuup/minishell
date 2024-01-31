@@ -2,5 +2,9 @@
 
 void	exec_main(t_data *data)
 {
-	(void)data;
+	t_cmd	*cmd;
+	int		pip[2];
+
+	cmd = data->cmd;
+	if 
 }

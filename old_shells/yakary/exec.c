@@ -124,40 +124,40 @@ void	wait_for_childs(t_data *pnt)
 	}
 }
 
-// void	exec_cmd(t_data *data, t_cmd *cmd)
-// {
-// 	(void)data;
-// 	(void)cmd;
-// }
+void	exec_cmd(t_data *data, t_cmd *cmd)
+{
+	(void)data;
+	(void)cmd;
+}
 
-// void	exec_main(t_data *data)
-// {
-// 	t_cmd	*tmp;
-// 	int		pip[2];
+void	exec_main(t_data *data)
+{
+	t_cmd	*tmp;
+	int		pip[2];
 
-// 	if (!data->cmd)
-// 		return ;
-// 	tmp = data->cmd;
-// 	while (tmp)
-// 	{
-// 		if (tmp->cmd_idx == 0 && data->cmdt->in_fd > 0)
-// 			tmp->fd[0] = data->cmdt->in_fd;
-// 		else if (tmp->cmd_idx < 0)
-// 			tmp->fd[0] = pip[1];
-// 		tmp->cmd_path = cmd_fullpath(data, tmp->args[0]);
-// 		if (tmp->next)
-// 			ft_pipe(tmp);
-// 		else if (data->cmdt->out_fd < 0)
-// 			tmp->fd[1] = data->cmdt->out_fd;
-// 		if (!tmp->cmd_path)
-// 			my_error("Command unknown\n");
-// 		if (tmp->next) //if there is another cmd after pipe
-// 			exec_cmd(data, tmp);
-// 		if (pipe(pip) == -1)
-// 			ft_error(ERR_PIPE);
-// 		tmp = tmp->next;
-// 	}
-// }
+	if (!data->cmd)
+		return ;
+	tmp = data->cmd;
+	while (tmp)
+	{
+		if (tmp->cmd_idx == 0 && data->cmdt->in_fd > 0)
+			tmp->fd[0] = data->cmdt->in_fd;
+		else if (tmp->cmd_idx < 0)
+			tmp->fd[0] = pip[1];
+		tmp->cmd_path = cmd_fullpath(data, tmp->args[0]);
+		if (tmp->next)
+			ft_pipe(tmp);
+		else if (data->cmdt->out_fd < 0)
+			tmp->fd[1] = data->cmdt->out_fd;
+		if (!tmp->cmd_path)
+			my_error("Command unknown\n");
+		if (tmp->next) //if there is another cmd after pipe
+			exec_cmd(data, tmp);
+		if (pipe(pip) == -1)
+			ft_error(ERR_PIPE);
+		tmp = tmp->next;
+	}
+}
 
 //the function is responsible for managing the execution of multiple
 //commands in a shell program, handling pipelines, redirections, and

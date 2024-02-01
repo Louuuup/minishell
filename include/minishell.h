@@ -44,10 +44,10 @@ typedef struct s_cmd
 	pid_t			pid;
 	int				fd_in;
 	int				fd_out;
-	int 			in_type;
-	int				out_type;
-	char 			*infile;
-	char			*outfile;
+	int 			in_flag; //redir_flag
+	int				out_flag; //redir_flag
+	char 			*infile; //path to file
+	char			*outfile; //path to file
 	struct s_cmd	*next;
 	bool			built_in;
 }			t_cmd;

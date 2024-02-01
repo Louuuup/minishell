@@ -28,3 +28,21 @@ int	ft_dup2(t_cmd *cmd)
 	}
 	return (NO_ERROR);
 }
+
+int	fd_redirect(int fd, char *file, int redir_flag)
+{
+	if (fd > 0)
+		close(fd);
+	if (redir_flag == REDIR_INPUT)
+		fd = open(file, O_RDONLY);
+	else if (redir_flag == REDIR_OVERWRITE)
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (redir_flag == REDIR_APPEND)
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+//	else if (redir_flag == REDIR_HEREDOC)
+	else
+		return (error_str("redir_flag error\n"));
+	if (fd == -1)
+		return (shell_error());
+	return (fd);
+}

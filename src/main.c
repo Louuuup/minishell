@@ -8,7 +8,7 @@ int main(int argc, char *argv[], char *envp[])
 	(void)argv; //not needed
 	(void)argc; //not needed
 	init_all(data, envp); //initialises all data
-	while(TRUE) //main loop
+	while (TRUE) //main loop
 	{
 		data->user_prompt = readline(PROMPT_NAME);
 		if (data->user_prompt && !ft_strncmp(data->user_prompt, "\0", 2)) //if user input is empty
@@ -25,6 +25,6 @@ int main(int argc, char *argv[], char *envp[])
 				exec_main(data); //not implemented yet
 		}
 	}
-	
+
 	return (NO_ERROR);
 }

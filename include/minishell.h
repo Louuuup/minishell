@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 0
+# define DEBUG_ON 1
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -83,6 +83,10 @@ enum e_redir_type
 void	init_all(t_data *data, char **envp);
 //==================utils.c===================//
 
+// strdup with garbage collector
+char *gc_strdup(char *str);
+// split with garbage collector
+char **gc_split(char *str, char c);
 //==================t_utils.c===================//
 
 t_data	*get_data(void);
@@ -99,6 +103,7 @@ void	exec_main(t_data *data);
 void	exec_cmd(t_data *data);
 int		ft_pipe(t_cmd *cmd);
 int		ft_dup2(t_cmd *cmd);
+int		fd_redirect(int fd, char *file, int redir_flag);
 //==================garbage_handler.c===================//
 
 //works like malloc but adds the pointer to the memblock list
@@ -114,4 +119,10 @@ void		gc_free(t_memblock *memblock);
 int		shell_error(void);
 int		error_str(char *str);
 
+//======================tmp.c=========================//
+
+//tmp function to test parser and tokener
+void tmp_parse(t_data *data);
+//tmp function to print the cmd infos.
+void cmd_status(t_cmd *cmd);
 #endif

@@ -20,9 +20,13 @@ int main(int argc, char *argv[], char *envp[])
 
 		else //if user input is not empty
 		{
+			if (DEBUG_ON)
+				printf("(main) prompt detected\n");
 			add_history(data->user_prompt);
-			if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR) //can remove one of the two if called elsewhere
-				exec_main(data); //not implemented yet
+			tmp_parse(data); //temporary function to test parser and tokener
+			cmd_status(data->cmd); //temporary function to print the cmd infos.
+			// if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR) //can remove one of the two if called elsewhere
+				// exec_main(data); //not implemented yet
 		}
 	}
 

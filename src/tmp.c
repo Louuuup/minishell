@@ -9,9 +9,10 @@ void tmp_parse(t_data *data)
 	{
 		char *commande = "echo test 1";
 		data->cmd = gc_calloc(1, sizeof(t_cmd));
+		if (data->cmd == NULL)
+			error_str("malloc error\n");
 		data->cmd->cmd = gc_split(commande, ' ');
 	}
-
 }
 void	cmd_status(t_cmd *cmd)
 {

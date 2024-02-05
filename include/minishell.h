@@ -68,12 +68,12 @@ typedef struct s_data
 
 enum e_redir_type
 {
-	REDIR_NONE, 	//stdin stdout
-	REDIR_INPUT,	// <
-	REDIR_OVERWRITE,// >
-	REDIR_APPEND,	// >>
-	REDIR_HEREDOC,	// <<
-	REDIR_PIPE		// |
+	REDIR_NONE, 	 //stdin stdout
+	REDIR_INPUT,	 // <
+	REDIR_OVERWRITE, // >
+	REDIR_APPEND,	 // >>
+	REDIR_HEREDOC,	 // <<
+	REDIR_PIPE		 // |
 };
 
 
@@ -106,23 +106,35 @@ int		ft_dup2(t_cmd *cmd);
 int		fd_redirect(int fd, char *file, int redir_flag);
 //==================garbage_handler.c===================//
 
-//works like malloc but adds the pointer to the memblock list
-void		*gc_malloc(size_t size);
-//works like calloc but adds the pointer to the memblock list
-void		*gc_calloc(size_t count, size_t size);
 //adds a block on top of the list
 t_memblock	*memblock_add(t_memblock *memblock, void *ptr);
 //frees all the blocks in the list
 void		gc_free(t_memblock *memblock);
 
+//==================garbage_tools.c===================//
+
+//works like malloc but adds the pointer to the memblock list
+void		*gc_malloc(size_t size);
+//works like calloc but adds the pointer to the memblock list
+void		*gc_calloc(size_t count, size_t size);
+//works like strjoin but adds the pointer to the memblock list
+char *gc_strjoin(char *s1, char *s2);
+
 //==================error_handler.c===================//
+
 int		shell_error(void);
 int		error_str(char *str);
-
 //======================tmp.c=========================//
 
 //tmp function to test parser and tokener
 void tmp_parse(t_data *data);
 //tmp function to print the cmd infos.
 void cmd_status(t_cmd *cmd);
+
+//====================builtin_env.c====================//
+
+// fetches a variable from the environment(no allocation)
+char *get_var(char **env, char *var);
+
+
 #endif

@@ -1,32 +1,5 @@
 #include "minishell.h"
 
-void	*gc_malloc(size_t size)
-{
-	void	*ptr;
-	t_data	*data;
-
-	data = get_data();
-	ptr = malloc(size);
-	if (!ptr)
-		shell_error();
-	data->memblock = memblock_add(data->memblock, ptr);
-	return (ptr);
-}
-
-void	*gc_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-	t_data	*data;
-
-	if (DEBUG_ON)
-		printf("(gc_calloc) Allocating %lu bytes\n", count * size);
-	data = get_data();
-	ptr = ft_calloc(count, size);
-	if (!ptr)
-		shell_error();
-	data->memblock = memblock_add(data->memblock, ptr);
-	return (ptr);
-}
 
 t_memblock *memblock_create(void *ptr)
 {

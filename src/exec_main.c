@@ -13,7 +13,6 @@ void redirect_check(t_cmd *cmd)
 void	exec_main(t_data *data)
 {
 	t_cmd	*cmd;
-	// int		pid[2];
 
 	cmd = data->cmd;
 	if (!cmd)
@@ -21,12 +20,38 @@ void	exec_main(t_data *data)
 	while (cmd->next)
 	{
 		if (ft_pipe(cmd))
-			error_str("pipe error\n");
+			return ;
 		cmd = cmd->next;
 	}
 	cmd = data->cmd;
-	redirect_check(cmd);
-
+	while (cmd)
+	{
+		redirect_check(cmd);
+		if (ft_dup2(cmd))
+			return ;
+		if (cmd->built_in)
+			exec_builtin(cmd);
+		else
+			exec_cmd(cmd);
+		cmd = cmd->next;
+	}
 }
 
 
+void	exec_builtin(t_cmd *cmd)
+{
+	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
+		b_echo(cmd);
+	else if (!ft_strncmp (cmd->cmd[0], "cd", 3))
+		b_cd(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
+		b_pwd(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "export", 7))
+		b_export(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
+		b_unset(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
+		b_env(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
+		b_exit(cmd);
+}

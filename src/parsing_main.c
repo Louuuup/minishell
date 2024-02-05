@@ -4,7 +4,9 @@
 int parser(t_data *data)
 {
 	//(void)data->user_prompt;
-	
+	int i;
+
+	i = 0;
 	// checks for unclosed quote
 	if(!(ft_closedquote(data->user_prompt)))
 	{
@@ -16,16 +18,23 @@ int parser(t_data *data)
 	{
 		ft_printf_fd(2, "minishell: syntax error near unexpected token `|'\n");
 	}
+	ft_cmdcount(data->user_prompt);
 	//handle and remove redirection
 	//flag in the cmd list
-	//
+
 	char *temp;
-	
+	//change this allocation for the garbage collector one
+	data->parser.cmd_list = malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char *));
 	temp = ft_strtok(data->user_prompt, '|');
-    while (temp) {
-        printf("%s\n", temp);
+    while (temp) 
+	{
+		data->parser.cmd_list[i] = temp;
+		printf("%s\n", data->parser.cmd_list[i]);
+		i++;
         temp = ft_strtok(0, '|');
     }
+	data->parser.cmd_list[i] = NULL;
+	int 	ft_tokenizer(data);
 	return (NO_ERROR);
 }
 

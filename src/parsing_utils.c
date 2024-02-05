@@ -1,5 +1,29 @@
 #include "minishell.h"
 
+size_t ft_cmdcount(char *str)
+{
+    int     i;
+    size_t  count;
+    bool    single;
+    bool    dbl;
+
+    i = 0;
+    count = 0;
+    single = false;
+    dbl = false;
+    while (str[i])
+    {
+        if(str[i] == '|' && single == false && dbl == false)  
+           count++;
+        if (str[i] == '\'')
+            ft_sglbool(&single, &dbl);
+        if (str[i] == '"')
+            ft_dblbool(&single, &dbl);
+        i++;
+    }
+    return (count);
+}
+
 int ft_closedquote(char *str)
 {
     int     i;

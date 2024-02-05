@@ -29,6 +29,13 @@
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
+//struct used for parsing
+
+typedef struct s_tok
+{
+	char 	**cmd_list;
+}			t_tok;
+
 //chainlist for allocated memory blocks (for garbage collector)
 typedef struct s_memblock
 {
@@ -41,6 +48,7 @@ typedef struct s_data
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
+	t_tok		parser;	//struct used for parsing
 	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
 
@@ -63,8 +71,7 @@ typedef struct s_cmd
 	bool			built_in;
 }			t_cmd;
 
-//flag fo redirection
-
+//flag for redirection
 enum e_redir_type
 {
 	REDIR_NONE, 	//stdin stdout
@@ -101,6 +108,11 @@ void    ft_dblbool(bool *single,bool *dbl);
 int 	ft_closedquote(char *str);
 //splits on delim by adding 0 inside the string without malloc
 char    *ft_strtok(char *str, const char delim);
+size_t 	ft_cmdcount(char *str);
+
+//==================tokenizer.c===================//
+
+int		tokenizer(t_data *data);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);

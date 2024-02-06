@@ -34,7 +34,7 @@ int parser(t_data *data)
         temp = ft_strtok(0, '|');
     }
 	data->parser.cmd_list[i] = NULL;
-	int 	ft_tokenizer(data);
+	int 	tokenizer(data);
 	return (NO_ERROR);
 }
 

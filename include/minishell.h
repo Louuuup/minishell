@@ -29,12 +29,19 @@
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
-//struct used for parsing
+//structs used for parsing
 
 typedef struct s_tok
 {
 	char 	**cmd_list;
 }			t_tok;
+
+typedef struct s_countok
+{
+	size_t 	i;
+	size_t 	j;
+	size_t  count;
+}			t_countok;
 
 //chainlist for allocated memory blocks (for garbage collector)
 typedef struct s_memblock
@@ -109,6 +116,21 @@ int 	ft_closedquote(char *str);
 //splits on delim by adding 0 inside the string without malloc
 char    *ft_strtok(char *str, const char delim);
 size_t 	ft_cmdcount(char *str);
+
+//==================split_tok.c===================//
+
+char	**ft_split_tok(char *s);
+char	**splitterq(char **split, char *s, size_t count);
+char	*word_makerq(char *s, size_t len);
+size_t	word_countq(char *s);
+
+//==================count_tok.c===================//
+
+int ft_sglcount(t_countok *tok, char *str);
+int ft_dblcount(t_countok *tok, char *str);
+int ft_outcount(t_countok *tok, char *str);
+int ft_incount(t_countok *tok, char *str);
+int ft_tokcount(t_countok *tok, char *str);
 
 //==================tokenizer.c===================//
 

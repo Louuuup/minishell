@@ -29,12 +29,11 @@ int parser(t_data *data)
     while (temp) 
 	{
 		data->parser.cmd_list[i] = temp;
-		printf("%s\n", data->parser.cmd_list[i]);
 		i++;
         temp = ft_strtok(0, '|');
     }
 	data->parser.cmd_list[i] = NULL;
-	int 	tokenizer(data);
+	tokenizer(data);
 	return (NO_ERROR);
 }
 

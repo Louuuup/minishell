@@ -64,3 +64,21 @@ char    **add_var(char **env, char *var, char *value)
     free(env);
     env = new_env;
 }
+
+void b_env(t_cmd *cmd)
+{
+    int i;
+    char **env;
+
+    i = 0;
+    env = get_data()->env;
+    while (env[i])
+    {
+
+        if (find_symbol('=', env[i]))
+        {
+            ft_putstr_fd(env[i], cmd->fd_out);
+            ft_putchar_fd('\n', cmd->fd_out);
+        }
+    }
+}

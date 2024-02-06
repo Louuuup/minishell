@@ -40,10 +40,11 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	char			*token;
+	int 			ac; //argc
 	int				index;
 	pid_t			pid;
-	int				fd_in;
-	int				fd_out;
+	int				fd_in; //default = STDIN_FILENO(0)
+	int				fd_out; //default = STDOUT_FILENO(1)
 	int 			in_flag; //redir_flag
 	int				out_flag; //redir_flag
 	char 			*infile; //path to file
@@ -134,7 +135,13 @@ void cmd_status(t_cmd *cmd);
 //====================builtin_env.c====================//
 
 // fetches a variable from the environment(no allocation)
-char *get_var(char **env, char *var);
+char	*get_var(char **env, char *var);
+char    **add_var(char **env, char *var, char *value)
+char	*set_var(char **env, char *var, char *value)
+
+//====================builtin_cd.c====================//
+void    b_cd(t_cmd *cmd);
+void    b_pwd(t_cmd *cmd);
 
 
 #endif

@@ -1,27 +1,20 @@
 #include "minishell.h"
 
-void ft_splt_wrd_qte(size_t i, size_t *j, char *s)
+int ft_splt_wrd_qte(t_countok *tok, char *str)
 {
-    if(s[i] == '\'')
-    {   
-        *j += 1;
-        while(s[i + *j] && s[i + *j] != '\'')
-            *j+= 1;
-		*j+= 1;
-    }
-    else  if(s[i] == '\"')
-    {   
-        *j += 1;
-        while(s[i + *j] && s[i + *j] != '\"')
-            *j += 1;
-		*j += 1;
-    }
-    else 
-        while(!ft_isspace(s[i + *j]) && s[i + *j] && s[i + *j] !='\'' && s[i + *j] !='\"')
-            *j += 1;
-		
+        if (str[tok->i] == '\'')
+			return(ft_sgltok(tok, str));
+		if (str[tok->i] == '\"')
+			return(ft_dbltok(tok, str));
+		if (str[tok->i] == '>')
+			return(ft_outtok(tok, str));
+		if (str[tok->i] == '<')
+			return(ft_intok(tok, str));
+		else
+			return(ft_wordtok(tok, str));
+		return(0);
 }
-
+	 
 int    ft_boolcount(t_countok *tok, char *str)
 {
     while (str[tok->i])
@@ -36,9 +29,10 @@ int    ft_boolcount(t_countok *tok, char *str)
 			return(ft_outcount(tok, str));
 		if (str[tok->i] == '<')
 			return(ft_incount(tok, str));
-		else
+		else if(str[tok->i])
 			return(ft_tokcount(tok, str));
     }
+	
 	return(0);
 }
 
@@ -48,11 +42,8 @@ size_t	word_countq(char *s)
 
 	tok.i = 0;
 	tok.count = 0;
-    tok.tok = false;
-	tok.quotes = false;
 	while(s[tok.i])
     	ft_boolcount(&tok, s);
-	printf("%zu\n", tok.count);
 	return (tok.count);
 }
 
@@ -77,27 +68,26 @@ char	*word_makerq(char *s, size_t len)
 
 char	**splitterq(char **split, char *s, size_t count)
 {
-	size_t	i;
-	size_t	j;
-	size_t	index;
+	t_countok tok;
 
-	i = 0;
-	j = 0;
-	index = -1;
-	while (++index < count)
+	tok.i = 0;
+	tok.j = 0;
+	tok.count = 0;
+	while (tok.count < count)
 	{
-		while (s[i])
+		while (s[tok.i])
 		{
-			while (ft_isspace(s[i]))
-				i++;
-            ft_splt_wrd_qte(i, &j, s);
-			split[index] = word_makerq(&s[i], (j));
+			while (ft_isspace(s[tok.i]))
+				tok.i++;
+            ft_splt_wrd_qte(&tok, s);
+			split[tok.count] = word_makerq(&s[tok.i], (tok.j));
 			break ;
 		}
-		i = i + j;
-		j = 0;
+		tok.i = tok.i + tok.j;
+		tok.j = 0;
+		tok.count++;
 	}
-	split[index] = NULL;
+	split[tok.count] = NULL;
 	return (split);
 }
 

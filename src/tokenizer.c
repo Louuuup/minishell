@@ -1,5 +1,37 @@
 #include "minishell.h"
 
+ int id_tok(char *str, t_idtok *id, t_data *data)
+ {
+    if (!ft_strcmp(str, "<<"))
+        ft_idheredoc(id, data)
+    else if (!ft_strcmp(str, "<"))
+        ft_idinput(id, data);
+    else if (!ft_strcmp(str, ">>"))
+        ft_idappend(id, data);
+    else if (!ft_strcmp(str, ">"))
+        ft_idoutput(id, data);
+    else (ft_id_cmd_file_arg(str, id, data))
+        return(1); 
+ }
+
+
+int parser(char **str, t_data *data)
+{
+   t_idtok  id;
+
+   id.app = false;
+   id.cmd = false;
+   id.here = false;
+   id.in = false;
+   id.i = 0;
+    while(str[i])
+    {
+        if(!id_tok(str[id.i], &id, data));
+            return(0);                    //add error code here
+        id.i++;
+    }
+}
+
 int		tokenizer(t_data *data)
 {
     char **str;
@@ -11,12 +43,14 @@ int		tokenizer(t_data *data)
     str = NULL;
     while(data->parser.cmd_list[i])
     {
-       str = ft_split_tok(data->parser.cmd_list[i]);
+       str = ft_split_tok(data->parser.cmd_list[i]); //have to rework on quotes to handle
+       parser(str, data);                            //things like a"$VAR"                       
        while(str[j])
        {
             printf("%s\n", str[j]);
             j++;
        }
+        j=0;
         i++;
     }
     return (1);

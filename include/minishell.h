@@ -34,7 +34,18 @@
 typedef struct s_tok
 {
 	char 	**cmd_list;
+	char 	**sgl_cmd;
 }			t_tok;
+
+typedef struct s_idtok
+{
+	int		i;
+	bool	out;
+	bool	app;
+	bool	here;
+	bool	in;
+	bool 	cmd;
+}		t_idtok
 
 typedef struct s_countok
 {
@@ -52,6 +63,7 @@ typedef struct s_memblock
 
 typedef struct s_data
 {
+	t_cmd		*cmd;
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
@@ -119,6 +131,7 @@ size_t 	ft_cmdcount(char *str);
 
 //==================split_tok.c===================//
 
+int 	ft_splt_wrd_qte(t_countok *tok, char *str);
 char	**ft_split_tok(char *s);
 char	**splitterq(char **split, char *s, size_t count);
 char	*word_makerq(char *s, size_t len);
@@ -132,6 +145,13 @@ int ft_outcount(t_countok *tok, char *str);
 int ft_incount(t_countok *tok, char *str);
 int ft_tokcount(t_countok *tok, char *str);
 
+//==================split_tok_utils.c===================//
+
+int ft_sgltok(t_countok *tok, char *str);
+int ft_dbltok(t_countok *tok, char *str);
+int ft_outtok(t_countok *tok, char *str);
+int ft_intok(t_countok *tok, char *str);
+int ft_wordtok(t_countok *tok, char *str);
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);

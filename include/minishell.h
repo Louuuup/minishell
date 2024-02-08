@@ -40,6 +40,7 @@ typedef struct s_tok
 typedef struct s_idtok
 {
 	int		i;
+	size_t		cmd_size;
 	bool	out;
 	bool	app;
 	bool	here;
@@ -77,12 +78,13 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	char			*token;
+	int				ac;
 	int				index;
 	pid_t			pid;
 	int				fd_in;
 	int				fd_out;
-	int 			in_type;
-	int				out_type;
+	int 			in_flag;
+	int				out_flag;
 	char 			*infile;
 	char			*outfile;
 	int				check;
@@ -152,6 +154,12 @@ int ft_dbltok(t_countok *tok, char *str);
 int ft_outtok(t_countok *tok, char *str);
 int ft_intok(t_countok *tok, char *str);
 int ft_wordtok(t_countok *tok, char *str);
+
+//==================linked_utils.c===================//
+
+t_cmd	*ft_lstnewcmd(void);
+t_cmd	*ft_cmdlast(t_cmd *lst)
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);

@@ -30,9 +30,36 @@ int ft_idoutput(t_idtok *id)
 
 int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
 {
+    t_cmd   *tmp;
+
+    while(tmp->next)
+        tmp = tmp->next;
     if (id->app)
-    
+    {
+        tmp->cmd->outfile = str;
+        tmp->cmd->out_flag = REDIR_APPEND;
+        id->app = false;
+    }
     else if(id->in)
+    {
+        tmp->cmd->infile = str;
+        tmp->cmd->in_flag = REDIR_INPUT;
+        id->in = false;
+    }
     else if(id->out)
-    else if(id->here)
+    {
+        tmp->cmd->outfile = str;
+        tmp->cmd->out_flag = REDIR_OVERWRITE;
+        id->out = false;
+    }
+    /*else if(id->here)
+    {
+       handle heredoc here maybe in linked list ??
+       id->here = false; 
+    }*/
+    else if (!id.cmd)
+    {
+        tmp->cmd = ft_calloc(id->cmd_size *(sizeof(char **)));
+        str
+    }
 }

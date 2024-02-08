@@ -1,16 +1,12 @@
-#include "../include/minishell.h"
+#include "minishell.h"
 
-t_cmd	*ft_lstnewcmd(char *cmd)
+t_cmd	*ft_lstnewcmd(void);
 {
 	t_cmd	*elm;
 
-	elm = malloc(sizeof(t_cmd));
+	elm = ft_calloc(sizeof(t_cmd));  //change to gc_calloc
 	if (!elm)
 		return (NULL);
-	elm->cmd = ft_split(cmd, ' ');
-	elm->token = NULL;
-	ft_builtincheck(elm);
-	elm->next = NULL;
 	return (elm);
 }
 
@@ -33,7 +29,9 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 		temp = *lst;
 		temp = ft_cmdlast(*lst);
 		temp->next = new;
+		temp->next->index = temp->index++;
 		return ;
 	}
 	*lst = new;
+	new->index = 0;
 }

@@ -24,8 +24,15 @@ int parser(char **str, t_data *data)
    id.here = false;
    id.in = false;
    id.i = 0;
-    while(str[i])
+   id.cmd_size = 0;
+    while(str[id.i])
     {
+        id.cmd_size++;
+        id.i++;
+    }
+    id.i = 0;
+    while(str[id.i])
+    {                                     
         if(!id_tok(str[id.i], &id, data));
             return(0);                    //add error code here
         id.i++;
@@ -43,13 +50,14 @@ int		tokenizer(t_data *data)
     str = NULL;
     while(data->parser.cmd_list[i])
     {
-       str = ft_split_tok(data->parser.cmd_list[i]); //have to rework on quotes to handle
-       parser(str, data);                            //things like a"$VAR"                       
-       while(str[j])
-       {
+        ft_cmdadd_back(&data->cmd, ft_lstnewcmd());
+        str = ft_split_tok(data->parser.cmd_list[i]); //have to rework on quotes to handle
+        parser(str, data);                            //things like a"$VAR"                       
+        while(str[j])
+        {
             printf("%s\n", str[j]);
             j++;
-       }
+        }
         j=0;
         i++;
     }

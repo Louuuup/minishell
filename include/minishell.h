@@ -98,7 +98,6 @@ int		tokener(t_data *data);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);
-
 //==================exec_utils.c===================//
 
 void	exec_cmd(t_data *data);
@@ -111,7 +110,6 @@ int		fd_redirect(int fd, char *file, int redir_flag);
 t_memblock	*memblock_add(t_memblock *memblock, void *ptr);
 //frees all the blocks in the list
 void		gc_free(t_memblock *memblock);
-
 //==================garbage_tools.c===================//
 
 //works like malloc but adds the pointer to the memblock list
@@ -120,7 +118,6 @@ void		*gc_malloc(size_t size);
 void		*gc_calloc(size_t count, size_t size);
 //works like strjoin but adds the pointer to the memblock list
 char *gc_strjoin(char *s1, char *s2);
-
 //==================error_handler.c===================//
 
 int		shell_error(void);
@@ -131,17 +128,29 @@ int		error_str(char *str);
 void tmp_parse(t_data *data);
 //tmp function to print the cmd infos.
 void cmd_status(t_cmd *cmd);
-
 //====================builtin_env.c====================//
 
+void	b_env(t_cmd *cmd);
 // fetches a variable from the environment(no allocation)
 char	*get_var(char **env, char *var);
-char    **add_var(char **env, char *var, char *value)
-char	*set_var(char **env, char *var, char *value)
+char    **add_var(char **env, char *var, char *value);
+char	*set_var(char **env, char *var, char *value);
 
 //====================builtin_cd.c====================//
+
 void    b_cd(t_cmd *cmd);
 void    b_pwd(t_cmd *cmd);
+//====================builtin_echo.c====================//
 
+void    b_echo(t_cmd *cmd);
+//====================builtin_echo.c====================//
 
+void    b_unset(t_cmd *cmd);
+//====================builtin_export.c====================//
+
+void    b_export(t_cmd *cmd);
+//====================builtin_utils.c====================//
+
+int export_valid(char *str);
+char *var_name(char *str);
 #endif

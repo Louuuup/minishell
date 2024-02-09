@@ -10,6 +10,24 @@ void redirect_check(t_cmd *cmd)
 		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
 }
 
+void	exec_builtin(t_cmd *cmd)
+{
+	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
+		b_echo(cmd);
+	if (!ft_strncmp (cmd->cmd[0], "cd", 3))
+		b_cd(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
+		b_pwd(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "export", 7))
+		b_export(cmd);
+	// else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
+	// 	b_unset(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
+		b_env(cmd);
+	// else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
+	// 	b_exit(cmd);
+}
+
 void	exec_main(t_data *data)
 {
 	t_cmd	*cmd;
@@ -31,27 +49,8 @@ void	exec_main(t_data *data)
 			return ;
 		if (cmd->built_in)
 			exec_builtin(cmd);
-		else
-			exec_cmd(cmd);
+		// else
+		// 	exec_cmd(data);
 		cmd = cmd->next;
 	}
-}
-
-
-void	exec_builtin(t_cmd *cmd)
-{
-	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
-		b_echo(cmd);
-	else if (!ft_strncmp (cmd->cmd[0], "cd", 3))
-		b_cd(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
-		b_pwd(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "export", 7))
-		b_export(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
-		b_unset(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
-		b_env(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
-		b_exit(cmd);
 }

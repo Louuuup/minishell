@@ -32,7 +32,7 @@ t_memblock	*memblock_add(t_memblock *memblock, void *ptr)
 	return (new);
 }
 
-void	gc_free(t_memblock *memblock)
+void	gc_free_all(t_memblock *memblock)
 {
 	t_memblock *tmp;
 
@@ -42,5 +42,29 @@ void	gc_free(t_memblock *memblock)
 		free(memblock->ptr);
 		free(memblock);
 		memblock = tmp;
+	}
+}
+
+void gc_free_one(t_memblock *memblock, void *ptr)
+{
+	t_memblock *tmp;
+	t_memblock *prev;
+
+	tmp = memblock;
+	prev = NULL;
+	while (tmp)
+	{
+		if (tmp->ptr == ptr)
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				memblock = tmp->next;
+			free(tmp->ptr);
+			free(tmp);
+			return ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
 	}
 }

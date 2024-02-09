@@ -63,6 +63,7 @@ char    **add_var(char **env, char *var, char *value)
     new_env[i] = ft_strjoin(new_env[i], value);
     free(env);
     env = new_env;
+    return (NULL);
 }
 
 void b_env(t_cmd *cmd)

@@ -5,6 +5,7 @@ void    b_cd(t_cmd *cmd)
     char *oldpwd;
     char *pwd;
 
+    pwd = NULL;
     oldpwd = get_var(get_data()->env, "PWD");
     if (cmd->ac > 1)
     {

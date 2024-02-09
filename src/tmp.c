@@ -23,7 +23,7 @@ void	cmd_status(t_cmd *cmd)
 		printf("cmd: NULL\n");
 		return ;
 	}
-	if (!cmd->cmd[0])
+	if (cmd->cmd[0])
 		printf("cmd: %s\n", cmd->cmd[0]);
 	int i = 1;
 	printf("args: ");

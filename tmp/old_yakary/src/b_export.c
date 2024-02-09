@@ -1,22 +1,5 @@
 #include "minishell.h"
 
-static int	export_valid(char *str)
-{
-	int i;
-
-	i = 0;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (FALSE);
-	while (str[i])
-	{
-		if (str[i] == '=')
-			break ;
-		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-			return(FALSE);
-		i++;
-	}
-	return (TRUE);
-}
 int	var_in_env(char *str)
 {
 	int		i;
@@ -61,7 +44,7 @@ static void	env_addline(char *str)
 		new_env[i] = data->env[i];
 		i++;
 	}
-	new_env[i] = ft_strdup(str);
+	new_env[i] = ft_strdup(str); 
 	free(data->env);
 	data->env = new_env;
 }

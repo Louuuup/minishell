@@ -1,42 +1,38 @@
 #include "minishell.h"
 
-void	*gc_malloc(size_t size)
+
+t_memblock *memblock_create(void *ptr)
 {
-	void	*ptr;
-	t_data	*data;
+	t_memblock *memblock;
 
-	data = get_data();
-	ptr = malloc(size);
-	if (!ptr)
-		shell_error();
-	data->memblock = memblock_add(data->memblock, ptr);
-	return (ptr);
-}
-
-void	*gc_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-	t_data	*data;
-
-	data = get_data();
-	ptr = calloc(count, size);
-	if (!ptr)
-		shell_error();
-	data->memblock = memblock_add(data->memblock, ptr);
-	return (ptr);
+	memblock = ft_calloc(1, sizeof(t_memblock));
+	if (!memblock)
+	{
+		error_str("malloc error\n");
+		return (NULL);
+	}
+	memblock->ptr = ptr;
+	memblock->next = NULL;
+	return (memblock);
 }
 
 t_memblock	*memblock_add(t_memblock *memblock, void *ptr)
 {
 	t_memblock *new;
 
-	new = gc_malloc(sizeof(t_memblock));
+	if (!memblock)
+	{
+		if (DEBUG_ON)
+			printf("memblock is NULL\n");
+		return (memblock_create(ptr));
+	}
+	new = ft_calloc(1, sizeof(t_memblock));
 	new->ptr = ptr;
 	new->next = memblock;
 	return (new);
 }
 
-void	gc_free(t_memblock *memblock)
+void	gc_free_all(t_memblock *memblock)
 {
 	t_memblock *tmp;
 
@@ -46,5 +42,29 @@ void	gc_free(t_memblock *memblock)
 		free(memblock->ptr);
 		free(memblock);
 		memblock = tmp;
+	}
+}
+
+void gc_free_one(t_memblock *memblock, void *ptr)
+{
+	t_memblock *tmp;
+	t_memblock *prev;
+
+	tmp = memblock;
+	prev = NULL;
+	while (tmp)
+	{
+		if (tmp->ptr == ptr)
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				memblock = tmp->next;
+			free(tmp->ptr);
+			free(tmp);
+			return ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
 	}
 }

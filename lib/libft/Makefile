@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mkramer <mkramer@student.42.fr>            +#+  +:+       +#+         #
+#    By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2024/01/07 19:18:15 by mkramer          ###   ########.fr        #
+#    Updated: 2024/01/31 17:41:31 by fboivin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ SRC = ft_bzero.c \
 	ft_split_length.c \
 	ft_strstr.c \
 	ft_printf_fd.c \
-	ft_split_fd.c
+	ft_split_fd.c \
+	ft_isspace.c
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 BOBJS = $(addprefix $(BIN_DIR)/, $(BSRC:.c=.o))
 NAME = libft.a

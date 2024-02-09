@@ -20,7 +20,7 @@ t_cmd	*ft_cmdlast(t_cmd *lst)
 }
 
 
-void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd)
 {
 	t_cmd	*temp;
 
@@ -28,10 +28,10 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 	{
 		temp = *lst;
 		temp = ft_cmdlast(*lst);
-		temp->next = new;
+		temp->next = new_cmd;
 		temp->next->index = temp->index++;
 		return ;
 	}
-	*lst = new;
-	new->index = 0;
+	*lst = new_cmd;
+	new_cmd->index = 0;
 }

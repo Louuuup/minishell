@@ -30,21 +30,19 @@
 //==================Structs===================//
 
 //base for command struct can be modified if needed
-
 typedef struct s_cmd
 {
 	char			**cmd;
 	char			*token;
-	int				ac;
+	int 			ac; //argc
 	int				index;
 	pid_t			pid;
-	int				fd_in;
-	int				fd_out;
-	int 			in_flag;
-	int				out_flag;
-	char 			*infile;
-	char			*outfile;
-	int				check;
+	int				fd_in; //default = STDIN_FILENO(0)
+	int				fd_out; //default = STDOUT_FILENO(1)
+	int 			in_flag; //redir_flag
+	int				out_flag; //redir_flag
+	char 			*infile; //path to file
+	char			*outfile; //path to file
 	struct s_cmd	*next;
 	bool			built_in;
 }			t_cmd;
@@ -82,22 +80,6 @@ typedef struct s_memblock
 	struct s_memblock	*next;
 }				t_memblock;
 
-typedef struct s_cmd
-{
-	char			**cmd;
-	char			*token;
-	int 			ac; //argc
-	int				index;
-	pid_t			pid;
-	int				fd_in; //default = STDIN_FILENO(0)
-	int				fd_out; //default = STDOUT_FILENO(1)
-	int 			in_flag; //redir_flag
-	int				out_flag; //redir_flag
-	char 			*infile; //path to file
-	char			*outfile; //path to file
-	struct s_cmd	*next;
-	bool			built_in;
-}			t_cmd;
 
 typedef struct s_data
 {
@@ -189,11 +171,12 @@ int ft_idinput(t_idtok *id);
 int ft_idappend(t_idtok *id);
 int ft_idoutput(t_idtok *id);
 int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
+void	ft_builtincheck(t_cmd *cmd);
 //==================linked_utils.c===================//
 
 t_cmd	*ft_lstnewcmd(void);
 t_cmd	*ft_cmdlast(t_cmd *lst);
-void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd);
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);

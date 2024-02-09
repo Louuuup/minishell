@@ -7,7 +7,6 @@ t_cmd	*ft_lstnewcmd(void)
 	elm = ft_calloc(1, sizeof(t_cmd));  //change to gc_calloc
 	if (!elm)
 		return (NULL);
-	//elm->next = NULL;
 	return (elm);
 }
 

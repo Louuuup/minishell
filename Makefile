@@ -6,7 +6,7 @@ NAME = minishell
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
 SRC :=	main.c	exec_main.c	error_handler.c	 init.c	garbage_handler.c \
 	parsing_main.c	t_utils.c	utils.c utils.c	parsing_utils.c pipe_parsing.c \
-	tokenizer.c split_tok.c count_tok.c split_tok_utils.c token_id.c\
+	tokenizer.c split_tok.c count_tok.c split_tok_utils.c token_id.c \
 	linked_utils.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))

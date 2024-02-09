@@ -75,10 +75,7 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
     {
          while(tmp->cmd[i])
             i++;
-        printf("%d\n", i);
-        tmp->cmd[i] = str;
-         printf("%d\n", i);      
+        tmp->cmd[i] = str;     
     }
-    printf("%s\n", data->cmd->cmd[1]);
      return (1);
 }

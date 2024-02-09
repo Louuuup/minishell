@@ -144,7 +144,6 @@ char	**ft_split_tok(char *s);
 char	**splitterq(char **split, char *s, size_t count);
 char	*word_makerq(char *s, size_t len);
 size_t	word_countq(char *s);
-void	cmd_status(t_cmd *cmd);
 
 //==================count_tok.c===================//
 

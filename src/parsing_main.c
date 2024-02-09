@@ -3,6 +3,8 @@
 // Reads and parses user_prompt. Returns 0 if no error, else returns error code.
 int parser(t_data *data)
 {
+	if (DEBUG_ON)
+		printf("(parser) parser called\n");
 	//(void)data->user_prompt;
 	int i;
 

@@ -4,7 +4,7 @@ t_cmd	*ft_lstnewcmd(void)
 {
 	t_cmd	*elm;
 
-	elm = ft_calloc(1, sizeof(t_cmd));  //change to gc_calloc
+	elm = gc_calloc(1, sizeof(t_cmd));
 	if (!elm)
 		return (NULL);
 	return (elm);

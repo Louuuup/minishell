@@ -51,7 +51,7 @@ char    **add_var(char **env, char *var, char *value)
     i = 0;
     while (env[i])
         i++;
-    new_env = ft_calloc(i + 2, sizeof(char *));
+    new_env = gc_calloc(i + 2, sizeof(char *));
     i = 0;
     while (env[i])
     {

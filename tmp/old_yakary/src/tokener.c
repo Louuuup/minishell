@@ -100,7 +100,7 @@ int	filling_with_tokens(t_data *pnt, int *i, int j)
 	{
 		j = word_filling(pnt, &pnt->input[*i]) - 1;
 		if (j == -1)
-			return (error_out(pnt, "ft_calloc", 1));
+			return (error_out(pnt, "gc_calloc", 1));
 		*i += j;
 	}
 	return (0);
@@ -116,9 +116,9 @@ int tokener(t_data *pnt)
 	int	i;
 
 	i = -1;
-	pnt->tokens = ft_calloc(pnt->max_token, sizeof(t_token));
+	pnt->tokens = gc_calloc(pnt->max_token, sizeof(t_token));
 	if (!pnt->tokens)
-		return (error_out(pnt, "ft_calloc", 1));
+		return (error_out(pnt, "gc_calloc", 1));
 	while (pnt->input[++i])
 		if (filling_with_tokens(pnt, &i, 0) == 1)
 			return (1);

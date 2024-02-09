@@ -2,7 +2,7 @@
 
 void	exec_cmd(t_cmd *cmd)
 {
-
+	(void)cmd;
 }
 
 void redirect_check(t_cmd *cmd)
@@ -17,6 +17,8 @@ void redirect_check(t_cmd *cmd)
 
 void	exec_builtin(t_cmd *cmd)
 {
+	if (DEBUG_ON)
+		printf("(exec_builtin) exec_builtin called\n");
 	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
 		b_echo(cmd);
 	if (!ft_strncmp (cmd->cmd[0], "cd", 3))
@@ -37,6 +39,8 @@ void	exec_main(t_data *data)
 {
 	t_cmd	*cmd;
 
+	if (DEBUG_ON)
+		printf("(exec_main) exec_main called\n");
 	cmd = data->cmd;
 	if (!cmd)
 		return ;
@@ -55,7 +59,7 @@ void	exec_main(t_data *data)
 		if (cmd->built_in)
 			exec_builtin(cmd);
 		else
-			exec_cmd(data);
+			exec_cmd(cmd);
 		cmd = cmd->next;
 	}
 }

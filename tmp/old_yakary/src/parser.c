@@ -46,9 +46,9 @@ int	cmdt_init(t_data *pnt, int i, int *index)
 	// printf("(cmdt_init) -> counted %d arguments\n", pnt->cmdt[i].num_args);
 	if (pnt->cmdt[i].num_args > 0)
 	{
-		pnt->cmdt[i].args = ft_calloc((pnt->cmdt[i].num_args + 1), sizeof(char *));
+		pnt->cmdt[i].args = gc_calloc((pnt->cmdt[i].num_args + 1), sizeof(char *));
 		if (!pnt->cmdt[i].args)
-			return (error_out(pnt, "ft_calloc", 1));
+			return (error_out(pnt, "gc_calloc", 1));
 	}
 	else
 		pnt->cmdt[i].args = NULL;
@@ -81,9 +81,9 @@ int	parser(t_data *pnt)
 	if (words_merging(pnt) == 1)
 		return (1);
 	pnt->cmdt_count = count_pipes(pnt) + 1;
-	pnt->cmdt = ft_calloc(pnt->cmdt_count, sizeof(t_tab_cmd));
+	pnt->cmdt = gc_calloc(pnt->cmdt_count, sizeof(t_tab_cmd));
 	if (!pnt->cmdt)
-		return (error_out(pnt, "ft_calloc", 1));
+		return (error_out(pnt, "gc_calloc", 1));
 	while (j < pnt->cmdt_count)
 	{
 		if (cmdt_init(pnt, j, &i))

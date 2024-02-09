@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 0
+# define DEBUG_ON 1
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -183,9 +183,9 @@ int		tokenizer(t_data *data);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);
+void	exec_cmd(t_cmd *cmd);
 //==================exec_utils.c===================//
 
-void	exec_cmd(t_data *data);
 int		ft_pipe(t_cmd *cmd);
 int		ft_dup2(t_cmd *cmd);
 int		fd_redirect(int fd, char *file, int redir_flag);
@@ -194,7 +194,8 @@ int		fd_redirect(int fd, char *file, int redir_flag);
 //adds a block on top of the list
 t_memblock	*memblock_add(t_memblock *memblock, void *ptr);
 //frees all the blocks in the list
-void		gc_free(t_memblock *memblock);
+void		gc_free_one(t_memblock *memblock, void *ptr);
+void		gc_free_all(t_memblock *memblock);
 //==================garbage_tools.c===================//
 
 //works like malloc but adds the pointer to the memblock list

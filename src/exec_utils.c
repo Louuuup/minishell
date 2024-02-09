@@ -4,6 +4,8 @@ int	ft_pipe(t_cmd *cmd)
 {
 	int	pipe_fd[2];
 
+	if (DEBUG_ON)
+		printf("(ft_pipe) ft_pipe called\n");
 	if (pipe(pipe_fd) == -1)
 		return (error_str("pipe error\n"));
 	cmd->fd_out = pipe_fd[1];
@@ -14,6 +16,8 @@ int	ft_pipe(t_cmd *cmd)
 
 int	ft_dup2(t_cmd *cmd)
 {
+	if (DEBUG_ON)
+		printf("(ft_dup2) ft_dup2 called\n");
 	if (cmd->fd_in != 0)
 	{
 		if (dup2(cmd->fd_in, 0) == -1)

@@ -53,7 +53,7 @@ char	*word_makerq(char *s, size_t len)
 	char		*ptr;
 
 	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (len + 1)); //modify with gc_malloc
+	ptr = (char *)gc_malloc(sizeof(char) * (len + 1));
 	if (!ptr)
 		return (NULL);
 	while (i < len)
@@ -99,61 +99,18 @@ char	**ft_split_tok(char *s)
 	if (!s)
 		return (NULL);
 	count = word_countq(s);
+	//printf()
 	if (count == 0 || ft_strlen(s) == 0)
 	{
-		split = (char **)malloc(sizeof(char *)); //modify with gc_malloc
+		split = (char **)gc_malloc(sizeof(char *));
 		if (!split)
 			return (NULL);
 		split[0] = NULL;
 		return (split);
 	}
-	split = (char **)malloc((word_countq(s) + 1) * (sizeof(char *)));
+	split = (char **)gc_malloc((word_countq(s) + 1) * (sizeof(char *)));
 	if (!split)
 		return (NULL);
 	split = splitterq(split, s, count);
 	return (split);
 }
-
-/*
-void	cmd_status(t_cmd *cmd)
-{
-	if (DEBUG_ON)
-		printf("(cmd_status) start\n");
-	if (!cmd || !cmd->cmd)
-	{
-		printf("cmd: NULL\n");
-		return ;
-	}
-	if (cmd->cmd[0])
-		printf("cmd: %s\n", cmd->cmd[0]);
-	int i = 1;
-	printf("args: ");
-	if (!cmd->cmd[i])
-		printf("NULL\n");
-	while(cmd->cmd[i])
-	{
-		printf("args: %s\n", cmd->cmd[i]);
-		i++;
-	}
-	printf("\n");
-	if (cmd->built_in)
-		printf("is builtin: TRUE\n");
-	if (cmd->index)
-		printf("index: %d\n", cmd->index);
-	if (cmd->infile)
-		printf("infile: %s\n", cmd->infile);
-	if (cmd->outfile)
-		printf("outfile: %s\n", cmd->outfile);
-	if (cmd->in_flag)
-		printf("in_flag: %d\n", cmd->in_flag);
-	if (cmd->out_flag)
-		printf("out_flag: %d\n", cmd->out_flag);
-	if (cmd->fd_in)
-		printf("fd_in: %d\n", cmd->fd_in);
-	if (cmd->fd_out)
-		printf("fd_out: %d\n", cmd->fd_out);
-	printf("\n\n");
-	if (cmd->next)
-		cmd_status(cmd->next);
-}
-*/

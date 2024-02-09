@@ -40,5 +40,19 @@ int ft_tokcount(t_countok *tok, char *str)
     while((!ft_isspace(str[tok->i])) && str[tok->i] !='\"' && str[tok->i] !='\'' \
         && str[tok->i] !='<' && str[tok->i] !='>' && str[tok->i])
             tok->i++;
+    if(str[tok->i] =='\'')
+    {
+        tok->i++;
+        while(str[tok->i] !='\'')
+            tok->i++;
+    }
+    if(str[tok->i] !='\"')
+    {   
+        tok->i++;
+        while(str[tok->i] !='\"')
+            tok->i++;
+    }
+    if(str[tok->i] && !ft_isspace(str[tok->i]))
+        ft_tokcount(tok, str);
     return(1);
 }

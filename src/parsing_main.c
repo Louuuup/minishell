@@ -19,12 +19,10 @@ int parser(t_data *data)
 		ft_printf_fd(2, "minishell: syntax error near unexpected token `|'\n");
 	}
 	ft_cmdcount(data->user_prompt);
-	//handle and remove redirection
-	//flag in the cmd list
-
+	
 	char *temp;
 	//change this allocation for the garbage collector one
-	data->parser.cmd_list = malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char *));
+	data->parser.cmd_list = gc_malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char *));
 	temp = ft_strtok(data->user_prompt, '|');
     while (temp) 
 	{

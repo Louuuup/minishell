@@ -81,7 +81,7 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
     }*/
     else if (!id->cmd)
     {
-        tmp->cmd = malloc((id->cmd_size + 1) * (sizeof(char **)));
+        tmp->cmd = gc_malloc((id->cmd_size + 1) * (sizeof(char **)));
         tmp->cmd[0] = str;
         id->cmd = true;
         ft_builtincheck(tmp);

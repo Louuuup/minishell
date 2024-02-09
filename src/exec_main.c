@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+void	exec_cmd(t_cmd *cmd)
+{
+
+}
+
 void redirect_check(t_cmd *cmd)
 {
 	if (cmd->infile && cmd->in_flag == REDIR_INPUT)
@@ -49,8 +54,8 @@ void	exec_main(t_data *data)
 			return ;
 		if (cmd->built_in)
 			exec_builtin(cmd);
-		// else
-		// 	exec_cmd(data);
+		else
+			exec_cmd(data);
 		cmd = cmd->next;
 	}
 }

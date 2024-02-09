@@ -175,7 +175,7 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
 
 t_cmd	*ft_lstnewcmd(void);
 t_cmd	*ft_cmdlast(t_cmd *lst);
-void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd);
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);

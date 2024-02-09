@@ -29,6 +29,26 @@
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
+//base for command struct can be modified if needed
+
+typedef struct s_cmd
+{
+	char			**cmd;
+	char			*token;
+	int				ac;
+	int				index;
+	pid_t			pid;
+	int				fd_in;
+	int				fd_out;
+	int 			in_flag;
+	int				out_flag;
+	char 			*infile;
+	char			*outfile;
+	int				check;
+	struct s_cmd	*next;
+	bool			built_in;
+}			t_cmd;
+
 //structs used for parsing
 
 typedef struct s_tok
@@ -46,7 +66,7 @@ typedef struct s_idtok
 	bool	here;
 	bool	in;
 	bool 	cmd;
-}		t_idtok
+}		t_idtok;
 
 typedef struct s_countok
 {
@@ -71,26 +91,6 @@ typedef struct s_data
 	t_tok		parser;	//struct used for parsing
 	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
-
-//base for command struct can be modified if needed
-
-typedef struct s_cmd
-{
-	char			**cmd;
-	char			*token;
-	int				ac;
-	int				index;
-	pid_t			pid;
-	int				fd_in;
-	int				fd_out;
-	int 			in_flag;
-	int				out_flag;
-	char 			*infile;
-	char			*outfile;
-	int				check;
-	struct s_cmd	*next;
-	bool			built_in;
-}			t_cmd;
 
 //flag for redirection
 enum e_redir_type
@@ -131,6 +131,12 @@ int 	ft_closedquote(char *str);
 char    *ft_strtok(char *str, const char delim);
 size_t 	ft_cmdcount(char *str);
 
+//==================tokenizer.c===================//
+
+int id_tok(char *str, t_idtok *id, t_data *data);
+int parsing(char **str, t_data *data);
+int	token_maker(t_data *data);
+
 //==================split_tok.c===================//
 
 int 	ft_splt_wrd_qte(t_countok *tok, char *str);
@@ -138,6 +144,7 @@ char	**ft_split_tok(char *s);
 char	**splitterq(char **split, char *s, size_t count);
 char	*word_makerq(char *s, size_t len);
 size_t	word_countq(char *s);
+void	cmd_status(t_cmd *cmd);
 
 //==================count_tok.c===================//
 
@@ -155,11 +162,18 @@ int ft_outtok(t_countok *tok, char *str);
 int ft_intok(t_countok *tok, char *str);
 int ft_wordtok(t_countok *tok, char *str);
 
+//==================token_id.c===================//
+
+int ft_idheredoc(t_idtok *id);
+int ft_idinput(t_idtok *id);
+int ft_idappend(t_idtok *id);
+int ft_idoutput(t_idtok *id);
+int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
 //==================linked_utils.c===================//
 
 t_cmd	*ft_lstnewcmd(void);
-t_cmd	*ft_cmdlast(t_cmd *lst)
-void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
+t_cmd	*ft_cmdlast(t_cmd *lst);
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);

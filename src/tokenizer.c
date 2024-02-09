@@ -3,24 +3,26 @@
  int id_tok(char *str, t_idtok *id, t_data *data)
  {
     if (!ft_strcmp(str, "<<"))
-        ft_idheredoc(id, data)
+        ft_idheredoc(id);
     else if (!ft_strcmp(str, "<"))
-        ft_idinput(id, data);
+        ft_idinput(id);
     else if (!ft_strcmp(str, ">>"))
-        ft_idappend(id, data);
+        ft_idappend(id);
     else if (!ft_strcmp(str, ">"))
-        ft_idoutput(id, data);
-    else (ft_id_cmd_file_arg(str, id, data))
-        return(1); 
+        ft_idoutput(id);
+    else (ft_id_cmd_file_arg(str, id, data));
+        return(1);
+    return(0); 
  }
 
 
-int parser(char **str, t_data *data)
+int parsing(char **str, t_data *data)
 {
    t_idtok  id;
 
    id.app = false;
    id.cmd = false;
+   id.out = false;
    id.here = false;
    id.in = false;
    id.i = 0;
@@ -33,10 +35,11 @@ int parser(char **str, t_data *data)
     id.i = 0;
     while(str[id.i])
     {                                     
-        if(!id_tok(str[id.i], &id, data));
+        if(!id_tok(str[id.i], &id, data))
             return(0);                    //add error code here
         id.i++;
     }
+    return(1);
 }
 
 int		tokenizer(t_data *data)
@@ -52,14 +55,15 @@ int		tokenizer(t_data *data)
     {
         ft_cmdadd_back(&data->cmd, ft_lstnewcmd());
         str = ft_split_tok(data->parser.cmd_list[i]); //have to rework on quotes to handle
-        parser(str, data);                            //things like a"$VAR"                       
+        parsing(str, data);                            //things like a"$VAR"                       
         while(str[j])
         {
-            printf("%s\n", str[j]);
+            //printf("%s\n", str[j]);
             j++;
         }
         j=0;
         i++;
+        cmd_status(data->cmd);
     }
     return (1);
     //ft_strdup() //replace with gc_strdup

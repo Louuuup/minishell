@@ -1,12 +1,13 @@
 #include "minishell.h"
 
-t_cmd	*ft_lstnewcmd(void);
+t_cmd	*ft_lstnewcmd(void)
 {
 	t_cmd	*elm;
 
-	elm = ft_calloc(sizeof(t_cmd));  //change to gc_calloc
+	elm = ft_calloc(1, sizeof(t_cmd));  //change to gc_calloc
 	if (!elm)
 		return (NULL);
+	//elm->next = NULL;
 	return (elm);
 }
 

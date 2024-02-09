@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-// solo : pipi error
+// solo : pipe error
 // 2 pipe following each other error
 void    ft_sglbool(bool *single, bool *dbl)
         {

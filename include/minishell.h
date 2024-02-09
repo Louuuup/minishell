@@ -29,20 +29,7 @@
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
-//struct used for parsing
-
-typedef struct s_tok
-{
-	char 	**cmd_list;
-}			t_tok;
-
-//chainlist for allocated memory blocks (for garbage collector)
-typedef struct s_memblock
-{
-	void				*ptr;
-	struct s_memblock	*next;
-}				t_memblock;
-
+//base for command struct can be modified if needed
 typedef struct s_cmd
 {
 	char			**cmd;
@@ -60,6 +47,40 @@ typedef struct s_cmd
 	bool			built_in;
 }			t_cmd;
 
+//structs used for parsing
+
+typedef struct s_tok
+{
+	char 	**cmd_list;
+	char 	**sgl_cmd;
+}			t_tok;
+
+typedef struct s_idtok
+{
+	int		i;
+	size_t		cmd_size;
+	bool	out;
+	bool	app;
+	bool	here;
+	bool	in;
+	bool 	cmd;
+}		t_idtok;
+
+typedef struct s_countok
+{
+	size_t 	i;
+	size_t 	j;
+	size_t  count;
+}			t_countok;
+
+//chainlist for allocated memory blocks (for garbage collector)
+typedef struct s_memblock
+{
+	void				*ptr;
+	struct s_memblock	*next;
+}				t_memblock;
+
+
 typedef struct s_data
 {
 	t_cmd		*cmd;
@@ -69,9 +90,6 @@ typedef struct s_data
 	t_tok		parser;	//struct used for parsing
 	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
-
-//base for command struct can be modified if needed
-
 
 //flag for redirection
 enum e_redir_type
@@ -116,6 +134,48 @@ int 	ft_closedquote(char *str);
 char    *ft_strtok(char *str, const char delim);
 size_t 	ft_cmdcount(char *str);
 
+//==================tokenizer.c===================//
+
+int id_tok(char *str, t_idtok *id, t_data *data);
+int parsing(char **str, t_data *data);
+int	token_maker(t_data *data);
+
+//==================split_tok.c===================//
+
+int 	ft_splt_wrd_qte(t_countok *tok, char *str);
+char	**ft_split_tok(char *s);
+char	**splitterq(char **split, char *s, size_t count);
+char	*word_makerq(char *s, size_t len);
+size_t	word_countq(char *s);
+
+//==================count_tok.c===================//
+
+int ft_sglcount(t_countok *tok, char *str);
+int ft_dblcount(t_countok *tok, char *str);
+int ft_outcount(t_countok *tok, char *str);
+int ft_incount(t_countok *tok, char *str);
+int ft_tokcount(t_countok *tok, char *str);
+
+//==================split_tok_utils.c===================//
+
+int ft_sgltok(t_countok *tok, char *str);
+int ft_dbltok(t_countok *tok, char *str);
+int ft_outtok(t_countok *tok, char *str);
+int ft_intok(t_countok *tok, char *str);
+int ft_wordtok(t_countok *tok, char *str);
+
+//==================token_id.c===================//
+
+int ft_idheredoc(t_idtok *id);
+int ft_idinput(t_idtok *id);
+int ft_idappend(t_idtok *id);
+int ft_idoutput(t_idtok *id);
+int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
+//==================linked_utils.c===================//
+
+t_cmd	*ft_lstnewcmd(void);
+t_cmd	*ft_cmdlast(t_cmd *lst);
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);

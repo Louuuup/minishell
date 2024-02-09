@@ -4,10 +4,16 @@ NAME = minishell
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 #----------------------------------SOURCES-------------------------------------#
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
-SRC :=	main.c	exec_main.c	exec_utils.c error_handler.c init.c	garbage_handler.c \
-	parsing_main.c	t_utils.c	utils.c  tmp.c  builtin_cd.c garbage_tools.c \
-	builtin_env.c	builtin_echo.c builtin_export.c builtin_utils.c \
-	parsing_utils.c pipe_parsing.c
+SRC := \
+	main.c	error_handler.c init.c	garbage_handler.c \
+	t_utils.c	utils.c  tmp.c  garbage_tools.c
+SRC += \
+	exec_main.c	exec_utils.c \
+	builtin_cd.c builtin_env.c	builtin_echo.c builtin_export.c builtin_utils.c
+SRC += \
+	parsing_main.c tokenizer.c split_tok.c count_tok.c split_tok_utils.c token_id.c \
+	linked_utils.c parsing_utils.c pipe_parsing.c
+
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 #==============================================================================#

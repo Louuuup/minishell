@@ -58,7 +58,7 @@ int		tokenizer(t_data *data)
         parsing(str, data);                            //things like a"$VAR"                       
         while(str[j])
         {
-            printf("%s\n", str[j]);
+            //printf("%s\n", str[j]);
             j++;
         }
         j=0;

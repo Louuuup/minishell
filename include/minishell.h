@@ -171,6 +171,7 @@ int ft_idinput(t_idtok *id);
 int ft_idappend(t_idtok *id);
 int ft_idoutput(t_idtok *id);
 int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
+void	ft_builtincheck(t_cmd *cmd);
 //==================linked_utils.c===================//
 
 t_cmd	*ft_lstnewcmd(void);

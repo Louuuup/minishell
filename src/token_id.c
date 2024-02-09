@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+void	ft_builtincheck(t_cmd *cmd)
+{
+	if ((!ft_strncmp(cmd->cmd[0], "echo", 5)) || \
+	(!ft_strncmp(cmd->cmd[0], "cd", 3)) || \
+	(!ft_strncmp(cmd->cmd[0], "pwd", 4)) || \
+	(!ft_strncmp(cmd->cmd[0], "export", 7)) || \
+	(!ft_strncmp(cmd->cmd[0], "unset", 6)) || \
+	(!ft_strncmp(cmd->cmd[0], "env", 4)) || \
+	(!ft_strncmp(cmd->cmd[0], "exit", 5)))
+		cmd->built_in = true;
+	else
+		cmd->built_in = false;
+}
+
+
 int ft_idheredoc(t_idtok *id)
 {
     if (id->app || id->in || id->out)
@@ -69,6 +84,7 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
         tmp->cmd = malloc((id->cmd_size + 1) * (sizeof(char **)));
         tmp->cmd[0] = str;
         id->cmd = true;
+        ft_builtincheck(tmp);
         return (1);
     }
     else if (id->cmd)

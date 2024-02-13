@@ -4,7 +4,7 @@ t_cmd	*ft_lstnewcmd(void)
 {
 	t_cmd	*elm;
 
-	elm = gc_calloc(1, sizeof(t_cmd));
+	elm = ft_calloc(1, sizeof(t_cmd));
 	if (!elm)
 		return (NULL);
 	elm->fd_in = STDIN_FILENO;
@@ -31,9 +31,26 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd)
 		temp = *lst;
 		temp = ft_cmdlast(*lst);
 		temp->next = new_cmd;
-		temp->next->index = temp->index++;
+		temp->next->index = 1 + temp->index;
 		return ;
 	}
 	*lst = new_cmd;
 	new_cmd->index = 0;
+}
+
+void ft_clearcmdlst(t_cmd **lst)
+{
+
+	t_cmd	*temp;
+
+	if (lst)
+	{
+		while (*lst)
+		{
+			temp = (*lst)->next;
+			free (*lst);
+			*lst = temp;
+		}
+	}
+	lst = NULL;
 }

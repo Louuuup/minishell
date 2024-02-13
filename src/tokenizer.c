@@ -44,21 +44,19 @@ int parsing(char **str, t_data *data)
 
 int		tokenizer(t_data *data)
 {
-    char **str;
     int i;
     int j;
 
     i = 0;
     j = 0;
-    str = NULL;
     while(data->parser.cmd_list[i])
     {
         ft_cmdadd_back(&data->cmd, ft_lstnewcmd());
-        str = ft_split_tok(data->parser.cmd_list[i]); //have to rework on quotes to handle
-        parsing(str, data);                            //things like a"$VAR"                       
-        while(str[j])
+        data->parser.sgl_cmd = ft_split_tok(data->parser.cmd_list[i]);  //have to rework on quotes to handle
+        parsing(data->parser.sgl_cmd, data);                            //things like a"$VAR"                       
+        while(data->parser.sgl_cmd[j])
         {
-            printf("tokenizer :%s\n", str[j]);
+            printf("tokenizer :%s\n", data->parser.sgl_cmd[j]);
             j++;
         }
         j=0;

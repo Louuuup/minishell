@@ -36,5 +36,23 @@ int ft_wordtok(t_countok *tok, char *str)
             str[tok->i + tok->j] !='\'' && str[tok->i + tok->j] !='<' &&\
                 str[tok->i + tok->j] !='>' && str[tok->i + tok->j])
             tok->j++;
+    if(str[tok->i + tok->j] == '<' || str[tok->i + tok->j] == '>')
+        return (1);
+     if(str[tok->i + tok->j] =='\'')
+    {
+        tok->j++;
+        while(str[tok->i + tok->j] !='\'')
+            tok->j++;
+        tok->j++;
+    }
+    if(str[tok->i + tok->j] =='\"')
+    {   
+        tok->j++;
+        while(str[tok->i + tok->j] !='\"')
+            tok->j++;
+        tok->j++;
+    }
+    if(str[tok->i + tok->j] && !ft_isspace(str[tok->i + tok->j]))
+        ft_wordtok(tok, str);
     return(1);
 }

@@ -37,6 +37,8 @@ void	cmd_status(t_cmd *cmd)
 	printf("\n");
 	if (cmd->built_in)
 		printf("is builtin: TRUE\n");
+	if (cmd->index == 0)
+		printf("index: %d\n", cmd->index);	
 	if (cmd->index)
 		printf("index: %d\n", cmd->index);
 	if (cmd->infile)

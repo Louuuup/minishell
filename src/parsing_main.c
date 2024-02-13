@@ -21,7 +21,8 @@ int parser(t_data *data)
 	ft_cmdcount(data->user_prompt);
 	
 	char *temp;
-	//change this allocation for the garbage collector one
+	data->parser.cmd_list = NULL;
+	data->parser.sgl_cmd = NULL;
 	data->parser.cmd_list = gc_malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char *));
 	temp = ft_strtok(data->user_prompt, '|');
     while (temp) 

@@ -88,7 +88,7 @@ typedef struct s_data
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
 	t_tok		parser;	//struct used for parsing
-	t_memblock	*memblock; //head of allocated memory blocks
+	t_memblock	*memblock; //head of allocated memory blocks 
 }				t_data;
 
 //flag for redirection
@@ -177,9 +177,15 @@ void	ft_builtincheck(t_cmd *cmd);
 t_cmd	*ft_lstnewcmd(void);
 t_cmd	*ft_cmdlast(t_cmd *lst);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd);
+void 	ft_clearcmdlst(t_cmd **lst);
 //==================tokenizer.c===================//
 
 int		tokenizer(t_data *data);
+
+//==================ft_freeparse.c===================//
+
+int 	ft_freeparse(t_data *data);
+void	*ft_free_2darray(char **array);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);

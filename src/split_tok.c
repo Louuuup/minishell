@@ -47,7 +47,6 @@ size_t	word_countq(char *s)
 	tok.count = 0;
 	while(s[tok.i])
     	ft_boolcount(&tok, s);
-	printf("split_tok.c token count :%zu\n", tok.count);
 	return (tok.count);
 }
 
@@ -103,7 +102,6 @@ char	**ft_split_tok(char *s)
 	if (!s)
 		return (NULL);
 	count = word_countq(s);
-	printf("count: %zu\n", count);
 	if (count == 0 || ft_strlen(s) == 0)
 	{
 		split = (char **)malloc(sizeof(char *));

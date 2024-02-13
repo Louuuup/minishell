@@ -56,7 +56,7 @@ int		tokenizer(t_data *data)
         parsing(data->parser.sgl_cmd, data);                            //things like a"$VAR"                       
         while(data->parser.sgl_cmd[j])
         {
-            printf("tokenizer :%s\n", data->parser.sgl_cmd[j]);
+            //printf("tokenizer :%s\n", data->parser.sgl_cmd[j]);
             j++;
         }
         j=0;

@@ -58,18 +58,19 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
         tmp = tmp->next;
     if (id->app)
     {
-        tmp->outfile = str;
+        ft_expansion(str, &tmp->outfile);
         tmp->out_flag = REDIR_APPEND;
         id->app = false;
     }
     else if(id->in)
     {
-        tmp->infile = str;
+        ft_expansion(str, &tmp->infile);
         tmp->in_flag = REDIR_INPUT;
         id->in = false;
     }
     else if(id->out)
     {
+        ft_expansion(str, &tmp->outfile);
         tmp->outfile = str;
         tmp->out_flag = REDIR_OVERWRITE;
         id->out = false;
@@ -82,7 +83,8 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
     else if (!id->cmd)
     {
         tmp->cmd = malloc((id->cmd_size + 1) * (sizeof(char *)));
-        tmp->cmd[0] = str;
+        ft_expansion(str, &tmp->cmd[0]);
+        ft_removeqte(tmp->cmd[0]);
         id->cmd = true;
         ft_builtincheck(tmp);
         tmp->cmd[1] = NULL;
@@ -90,10 +92,13 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
     }
     else if (id->cmd)
     {
-         while(tmp->cmd[i])
+        printf("FUUUUCK\n");
+        while(tmp->cmd[i])
             i++;
-        tmp->cmd[i] = str;
-        tmp->cmd[i + 1] = NULL;     
+        ft_expansion(str, &tmp->cmd[i]);
+        ft_removeqte(tmp->cmd[i]);
+        tmp->cmd[i + 1] = NULL;
+        tmp->ac++;     
     }
      return (1);
 }

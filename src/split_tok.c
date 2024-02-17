@@ -2,10 +2,10 @@
 
 int ft_splt_wrd_qte(t_countok *tok, char *str)
 {
-        if (str[tok->i] == '\'')
+        /*if (str[tok->i] == '\'')
 			return(ft_sgltok(tok, str));
 		if (str[tok->i] == '\"')
-			return(ft_dbltok(tok, str));
+			return(ft_dbltok(tok, str));*/
 		if (str[tok->i] == '>')
 			return(ft_outtok(tok, str));
 		if (str[tok->i] == '<')
@@ -21,10 +21,10 @@ int    ft_boolcount(t_countok *tok, char *str)
     {
 		while(ft_isspace(str[tok->i]))
 			tok->i++;
-        if (str[tok->i] == '\'')
+        /*if (str[tok->i] == '\'')
 			return(ft_sglcount(tok, str));
 		if (str[tok->i] == '\"')
-			return(ft_dblcount(tok, str));
+			return(ft_dblcount(tok, str));*/
 		if (str[tok->i] == '>')
 			return(ft_outcount(tok, str));
 		if (str[tok->i] == '<')

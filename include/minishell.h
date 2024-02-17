@@ -66,8 +66,21 @@ typedef struct s_idtok
 	bool 	cmd;
 }		t_idtok;
 
+typedef struct s_expand
+{
+	char	*tmp;
+	char    *str;
+	char	*name;
+	char	*var;
+	int		i;
+	int 	j;
+	int		init;
+}		t_expand;
+
 typedef struct s_countok
 {
+	char 	*tmp;
+	bool	onqtes;
 	size_t 	i;
 	size_t 	j;
 	size_t  count;
@@ -120,7 +133,6 @@ t_data	*get_data(void);
 
 int		parser(t_data *data);
 int		tokener(t_data *data);
-
 //==================pipe_parsing.c===================//
 
 int		ft_pipeparse(char *str);
@@ -133,13 +145,12 @@ int 	ft_closedquote(char *str);
 //splits on delim by adding 0 inside the string without malloc
 char    *ft_strtok(char *str, const char delim);
 size_t 	ft_cmdcount(char *str);
-
 //==================tokenizer.c===================//
 
 int id_tok(char *str, t_idtok *id, t_data *data);
 int parsing(char **str, t_data *data);
 int	token_maker(t_data *data);
-
+int	tokenizer(t_data *data);
 //==================split_tok.c===================//
 
 int 	ft_splt_wrd_qte(t_countok *tok, char *str);
@@ -147,7 +158,6 @@ char	**ft_split_tok(char *s);
 char	**splitterq(char **split, char *s, size_t count);
 char	*word_makerq(char *s, size_t len);
 size_t	word_countq(char *s);
-
 //==================count_tok.c===================//
 
 int ft_sglcount(t_countok *tok, char *str);
@@ -155,7 +165,6 @@ int ft_dblcount(t_countok *tok, char *str);
 int ft_outcount(t_countok *tok, char *str);
 int ft_incount(t_countok *tok, char *str);
 int ft_tokcount(t_countok *tok, char *str);
-
 //==================split_tok_utils.c===================//
 
 int ft_sgltok(t_countok *tok, char *str);
@@ -163,7 +172,6 @@ int ft_dbltok(t_countok *tok, char *str);
 int ft_outtok(t_countok *tok, char *str);
 int ft_intok(t_countok *tok, char *str);
 int ft_wordtok(t_countok *tok, char *str);
-
 //==================token_id.c===================//
 
 int ft_idheredoc(t_idtok *id);
@@ -178,10 +186,19 @@ t_cmd	*ft_lstnewcmd(void);
 t_cmd	*ft_cmdlast(t_cmd *lst);
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd);
 void 	ft_clearcmdlst(t_cmd **lst);
-//==================tokenizer.c===================//
+//==================expansion.c===================//
 
-int		tokenizer(t_data *data);
+int ft_expansion(char *str, char **final);
+int ft_expand(int in, char *str, char **final);
+int ft_expcat(t_expand *exp, char **final);
+int ft_checksecexp(char *str, int i);
 
+//==================removequotes.c===================//
+
+int		ft_removeqte(char *str);
+void	inittmp(t_countok *tmp, char *str);
+void	ft_dblboolqte(bool *single,bool *dbl, t_countok *tmp);
+void	ft_sglboolqte(bool *single, bool *dbl, t_countok *tmp);
 //==================ft_freeparse.c===================//
 
 int 	ft_freeparse(t_data *data);

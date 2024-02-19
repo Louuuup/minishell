@@ -52,8 +52,8 @@ int		tokenizer(t_data *data)
     while(data->parser.cmd_list[i])
     {
         ft_cmdadd_back(&data->cmd, ft_lstnewcmd());
-        data->parser.sgl_cmd = ft_split_tok(data->parser.cmd_list[i]);  //have to rework on quotes to handle
-        parsing(data->parser.sgl_cmd, data);                            //things like a"$VAR"                       
+        data->parser.sgl_cmd = ft_split_tok(data->parser.cmd_list[i]);
+        parsing(data->parser.sgl_cmd, data);                                               
         while(data->parser.sgl_cmd[j])
         {
             //printf("tokenizer :%s\n", data->parser.sgl_cmd[j]);
@@ -61,8 +61,6 @@ int		tokenizer(t_data *data)
         }
         j=0;
         i++;
-        //cmd_status(data->cmd);
     }
     return (1);
-    //ft_strdup() //replace with gc_strdup
 }

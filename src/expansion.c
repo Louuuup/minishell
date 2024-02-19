@@ -20,7 +20,7 @@ int ft_checksecexp(char *str, int pos)
     while(str[pos])
     {
         if(str[pos] == '$')
-            while(str[pos] == '$')
+           while(str[pos] == '$')
             {
                 pos++;
                 return(pos);
@@ -59,15 +59,14 @@ int ft_expcat(t_expand *exp, char **final)
     }
     else if (exp->var)
     {
-        printf("STRLENVA :%dtmp :%s\n", ft_strlen(exp->var), exp->tmp);
         ft_strlcat(&exp->tmp[h], exp->var, ((size_t)ft_strlen(exp->var) + 2));
-        // printf("temp %s STR :%s var:%s %d %d\n",exp->tmp, exp->str, exp->var, exp->init, h);
         exp->i = ft_strlen(exp->tmp);
         exp->j = (h + ft_strlen(exp->name) + 1);
         ft_strlcat(&exp->tmp[exp->i], &exp->str[exp->j], ((size_t)ft_strlen(&exp->str[exp->j]) + 1));
     }
-    if(ft_checksecexp(exp->tmp, exp->j)){
-        printf("mystring :%s var: %s\n", exp->tmp, exp->var);
+    if(ft_checksecexp(exp->tmp, exp->j))
+    {
+        printf("%s pos =%d\n", exp->tmp, ft_checksecexp(exp->tmp, exp->j));
         ft_expand(ft_checksecexp(exp->tmp, exp->j), exp->tmp, final);}
     else
         *final = exp->tmp;
@@ -86,10 +85,14 @@ int ft_expand(int in, char *str, char **final)
     exp.j = 0;
     exp.init = (in - 1);
     exp.name = malloc(ft_strlen(str) + 1 * sizeof(char));
+    while(str[exp.i + 1] == '$')
+    {
+        exp.i++;
+        exp.init++;
+    }
     while(str[exp.i] && (ft_isalnum(str[exp.i]) || str[exp.i] == '_'))
         exp.name[exp.j++] = str[exp.i++];
     exp.name[exp.j] = '\0';
-    //printf("exp =%s string =%s\n", exp.name, exp.str);
     ft_expcat(&exp, final);
     return(1);
 }

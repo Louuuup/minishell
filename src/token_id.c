@@ -75,11 +75,12 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
         tmp->out_flag = REDIR_OVERWRITE;
         id->out = false;
     }
-    /*else if(id->here)
+    else if(id->here)
     {
-       handle heredoc here maybe in linked list ??
+       ft_removeqte(str);
+       ft_docadd_back(tmp->doc, ft_lstnewdoc(str));
        id->here = false; 
-    }*/
+    }
     else if (!id->cmd)
     {
         tmp->cmd = malloc((id->cmd_size + 1) * (sizeof(char *)));
@@ -92,7 +93,6 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
     }
     else if (id->cmd)
     {
-        printf("FUUUUCK\n");
         while(tmp->cmd[i])
             i++;
         ft_expansion(str, &tmp->cmd[i]);

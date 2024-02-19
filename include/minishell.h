@@ -43,6 +43,7 @@ typedef struct s_cmd
 	int				out_flag; //redir_flag
 	char 			*infile; //path to file
 	char			*outfile; //path to file
+	t_doc			*doc;	//linked list for heredoc
 	struct s_cmd	*next;
 	bool			built_in;
 }			t_cmd;
@@ -76,6 +77,14 @@ typedef struct s_expand
 	int 	j;
 	int		init;
 }		t_expand;
+
+typedef struct s_doc
+{
+	int 	index;
+	char	*eof;
+	char	*name;
+	t_doc	*next;
+}		t_doc;
 
 typedef struct s_countok
 {

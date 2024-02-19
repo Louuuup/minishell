@@ -62,6 +62,7 @@ typedef struct s_tok
 {
 	char 	**cmd_list;
 	char 	**sgl_cmd;
+	char	***free;
 }			t_tok;
 
 typedef struct s_idtok
@@ -106,6 +107,7 @@ typedef struct s_memblock
 typedef struct s_data
 {
 	t_cmd		*cmd;
+	int			hd_count; //heredoc count
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
@@ -222,6 +224,7 @@ void	ft_sglboolqte(bool *single, bool *dbl, t_countok *tmp);
 
 int 	ft_freeparse(t_data *data);
 void	*ft_free_2darray(char **array);
+void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);

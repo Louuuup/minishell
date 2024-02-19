@@ -62,13 +62,14 @@ int main(int argc, char *argv[], char *envp[])
 			if (DEBUG_ON)
 				printf("(main) prompt detected\n");
 			add_history(data->user_prompt);
-			if (parser(data) == NO_ERROR)
+			if (parser(data))
 			{
 				if (DEBUG_ON)
 					cmd_status(data->cmd); //temporary function to print the cmd infos.
-				exec_main(data); //not implemented yet
-				close_fds(data->cmd);
-				clean_cmd(data->cmd);
+				//exec_main(data); //not implemented yet
+				ft_freeparse(data);
+				//close_fds(data->cmd);
+				//clean_cmd(data->cmd);
 			}
 		}
 	}

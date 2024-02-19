@@ -2,8 +2,6 @@
 
 int setcmdlist(t_data *data)
 {
-	if (DEBUG_ON)
-		printf("(parser) parser called\n");
 	char *temp;
 	int i;
 
@@ -12,6 +10,7 @@ int setcmdlist(t_data *data)
 	data->parser.cmd_list = NULL;
 	data->parser.sgl_cmd = NULL;
 	data->parser.cmd_list = gc_malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char *));
+	data->parser.free = gc_malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char **));
 	temp = ft_strtok(data->user_prompt, '|');
     while (temp) 
 	{
@@ -23,9 +22,11 @@ int setcmdlist(t_data *data)
 	return(1);
 }
 
-// Reads and parses user_prompt. Returns 0 if no error, else returns error code.
+// Reads and parses user_prompt. Returns 0 if error, else returns error code.
 int parser(t_data *data)
 {
+	if (DEBUG_ON)
+		printf("(parser) parser called\n");
 	if(!data->user_prompt)
 		return(0);	
 	if(!(ft_closedquote(data->user_prompt)))
@@ -33,6 +34,7 @@ int parser(t_data *data)
 	if(!ft_pipeparse(data->user_prompt))
 		return(pipeerr(data));
 	setcmdlist(data);
-	tokenizer(data);
+	if(!tokenizer(data))
+		return(0); //add different error maybe
 	return (1);
 }

@@ -56,7 +56,7 @@ char	*word_makerq(char *s, size_t len)
 	char		*ptr;
 
 	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	ptr = (char *)gc_malloc(sizeof(char) * (len + 1));
 	if (!ptr)
 		return (NULL);
 	while (i < len)
@@ -110,7 +110,7 @@ char	**ft_split_tok(char *s)
 		split[0] = NULL;
 		return (split);
 	}
-	split = (char **)malloc((count + 1) * (sizeof(char *)));
+	split = (char **)gc_malloc((count + 1) * (sizeof(char *)));
 	if (!split)
 		return (NULL);
 	split = splitterq(split, s, count);

@@ -1,5 +1,44 @@
 #include "minishell.h"
 
+void close_fds(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	if (DEBUG_ON)
+		printf("(close_fds) close_fds called\n");
+	while (cmd)
+	{
+		tmp = cmd->next;
+		if (cmd->fd_in != 0)
+			close(cmd->fd_in);
+		if (cmd->fd_out != 1)
+			close(cmd->fd_out);
+		cmd = tmp;
+	}
+}
+
+void	clean_cmd(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	t_data *data;
+
+	data = get_data();
+	if (DEBUG_ON)
+		printf("(clean_cmd) clean_cmd called\n");
+	while (cmd)
+	{
+		tmp = cmd->next;
+		if (cmd->cmd)
+			gc_free_one(data->memblock, cmd->cmd);
+		if (cmd->infile)
+			gc_free_one(data->memblock, cmd->infile);
+		if (cmd->outfile)
+			gc_free_one(data->memblock, cmd->outfile);
+		gc_free_one(data->memblock, cmd);
+		cmd = tmp;
+	}
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
 	t_data *data;
@@ -23,13 +62,13 @@ int main(int argc, char *argv[], char *envp[])
 			if (DEBUG_ON)
 				printf("(main) prompt detected\n");
 			add_history(data->user_prompt);
-			if (parser(data))
+			if (parser(data) == NO_ERROR)
 			{
-			//tmp_parse(data); //temporary function to test parser and tokener
-			cmd_status(data->cmd); //temporary function to print the cmd infos.
-			ft_freeparse(data);  //free allocated memory in parser on every command/command chain
-			// if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR) //can remove one of the two if called elsewhere
-				//exec_main(data); //not implemented yet
+				if (DEBUG_ON)
+					cmd_status(data->cmd); //temporary function to print the cmd infos.
+				exec_main(data); //not implemented yet
+				close_fds(data->cmd);
+				clean_cmd(data->cmd);
 			}
 		}
 	}

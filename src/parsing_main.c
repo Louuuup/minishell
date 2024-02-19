@@ -2,6 +2,8 @@
 
 int setcmdlist(t_data *data)
 {
+	if (DEBUG_ON)
+		printf("(parser) parser called\n");
 	char *temp;
 	int i;
 

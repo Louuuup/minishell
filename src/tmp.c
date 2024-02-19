@@ -48,13 +48,16 @@ void	cmd_status(t_cmd *cmd)
 		printf("in_flag: %d\n", cmd->in_flag);
 	if (cmd->out_flag)
 		printf("out_flag: %d\n", cmd->out_flag);
-	if (cmd->fd_in)
-		printf("fd_in: %d\n", cmd->fd_in);
-	if (cmd->fd_out)
-		printf("fd_out: %d\n", cmd->fd_out);
+	printf("fd_in: %d\n", cmd->fd_in);
+	if (cmd->fd_out == 0)
+		cmd->fd_out = 1;
+	printf("fd_out: %d\n", cmd->fd_out);
 	printf("\n\n");
 	if(cmd->doc)
 		printf("EOF: %s\n", cmd->doc->eof);
 	if (cmd->next)
+	{
+		printf("next cmd:\n");
 		cmd_status(cmd->next);
+	}
 }

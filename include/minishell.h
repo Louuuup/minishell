@@ -29,6 +29,14 @@
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
+typedef struct s_doc
+{
+	int 			index;
+	char			*eof;
+	char			*name;
+	struct s_doc	*next;
+}		t_doc;
+
 //base for command struct can be modified if needed
 typedef struct s_cmd
 {
@@ -77,14 +85,6 @@ typedef struct s_expand
 	int 	j;
 	int		init;
 }		t_expand;
-
-typedef struct s_doc
-{
-	int 	index;
-	char	*eof;
-	char	*name;
-	t_doc	*next;
-}		t_doc;
 
 typedef struct s_countok
 {
@@ -141,7 +141,7 @@ t_data	*get_data(void);
 //==================parsing_main.c===================//
 
 int		parser(t_data *data);
-int		tokener(t_data *data);
+int 	setcmdlist(t_data *data);
 //==================pipe_parsing.c===================//
 
 int		ft_pipeparse(char *str);
@@ -202,6 +202,16 @@ int ft_expand(int in, char *str, char **final);
 int ft_expcat(t_expand *exp, char **final);
 int ft_checksecexp(char *str, int i);
 
+//==================parsingerror.c===================//
+
+int unclosedqtes(t_data *data);
+int pipeerr(t_data *data);
+//==================docquotes.c===================//
+
+t_doc	*ft_lstnewdoc(char *str);
+t_doc	*ft_doclast(t_doc *lst);
+void	ft_docadd_back(t_doc **lst, t_doc *new_cmd);
+void	ft_cleardoclst(t_doc **lst);
 //==================removequotes.c===================//
 
 int		ft_removeqte(char *str);

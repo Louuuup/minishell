@@ -1,26 +1,12 @@
 #include "minishell.h"
 
-// Reads and parses user_prompt. Returns 0 if no error, else returns error code.
-int parser(t_data *data)
+int setcmdlist(t_data *data)
 {
-	//(void)data->user_prompt;
+	char *temp;
 	int i;
 
-	i = 0;
-	// checks for unclosed quote
-	if(!(ft_closedquote(data->user_prompt)))
-	{
-		ft_printf_fd(2, "unclosed quote\n");
-		//free readline ??
-		//make an error list ??
-	}
-	if(!ft_pipeparse(data->user_prompt))
-	{
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `|'\n");
-	}
-	ft_cmdcount(data->user_prompt);
-	
-	char *temp;
+	i = 0;	
+
 	data->parser.cmd_list = NULL;
 	data->parser.sgl_cmd = NULL;
 	data->parser.cmd_list = gc_malloc((ft_cmdcount(data->user_prompt) + 1) * sizeof(char *));
@@ -32,13 +18,19 @@ int parser(t_data *data)
         temp = ft_strtok(0, '|');
     }
 	data->parser.cmd_list[i] = NULL;
-	tokenizer(data);
-	return (NO_ERROR);
+	return(1);
 }
 
-// (move if needed) Reads and tokenizes user_prompt. Returns 0 if no error, else returns error code.
-int	tokener(t_data *data)
+// Reads and parses user_prompt. Returns 0 if no error, else returns error code.
+int parser(t_data *data)
 {
-	(void)data;
-	return (NO_ERROR);
+	if(!data->user_prompt)
+		return(0);	
+	if(!(ft_closedquote(data->user_prompt)))
+		return(unclosedqtes(data));
+	if(!ft_pipeparse(data->user_prompt))
+		return(pipeerr(data));
+	setcmdlist(data);
+	tokenizer(data);
+	return (1);
 }

@@ -65,9 +65,7 @@ int ft_expcat(t_expand *exp, char **final)
         ft_strlcat(&exp->tmp[exp->i], &exp->str[exp->j], ((size_t)ft_strlen(&exp->str[exp->j]) + 1));
     }
     if(ft_checksecexp(exp->tmp, exp->j))
-    {
-        printf("%s pos =%d\n", exp->tmp, ft_checksecexp(exp->tmp, exp->j));
-        ft_expand(ft_checksecexp(exp->tmp, exp->j), exp->tmp, final);}
+        ft_expand(ft_checksecexp(exp->tmp, exp->j), exp->tmp, final);
     else
         *final = exp->tmp;
     //free(exp->name);

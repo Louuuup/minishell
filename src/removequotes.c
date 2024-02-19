@@ -65,7 +65,6 @@ int ft_removeqte(char *str)
             tmp.i++;
     }
     tmp.tmp[tmp.j++] = '\0';
-    printf("tmp = %s\n", tmp.tmp);
     ft_strlcpy(str, tmp.tmp, (ft_strlen(tmp.tmp) + 1));
     free(tmp.tmp);
     return (0);

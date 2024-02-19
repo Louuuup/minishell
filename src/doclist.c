@@ -28,7 +28,7 @@ void	ft_docadd_back(t_doc **lst, t_doc *new_cmd)
 	if (lst && *lst)
 	{
 		temp = *lst;
-		temp = ft_cmdlast(*lst);
+		temp = ft_doclast(*lst);
 		temp->next = new_cmd;
 		temp->next->index = 1 + temp->index;
 		return ;

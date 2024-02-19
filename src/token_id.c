@@ -78,7 +78,8 @@ int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data)
     else if(id->here)
     {
        ft_removeqte(str);
-       ft_docadd_back(tmp->doc, ft_lstnewdoc(str));
+       ft_docadd_back(&tmp->doc, ft_lstnewdoc(str));
+       tmp->in_flag = REDIR_HEREDOC;
        id->here = false; 
     }
     else if (!id->cmd)

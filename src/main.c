@@ -23,13 +23,14 @@ int main(int argc, char *argv[], char *envp[])
 			if (DEBUG_ON)
 				printf("(main) prompt detected\n");
 			add_history(data->user_prompt);
-			parser(data);
+			if (parser(data))
+			{
 			//tmp_parse(data); //temporary function to test parser and tokener
 			cmd_status(data->cmd); //temporary function to print the cmd infos.
-			ft_freeparse(data);
-			//printf("%s\n", get_var(data->env, "USER"));  //free allocated memory in parser on every command/command chain
+			ft_freeparse(data);  //free allocated memory in parser on every command/command chain
 			// if (parser(data) == NO_ERROR && tokener(data) == NO_ERROR) //can remove one of the two if called elsewhere
 				//exec_main(data); //not implemented yet
+			}
 		}
 	}
 

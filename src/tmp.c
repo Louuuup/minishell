@@ -53,6 +53,8 @@ void	cmd_status(t_cmd *cmd)
 	if (cmd->fd_out)
 		printf("fd_out: %d\n", cmd->fd_out);
 	printf("\n\n");
+	if(cmd->doc)
+		printf("EOF: %s\n", cmd->doc->eof);
 	if (cmd->next)
 		cmd_status(cmd->next);
 }

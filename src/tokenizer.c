@@ -55,10 +55,7 @@ int		tokenizer(t_data *data)
         data->parser.sgl_cmd = ft_split_tok(data->parser.cmd_list[i]);
         parsing(data->parser.sgl_cmd, data);                                               
         while(data->parser.sgl_cmd[j])
-        {
-            //printf("tokenizer :%s\n", data->parser.sgl_cmd[j]);
             j++;
-        }
         j=0;
         i++;
     }

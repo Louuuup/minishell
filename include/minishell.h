@@ -67,7 +67,7 @@ typedef struct s_tok
 typedef struct s_idtok
 {
 	int		i;
-	size_t		cmd_size;
+	size_t	cmd_size;
 	bool	out;
 	bool	app;
 	bool	here;
@@ -106,6 +106,7 @@ typedef struct s_memblock
 typedef struct s_data
 {
 	t_cmd		*cmd;
+	int 		hd_count; //heredoc count
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
@@ -281,4 +282,7 @@ void    b_export(t_cmd *cmd);
 
 int export_valid(char *str);
 char *var_name(char *str);
+char *var_value(char *str);
+//====================builtin_exit.c====================//
+
 #endif

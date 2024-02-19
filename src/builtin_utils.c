@@ -29,5 +29,19 @@ char *var_name(char *str)
     new_str = ft_substr(str, 0, i);
     if (DEBUG_ON)
         printf("(var_name) found %s in %s\n", new_str, str);
-    return (str);
+    return (new_str);
+}
+
+char *var_value(char *str)
+{
+	int i;
+	char *new_str;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	new_str = ft_strdup(str + i + 1);
+	if (DEBUG_ON)
+		printf("(var_value) found %s in %s\n", new_str, str);
+	return (new_str);
 }

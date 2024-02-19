@@ -6,6 +6,8 @@ char *get_var(char **env, char *var)
     int j;
 
     i = 0;
+    if (DEBUG_ON)
+        printf("(get_var) var: %s\n", var);
     while (env[i])
     {
         j = 0;
@@ -32,8 +34,8 @@ char *set_var(char **env, char *var, char *value)
             j++;
         if (ft_strncmp(env[i], var, j) == 0)
         {
-            new_var = ft_strjoin(var, "=");
-            new_var = ft_strjoin(new_var, value);
+            new_var = gc_strjoin(var, "=");
+            new_var = gc_strjoin(new_var, value);
             free(env[i]);
             env[i] = new_var;
             return (env[i]);
@@ -43,8 +45,23 @@ char *set_var(char **env, char *var, char *value)
     return (NULL);
 }
 
+// char **rm_var(char **env, char *var)
+// {
+//     int i;
+//     int j;
+//     char **new_env;
+
+//     i = 0;
+//     if (!env || !var || !get_var(env, var))
+//         return (NULL);
+    
+//     return (NULL);
+// }
+
 char    **add_var(char **env, char *var, char *value)
 {
+    if (DEBUG_ON)
+        printf("(add_var) var: %s, value: %s\n", var, value);
     int i;
     char **new_env;
 
@@ -59,8 +76,10 @@ char    **add_var(char **env, char *var, char *value)
         i++;
     }
     new_env[i] = ft_strjoin(var, "=");
-   
     new_env[i] = ft_strjoin(new_env[i], value);
+    // env = arr_free((void **)env);
+    if (DEBUG_ON)
+        printf("(add_var) new_env: %s\n", new_env[i]);
     free(env);
     env = new_env;
     return (NULL);
@@ -81,5 +100,6 @@ void b_env(t_cmd *cmd)
             ft_putstr_fd(env[i], cmd->fd_out);
             ft_putchar_fd('\n', cmd->fd_out);
         }
+        i++;
     }
 }

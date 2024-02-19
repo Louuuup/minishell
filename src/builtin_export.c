@@ -56,6 +56,28 @@ void	print_export(char **env, int fd)
 		i++;
 	}
 }
+static void	env_addline(char *str)
+{
+	int i;
+	t_data *data;
+	char **new_env;
+
+	i = 0;
+	data = get_data();
+	while (data->env[i])
+		i++;
+	new_env = gc_calloc(i + 2, sizeof(char *));
+	i = 0;
+	while (data->env[i])
+	{
+		new_env[i] = data->env[i];
+		i++;
+	}
+	new_env[i] = ft_strdup(str); 
+	gc_free_one(data->memblock, data->env);
+	data->env = new_env;
+}
+
 
 void    b_export(t_cmd *cmd)
 {
@@ -65,7 +87,7 @@ void    b_export(t_cmd *cmd)
 
     i = 1;
     data = get_data();
-    if (cmd->ac < 2)
+    if (cmd->ac < 1)
         return (print_export(data->env, cmd->fd_out));
     else
     {
@@ -77,12 +99,42 @@ void    b_export(t_cmd *cmd)
 				return ;
 			}
 			var = var_name(cmd->cmd[i]);
-            if (find_symbol('=', cmd->cmd[i]) && get_var(data->env, var) == NULL)
-                data->env = add_var(data->env, cmd->cmd[i], NULL);
+            if (get_var(data->env, var) == NULL)
+                env_addline(cmd->cmd[i]);
 			else if (find_symbol('=', cmd->cmd[i]) && get_var(data->env, var) != NULL)
-				set_var(data->env, var, cmd->cmd[i]);
+				set_var(data->env, var, var_value(cmd->cmd[i]));
             i++;
 			var = free_null(var);
         }
     }
 }
+//old, tmp
+// void    b_export(t_cmd *cmd)
+// {
+//     int		i;
+//     t_data	*data;
+// 	char	*var;
+
+//     i = 1;
+//     data = get_data();
+//     if (cmd->ac < 1)
+//         return (print_export(data->env, cmd->fd_out));
+//     else
+//     {
+//         while (cmd->cmd[i])
+//         {
+// 			if (export_valid(cmd->cmd[i]) == FALSE)
+// 			{
+// 				error_str("export: not a valid identifier");
+// 				return ;
+// 			}
+// 			var = var_name(cmd->cmd[i]);
+//             if (get_var(data->env, var) == NULL)
+//                 data->env = add_var(data->env, cmd->cmd[i], NULL);
+// 			else if (find_symbol('=', cmd->cmd[i]) && get_var(data->env, var) != NULL)
+// 				set_var(data->env, var, cmd->cmd[i]);
+//             i++;
+// 			var = free_null(var);
+//         }
+//     }
+// }

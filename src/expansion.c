@@ -9,7 +9,9 @@ int ft_checksecexp(char *str, int pos)
     i = 0;
     single = false;
     dbl = false;
-    while (i < pos)
+    if(!str)
+        return(0);
+    while (i < pos && str[i])
     {
         if (str[i] == '\'')
             ft_sglbool(&single, &dbl);
@@ -17,9 +19,15 @@ int ft_checksecexp(char *str, int pos)
             ft_dblbool(&single, &dbl);
         i++;
     }
+    if(!str[pos])
+        return (0);
     while(str[pos])
-    {
-        if(str[pos] == '$')
+    { 
+        if (str[pos] == '\'')
+            ft_sglbool(&single, &dbl);
+        if (str[pos] == '"')
+            ft_dblbool(&single, &dbl);
+        if(str[pos] == '$' && !single)
            while(str[pos] == '$')
             {
                 pos++;
@@ -43,7 +51,8 @@ int ft_expcat(t_expand *exp, char **final)
     else
         len = (ft_strlen(exp->str) + 1);
     h = 0;
-    exp->tmp = malloc(len + 1 * (sizeof(char)));
+    exp->tmp = gc_malloc(len + 1 * (sizeof(char)));
+    exp->tmp[h] = '\0';
     while (h < exp->init)
     {
         exp->tmp[h] = exp->str[h];
@@ -67,8 +76,9 @@ int ft_expcat(t_expand *exp, char **final)
     if(ft_checksecexp(exp->tmp, exp->j))
         ft_expand(ft_checksecexp(exp->tmp, exp->j), exp->tmp, final);
     else
-        *final = exp->tmp;
-    //free(exp->name);
+        *final = gc_strdup(exp->tmp);
+    gc_free_one(data->memblock ,exp->tmp);
+    gc_free_one(data->memblock ,exp->name);
     if(final)
         return (0);
     return (0);
@@ -82,7 +92,7 @@ int ft_expand(int in, char *str, char **final)
     exp.i = in;
     exp.j = 0;
     exp.init = (in - 1);
-    exp.name = malloc(ft_strlen(str) + 1 * sizeof(char));
+    exp.name = gc_malloc(ft_strlen(str) + 1 * sizeof(char));
     while(str[exp.i + 1] == '$')
     {
         exp.i++;
@@ -118,6 +128,6 @@ int ft_expansion(char *str, char **final)
             ft_dblbool(&single, &dbl);
         i++;
     }
-    *final = str;
+    *final = gc_strdup(str);
     return (0);
 }

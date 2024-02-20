@@ -39,7 +39,7 @@ void inittmp(t_countok *tmp, char *str)
         tmp->i = 0;
         tmp->j = 0;
         tmp->onqtes = false;
-        tmp->tmp = malloc(ft_strlen(str) * sizeof(char));
+        tmp->tmp = gc_malloc((ft_strlen(str) + 1) * sizeof(char));
     }
 }
 

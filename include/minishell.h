@@ -191,6 +191,20 @@ int ft_idappend(t_idtok *id);
 int ft_idoutput(t_idtok *id);
 int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
 void	ft_builtincheck(t_cmd *cmd);
+
+//==================tok_sort.c===================//
+
+int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
+int tok_app(char *str, t_idtok *id, t_cmd *tmp);
+int tok_in(char *str, t_idtok *id, t_cmd *tmp);
+int tok_out(char *str, t_idtok *id, t_cmd *tmp);
+int tok_cmd(char *str, t_idtok *id, t_cmd *tmp);
+//==================tok_sort2.c===================//
+
+int tok_arg(char *str, t_cmd *tmp);
+//==================tok_sort_doc.c===================//
+
+int tok_doc(char *str, t_idtok *id, t_cmd *tmp);
 //==================linked_utils.c===================//
 
 t_cmd	*ft_lstnewcmd(void);

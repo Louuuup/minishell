@@ -66,10 +66,10 @@ int main(int argc, char *argv[], char *envp[])
 			{
 				if (DEBUG_ON)
 					cmd_status(data->cmd); //temporary function to print the cmd infos.
-				//exec_main(data); //not implemented yet
+				exec_main(data); //not implemented yet
 				ft_freeparse(data);
-				//close_fds(data->cmd);
-				//clean_cmd(data->cmd);
+				close_fds(data->cmd);
+				clean_cmd(data->cmd);
 			}
 		}
 	}

@@ -2,6 +2,19 @@
 
 int tok_app(char *str, t_idtok *id, t_cmd *tmp)
 {
+    int fd;
+
+    if (tmp->outfile)
+    {
+        fd = open(tmp->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+        close(fd);
+        if((access(tmp->outfile, W_OK)) == -1)
+        {
+		    ft_putstr_fd("permission denied: ", 2);
+		    ft_putendl_fd(tmp->outfile, 2);
+            return (0);
+	    }  
+    }
     ft_expansion(str, &tmp->outfile);
     ft_removeqte(tmp->outfile);
     tmp->out_flag = REDIR_APPEND;
@@ -13,6 +26,12 @@ int tok_in(char *str, t_idtok *id, t_cmd *tmp)
 {
     ft_expansion(str, &tmp->infile);
     ft_removeqte(tmp->infile);
+    if (access(tmp->infile, R_OK) == -1)
+    {
+        ft_putstr_fd("permission denied: ", 2);
+		ft_putendl_fd(tmp->infile, 2);
+            return (0);
+    }
     tmp->in_flag = REDIR_INPUT;
     id->in = false;
     return (1);
@@ -20,6 +39,19 @@ int tok_in(char *str, t_idtok *id, t_cmd *tmp)
 
 int tok_out(char *str, t_idtok *id, t_cmd *tmp)
 {
+    int	fd;
+
+    if(tmp->outfile)
+    {
+	fd = open(tmp->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+        close(fd);
+    if((access(tmp->outfile, W_OK)) == -1)
+        {
+		    ft_putstr_fd("permission denied: ", 2);
+		    ft_putendl_fd(tmp->outfile, 2);
+            return (0);
+	    }  
+    }
     ft_expansion(str, &tmp->outfile);
     ft_removeqte(tmp->outfile);
     tmp->out_flag = REDIR_OVERWRITE;

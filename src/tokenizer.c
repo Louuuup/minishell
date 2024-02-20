@@ -10,8 +10,8 @@
         return(ft_idappend(id));
     else if (!ft_strcmp(str, ">"))
         return(ft_idoutput(id));
-    else (ft_id_cmd_file_arg(str, id, data));
-        return(1);
+    else 
+        return(ft_id_cmd_file_arg(str, id, data));
     return(0); 
  }
 

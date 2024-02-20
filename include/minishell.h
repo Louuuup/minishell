@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 1
+# define DEBUG_ON 0
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -28,6 +28,13 @@
 # define PROMPT_NAME "\033[35m\033[1mminiSHELL \033[0m\033[1m→ \033[0m"
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
+
+typedef struct s_ibool
+{
+	int 	i;
+	bool    single;
+    bool    dbl;
+}		t_ibool;
 
 typedef struct s_doc
 {
@@ -84,6 +91,7 @@ typedef struct s_expand
 	char	*var;
 	int		i;
 	int 	j;
+	int     h;
 	int		init;
 }		t_expand;
 
@@ -202,6 +210,7 @@ int tok_cmd(char *str, t_idtok *id, t_cmd *tmp);
 //==================tok_sort2.c===================//
 
 int tok_arg(char *str, t_cmd *tmp);
+int exp_qtes_bool(char *str, t_ibool *i, int pos);
 //==================tok_sort_doc.c===================//
 
 int tok_doc(char *str, t_idtok *id, t_cmd *tmp);
@@ -217,7 +226,12 @@ int ft_expansion(char *str, char **final);
 int ft_expand(int in, char *str, char **final);
 int ft_expcat(t_expand *exp, char **final);
 int ft_checksecexp(char *str, int i);
+//==================expcat_utils.c===================//
 
+int exp_len_check(char *str, char *var);
+int exp_novar(t_expand *exp);
+int exp_early_str(t_expand *exp);
+int exp_var(t_expand *exp);
 //==================parsingerror.c===================//
 
 int unclosedqtes(t_data *data);

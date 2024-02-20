@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 0
+# define DEBUG_ON 1
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -38,6 +38,7 @@ typedef struct s_ibool
 
 typedef struct s_doc
 {
+	bool			expand;
 	int 			index;
 	char			*eof;
 	char			*name;
@@ -213,6 +214,7 @@ int exp_qtes_bool(char *str, t_ibool *i, int pos);
 //==================tok_sort_doc.c===================//
 
 int tok_doc(char *str, t_idtok *id, t_cmd *tmp);
+int checkqtesdoc(char *str);
 //==================linked_utils.c===================//
 
 t_cmd	*ft_lstnewcmd(void);
@@ -239,7 +241,7 @@ int pipeerr(t_data *data);
 
 t_doc	*ft_lstnewdoc(char *str);
 t_doc	*ft_doclast(t_doc *lst);
-void	ft_docadd_back(t_doc **lst, t_doc *new_cmd);
+void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts);
 void	ft_cleardoclst(t_doc **lst);
 //==================removequotes.c===================//
 

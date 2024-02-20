@@ -34,6 +34,8 @@ void	clean_cmd(t_cmd *cmd)
 			gc_free_one(data->memblock, cmd->infile);
 		if (cmd->outfile)
 			gc_free_one(data->memblock, cmd->outfile);
+		if (cmd->doc)
+			ft_cleardoclst(&cmd->doc);
 		gc_free_one(data->memblock, cmd);
 		cmd = tmp;
 	}

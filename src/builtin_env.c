@@ -45,18 +45,38 @@ char *set_var(char **env, char *var, char *value)
     return (NULL);
 }
 
-// char **rm_var(char **env, char *var)
-// {
-//     int i;
-//     int j;
-//     char **new_env;
+char **rm_var(t_data *data, char *var)
+{
+    int i;
+    int j;
+    char **new_env;
 
-//     i = 0;
-//     if (!env || !var || !get_var(env, var))
-//         return (NULL);
-    
-//     return (NULL);
-// }
+    i = 0;
+    if (!data->env || !var || !get_var(data->env, var))
+        return (NULL);
+    new_env = gc_calloc(arr_len(data->env), sizeof(char *));
+    if (DEBUG_ON)
+        printf("(rm_var) arr_len: %d\n", arr_len(data->env));
+    while (data->env[i])
+    {
+        j = 0;
+        while (data->env[i][j] && data->env[i][j] != '=')
+            j++;
+        if (ft_strncmp(data->env[i], var, j) != 0)
+        {
+            new_env[i] = data->env[i];
+            i++;
+        }
+        else
+        {
+            if (DEBUG_ON)
+                printf("(rm_var) freeing %s\n", data->env[i]);
+            gc_free_one(data->memblock, data->env[i]);
+            i++;
+        }
+    }
+    return (new_env);
+}
 
 char    **add_var(char **env, char *var, char *value)
 {
@@ -77,7 +97,7 @@ char    **add_var(char **env, char *var, char *value)
     }
     new_env[i] = ft_strjoin(var, "=");
     new_env[i] = ft_strjoin(new_env[i], value);
-    // env = arr_free((void **)env);
+    env = arr_free((void **)env);
     if (DEBUG_ON)
         printf("(add_var) new_env: %s\n", new_env[i]);
     free(env);

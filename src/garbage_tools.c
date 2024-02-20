@@ -9,7 +9,10 @@ void	*gc_malloc(size_t size)
 	data = get_data();
 	ptr = malloc(size);
 	if (!ptr)
+	{
 		shell_error();
+		return (NULL);
+	}
 	data->memblock = memblock_add(data->memblock, ptr);
 	return (ptr);
 }
@@ -24,7 +27,10 @@ void	*gc_calloc(size_t count, size_t size)
 	data = get_data();
 	ptr = ft_calloc(count, size);
 	if (!ptr)
+	{
 		shell_error();
+		return (NULL);
+	}
 	data->memblock = memblock_add(data->memblock, ptr);
 	return (ptr);
 }

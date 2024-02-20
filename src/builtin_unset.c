@@ -1,27 +1,18 @@
 #include "minishell.h"
 
-void    b_unset(t_cmd *cmd)
+void b_unset(t_cmd *cmdt)
 {
-    t_cmd *tmp;
-    t_cmd *prev;
+    int i;
+    char *var;
     t_data *data;
 
     data = get_data();
-    tmp = data->env;
-    prev = NULL;
-    while (tmp)
+    i = 1;
+    while (cmdt->cmd[i])
     {
-        if (!ft_strncmp(tmp->cmd[0], cmd->cmd[1], ft_strlen(cmd->cmd[1])))
-        {
-            if (prev)
-                prev->next = tmp->next;
-            else
-                data->env = tmp->next;
-            gc_free_one(data->memblock, tmp->cmd);
-            gc_free_one(data->memblock, tmp);
-            return ;
-        }
-        prev = tmp;
-        tmp = tmp->next;
+        var = get_var(data->env, cmdt->cmd[i]);
+        if (var)
+            data->env = rm_var(data, cmdt->cmd[i]);
+        i++;
     }
 }

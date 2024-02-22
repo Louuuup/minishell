@@ -15,46 +15,46 @@ void	ft_builtincheck(t_cmd *cmd)
 }
 
 
-int ft_idheredoc(t_idtok *id)
+int	ft_idheredoc(t_idtok *id)
 {
-    if (id->app || id->out || id->here || id->in)
-    {
-        error_str("consecutive redirection\n");
-        return(0);
-    }
-    id->here = true;
-    return (1);
+	if (id->app || id->out || id->here || id->in)
+	{
+		error_str("consecutive redirection\n");
+		return (0);
+	}
+	id->here = true;
+	return (1);
 }
 
-int ft_idinput(t_idtok *id)
+int	ft_idinput(t_idtok *id)
 {
-    if (id->app || id->out || id->here || id->in)
-    {
-    error_str("consecutive redirection\n");
-        return(0);
-    }
-    id->in = true;
-     return (1);
+	if (id->app || id->out || id->here || id->in)
+	{
+		error_str("consecutive redirection\n");
+		return (0);
+	}
+	id->in = true;
+	return (1);
 }
 
-int ft_idappend(t_idtok *id)
+int	ft_idappend(t_idtok *id)
 {
-    if (id->app || id->out || id->here || id->in)
-    {
-        error_str("consecutive redirection\n");
-        return(0);
-    }
-    id->app = true;
-     return (1);
+	if (id->app || id->out || id->here || id->in)
+	{
+		error_str("consecutive redirection\n");
+		return (0);
+	}
+	id->app = true;
+	return (1);
 }
 
-int ft_idoutput(t_idtok *id)
+int	ft_idoutput(t_idtok *id)
 {
-    if (id->app || id->out || id->here || id->in)
-    {
-        error_str("consecutive redirection\n");
-        return(0);
-    }
-    id->out = true;
-    return (1);
+	if (id->app || id->out || id->here || id->in)
+	{
+		error_str("consecutive redirection\n");
+		return (0);
+	}
+	id->out = true;
+	return (1);
 }

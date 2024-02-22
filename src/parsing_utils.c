@@ -1,108 +1,87 @@
 #include "minishell.h"
 
-size_t ft_cmdcount(char *str)
+void	ft_strtokut(t_strtok *tok, char *stock)
 {
-    int     i;
-    size_t  count;
-    bool    single;
-    bool    dbl;
-
-    i = 0;
-    count = 0;
-    single = false;
-    dbl = false;
-    while (str[i])
-    {
-        if(str[i] == '|' && single == false && dbl == false)  
-           count++;
-        if (str[i] == '\'')
-            ft_sglbool(&single, &dbl);
-        if (str[i] == '"')
-            ft_dblbool(&single, &dbl);
-        i++;
-    }
-    return (count);
+	tok->found = true;
+	tok->output = stock;
 }
 
-int ft_closedquote(char *str)
+void	ft_strtokinit(t_strtok *tok)
 {
-    int     i;
-    bool    single;
-    bool    dbl;
-
-    i = 0;
-    single = false;
-    dbl = false;
-    while (str[i])
-    {
-        if (str[i] == '\'')
-            ft_sglbool(&single, &dbl);
-        if (str[i] == '"')
-            ft_dblbool(&single, &dbl);
-        i++;
-    }
-    if (single == false && dbl == false)
-        return (1);
-    return(0);
+	tok->found = false;
+	tok->output = 0;
+	tok->quote = 0;
 }
 
-char    *ft_strtok(char *str, const char delim)
+size_t	ft_cmdcount(char *str)
 {
-    static char *stock;
-    char        *output;
-    bool        found;
+	int		i;
+	size_t	count;
+	bool	single;
+	bool	dbl;
 
-    char        quote;
-
-    if (str)
-        stock = str;
-    output = 0;
-    quote = 0;
-    found = false;
-    quote = 0;
-    while (*stock)
-    {
-        // If we found the first quote
-        if ((*stock == '"' || *stock == '\'') && quote == 0) {
-            quote = *stock;
-        }
-
-        // The ending quote
-        else if ((*stock == '"' || *stock == '\'') && quote == *stock) {
-            quote = 0;
-        }
-
-        // Keep track of the beginning of the string inside OUTPUT
-        if (!found && !(*stock == delim))
-        {
-            found = true;
-            output = stock;
-        }
-
-        // If we found the delimiter, put a /0 at the position of the delimiter so we can send it
-        else if (!quote && found && *stock == delim)
-        {
-            *stock = 0;
-            stock++;
-            break ;
-        }
-
-        // Keep going otherwise
-        stock++;
-    }
-    return (output);
+	i = 0;
+	count = 0;
+	single = false;
+	dbl = false;
+	while (str[i])
+	{
+		if (str[i] == '|' && single == false && dbl == false)
+			count++;
+		if (str[i] == '\'')
+			ft_sglbool(&single, &dbl);
+		if (str[i] == '"')
+			ft_dblbool(&single, &dbl);
+		i++;
+	}
+	return (count);
 }
 
-/*int main() {
+int	ft_closedquote(char *str)
+{
+	int		i;
+	bool	single;
+	bool	dbl;
 
-    char arr[] = "bonjour | je suis un \"|\" | chien";
+	i = 0;
+	single = false;
+	dbl = false;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			ft_sglbool(&single, &dbl);
+		if (str[i] == '"')
+			ft_dblbool(&single, &dbl);
+		i++;
+	}
+	if (single == false && dbl == false)
+		return (1);
+	return (0);
+}
 
-    char *temp = ft_strtok(arr, '|');
-    while (temp) {
-        printf("[%s]\n", temp);
-        temp = ft_strtok(0, '|');
-    }
+char	*ft_strtok(char *str, const char delim)
+{
+	static char	*stock;
+	t_strtok	tok;
 
-    return 0;
-
-}*/
+	if (str)
+		stock = str;
+	ft_strtokinit(&tok);
+	while (*stock)
+	{
+		if ((*stock == '"' || *stock == '\'') && tok.quote == 0)
+			tok.quote = *stock;
+		else if ((*stock == '"' || *stock == '\'') && tok.quote == *stock)
+			tok.quote = 0;
+		if (!tok.found && !(*stock == delim))
+			ft_strtokut(&tok, stock);
+		else if (!tok.quote && tok.found && *stock == delim)
+		{
+			*stock = 0;
+			stock++;
+			break ;
+		}
+		stock++;
+	}
+	return (tok.output);
+}

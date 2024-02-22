@@ -21,7 +21,6 @@ t_doc	*ft_doclast(t_doc *lst)
 	return (lst);
 }
 
-
 void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts)
 {
 	t_doc	*temp;
@@ -32,7 +31,7 @@ void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts)
 		temp = ft_doclast(*lst);
 		temp->next = new_cmd;
 		temp->next->index = 1 + temp->index;
-		if(qts)
+		if (qts)
 			temp->expand = true;
 		return ;
 	}
@@ -40,7 +39,7 @@ void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts)
 	new_cmd->index = 0;
 }
 
-void ft_cleardoclst(t_doc **lst)
+void	ft_cleardoclst(t_doc **lst)
 {
 	t_doc	*temp;
 	t_data	*data;

@@ -1,9 +1,8 @@
 #include "minishell.h"
 
-
-t_memblock *memblock_create(void *ptr)
+t_memblock	*memblock_create(void *ptr)
 {
-	t_memblock *memblock;
+	t_memblock	*memblock;
 
 	memblock = ft_calloc(1, sizeof(t_memblock));
 	if (!memblock)
@@ -18,7 +17,7 @@ t_memblock *memblock_create(void *ptr)
 
 t_memblock	*memblock_add(t_memblock *memblock, void *ptr)
 {
-	t_memblock *new;
+	t_memblock	*new;
 
 	if (!memblock)
 	{
@@ -34,7 +33,7 @@ t_memblock	*memblock_add(t_memblock *memblock, void *ptr)
 
 void	gc_free_all(t_memblock *memblock)
 {
-	t_memblock *tmp;
+	t_memblock	*tmp;
 
 	while (memblock)
 	{
@@ -45,10 +44,10 @@ void	gc_free_all(t_memblock *memblock)
 	}
 }
 
-void gc_free_one(t_memblock *memblock, void *ptr)
+void	gc_free_one(t_memblock *memblock, void *ptr)
 {
-	t_memblock *tmp;
-	t_memblock *prev;
+	t_memblock	*tmp;
+	t_memblock	*prev;
 
 	tmp = memblock;
 	prev = NULL;

@@ -27,7 +27,16 @@
 # define MINISHELL_ERR "\033[31m\033[1mminiSHELL: \033[0m"
 # define PROMPT_NAME "\033[35m\033[1mminiSHELL \033[0m\033[1m→ \033[0m"
 # define EXPORT_PREFIX "declare -x "
+# define C_FIND	"\"\'<> \t\n\v\f\r"
+
 //==================Structs===================//
+
+typedef struct s_strtok
+{
+	char		*output;
+	bool		found;
+	char		quote;
+}	t_strtok;
 
 typedef struct s_ibool
 {
@@ -154,14 +163,15 @@ int		parser(t_data *data);
 int 	setcmdlist(t_data *data);
 //==================pipe_parsing.c===================//
 
+int		iboolinit(t_ibool *ibool);
 int		ft_pipeparse(char *str);
 void    ft_sglbool(bool *single, bool *dbl);
 void    ft_dblbool(bool *single,bool *dbl);
 //==================parsing_utils.c===================//
 
-//check if there's  any unclosed quote
+void	ft_strtokut(t_strtok *tok, char *stock);
+void	ft_strtokinit(t_strtok *tok);
 int 	ft_closedquote(char *str);
-//splits on delim by adding 0 inside the string without malloc
 char    *ft_strtok(char *str, const char delim);
 size_t 	ft_cmdcount(char *str);
 //==================tokenizer.c===================//
@@ -172,11 +182,9 @@ int	token_maker(t_data *data);
 int	tokenizer(t_data *data);
 //==================split_tok.c===================//
 
-int 	ft_splt_wrd_qte(t_countok *tok, char *str);
 char	**ft_split_tok(char *s);
 char	**splitterq(char **split, char *s, size_t count);
 char	*word_makerq(char *s, size_t len);
-size_t	word_countq(char *s);
 //==================count_tok.c===================//
 
 int ft_sglcount(t_countok *tok, char *str);
@@ -209,6 +217,9 @@ int tok_out(char *str, t_idtok *id, t_cmd *tmp);
 int tok_cmd(char *str, t_idtok *id, t_cmd *tmp);
 //==================tok_sort2.c===================//
 
+size_t	word_countq(char *s);
+int	ft_boolcount(t_countok *tok, char *str);
+int	ft_splt_wrd_qte(t_countok *tok, char *str);
 int tok_arg(char *str, t_cmd *tmp);
 int exp_qtes_bool(char *str, t_ibool *i, int pos);
 //==================tok_sort_doc.c===================//
@@ -229,7 +240,7 @@ int ft_expcat(t_expand *exp, char **final);
 int ft_checksecexp(char *str, int i);
 //==================expcat_utils.c===================//
 
-int exp_len_check(char *str, char *var);
+int explencheck(char *str, char *var);
 int exp_novar(t_expand *exp);
 int exp_early_str(t_expand *exp);
 int exp_var(t_expand *exp);

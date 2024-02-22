@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-char *gc_strdup(char *str)
+char	*gc_strdup(char *str)
 {
-	char *new_str;
+	char	*new_str;
 
 	if (DEBUG_ON)
 		printf("(gc_strdup) start\n");
@@ -13,7 +13,7 @@ char *gc_strdup(char *str)
 	return (new_str);
 }
 
-char **gc_split(char *str, char c)
+char	**gc_split(char *str, char c)
 {
 	char	**tab;
 	int		i;

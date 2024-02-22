@@ -27,8 +27,8 @@ void	exec_builtin(t_cmd *cmd)
 		b_pwd(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "export", 7))
 		b_export(cmd);
-	// else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
-	// 	b_unset(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
+		b_unset(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
 		b_env(cmd);
 	// else if (!ft_strncmp(cmd->cmd[0], "exit", 5))

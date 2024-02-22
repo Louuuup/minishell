@@ -295,6 +295,7 @@ void	b_env(t_cmd *cmd);
 char	*get_var(char **env, char *var);
 char    **add_var(char **env, char *var, char *value);
 char	*set_var(char **env, char *var, char *value);
+char	**rm_var(t_data *data, char *var);
 
 //====================builtin_cd.c====================//
 

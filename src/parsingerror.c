@@ -10,6 +10,6 @@ int	unclosedqtes(t_data *data)
 int	pipeerr(t_data *data)
 {
 	free(data->user_prompt);
-	error_str("minishell: syntax error near unexpected token `|'\n");
+	error_str("syntax error with token `|'\n");
 	return (0);
 }

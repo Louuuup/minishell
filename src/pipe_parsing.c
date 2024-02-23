@@ -32,7 +32,7 @@ int	ft_pipeparse(char *str)
 			a.i++;
 			while (ft_isspace(str[a.i]) != 0)
 				a.i++;
-			if (str[a.i] == '|')
+			if (str[a.i] == '|' || str[a.i] == '\0')
 				return (0);
 		}
 		if (str[a.i] == '\'')

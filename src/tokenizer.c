@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+int	syntax_check(char **str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if((!ft_strcmp(str[i], "<<") || !ft_strcmp(str[i], "<") ||\
+			!ft_strcmp(str[i], ">") || !ft_strcmp(str[i], ">>"))\
+				&& !str[i + 1])
+				{
+					error_str_file("syntax error with token ", str[i]);
+					return (0);
+				}
+		i++;
+	}
+	return (1);
+}
+
 int	id_tok(char *str, t_idtok *id, t_data *data)
 {
 	if (!ft_strcmp(str, "<<"))
@@ -31,11 +50,13 @@ int	parsing(char **str, t_data *data)
 		id.cmd_size++;
 		id.i++;
 	}
+	if(!syntax_check(str))
+		return (0);
 	id.i = 0;
 	while (str[id.i])
 	{                                     
 		if (!id_tok(str[id.i], &id, data))
-			return (0);                    //add error code here
+			return (0);                 	//add error code here
 		id.i++;
 	}
 	return (1);

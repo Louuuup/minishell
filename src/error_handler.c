@@ -15,4 +15,11 @@ int	error_str(char *str)
 	return (ERROR);
 }
 
-
+//Can add a filename in the error message
+int	error_str_file(char *str, char *file)
+{
+	ft_putstr_fd(MINISHELL_ERR, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(file, STDERR_FILENO);
+	return (ERROR);
+}

@@ -17,7 +17,7 @@ int	exp_early_str(t_expand *exp)
 	{
 		exp->tmp[exp->h] = exp->str[exp->h];
 		exp->h++;
-		exp->tmp[exp->h + 1] = '\0';
+		exp->tmp[exp->h] = '\0';
 	}
 	return (1);
 }

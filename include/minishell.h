@@ -291,6 +291,7 @@ void		*gc_calloc(size_t count, size_t size);
 char *gc_strjoin(char *s1, char *s2);
 //==================error_handler.c===================//
 
+int		error_str_file(char *str, char *file);
 int		shell_error(void);
 int		error_str(char *str);
 //======================tmp.c=========================//

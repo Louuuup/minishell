@@ -1,0 +1,145 @@
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 30 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (main) prompt detected
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 27 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (parser) parser called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 29 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (gc_calloc) Allocating 96 bytes
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 32 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (exec_main) exec_main called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 32 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (ft_dup2) ft_dup2 called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 30 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (exec_cmd) exec_cmd called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 31 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (command_valid) command_valid called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 36 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (get_var) var: PATH
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 30 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (gc_calloc) Allocating 30 bytes
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 32 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (close_fds) close_fds called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 32 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> (clean_cmd) clean_cmd called
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(exec_main) exec_main called
+(ft_dup2) ft_dup2 called
+(exec_cmd) exec_cmd called
+(command_valid) command_valid called
+(get_var) var: PATH
+(gc_calloc) Allocating 32 bytes
+(close_fds) close_fds called
+(clean_cmd) clean_cmd called
+miniSHELL $> miniSHELL $> (ft_dup2) cmd->fd_in: 3
+(main) prompt detected
+(parser) parser called
+(gc_calloc) Allocating 96 bytes
+(get_var) var: 
+(exec_main) exec_main called

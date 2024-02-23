@@ -64,8 +64,6 @@ int main(int argc, char *argv[], char *envp[])
 			add_history(data->user_prompt);
 			if (parser(data))
 			{
-				if (DEBUG_ON)
-					cmd_status(data->cmd); //temporary function to print the cmd infos.
 				exec_main(data); //not implemented yet
 				ft_freeparse(data);
 				close_fds(data->cmd);

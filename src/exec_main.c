@@ -1,8 +1,40 @@
 #include "minishell.h"
 
-void	exec_cmd(t_cmd *cmd)
+void fork_exec(t_cmd *cmd)
 {
-	(void)cmd;
+	int		pid;
+
+	pid = 0;
+	pid = fork();
+	if (pid == -1)
+		error_str("fork error\n");
+	if (pid == 0)
+	{
+		execve(cmd->cmd[0], cmd->cmd, get_data()->env);
+		exit(0);
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+	}
+}
+
+void	exec_cmd(t_cmd *cmdt)
+{
+	if (DEBUG_ON)
+		printf("(exec_cmd) exec_cmd called\n");
+	if (cmdt->cmd)
+	{
+		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE)
+		{
+			fork_exec(cmdt);
+		}
+		else
+		{	
+			error_str(gc_strjoin(cmdt->cmd[0], ": command not found\n"));
+			// error_str("command not found\n");
+		}
+	}
 }
 
 void redirect_check(t_cmd *cmd)
@@ -51,6 +83,7 @@ void	exec_main(t_data *data)
 		cmd = cmd->next;
 	}
 	cmd = data->cmd;
+	// cmd_status(cmd); // debug
 	while (cmd)
 	{
 		redirect_check(cmd);

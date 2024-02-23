@@ -18,17 +18,21 @@ int	ft_dup2(t_cmd *cmd)
 {
 	if (DEBUG_ON)
 		printf("(ft_dup2) ft_dup2 called\n");
-	if (cmd->fd_in != 0)
+	if (cmd->fd_in != STDIN_FILENO)
 	{
-		if (dup2(cmd->fd_in, 0) == -1)
+		if (DEBUG_ON)
+			printf("(ft_dup2) cmd->fd_in: %d\n", cmd->fd_in);
+		if (dup2(cmd->fd_in, STDIN_FILENO) == -1)
 			return (error_str("dup2 error\n"));
-		close(cmd->fd_in);
+		// close(cmd->fd_in);
 	}
-	if (cmd->fd_out != 1)
+	if (cmd->fd_out != STDOUT_FILENO)
 	{
-		if (dup2(cmd->fd_out, 1) == -1)
+		if (DEBUG_ON)
+			printf("(ft_dup2) cmd->fd_out: %d\n", cmd->fd_out);
+		if (dup2(cmd->fd_out, STDOUT_FILENO) == -1)
 			return (error_str("dup2 error\n"));
-		close(cmd->fd_out);
+		// close(cmd->fd_out);
 	}
 	return (NO_ERROR);
 }
@@ -49,4 +53,58 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 	if (fd == -1)
 		return (shell_error());
 	return (fd);
+}
+
+static char *cmd_access(char *cmd, char **paths)
+{
+	int i;
+	char *tmp;
+	char *full_path;
+
+	i = 0;
+	while (paths[i])
+	{
+		tmp = ft_strjoin(paths[i], cmd);
+		if (access(tmp, F_OK) == 0)
+		{
+			if (DEBUG_ON)
+				printf("(cmd_access) found %s\n", tmp);
+			full_path = gc_strdup(tmp);
+			tmp = free_null(tmp);
+			return (full_path);
+		}
+		tmp = free_null(tmp);
+		i++;
+	}
+	return (NULL);
+}
+
+int command_valid(t_cmd *cmdt, char *cmd)
+{
+	char	*cmd_path;
+	char	**paths;
+	int i;
+
+	i = 0;
+	if (DEBUG_ON)
+		printf("(command_valid) command_valid called\n");
+	cmd_path = get_var(get_data()->env, "PATH");
+	if (!cmd_path)
+		return (FALSE);
+	paths = ft_split(cmd_path, ':');
+	if (!paths)
+		return (FALSE);
+	cmd_path = paths[0];
+	paths[0] = ft_strtrim(paths[0], "PATHS=");
+	cmd_path = free_null(cmd_path);
+	while (paths[i])
+	{
+		paths[i] = charjoinfree(paths[i], '/');
+		i++;
+	}
+	cmdt->path = cmd_access(cmd, paths);
+		paths = arr_free((void **)paths);
+	if (!cmdt->path)
+		return (FALSE);
+	return (TRUE);
 }

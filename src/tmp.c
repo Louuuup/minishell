@@ -17,47 +17,51 @@ void tmp_parse(t_data *data)
 void	cmd_status(t_cmd *cmd)
 {
 	if (DEBUG_ON)
-		printf("(cmd_status) start\n");
+		dprintf(1, "========================\n");
+		dprintf(1, "     COMMAND STATUS     \n");
+		dprintf(1, "========================\n");
 	if (!cmd || !cmd->cmd)
 	{
-		printf("cmd: NULL\n");
+		dprintf(1, "cmd: NULL\n");
 		return ;
 	}
 	if (cmd->cmd[0])
-		printf("cmd: %s\n", cmd->cmd[0]);
+		dprintf(1, "cmd: %s\n", cmd->cmd[0]);
 	int i = 1;
 	if (!cmd->cmd[i])
-		printf("args: NULL\n");
+		dprintf(1, "args: NULL\n");
 	while(cmd->cmd[i])
 	{
-		printf("args: %s\n", cmd->cmd[i]);
+		dprintf(1, "args: %s\n", cmd->cmd[i]);
 		i++;
 	}
-	printf("\n");
+	dprintf(1, "\n");
 	if (cmd->built_in)
-		printf("is builtin: TRUE\n");
+		dprintf(1, "is builtin: TRUE\n");
 	if (cmd->index == 0)
-		printf("index: %d\n", cmd->index);	
+		dprintf(1, "index: %d\n", cmd->index);	
 	if (cmd->index)
-		printf("index: %d\n", cmd->index);
+		dprintf(1, "index: %d\n", cmd->index);
 	if (cmd->infile)
-		printf("infile: %s\n", cmd->infile);
+		dprintf(1, "infile: %s\n", cmd->infile);
 	if (cmd->outfile)
-		printf("outfile: %s\n", cmd->outfile);
+		dprintf(1, "outfile: %s\n", cmd->outfile);
 	if (cmd->in_flag)
-		printf("in_flag: %d\n", cmd->in_flag);
+		dprintf(1, "in_flag: %d\n", cmd->in_flag);
 	if (cmd->out_flag)
-		printf("out_flag: %d\n", cmd->out_flag);
-	printf("fd_in: %d\n", cmd->fd_in);
+		dprintf(1, "out_flag: %d\n", cmd->out_flag);
+	dprintf(1, "fd_in: %d\n", cmd->fd_in);
 	if (cmd->fd_out == 0)
 		cmd->fd_out = 1;
-	printf("fd_out: %d\n", cmd->fd_out);
-	printf("\n\n");
+	dprintf(1, "fd_out: %d\n", cmd->fd_out);
+	dprintf(1, "\n\n");
 	if(cmd->doc)
-		printf("EOF: %s\n", cmd->doc->eof);
+		dprintf(1, "EOF: %s\n", cmd->doc->eof);
 	if (cmd->next)
 	{
-		printf("next cmd:\n");
+		dprintf(1, "next cmd:\n");
 		cmd_status(cmd->next);
 	}
+	dprintf(1, "========================\n");
+
 }

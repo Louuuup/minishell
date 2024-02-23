@@ -19,13 +19,13 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 1
+# define DEBUG_ON 0
 # define TRUE 1
 # define FALSE 0
 # define YES 1
 # define NO 0
-# define MINISHELL_ERR "\033[31m\033[1mminiSHELL: \033[0m"
-# define PROMPT_NAME "\033[35m\033[1mminiSHELL \033[0m\033[1m→ \033[0m"
+# define MINISHELL_ERR "miniSHELL: "
+# define PROMPT_NAME "miniSHELL $> "
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 
@@ -42,6 +42,7 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	char			*token;
+	char			*path;
 	int 			ac; //argc
 	int				index;
 	pid_t			pid;
@@ -232,6 +233,7 @@ void	exec_cmd(t_cmd *cmd);
 int		ft_pipe(t_cmd *cmd);
 int		ft_dup2(t_cmd *cmd);
 int		fd_redirect(int fd, char *file, int redir_flag);
+int		command_valid(t_cmd *cmdt, char *cmd);
 //==================garbage_handler.c===================//
 
 //adds a block on top of the list

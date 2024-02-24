@@ -56,7 +56,14 @@ void	cmd_status(t_cmd *cmd)
 	dprintf(1, "fd_out: %d\n", cmd->fd_out);
 	dprintf(1, "\n\n");
 	if(cmd->doc)
+	{	
 		dprintf(1, "EOF: %s\n", cmd->doc->eof);
+		while(cmd->doc->next)
+		{
+			cmd->doc = cmd->doc->next;
+			printf("EOF: %s\n", cmd->doc->eof);
+		}
+	}
 	if (cmd->next)
 	{
 		dprintf(1, "next cmd:\n");

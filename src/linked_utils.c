@@ -21,7 +21,6 @@ t_cmd	*ft_cmdlast(t_cmd *lst)
 	return (lst);
 }
 
-
 void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd)
 {
 	t_cmd	*temp;
@@ -38,17 +37,18 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd)
 	new_cmd->index = 0;
 }
 
-void ft_clearcmdlst(t_cmd **lst)
+void	ft_clearcmdlst(t_cmd **lst)
 {
-
 	t_cmd	*temp;
+	t_data	*data;
 
+	data = get_data();
 	if (lst)
 	{
 		while (*lst)
 		{
 			temp = (*lst)->next;
-			free (*lst);
+			gc_free_one(data->memblock, *lst);
 			*lst = temp;
 		}
 	}

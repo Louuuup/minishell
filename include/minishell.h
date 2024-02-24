@@ -27,10 +27,27 @@
 # define MINISHELL_ERR "MINIshell: "
 # define PROMPT_NAME "MINIshell~> "
 # define EXPORT_PREFIX "declare -x "
+# define C_FIND	"\"\'<> \t\n\v\f\r"
+
 //==================Structs===================//
+
+typedef struct s_strtok
+{
+	char		*output;
+	bool		found;
+	char		quote;
+}	t_strtok;
+
+typedef struct s_ibool
+{
+	int 	i;
+	bool    single;
+    bool    dbl;
+}		t_ibool;
 
 typedef struct s_doc
 {
+	bool			expand;
 	int 			index;
 	char			*eof;
 	char			*name;
@@ -63,6 +80,7 @@ typedef struct s_tok
 {
 	char 	**cmd_list;
 	char 	**sgl_cmd;
+	char	***free;
 }			t_tok;
 
 typedef struct s_idtok
@@ -84,6 +102,7 @@ typedef struct s_expand
 	char	*var;
 	int		i;
 	int 	j;
+	int     h;
 	int		init;
 }		t_expand;
 
@@ -127,7 +146,6 @@ enum e_redir_type
 };
 
 
-
 //==================init.c===================//
 
 void	init_all(t_data *data, char **envp);
@@ -146,14 +164,15 @@ int		parser(t_data *data);
 int 	setcmdlist(t_data *data);
 //==================pipe_parsing.c===================//
 
+int		iboolinit(t_ibool *ibool);
 int		ft_pipeparse(char *str);
 void    ft_sglbool(bool *single, bool *dbl);
 void    ft_dblbool(bool *single,bool *dbl);
 //==================parsing_utils.c===================//
 
-//check if there's  any unclosed quote
+void	ft_strtokut(t_strtok *tok, char *stock);
+void	ft_strtokinit(t_strtok *tok);
 int 	ft_closedquote(char *str);
-//splits on delim by adding 0 inside the string without malloc
 char    *ft_strtok(char *str, const char delim);
 size_t 	ft_cmdcount(char *str);
 //==================tokenizer.c===================//
@@ -164,11 +183,9 @@ int	token_maker(t_data *data);
 int	tokenizer(t_data *data);
 //==================split_tok.c===================//
 
-int 	ft_splt_wrd_qte(t_countok *tok, char *str);
 char	**ft_split_tok(char *s);
 char	**splitterq(char **split, char *s, size_t count);
 char	*word_makerq(char *s, size_t len);
-size_t	word_countq(char *s);
 //==================count_tok.c===================//
 
 int ft_sglcount(t_countok *tok, char *str);
@@ -191,6 +208,25 @@ int ft_idappend(t_idtok *id);
 int ft_idoutput(t_idtok *id);
 int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
 void	ft_builtincheck(t_cmd *cmd);
+
+//==================tok_sort.c===================//
+
+int ft_id_cmd_file_arg(char *str, t_idtok *id,t_data *data);
+int tok_app(char *str, t_idtok *id, t_cmd *tmp);
+int tok_in(char *str, t_idtok *id, t_cmd *tmp);
+int tok_out(char *str, t_idtok *id, t_cmd *tmp);
+int tok_cmd(char *str, t_idtok *id, t_cmd *tmp);
+//==================tok_sort2.c===================//
+
+size_t	word_countq(char *s);
+int	ft_boolcount(t_countok *tok, char *str);
+int	ft_splt_wrd_qte(t_countok *tok, char *str);
+int tok_arg(char *str, t_cmd *tmp);
+int exp_qtes_bool(char *str, t_ibool *i, int pos);
+//==================tok_sort_doc.c===================//
+
+int tok_doc(char *str, t_idtok *id, t_cmd *tmp);
+int checkqtesdoc(char *str);
 //==================linked_utils.c===================//
 
 t_cmd	*ft_lstnewcmd(void);
@@ -203,7 +239,12 @@ int ft_expansion(char *str, char **final);
 int ft_expand(int in, char *str, char **final);
 int ft_expcat(t_expand *exp, char **final);
 int ft_checksecexp(char *str, int i);
+//==================expcat_utils.c===================//
 
+int explencheck(char *str, char *var);
+int exp_novar(t_expand *exp);
+int exp_early_str(t_expand *exp);
+int exp_var(t_expand *exp);
 //==================parsingerror.c===================//
 
 int unclosedqtes(t_data *data);
@@ -212,7 +253,7 @@ int pipeerr(t_data *data);
 
 t_doc	*ft_lstnewdoc(char *str);
 t_doc	*ft_doclast(t_doc *lst);
-void	ft_docadd_back(t_doc **lst, t_doc *new_cmd);
+void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts);
 void	ft_cleardoclst(t_doc **lst);
 //==================removequotes.c===================//
 
@@ -224,6 +265,7 @@ void	ft_sglboolqte(bool *single, bool *dbl, t_countok *tmp);
 
 int 	ft_freeparse(t_data *data);
 void	*ft_free_2darray(char **array);
+void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
 void	exec_main(t_data *data);
@@ -251,6 +293,7 @@ void		*gc_calloc(size_t count, size_t size);
 char *gc_strjoin(char *s1, char *s2);
 //==================error_handler.c===================//
 
+int		error_str_file(char *str, char *file);
 int		shell_error(void);
 int		error_str(char *str);
 //======================tmp.c=========================//

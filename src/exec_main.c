@@ -58,7 +58,7 @@ void	exec_cmd(t_cmd *cmdt)
 	}
 }
 
-void redirect_check(t_cmd *cmd)
+void	redirect_check(t_cmd *cmd)
 {
 	if (cmd->infile && cmd->in_flag == REDIR_INPUT)
 		cmd->fd_in = fd_redirect(cmd->fd_in, cmd->infile, cmd->in_flag);

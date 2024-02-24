@@ -4,10 +4,11 @@ t_doc	*ft_lstnewdoc(char *str)
 {
 	t_doc	*elm;
 
-	elm = ft_calloc(1, sizeof(t_doc));
+	elm = gc_calloc(1, sizeof(t_doc));
 	if (!elm)
 		return (NULL);
-	elm->eof = str;
+	elm->eof = gc_strdup(str);
+	elm->next = NULL;
 	return (elm);
 }
 
@@ -20,8 +21,7 @@ t_doc	*ft_doclast(t_doc *lst)
 	return (lst);
 }
 
-
-void	ft_docadd_back(t_doc **lst, t_doc *new_cmd)
+void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts)
 {
 	t_doc	*temp;
 
@@ -31,23 +31,27 @@ void	ft_docadd_back(t_doc **lst, t_doc *new_cmd)
 		temp = ft_doclast(*lst);
 		temp->next = new_cmd;
 		temp->next->index = 1 + temp->index;
+		if (qts)
+			temp->expand = true;
 		return ;
 	}
 	*lst = new_cmd;
 	new_cmd->index = 0;
 }
 
-void ft_cleardoclst(t_doc **lst)
+void	ft_cleardoclst(t_doc **lst)
 {
-
 	t_doc	*temp;
+	t_data	*data;
 
+	data = get_data();
 	if (lst)
 	{
 		while (*lst)
 		{
 			temp = (*lst)->next;
-			free (*lst);
+			gc_free_one(data->memblock, *lst);
+			gc_free_one(data->memblock, (*lst)->eof);
 			*lst = temp;
 		}
 	}

@@ -1,22 +1,43 @@
 #include "minishell.h"
 
+void close_fds_alt(t_cmd *cmd, int fd_in, int fd_out)
+{
+	t_cmd *tmp;
+
+	if (DEBUG_ON)
+		printf("(close_fds) close_fds called\n");
+	while (cmd)
+	{
+		tmp = cmd->next;
+		if (cmd->fd_in != fd_in && cmd->fd_in != 0)
+			close(cmd->fd_in);
+		if (cmd->fd_out != fd_out && cmd->fd_out != 1)
+			close(cmd->fd_out);
+		cmd = tmp;
+	}
+}
+
 void fork_exec(t_cmd *cmd)
 {
-	int		pid;
-
-	pid = 0;
+    pid_t pid;
+	
 	pid = fork();
-	if (pid == -1)
+	if (pid < 0)
 		error_str("fork error\n");
-	if (pid == 0)
+    if (pid == 0)
 	{
-		execve(cmd->cmd[0], cmd->cmd, get_data()->env);
-		exit(0);
-	}
+		ft_dup2(cmd);
+        execve(cmd->path, cmd->cmd, NULL);
+        exit(EXIT_FAILURE);
+    }
 	else
 	{
-		waitpid(pid, NULL, 0);
-	}
+        if (cmd->fd_in != STDIN_FILENO)
+            close(cmd->fd_in);
+        if (cmd->fd_out != STDOUT_FILENO)
+            close(cmd->fd_out);
+        wait(NULL);
+    }
 }
 
 void	exec_cmd(t_cmd *cmdt)
@@ -25,7 +46,7 @@ void	exec_cmd(t_cmd *cmdt)
 		printf("(exec_cmd) exec_cmd called\n");
 	if (cmdt->cmd)
 	{
-		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE)
+		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE && cmdt->path != NULL)
 		{
 			fork_exec(cmdt);
 		}
@@ -87,12 +108,12 @@ void	exec_main(t_data *data)
 	while (cmd)
 	{
 		redirect_check(cmd);
-		if (ft_dup2(cmd))
-			return ;
 		if (cmd->built_in)
 			exec_builtin(cmd);
 		else
 			exec_cmd(cmd);
 		cmd = cmd->next;
 	}
+	if (DEBUG_ON)
+		printf("(exec_main) exec_main finished\n");
 }

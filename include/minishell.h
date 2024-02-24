@@ -24,8 +24,8 @@
 # define FALSE 0
 # define YES 1
 # define NO 0
-# define MINISHELL_ERR "miniSHELL: "
-# define PROMPT_NAME "miniSHELL $> "
+# define MINISHELL_ERR "MINIshell: "
+# define PROMPT_NAME "MINIshell~> "
 # define EXPORT_PREFIX "declare -x "
 //==================Structs===================//
 

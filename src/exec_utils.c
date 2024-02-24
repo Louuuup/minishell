@@ -20,19 +20,13 @@ int	ft_dup2(t_cmd *cmd)
 		printf("(ft_dup2) ft_dup2 called\n");
 	if (cmd->fd_in != STDIN_FILENO)
 	{
-		if (DEBUG_ON)
-			printf("(ft_dup2) cmd->fd_in: %d\n", cmd->fd_in);
-		if (dup2(cmd->fd_in, STDIN_FILENO) == -1)
-			return (error_str("dup2 error\n"));
-		// close(cmd->fd_in);
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
 	}
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
-		if (DEBUG_ON)
-			printf("(ft_dup2) cmd->fd_out: %d\n", cmd->fd_out);
-		if (dup2(cmd->fd_out, STDOUT_FILENO) == -1)
-			return (error_str("dup2 error\n"));
-		// close(cmd->fd_out);
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
 	}
 	return (NO_ERROR);
 }

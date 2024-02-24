@@ -64,7 +64,7 @@ int main(int argc, char *argv[], char *envp[])
 			add_history(data->user_prompt);
 			if (parser(data))
 			{
-				exec_main(data); //not implemented yet
+				exec_main(data);
 				ft_freeparse(data);
 				close_fds(data->cmd);
 				clean_cmd(data->cmd);

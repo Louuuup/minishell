@@ -71,6 +71,9 @@ int	tok_out(char *str, t_idtok *id, t_cmd *tmp)
 
 int	tok_cmd(char *str, t_idtok *id, t_cmd *tmp)
 {
+	t_data *data;
+
+	data = get_data();
 	tmp->cmd = gc_malloc((id->cmd_size + 1) * (sizeof(char *)));
 	ft_expansion(str, &tmp->cmd[0]);
 	ft_removeqte(tmp->cmd[0]);

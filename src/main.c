@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
 			free(data->user_prompt);
 			data->user_prompt = NULL;
 		}
-		else if(data->user_prompt == NULL)
+		else if(data->user_prompt == NULL) //dans le cas d'un ctrl-D
 		{
 			break; //free everyting and exit the shell
 		}

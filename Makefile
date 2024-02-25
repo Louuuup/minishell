@@ -30,7 +30,7 @@ LIBFT_DIR   := $(LIB_DIR)/libft
 #Shell cmd
 
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast -g -fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast -g #-fsanitize=address
 MKDIRP := mkdir -p
 DELETE := rm -rf
 # headers to include
@@ -100,7 +100,7 @@ run: all
 val: all cp
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=/tmp/supp.txt ./minishell
 cp: #copies supp.txt to root/tmp.
-	cp debug/supp.txt /tmp
+	cp supp.txt /tmp
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 #-------------------------------READLINE RULES---------------------------------#
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#

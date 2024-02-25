@@ -57,8 +57,10 @@ int main(int argc, char *argv[], char *envp[])
 			free(data->user_prompt);
 			data->user_prompt = NULL;
 		}
-
-
+		else if(data->user_prompt == NULL)
+		{
+			break; //free everyting and exit the shell
+		}
 		else //if user input is not empty
 		{
 			if (DEBUG_ON)
@@ -73,6 +75,5 @@ int main(int argc, char *argv[], char *envp[])
 			}
 		}
 	}
-
-	return (NO_ERROR);
+	return (NO_ERROR); //renvoyé le dernier code d'erreur
 }

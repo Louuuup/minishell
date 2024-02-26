@@ -61,7 +61,7 @@ void	cmd_status(t_cmd *cmd)
 		while(cmd->doc->next)
 		{
 			cmd->doc = cmd->doc->next;
-			pprintf(1, "EOF: %s\n", cmd->doc->eof);
+			dprintf(1, "EOF: %s\n", cmd->doc->eof);
 		}
 	}
 	if (cmd->next)

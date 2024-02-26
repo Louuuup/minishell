@@ -8,6 +8,8 @@ char	*get_var(char **env, char *var)
 	i = 0;
 	if (DEBUG_ON)
 		printf("(get_var) var: %s\n", var);
+	if (ft_strcmp(var, "?") == 0)
+		return (ft_itoa(get_data()->code_exit));
 	while (env[i])
 	{
 		j = 0;

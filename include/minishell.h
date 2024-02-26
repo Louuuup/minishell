@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 1
+# define DEBUG_ON 0
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -104,6 +104,7 @@ typedef struct s_expand
 	int 	j;
 	int     h;
 	int		init;
+	bool	symb;
 }		t_expand;
 
 typedef struct s_countok
@@ -235,12 +236,14 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new_cmd);
 void 	ft_clearcmdlst(t_cmd **lst);
 //==================expansion.c===================//
 
+int	ft_init_exp(t_expand *exp, int in, char *str);
 int ft_expansion(char *str, char **final);
 int ft_expand(int in, char *str, char **final);
 int ft_expcat(t_expand *exp, char **final);
 int ft_checksecexp(char *str, int i);
 //==================expcat_utils.c===================//
 
+int exp_symb(t_expand *exp);
 int explencheck(char *str, char *var);
 int exp_novar(t_expand *exp);
 int exp_early_str(t_expand *exp);

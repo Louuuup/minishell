@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+int exp_symb(t_expand *exp)
+{
+	ft_strlcat(&exp->tmp[exp->h], exp->var, ((size_t)ft_strlen(exp->var) + 2));
+	exp->i = ft_strlen(exp->tmp);
+	exp->j = (exp->h + ft_strlen(exp->name) + 1);
+	ft_strlcat(&exp->tmp[exp->i], &exp->str[exp->j], \
+		((size_t)ft_strlen(&exp->str[exp->j]) + 1));
+	exp->j = (exp->h + ft_strlen(exp->var));
+	free (exp->var);
+	return (1);
+}
+
 int	explencheck(char *str, char *var)
 {
 	if (!str && !var)

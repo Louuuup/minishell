@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 0
+# define DEBUG_ON 1
 # define TRUE 1
 # define FALSE 0
 # define YES 1

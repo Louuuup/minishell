@@ -33,7 +33,7 @@ int	ft_dup2(t_cmd *cmd)
 
 int	fd_redirect(int fd, char *file, int redir_flag)
 {
-	if (fd > 0)
+	if (fd > 1)
 		close(fd);
 	if (redir_flag == REDIR_INPUT)
 		fd = open(file, O_RDONLY);

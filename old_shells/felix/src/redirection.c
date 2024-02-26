@@ -22,7 +22,7 @@ int ft_infile(t_cmd *cmd)
 		//free
 	}
 	cmd->fd_in = fd;
-	dup2 (fd, STDIN_FILENO);
+	dup2(fd, STDIN_FILENO);
 	return (SUCESS);
 }
 

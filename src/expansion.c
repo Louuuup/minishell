@@ -64,6 +64,8 @@ int	ft_expand(int in, char *str, char **final)
 		exp.i++;
 		exp.init++;
 	}
+	if(!ft_strncmp(&str[exp.i], "?", 1))
+		printf("fuc is %s\n", &str[exp.i]);
 	while (str[exp.i] && (ft_isalnum(str[exp.i]) || str[exp.i] == '_'))
 		exp.name[exp.j++] = str[exp.i++];
 	exp.name[exp.j] = '\0';

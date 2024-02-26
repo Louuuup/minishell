@@ -59,6 +59,7 @@ int main(int argc, char *argv[], char *envp[])
 		}
 		else if(data->user_prompt == NULL) //dans le cas d'un ctrl-D
 		{
+			gc_free_all(data->memblock);
 			break; //free everyting and exit the shell
 		}
 		else //if user input is not empty

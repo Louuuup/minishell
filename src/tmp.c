@@ -38,6 +38,8 @@ void	cmd_status(t_cmd *cmd)
 	dprintf(1, "\n");
 	if (cmd->built_in)
 		dprintf(1, "is builtin: TRUE\n");
+	if (cmd->path)
+		dprintf(1, "path: %s\n", cmd->path);
 	if (cmd->index == 0)
 		dprintf(1, "index: %d\n", cmd->index);	
 	if (cmd->index)

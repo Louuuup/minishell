@@ -56,6 +56,8 @@ void	exec_cmd(t_cmd *cmdt)
 	{
 		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE && cmdt->path != NULL)
 		{
+			if (DEBUG_ON)
+				cmd_status(cmdt);
 			fork_exec(cmdt);
 		}
 		else
@@ -92,7 +94,12 @@ void	redirect_check(t_cmd *cmd)
 void	exec_builtin(t_cmd *cmd)
 {
 	if (DEBUG_ON)
+	{	
 		printf("(exec_builtin) exec_builtin called\n");
+		printf("(exec_builtin) cmd->cmd[0]: %s\n", cmd->cmd[0]);
+		printf("(exec_builtin) fd_in: %d\n", cmd->fd_in);
+		printf("(exec_builtin) fd_out: %d\n", cmd->fd_out);
+	}
 	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
 		b_echo(cmd);
 	if (!ft_strncmp (cmd->cmd[0], "cd", 3))
@@ -107,6 +114,10 @@ void	exec_builtin(t_cmd *cmd)
 		b_env(cmd);
 	// else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
 	// 	b_exit(cmd);
+	if (cmd->fd_in != STDIN_FILENO)
+		close(cmd->fd_in);
+	if (cmd->fd_out != STDOUT_FILENO)
+		close(cmd->fd_out);
 }
 
 void	exec_main(t_data *data)
@@ -125,7 +136,8 @@ void	exec_main(t_data *data)
 		cmd = cmd->next;
 	}
 	cmd = data->cmd;
-	// cmd_status(cmd); // debug
+	if (DEBUG_ON)
+		cmd_status(cmd); // debug
 	while (cmd)
 	{
 		redirect_check(cmd);

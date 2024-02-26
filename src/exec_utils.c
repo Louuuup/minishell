@@ -17,7 +17,11 @@ int	ft_pipe(t_cmd *cmd)
 int	ft_dup2(t_cmd *cmd)
 {
 	if (DEBUG_ON)
+	{
 		printf("(ft_dup2) ft_dup2 called\n");
+		printf("(ft_dup2) cmd->fd_in: %d\n", cmd->fd_in);
+		printf("(ft_dup2) cmd->fd_out: %d\n", cmd->fd_out);
+	}
 	if (cmd->fd_in != STDIN_FILENO)
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
@@ -33,9 +37,9 @@ int	ft_dup2(t_cmd *cmd)
 
 int	fd_redirect(int fd, char *file, int redir_flag)
 {
-	if (fd > 1)
+	if (fd > 2)
 		close(fd);
-	if (redir_flag == REDIR_INPUT)
+	if (redir_flag == REDIR_INPUT) 
 		fd = open(file, O_RDONLY);
 	else if (redir_flag == REDIR_OVERWRITE)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -56,6 +60,12 @@ static char *cmd_access(char *cmd, char **paths)
 	char *full_path;
 
 	i = 0;
+	if (access(cmd, F_OK) == 0)
+	{
+		if (DEBUG_ON)
+			printf("(cmd_access) found %s\n", cmd);
+		return (gc_strdup(cmd));
+	}
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], cmd);
@@ -80,8 +90,6 @@ int command_valid(t_cmd *cmdt, char *cmd)
 	int i;
 
 	i = 0;
-	if (DEBUG_ON)
-		printf("(command_valid) command_valid called\n");
 	cmd_path = get_var(get_data()->env, "PATH");
 	if (!cmd_path)
 		return (FALSE);

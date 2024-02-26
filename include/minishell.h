@@ -19,13 +19,13 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 1
+# define DEBUG_ON 0
 # define TRUE 1
 # define FALSE 0
 # define YES 1
 # define NO 0
 # define MINISHELL_ERR "MINIshell: "
-# define PROMPT_NAME "MINIshell~> "
+# define PROMPT_NAME "MINIshell~~> "
 # define EXPORT_PREFIX "declare -x "
 # define C_FIND	"\"\'<> \t\n\v\f\r"
 

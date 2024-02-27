@@ -60,7 +60,9 @@ static char *cmd_access(char *cmd, char **paths)
 	char *full_path;
 
 	i = 0;
-	if (access(cmd, F_OK) == 0)
+	if(*cmd == '\0')					//check if empty str as cmd in case of '' or ""
+		return (NULL);
+	if (access(cmd, F_OK | X_OK) == 0)  //X_OK to check if executable
 	{
 		if (DEBUG_ON)
 			printf("(cmd_access) found %s\n", cmd);
@@ -69,7 +71,7 @@ static char *cmd_access(char *cmd, char **paths)
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], cmd);
-		if (access(tmp, F_OK) == 0)
+		if (access(tmp, F_OK | X_OK) == 0)			//maybe need X_OK too ?
 		{
 			if (DEBUG_ON)
 				printf("(cmd_access) found %s\n", tmp);

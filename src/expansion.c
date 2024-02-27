@@ -69,18 +69,11 @@ int	ft_expand(int in, char *str, char **final)
 
 	ft_init_exp(&exp, in, str);
 	while (str[exp.i] == '$')
-	{
-		exp.i++;
-		exp.init++;
-	}
+		incr_exp(&exp);
 	if(str[exp.i])
 	{
 		if(!ft_strncmp(&str[exp.i], "?", 2) || !ft_strncmp(&str[exp.i], "?$", 2))
-		{
-			exp.symb = true;
-			exp.name[exp.j++] = str[exp.i++];
-			exp.name[exp.j] = '\0';
-		}
+			incr_symb(str, &exp);
 		if(!exp.symb)
 		{
 			while (str[exp.i] && (ft_isalnum(str[exp.i]) || str[exp.i] == '_'))

@@ -248,6 +248,11 @@ int explencheck(char *str, char *var);
 int exp_novar(t_expand *exp);
 int exp_early_str(t_expand *exp);
 int exp_var(t_expand *exp);
+
+//==================exp_utils.c===================//
+
+int incr_exp(t_expand *exp);
+int incr_symb(char *str , t_expand *exp);
 //==================parsingerror.c===================//
 
 int unclosedqtes(t_data *data);

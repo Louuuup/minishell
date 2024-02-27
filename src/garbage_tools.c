@@ -47,7 +47,7 @@ char *gc_strjoin(char *s1, char *s2)
     len[0] = ft_strlen(s1);
     len[1] = ft_strlen(s2);
     new_str = gc_calloc(len[0] + len[1] + 1, sizeof(char));
-    data->memblock = memblock_add(data->memblock, new_str);
+    //data->memblock = memblock_add(data->memblock, new_str); //creates double free
     ft_strlcpy(new_str, s1, len[0] + 1);
     ft_strlcpy(new_str + len[0], s2, len[1] + 1);
     return (new_str);

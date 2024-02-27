@@ -8,7 +8,7 @@ int	ft_checks_expdoc(char *str, int pos)
 		return (0);
 	while (str[pos])
 	{
-		if (str[pos] == '$' && !i.single)
+		if (str[pos] == '$')
 		{
 			while (str[pos] == '$')
 			{
@@ -30,6 +30,8 @@ int	ft_expcatdoc(t_expand *exp, char **final)
 	exp->h = 0;
 	exp->tmp = gc_malloc(explencheck(exp->str, exp->var) + 1 * (sizeof(char)));
 	exp_early_str(exp);
+	if(exp->symb)
+		exp_symb(exp);
 	if (!exp->var)
 		exp_novar(exp);
 	else if (exp->var)
@@ -47,20 +49,23 @@ int	ft_expandoc(int in, char *str, char **final)
 {
 	t_expand	exp;
 
-	exp.str = str;
-	exp.i = in;
-	exp.j = 0;
-	exp.init = (in - 1);
-	exp.name = gc_malloc(ft_strlen(str) + 1 * sizeof(char));
-	while (str[exp.i + 1] == '$')
+	ft_init_exp(&exp, in, str);
+	while (str[exp.i] == '$')
+		incr_exp(&exp);
+	if(str[exp.i])
 	{
-		exp.i++;
-		exp.init++;
+		if(!ft_strncmp(&str[exp.i], "?", 2) || !ft_strncmp(&str[exp.i], "?$", 2))
+			incr_symb(str, &exp);
+		if(!exp.symb)
+		{
+			while (str[exp.i] && (ft_isalnum(str[exp.i]) || str[exp.i] == '_'))
+				exp.name[exp.j++] = str[exp.i++];
+			exp.name[exp.j] = '\0';
+		}
+		ft_expcat(&exp, final);
 	}
-	while (str[exp.i] && (ft_isalnum(str[exp.i]) || str[exp.i] == '_'))
-		exp.name[exp.j++] = str[exp.i++];
-	exp.name[exp.j] = '\0';
-	ft_expcatdoc(&exp, final);
+	else
+		*final = gc_strdup(str);
 	return (1);
 }
 

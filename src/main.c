@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+void ft_rien(int whatever)
+{
+	if (whatever)
+		printf("FUCK\n");
+}
+
 void close_fds(t_cmd *cmd)
 {
 	t_cmd *tmp;
@@ -49,6 +55,7 @@ int main(int argc, char *argv[], char *envp[])
 	(void)argv; //not needed
 	(void)argc; //not needed
 	init_all(data, envp); //initialises all data
+	signal(SIGQUIT, SIG_IGN);
 	while (TRUE) //main loop
 	{
 		data->user_prompt = readline(PROMPT_NAME);

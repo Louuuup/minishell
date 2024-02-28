@@ -6,6 +6,8 @@ int	ft_pipe(t_cmd *cmd)
 
 	if (DEBUG_ON)
 		printf("(ft_pipe) ft_pipe called\n");
+	if (cmd->next == NULL)
+		return (NO_ERROR);
 	if (pipe(pipe_fd) == -1)
 		return (error_str("pipe error\n"));
 	cmd->fd_out = pipe_fd[1];

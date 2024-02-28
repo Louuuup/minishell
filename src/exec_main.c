@@ -129,17 +129,12 @@ void	exec_main(t_data *data)
 	cmd = data->cmd;
 	if (!cmd)
 		return ;
-	while (cmd->next)
-	{
-		if (ft_pipe(cmd))
-			return ;
-		cmd = cmd->next;
-	}
-	cmd = data->cmd;
 	if (DEBUG_ON)
 		cmd_status(cmd); // debug
 	while (cmd)
 	{
+		if (ft_pipe(cmd))
+			return ;
 		redirect_check(cmd);
 		if (cmd->built_in)
 			exec_builtin(cmd);

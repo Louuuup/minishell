@@ -100,7 +100,7 @@ run: all
 val: all cp
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=/tmp/supp.txt ./minishell
 cp: #copies supp.txt to root/tmp.
-	cp supp.txt /tmp
+	cp debug/supp.txt /tmp
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 #-------------------------------READLINE RULES---------------------------------#
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#

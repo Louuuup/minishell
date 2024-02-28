@@ -27,6 +27,7 @@ void fork_exec(t_cmd *cmd)
     if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
+		//signal(SIGINT, SIG_DFL);
 		ft_dup2(cmd);
 		get_data()->code_exit = execve(cmd->path, cmd->cmd, NULL);
         exit(EXIT_FAILURE);
@@ -115,10 +116,6 @@ void	exec_builtin(t_cmd *cmd)
 		b_env(cmd);
 	// else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
 	// 	b_exit(cmd);
-	if (cmd->fd_in != STDIN_FILENO)
-		close(cmd->fd_in);
-	if (cmd->fd_out != STDOUT_FILENO)
-		close(cmd->fd_out);
 }
 
 void	exec_main(t_data *data)
@@ -141,6 +138,10 @@ void	exec_main(t_data *data)
 			exec_builtin(cmd);
 		else
 			exec_cmd(cmd);
+		if (cmd->fd_in != STDIN_FILENO)
+			close(cmd->fd_in);
+		if (cmd->fd_out != STDOUT_FILENO)
+			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
 	if (DEBUG_ON)

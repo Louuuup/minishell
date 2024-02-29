@@ -27,13 +27,14 @@ void fork_exec(t_cmd *cmd)
     if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		//signal(SIGINT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		ft_dup2(cmd);
 		get_data()->code_exit = execve(cmd->path, cmd->cmd, NULL);
         exit(EXIT_FAILURE);
     }
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		if (DEBUG_ON)
 			printf("(fork_exec) parent process\n");
         if (cmd->fd_in != STDIN_FILENO)
@@ -70,11 +71,13 @@ void	exec_cmd(t_cmd *cmdt)
 	}
 }
 
-void	redirect_check(t_cmd *cmd)
+int	redirect_check(t_cmd *cmd)
 {
 	if (cmd->infile && cmd->in_flag == REDIR_INPUT)
 	{
 		cmd->fd_in = fd_redirect(cmd->fd_in, cmd->infile, cmd->in_flag);
+		if (!cmd->fd_in)
+			return (ERROR);
 		if (DEBUG_ON)
 			printf("(redirect_check) cmd->fd_in: %d\n", cmd->fd_in);
 	}
@@ -82,15 +85,20 @@ void	redirect_check(t_cmd *cmd)
 	if (cmd->outfile && cmd->out_flag == REDIR_OVERWRITE)
 	{
 		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
+		if (!cmd->fd_out)
+			return (ERROR);
 		if (DEBUG_ON)
 			printf("(redirect_check) cmd->fd_out: %d\n", cmd->fd_out);
 	}
 	if (cmd->outfile && cmd->out_flag == REDIR_APPEND)
 	{
 		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
+		if (!cmd->fd_out)
+			return (ERROR);
 		if (DEBUG_ON)
 			printf("(redirect_check) cmd->fd_out: %d\n", cmd->fd_out);
 	}
+	return (NO_ERROR);
 }
 
 void	exec_builtin(t_cmd *cmd)
@@ -133,7 +141,8 @@ void	exec_main(t_data *data)
 	{
 		if (ft_pipe(cmd))
 			return ;
-		redirect_check(cmd);
+		if (redirect_check(cmd))
+			return ;
 		if (cmd->built_in)
 			exec_builtin(cmd);
 		else

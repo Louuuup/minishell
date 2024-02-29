@@ -21,7 +21,7 @@ int ft_editdoc(int fd, t_cmd *cmd)
 		tmp = NULL;
 	f = stat("heredoc", &init);
 	mode = init.st_mode;
-	tmp = readline("heredoc >");
+	tmp = readline("heredoc >"); //exp_doc
 	while(f == 0)
 	{
 		f = stat("heredoc", &mod);

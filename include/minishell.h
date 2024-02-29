@@ -339,4 +339,7 @@ char *var_name(char *str);
 char *var_value(char *str);
 //====================builtin_exit.c====================//
 
+//====================signal_handler.c====================//
+
+void sig_inthandler(int i);
 #endif

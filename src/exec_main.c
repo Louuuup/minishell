@@ -47,7 +47,7 @@ void fork_exec(t_cmd *cmd)
 			if (close(cmd->fd_out) == -1)
 				shell_error();
 		}
-        wait(NULL);
+        //wait(NULL);
     }
 }
 

@@ -72,6 +72,11 @@ int main(int argc, char *argv[], char *envp[])
 			if (parser(data))
 			{
 				exec_main(data);
+				while (data->cmd != NULL)
+				{
+					waitpid(data->cmd->pid, NULL, 0);
+					data->cmd = data->cmd->next;
+				}
 				ft_freeparse(data);
 				close_fds(data->cmd);
 				clean_cmd(data->cmd);

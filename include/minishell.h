@@ -276,6 +276,7 @@ void	*ft_free_2darray(char **array);
 void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
+int		redirect_check(t_cmd *cmd);
 void	exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
 //==================exec_utils.c===================//

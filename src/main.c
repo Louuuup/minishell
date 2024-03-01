@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+void wait_pids(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	while (cmd)
+	{
+		tmp = cmd->next;
+		if (cmd->pid != 0)
+			waitpid(cmd->pid, NULL, 0);
+		cmd = tmp;
+	}
+}
+
 void close_fds(t_cmd *cmd)
 {
 	t_cmd *tmp;

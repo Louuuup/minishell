@@ -37,45 +37,6 @@ int	ft_dup2(t_cmd *cmd)
 	return (NO_ERROR);
 }
 
-int	fd_redirect(int fd, char *file, int redir_flag) 
-{
-	if (fd > 2)
-		close(fd);
-	if (redir_flag == REDIR_INPUT)
-	{
-		fd = open(file, O_RDONLY);
-		if (access(file, R_OK) == -1)
-		{
-			error_str_file("permission denied: ", file);
-			return (0);
-		}
-	}
-	else if (redir_flag == REDIR_OVERWRITE)
-	{
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if ((access(file, W_OK)) == -1)
-		{
-			error_str_file("permission denied: ", file);
-			return (0);
-		}
-	}
-	else if (redir_flag == REDIR_APPEND)
-	{
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if ((access(file, W_OK)) == -1)
-		{	
-			error_str_file("permission denied: ", file);
-			return (0);
-		}
-	}
-//	else if (redir_flag == REDIR_HEREDOC)
-	else
-		return (error_str("redir_flag error\n"));
-	/*if (fd == -1)
-		return (shell_error());*/
-	return (fd);
-}
-
 static char *cmd_access(char *cmd, char **paths)
 {
 	int i;

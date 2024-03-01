@@ -19,7 +19,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 1
+# define DEBUG_ON 0
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -47,12 +47,16 @@ typedef struct s_ibool
 
 typedef struct s_doc
 {
-	bool			expand;
+	bool			expand; //if true call ft_expand I guess (WIP)
 	int 			index;
-	char			*eof;
-	char			*name;
-	struct s_doc	*next;
+	int 			fd; 
+	char			*eof; 
+	char			*name; //name of file
+	struct s_doc	*next; //duh
 }		t_doc;
+//TO DO: open a prompt and sent inputs to the heredoc file untill eof is reached
+
+
 
 //base for command struct can be modified if needed
 typedef struct s_cmd
@@ -276,15 +280,19 @@ void	*ft_free_2darray(char **array);
 void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
-int		redirect_check(t_cmd *cmd);
 void	exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
 //==================exec_utils.c===================//
 
 int		ft_pipe(t_cmd *cmd);
 int		ft_dup2(t_cmd *cmd);
-int		fd_redirect(int fd, char *file, int redir_flag);
 int		command_valid(t_cmd *cmdt, char *cmd);
+
+//=====================exec_fds.c=======================//
+int		redirect_check(t_cmd *cmd);
+int		fd_redirect(int fd, char *file, int redir_flag);
+int		heredoc_create(t_cmd *cmd, t_doc *doc);
+
 //==================garbage_handler.c===================//
 
 //adds a block on top of the list
@@ -340,6 +348,7 @@ char *var_name(char *str);
 char *var_value(char *str);
 //====================builtin_exit.c====================//
 
+void b_exit(t_cmd *cmd);
 //====================signal_handler.c====================//
 
 void sig_inthandler(int i);

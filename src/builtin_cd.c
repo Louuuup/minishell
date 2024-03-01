@@ -17,14 +17,16 @@ void	b_cd(t_cmd *cmd)
 	if (access(pwd, F_OK) != ERROR)
 	{
 		if (chdir(pwd) == ERROR)
-			error_str("cd: error");
+			error_str_ret("cd: error");
 	}
 	else
-		error_str("cd: no such file or directory");
+		error_str_ret("cd: no such file or directory");
+	get_data()->code_exit = 0;
 }
 
 void	b_pwd(t_cmd *cmd)
 {
 	ft_putstr_fd(get_var(get_data()->env, "PWD"), cmd->fd_out);
 	ft_putchar_fd('\n', cmd->fd_out);
+	get_data()->code_exit = 0;
 }

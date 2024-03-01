@@ -26,10 +26,10 @@ void fork_exec(t_cmd *cmd)
 		error_str("fork error\n");
     if (pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, sigchildquit);
+		signal(SIGINT, sigchildint);
 		ft_dup2(cmd);
-		get_data()->code_exit = execve(cmd->path, cmd->cmd, NULL);
+		execve(cmd->path, cmd->cmd, NULL);
         exit(EXIT_FAILURE);
     }
 	else

@@ -23,3 +23,12 @@ int	error_str_file(char *str, char *file)
 	ft_putendl_fd(file, STDERR_FILENO);
 	return (ERROR);
 }
+
+// error str with modifier to error code
+int	error_str_ret(char *str)
+{
+	get_data()->code_exit = 1;
+	ft_putstr_fd(MINISHELL_ERR, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	return (ERROR);
+}

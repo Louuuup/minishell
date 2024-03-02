@@ -17,9 +17,11 @@ void tmp_parse(t_data *data)
 void	cmd_status(t_cmd *cmd)
 {
 	if (DEBUG_ON)
+	{
 		dprintf(1, "========================\n");
 		dprintf(1, "     COMMAND STATUS     \n");
 		dprintf(1, "========================\n");
+	}
 	if (!cmd || !cmd->cmd)
 	{
 		dprintf(1, "cmd: NULL\n");

@@ -7,10 +7,12 @@ void	b_cd(t_cmd *cmd)
 
 	pwd = NULL;
 	oldpwd = get_var(get_data()->env, "PWD");
-	if (cmd->ac > 1)
+	if (cmd->ac > 0)
 	{
-		pwd = gc_strjoin(pwd, cmd->cmd[1]);
 		pwd = gc_strjoin(oldpwd, "/");
+		pwd = gc_strjoin(pwd, cmd->cmd[1]);
+		if (DEBUG_ON)
+			printf("(b_cd) pwd: %s\n", pwd);
 	}
 	else
 		pwd = get_var(get_data()->env, "HOME");
@@ -21,6 +23,8 @@ void	b_cd(t_cmd *cmd)
 	}
 	else
 		error_str("cd: no such file or directory");
+	set_var(get_data()->env, "OLDPWD", oldpwd);
+	set_var(get_data()->env, "PWD", getcwd(NULL, 0));
 }
 
 void	b_pwd(t_cmd *cmd)

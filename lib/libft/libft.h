@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:15:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/31 17:41:31 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/02 13:02:23 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ char	*ft_strstr(const char *s1, const char *s2);
 int		ft_printf_fd(int fd, const char *format, ...);
 char	**ft_split_fd(char const *s, char c);
 int		ft_isspace(char c);
+char	**arr_dup(char **arr);
 
 #endif

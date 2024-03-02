@@ -38,7 +38,7 @@ char	*set_var(char **env, char *var, char *value)
 		{
 			new_var = gc_strjoin(var, "=");
 			new_var = gc_strjoin(new_var, value);
-			free(env[i]);
+			free_null(env[i]);
 			env[i] = new_var;
 			return (env[i]);
 		}

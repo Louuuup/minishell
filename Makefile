@@ -10,7 +10,7 @@ SRC := \
 SRC += \
 	exec_main.c	exec_utils.c \
 	builtin_cd.c builtin_env.c	builtin_echo.c builtin_export.c builtin_utils.c \
-	builtin_unset.c builtin_exit.c exec_fds.c 
+	builtin_unset.c builtin_exit.c exec_fds.c exec_heredocs.c
 SRC += \
 	parsing_main.c tokenizer.c split_tok.c count_tok.c split_tok_utils.c token_id.c \
 	linked_utils.c parsing_utils.c pipe_parsing.c ft_freeparse.c expansion.c \

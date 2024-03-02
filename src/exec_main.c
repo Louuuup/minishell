@@ -58,8 +58,6 @@ void	exec_cmd(t_cmd *cmdt)
 	{
 		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE && cmdt->path != NULL)
 		{
-			if (DEBUG_ON)
-				cmd_status(cmdt);
 			fork_exec(cmdt);
 		}
 		else
@@ -109,6 +107,8 @@ void	exec_main(t_data *data)
 			return ;
 		if (redirect_check(cmd))
 			return ;
+		if (DEBUG_ON)
+			cmd_status(cmd);
 		if (cmd->built_in)
 			exec_builtin(cmd);
 		else

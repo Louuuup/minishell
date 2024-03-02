@@ -96,3 +96,18 @@ int command_valid(t_cmd *cmdt, char *cmd)
 		return (FALSE);
 	return (TRUE);
 }
+
+//gets command from index
+t_cmd *get_cmd(t_data *data, int idx)
+{
+	t_cmd *cmd;
+
+	cmd = data->cmd;
+	while (cmd)
+	{
+		if (cmd->index == idx)
+			return (cmd);
+		cmd = cmd->next;
+	}
+	return (NULL);
+}

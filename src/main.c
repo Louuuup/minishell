@@ -8,13 +8,18 @@ int wait_pid(t_data *data)
 	{
 		
 		waitpid(data->cmd->pid, &status, 0);
+		if (!data->cmd->next)
+		{
+			if (data->cmd->built_in == false)
+			{
+				if (WIFEXITED(status))
+					get_data()->code_exit = (WEXITSTATUS(status));
+				else if (WIFSIGNALED(status))
+					get_data()->code_exit = 128 +(WTERMSIG(status));
+			}
+		}	
 		data->cmd = data->cmd->next;
-		//data->code_exit = status;
-		if (WIFEXITED(status))
-			get_data()->code_exit = (WEXITSTATUS(status));
-		else if (WIFSIGNALED(status))
-			get_data()->code_exit = 128 +(WTERMSIG(status));
-	}     			
+	}		
 	return (1);
 }
 

@@ -44,10 +44,8 @@ size_t	word_countq(char *s)
 int	tok_arg(char *str, t_cmd *tmp)
 {
 	int	i;
-	t_data *data;
 
 	i = 0;
-	data = get_data();
 	while (tmp->cmd[i])
 		i++;
 	ft_expansion(str, &tmp->cmd[i]);

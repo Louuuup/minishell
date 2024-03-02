@@ -38,12 +38,10 @@ void	*gc_calloc(size_t count, size_t size)
 char *gc_strjoin(char *s1, char *s2)
 {
     char *new_str;
-    t_data *data;
     int len[2];
 
     if (s1 == NULL || s2 == NULL)
         return (NULL);
-    data = get_data();
     len[0] = ft_strlen(s1);
     len[1] = ft_strlen(s2);
     new_str = gc_calloc(len[0] + len[1] + 1, sizeof(char));

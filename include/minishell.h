@@ -150,7 +150,6 @@ enum e_redir_type
 	REDIR_PIPE		 // |
 };
 
-
 //==================init.c===================//
 
 void	init_all(t_data *data, char **envp);

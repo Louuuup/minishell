@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_doc	*ft_lstnewdoc(char *str)
+t_doc	*ft_lstnewdoc(char *str, int qts)
 {
 	t_doc	*elm;
 
@@ -9,6 +9,8 @@ t_doc	*ft_lstnewdoc(char *str)
 		return (NULL);
 	elm->eof = gc_strdup(str);
 	elm->next = NULL;
+	if (qts)
+		elm->expand = true;
 	return (elm);
 }
 
@@ -21,7 +23,7 @@ t_doc	*ft_doclast(t_doc *lst)
 	return (lst);
 }
 
-void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts)
+void	ft_docadd_back(t_doc **lst, t_doc *new_cmd)
 {
 	t_doc	*temp;
 
@@ -31,8 +33,6 @@ void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts)
 		temp = ft_doclast(*lst);
 		temp->next = new_cmd;
 		temp->next->index = 1 + temp->index;
-		if (qts)
-			temp->expand = true;
 		return ;
 	}
 	*lst = new_cmd;

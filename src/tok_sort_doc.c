@@ -20,7 +20,7 @@ int	tok_doc(char *str, t_idtok *id, t_cmd *tmp)
 	int			qts;
 
 	qts = checkqtesdoc(str);
-	ft_docadd_back(&tmp->doc, ft_lstnewdoc(str), qts);
+	ft_docadd_back(&tmp->doc, ft_lstnewdoc(str, qts));
 	doc = tmp->doc;
 	while (doc->next)
 		doc = doc->next;

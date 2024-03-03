@@ -74,7 +74,7 @@ int	ft_doc_exp(char *str, char **final)
 	int	i;
 
 	i = 0;
-	while (str[i.i])
+	while (str[i])
 	{
 		if (str[i] == '$')
 		{

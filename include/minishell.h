@@ -257,15 +257,21 @@ int exp_var(t_expand *exp);
 
 int incr_exp(t_expand *exp);
 int incr_symb(char *str , t_expand *exp);
+//==================exp_doc.c===================//
+
+int	ft_expandoc(int in, char *str, char **final);
+int	ft_doc_exp(char *str, char **final);
+int	ft_expcatdoc(t_expand *exp, char **final);
+int	ft_checks_expdoc(char *str, int pos);
 //==================parsingerror.c===================//
 
 int unclosedqtes(t_data *data);
 int pipeerr(t_data *data);
 //==================docquotes.c===================//
 
-t_doc	*ft_lstnewdoc(char *str);
+t_doc	*ft_lstnewdoc(char *str, int qts);
 t_doc	*ft_doclast(t_doc *lst);
-void	ft_docadd_back(t_doc **lst, t_doc *new_cmd, int qts);
+void	ft_docadd_back(t_doc **lst, t_doc *new_cmd);
 void	ft_cleardoclst(t_doc **lst);
 //==================removequotes.c===================//
 
@@ -295,6 +301,10 @@ int		fd_redirect(int fd, char *file, int redir_flag);
 int		heredoc_create(t_cmd *cmd);
 
 //===================exec_heredocs.c=====================//
+
+int heredoc_newfile(t_doc *doc);
+int heredoc_addline(t_doc *doc, char *line);
+void heredoc_loop(t_doc *doc);
 int heredoc_create(t_cmd *cmd);
 int heredoc_use(t_cmd *cmd);
 

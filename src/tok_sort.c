@@ -71,6 +71,12 @@ int	tok_out(char *str, t_idtok *id, t_cmd *tmp)
 
 int	tok_cmd(char *str, t_idtok *id, t_cmd *tmp)
 {
+	if (is_directory(str))
+	{
+		error_str_file("this is a directory : ", str);
+		get_data()->code_exit = 126;
+		return (0);
+	}
 	tmp->cmd = gc_malloc((id->cmd_size + 1) * (sizeof(char *)));
 	ft_expansion(str, &tmp->cmd[0]);
 	ft_removeqte(tmp->cmd[0]);

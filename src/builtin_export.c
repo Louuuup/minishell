@@ -29,7 +29,7 @@ void	index_sort(char **arr, int str_count, int *index)
 	}
 }
 
-void	print_export(char **env, int fd)
+int	print_export(char **env, int fd)
 {
 	int	i;
 	int	j;
@@ -55,6 +55,7 @@ void	print_export(char **env, int fd)
 		ft_putchar_fd('\n', fd);
 		i++;
 	}
+	return (NO_ERROR);
 }
 static void	env_addline(char *str)
 {
@@ -79,7 +80,7 @@ static void	env_addline(char *str)
 }
 
 
-void    b_export(t_cmd *cmd)
+int    b_export(t_cmd *cmd)
 {
     int		i;
     t_data	*data;
@@ -95,8 +96,7 @@ void    b_export(t_cmd *cmd)
         {
 			if (export_valid(cmd->cmd[i]) == FALSE)
 			{
-				error_str("export: not a valid identifier");
-				return ;
+				return (error_str("export: not a valid identifier"));
 			}
 			var = var_name(cmd->cmd[i]);
             if (get_var(data->env, var) == NULL)
@@ -107,7 +107,9 @@ void    b_export(t_cmd *cmd)
 			var = free_null(var);
         }
     }
+	return (NO_ERROR);
 }
+
 //old, tmp
 // void    b_export(t_cmd *cmd)
 // {

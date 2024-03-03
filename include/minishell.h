@@ -325,7 +325,7 @@ void tmp_parse(t_data *data);
 void cmd_status(t_cmd *cmd);
 //====================builtin_env.c====================//
 
-void	b_env(t_cmd *cmd);
+int		b_env(t_cmd *cmd);
 // fetches a variable from the environment(no allocation)
 char	*get_var(char **env, char *var);
 char    **add_var(char **env, char *var, char *value);
@@ -334,17 +334,17 @@ char	**rm_var(t_data *data, char *var);
 
 //====================builtin_cd.c====================//
 
-void    b_cd(t_cmd *cmd);
-void    b_pwd(t_cmd *cmd);
+int    b_cd(t_cmd *cmd);
+int    b_pwd(t_cmd *cmd);
 //====================builtin_echo.c====================//
 
-void    b_echo(t_cmd *cmd);
+int    b_echo(t_cmd *cmd);
 //====================builtin_echo.c====================//
 
-void    b_unset(t_cmd *cmd);
+int    b_unset(t_cmd *cmd);
 //====================builtin_export.c====================//
 
-void    b_export(t_cmd *cmd);
+int    b_export(t_cmd *cmd);
 //====================builtin_utils.c====================//
 
 int export_valid(char *str);

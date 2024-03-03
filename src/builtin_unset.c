@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void b_unset(t_cmd *cmdt)
+int b_unset(t_cmd *cmdt)
 {
     int i;
     char *var;
@@ -15,4 +15,5 @@ void b_unset(t_cmd *cmdt)
             data->env = rm_var(data, cmdt->cmd[i]);
         i++;
     }
+    return (NO_ERROR);
 }

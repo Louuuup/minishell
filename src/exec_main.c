@@ -71,6 +71,9 @@ void	exec_cmd(t_cmd *cmdt)
 
 void	exec_builtin(t_cmd *cmd)
 {
+	t_data	*data;
+
+	data = get_data();
 	if (DEBUG_ON)
 	{	
 		printf("(exec_builtin) exec_builtin called\n");
@@ -79,17 +82,17 @@ void	exec_builtin(t_cmd *cmd)
 		printf("(exec_builtin) fd_out: %d\n", cmd->fd_out);
 	}
 	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
-		b_echo(cmd);
+		data->code_exit = b_echo(cmd);
 	if (!ft_strncmp (cmd->cmd[0], "cd", 3))
-		b_cd(cmd);
+		data->code_exit = b_cd(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
-		b_pwd(cmd);
+		data->code_exit = b_pwd(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "export", 7))
-		b_export(cmd);
+		data->code_exit = b_export(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
-		b_unset(cmd);
+		data->code_exit = b_unset(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
-		b_env(cmd);
+		data->code_exit = b_env(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
 		b_exit(cmd);
 }

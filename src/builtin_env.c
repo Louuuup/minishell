@@ -109,13 +109,15 @@ char    **add_var(char **env, char *var, char *value)
 	return (NULL);
 }
 
-void b_env(t_cmd *cmd)
+int b_env(t_cmd *cmd)
 {
 	int i;
 	char **env;
 
 	i = 0;
 	env = get_data()->env;
+	if (!env)
+		return (ERROR);
 	while (env[i])
 	{
 
@@ -126,4 +128,5 @@ void b_env(t_cmd *cmd)
 		}
 		i++;
 	}
+	return (NO_ERROR);
 }

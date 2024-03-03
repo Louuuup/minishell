@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 
-int	fd_redirect(int fd, char *file, int redir_flag) 
+/*int	fd_redirect(int fd, char *file, int redir_flag) 
 {
 	if (fd > 2)
 		close(fd);
@@ -21,7 +21,7 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 		return (0);
 	}
 	return (fd);
-}
+}*/
 
 
 int	redirect_check(t_cmd *cmd)

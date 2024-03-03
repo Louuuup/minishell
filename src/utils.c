@@ -4,8 +4,6 @@ char	*gc_strdup(char *str)
 {
 	char	*new_str;
 
-	if (DEBUG_ON)
-		printf("(gc_strdup) start\n");
 	if (str == NULL)
 		return (NULL);
 	new_str = gc_malloc(ft_strlen(str) + 1);

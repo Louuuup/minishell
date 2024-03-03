@@ -47,7 +47,6 @@ void fork_exec(t_cmd *cmd)
 			if (close(cmd->fd_out) == -1)
 				shell_error();
 		}
-        //wait(NULL);
     }
 }
 
@@ -59,47 +58,16 @@ void	exec_cmd(t_cmd *cmdt)
 	{
 		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE && cmdt->path != NULL)
 		{
-			if (DEBUG_ON)
-				cmd_status(cmdt);
 			fork_exec(cmdt);
 		}
 		else
 		{	
+			get_data()->code_exit = 127;			
 			error_str(gc_strjoin(cmdt->cmd[0], ": command not found\n"));
-			// error_str("command not found\n");
 		}
 	}
 }
 
-int	redirect_check(t_cmd *cmd)
-{
-	if (cmd->infile && cmd->in_flag == REDIR_INPUT)
-	{
-		cmd->fd_in = fd_redirect(cmd->fd_in, cmd->infile, cmd->in_flag);
-		if (!cmd->fd_in)
-			return (ERROR);
-		if (DEBUG_ON)
-			printf("(redirect_check) cmd->fd_in: %d\n", cmd->fd_in);
-	}
-		
-	if (cmd->outfile && cmd->out_flag == REDIR_OVERWRITE)
-	{
-		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
-		if (!cmd->fd_out)
-			return (ERROR);
-		if (DEBUG_ON)
-			printf("(redirect_check) cmd->fd_out: %d\n", cmd->fd_out);
-	}
-	if (cmd->outfile && cmd->out_flag == REDIR_APPEND)
-	{
-		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
-		if (!cmd->fd_out)
-			return (ERROR);
-		if (DEBUG_ON)
-			printf("(redirect_check) cmd->fd_out: %d\n", cmd->fd_out);
-	}
-	return (NO_ERROR);
-}
 
 void	exec_builtin(t_cmd *cmd)
 {
@@ -122,27 +90,25 @@ void	exec_builtin(t_cmd *cmd)
 		b_unset(cmd);
 	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
 		b_env(cmd);
-	// else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
-	// 	b_exit(cmd);
+	else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
+		b_exit(cmd);
 }
 
 void	exec_main(t_data *data)
 {
 	t_cmd	*cmd;
 
-	if (DEBUG_ON)
-		printf("(exec_main) exec_main called\n");
 	cmd = data->cmd;
 	if (!cmd)
 		return ;
-	if (DEBUG_ON)
-		cmd_status(cmd); // debug
 	while (cmd)
 	{
 		if (ft_pipe(cmd))
 			return ;
 		if (redirect_check(cmd))
 			return ;
+		if (DEBUG_ON)
+			cmd_status(cmd);
 		if (cmd->built_in)
 			exec_builtin(cmd);
 		else
@@ -153,6 +119,4 @@ void	exec_main(t_data *data)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
-	if (DEBUG_ON)
-		printf("(exec_main) exec_main finished\n");
 }

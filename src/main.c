@@ -1,17 +1,28 @@
 #include "minishell.h"
 
-void wait_pids(t_cmd *cmd)
+int wait_pid(t_data *data)
 {
-	t_cmd *tmp;
+	int status;
 
-	while (cmd)
+	while (data->cmd != NULL)
 	{
-		tmp = cmd->next;
-		if (cmd->pid != 0)
-			waitpid(cmd->pid, NULL, 0);
-		cmd = tmp;
-	}
+		
+		waitpid(data->cmd->pid, &status, 0);
+		if (!data->cmd->next)
+		{
+			if (data->cmd->built_in == false)
+			{
+				if (WIFEXITED(status))
+					get_data()->code_exit = (WEXITSTATUS(status));
+				else if (WIFSIGNALED(status))
+					get_data()->code_exit = 128 +(WTERMSIG(status));
+			}
+		}	
+		data->cmd = data->cmd->next;
+	}		
+	return (1);
 }
+
 
 void close_fds(t_cmd *cmd)
 {
@@ -85,11 +96,7 @@ int main(int argc, char *argv[], char *envp[])
 			if (parser(data))
 			{
 				exec_main(data);
-				while (data->cmd != NULL)
-				{
-					waitpid(data->cmd->pid, NULL, 0);
-					data->cmd = data->cmd->next;
-				}
+				wait_pid(data);
 				ft_freeparse(data);
 				close_fds(data->cmd);
 				clean_cmd(data->cmd);

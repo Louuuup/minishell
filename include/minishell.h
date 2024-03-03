@@ -28,6 +28,7 @@
 # define PROMPT_NAME "MINIshell~~> "
 # define EXPORT_PREFIX "declare -x "
 # define C_FIND	"\"\'<> \t\n\v\f\r"
+# define SIGNAL_RET 128
 
 //==================Structs===================//
 
@@ -314,6 +315,7 @@ void		*gc_calloc(size_t count, size_t size);
 char *gc_strjoin(char *s1, char *s2);
 //==================error_handler.c===================//
 
+int		error_str_ret(char *str);
 int		error_str_file(char *str, char *file);
 int		shell_error(void);
 int		error_str(char *str);
@@ -355,6 +357,8 @@ char *var_value(char *str);
 void b_exit(t_cmd *cmd);
 //====================signal_handler.c====================//
 
+void sigchildquit(int i);
+void sigchildint(int i);
 void sig_inthandler(int i);
 //=========================main.c=========================//
 

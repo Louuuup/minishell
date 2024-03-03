@@ -47,8 +47,7 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 		if (access(file, R_OK) == -1)
 		{
 			get_data()->code_exit = 1;
-			error_str_file("permission denied: ", file);
-			return (0);
+			return (error_str_file("permission denied: ", file));
 		}
 	}
 	else if (redir_flag == REDIR_OVERWRITE)
@@ -57,8 +56,7 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 		if ((access(file, W_OK)) == -1)
 		{
 			get_data()->code_exit = 1;
-			error_str_file("permission denied: ", file);
-			return (0);
+			return (error_str_file("permission denied: ", file));
 		}
 	}
 	else if (redir_flag == REDIR_APPEND)
@@ -71,14 +69,13 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 			return (0);
 		}
 	}
-//	else if (redir_flag == REDIR_HEREDOC)
 	else
 	{
 		get_data()->code_exit = 1;
 		return (error_str("redir_flag error\n"));
 	}
-	/*if (fd == -1)
-		return (shell_error());*/
+	if (fd == -1)
+		return (shell_error());
 	return (fd);
 }
 

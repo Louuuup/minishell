@@ -42,7 +42,8 @@ int heredoc_create(t_cmd *cmd)
 				free(line);
 				break;
 			}
-			heredoc_addline(doc, line);
+			heredoc_addline(doc, line); // WIP
+			// heredoc_addline(doc, ft_expansion(line, doc->expand)); // WIP
 			free(line);
 		}
         close(doc->fd);

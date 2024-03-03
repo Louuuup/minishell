@@ -15,7 +15,7 @@ char	*get_var(char **env, char *var)
 		j = 0;
 		while (env[i][j] && env[i][j] != '=')
 			j++;
-		if (ft_strncmp(env[i], var, j) == 0)
+		if (ft_strncmp(env[i], var, j) == 0 && ft_strlen(var) == j)
 			return (env[i] + j + 1);
 		i++;
 	}

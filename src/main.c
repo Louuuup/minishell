@@ -19,7 +19,8 @@ int wait_pid(t_data *data)
 			}
 		}	
 		data->cmd = data->cmd->next;
-	}		
+	}
+
 	return (1);
 }
 

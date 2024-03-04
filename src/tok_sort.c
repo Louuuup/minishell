@@ -15,7 +15,6 @@ int	tok_app(char *str, t_idtok *id, t_cmd *tmp)
 			error_str_file("permission denied: ", tmp->outfile);
 			return (0);
 		}
-		gc_free_one(data->memblock, tmp->outfile);
 	}
 	ft_expansion(str, &tmp->outfile);
 	ft_removeqte(tmp->outfile);
@@ -36,7 +35,6 @@ int	tok_in(char *str, t_idtok *id, t_cmd *tmp)
 			error_str_file("permission denied: ", tmp->infile);
 			return (0);
 		}
-		gc_free_one(data->memblock, tmp->infile);
 	}
 	ft_expansion(str, &tmp->infile);
 	ft_removeqte(tmp->infile);
@@ -60,7 +58,6 @@ int	tok_out(char *str, t_idtok *id, t_cmd *tmp)
 			error_str_file("permission denied: ", tmp->outfile);
 			return (0);
 		}
-		gc_free_one(data->memblock, tmp->outfile);
 	}
 	ft_expansion(str, &tmp->outfile);
 	ft_removeqte(tmp->outfile);

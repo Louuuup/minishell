@@ -6,7 +6,7 @@
 #    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2024/03/02 13:02:00 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2024/03/04 13:29:36 by ycyr-roy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,8 @@ SRC = ft_bzero.c \
 	ft_strstr.c \
 	ft_printf_fd.c \
 	ft_split_fd.c \
-	ft_isspace.c
+	ft_isspace.c \
+	ft_isnumber.c
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 BOBJS = $(addprefix $(BIN_DIR)/, $(BSRC:.c=.o))
 NAME = libft.a

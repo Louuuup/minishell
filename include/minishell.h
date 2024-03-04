@@ -332,6 +332,7 @@ int		error_str_ret(char *str);
 int		error_str_file(char *str, char *file);
 int		shell_error(void);
 int		error_str(char *str);
+int		error_str_code(char *err, char *str, int code);
 //======================tmp.c=========================//
 
 //tmp function to test parser and tokener

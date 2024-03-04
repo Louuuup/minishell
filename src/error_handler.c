@@ -32,3 +32,12 @@ int	error_str_ret(char *str)
 	ft_putstr_fd(str, STDERR_FILENO);
 	return (ERROR);
 }
+
+int error_str_code(char *err, char *str, int code)
+{
+	get_data()->code_exit = code;
+	ft_putstr_fd(MINISHELL_ERR, STDERR_FILENO);
+	ft_putstr_fd(err, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	return (ERROR);
+}

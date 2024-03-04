@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:15:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/02 13:02:23 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:29:47 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ int		ft_printf_fd(int fd, const char *format, ...);
 char	**ft_split_fd(char const *s, char c);
 int		ft_isspace(char c);
 char	**arr_dup(char **arr);
+int		ft_isnumber(char *str);
 
 #endif

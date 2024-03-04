@@ -13,6 +13,8 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <unistd.h>
 # include <errno.h>
 # include <dirent.h>
@@ -165,6 +167,7 @@ char **gc_split(char *str, char c);
 t_data	*get_data(void);
 //==================parsing_main.c===================//
 
+int 	is_directory(char *cmd);
 int		parser(t_data *data);
 int 	setcmdlist(t_data *data);
 //==================pipe_parsing.c===================//

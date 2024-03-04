@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+int is_directory(char *cmd) 
+{
+    struct stat statbuf;
+	
+    if (stat(cmd, &statbuf) != 0)
+        return 0;
+    return S_ISDIR(statbuf.st_mode);
+}
+
 int	setcmdlist(t_data *data)
 {
 	char	*temp;

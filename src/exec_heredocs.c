@@ -5,7 +5,7 @@ void heredoc_loop(t_doc *doc)
 	char *tmp;
 	char *line;
 
-	while (1)
+	while (true)
 	{
 	line = readline("> ");
 	if (!line)

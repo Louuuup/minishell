@@ -44,7 +44,6 @@ int ft_outfile(t_cmd *cmd)
 	{
 		ft_putstr_fd("permission denied: ", 2);
 		ft_putendl_fd(cmd->outfile, 2);
-		//free
 	}
 	cmd->fd_out = fd;
 	dup2 (fd, STDOUT_FILENO);

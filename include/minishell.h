@@ -86,7 +86,6 @@ typedef struct s_cmd
 typedef struct s_tok
 {
 	char 	**cmd_list;
-	char 	**sgl_cmd;
 	char	***free;
 }			t_tok;
 

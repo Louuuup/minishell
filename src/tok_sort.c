@@ -68,15 +68,20 @@ int	tok_out(char *str, t_idtok *id, t_cmd *tmp)
 
 int	tok_cmd(char *str, t_idtok *id, t_cmd *tmp)
 {
-	if (is_directory(str))
+	tmp->cmd = gc_malloc((id->cmd_size + 1) * (sizeof(char *)));
+	ft_expansion(str, &tmp->cmd[0]);
+	if (tmp->cmd[0][0] == '\0')
+		return(0);
+	if(!ft_strcmp(tmp->cmd[0], "\"\"") || !ft_strcmp(tmp->cmd[0], "\'\'"))
+		return (1);
+	ft_removeqte(tmp->cmd[0]);
+	if (is_directory(tmp->cmd[0]))
 	{
-		error_str_file("this is a directory : ", str);
+		error_str_file("this is a directory : ", tmp->cmd[0]);
+		ft_clearcmdlst(&get_data()->cmd);
 		get_data()->code_exit = 126;
 		return (0);
 	}
-	tmp->cmd = gc_malloc((id->cmd_size + 1) * (sizeof(char *)));
-	ft_expansion(str, &tmp->cmd[0]);
-	ft_removeqte(tmp->cmd[0]);
 	id->cmd = true;
 	ft_builtincheck(tmp);
 	tmp->cmd[1] = NULL;

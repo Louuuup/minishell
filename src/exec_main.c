@@ -56,14 +56,22 @@ void	exec_cmd(t_cmd *cmdt)
 		printf("(exec_cmd) exec_cmd called\n");
 	if (cmdt->cmd)
 	{
+		if (cmdt->cmd[0][0] == 0)
+		{
+			get_data()->code_exit = 0;			
+			return;
+		}
 		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE && cmdt->path != NULL)
 		{
 			fork_exec(cmdt);
 		}
 		else
 		{	
-			get_data()->code_exit = 127;			
-			error_str(gc_strjoin(cmdt->cmd[0], ": command not found\n"));
+			get_data()->code_exit = 127;
+			if(!ft_strcmp(cmdt->cmd[0], "\"\"") || !ft_strcmp(cmdt->cmd[0], "\'\'"))
+				error_str(gc_strjoin("", "command not found\n"));
+			else
+				error_str(gc_strjoin(cmdt->cmd[0], ": command not found\n"));
 		}
 	}
 }

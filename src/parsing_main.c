@@ -16,7 +16,7 @@ int	setcmdlist(t_data *data)
 
 	i = ft_cmdcount(data->user_prompt);
 	data->parser.cmd_list = NULL;
-	data->parser.sgl_cmd = NULL;
+	data->parser.free = NULL;
 	data->parser.cmd_list = gc_malloc((i + 2) * sizeof(char *));
 	data->parser.free = gc_malloc((i + 2) * sizeof(char **));
 	temp = ft_strtok(data->user_prompt, '|');

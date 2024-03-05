@@ -4,6 +4,7 @@ int wait_pid(t_data *data)
 {
 	int status;
 
+	status = get_data()->code_exit;
 	while (data->cmd != NULL)
 	{
 		
@@ -15,7 +16,7 @@ int wait_pid(t_data *data)
 				if (WIFEXITED(status))
 					get_data()->code_exit = (WEXITSTATUS(status));
 				else if (WIFSIGNALED(status))
-					get_data()->code_exit = 128 +(WTERMSIG(status));
+					get_data()->code_exit = 128 + (WTERMSIG(status));
 			}
 		}	
 		data->cmd = data->cmd->next;
@@ -41,6 +42,7 @@ void close_fds(t_cmd *cmd)
 		cmd = tmp;
 	}
 }
+
 
 void	clean_cmd(t_cmd *cmd)
 {
@@ -81,6 +83,7 @@ int main(int argc, char *argv[], char *envp[])
 		data->user_prompt = readline(PROMPT_NAME);
 		if (data->user_prompt && !ft_strncmp(data->user_prompt, "\0", 2)) //if user input is empty
 		{
+			get_data()->code_exit = 0;
 			free(data->user_prompt);
 			data->user_prompt = NULL;
 		}
@@ -101,8 +104,9 @@ int main(int argc, char *argv[], char *envp[])
 				ft_freeparse(data);
 				close_fds(data->cmd);
 				clean_cmd(data->cmd);
-			}
+			}	
 		}
+		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}
 	return (NO_ERROR); //renvoyé le dernier code d'erreur
 }

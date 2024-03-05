@@ -86,7 +86,6 @@ typedef struct s_cmd
 typedef struct s_tok
 {
 	char 	**cmd_list;
-	char 	**sgl_cmd;
 	char	***free;
 }			t_tok;
 
@@ -291,7 +290,7 @@ void 	*ft_free3darray(char ***array);
 
 void	exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
-void	wait_pids(t_cmd *cmd);
+int		wait_pid(t_data *data);
 //==================exec_utils.c===================//
 
 int		ft_pipe(t_cmd *cmd);

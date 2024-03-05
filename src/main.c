@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-
-
 void close_fds(t_cmd *cmd)
 {
 	t_cmd *tmp;
@@ -18,6 +16,7 @@ void close_fds(t_cmd *cmd)
 		cmd = tmp;
 	}
 }
+
 
 void	clean_cmd(t_cmd *cmd)
 {
@@ -58,6 +57,7 @@ int main(int argc, char *argv[], char *envp[])
 		data->user_prompt = readline(PROMPT_NAME);
 		if (data->user_prompt && !ft_strncmp(data->user_prompt, "\0", 2)) //if user input is empty
 		{
+			get_data()->code_exit = 0;
 			free(data->user_prompt);
 			data->user_prompt = NULL;
 		}
@@ -78,9 +78,9 @@ int main(int argc, char *argv[], char *envp[])
 				ft_freeparse(data);
 				close_fds(data->cmd);
 				clean_cmd(data->cmd);
-			}
+			}	
 		}
-		printf("code_exit: %d\n", data->code_exit);
+		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}
 	return (NO_ERROR); //renvoyé le dernier code d'erreur
 }

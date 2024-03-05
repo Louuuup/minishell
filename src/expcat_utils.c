@@ -39,10 +39,16 @@ int	exp_novar(t_expand *exp)
 	if (!exp->var)
 	{
 		exp->i = ft_strlen(exp->tmp);
-		exp->j = (exp->h + ft_strlen(exp->name) + 1);
+		if (!ft_strlen(exp->name))
+			exp->j = exp->h;
+		else
+			exp->j = (exp->h + ft_strlen(exp->name) + 1);
 		ft_strlcat(&exp->tmp[exp->i], &exp->str[exp->j], \
 			((size_t)ft_strlen(&exp->str[exp->j]) + 1));
-		exp->j = exp->h;
+		if (!ft_strlen(exp->name))
+			exp->j = exp->h + 1;
+		else
+			exp->j = exp->h;
 	}
 	return (1);
 }

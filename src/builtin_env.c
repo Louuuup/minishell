@@ -120,7 +120,6 @@ int b_env(t_cmd *cmd)
 		return (ERROR);
 	while (env[i])
 	{
-
 		if (find_symbol('=', env[i]))
 		{
 			ft_putstr_fd(env[i], cmd->fd_out);

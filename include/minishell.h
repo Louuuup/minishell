@@ -291,6 +291,7 @@ void 	*ft_free3darray(char ***array);
 
 void	exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
+void	wait_pids(t_cmd *cmd);
 //==================exec_utils.c===================//
 
 int		ft_pipe(t_cmd *cmd);
@@ -376,6 +377,5 @@ void sigchildint(int i);
 void sig_inthandler(int i);
 //=========================main.c=========================//
 
-void wait_pids(t_cmd *cmd);
 
 #endif

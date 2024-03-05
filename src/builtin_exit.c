@@ -1,7 +1,6 @@
 #include "minishell.h"
 
-
-void get_valid_err(int code)
+static void get_valid_err(int code)
 {
     t_data *data;
 
@@ -16,10 +15,10 @@ void get_valid_err(int code)
 
 void b_exit(t_cmd *cmd)
 {
-    (void)cmd;
+    char *tmp;
+
     if (DEBUG_ON)
         printf("(b_exit) b_exit called\n");
-    
     if (cmd->index != 0) // si cmd n,est pas la premiere commande
         return ;
     if (cmd->cmd[1] && cmd->cmd[2])
@@ -30,8 +29,9 @@ void b_exit(t_cmd *cmd)
             get_data()->code_exit = ft_atoi(cmd->cmd[1]);
         else
         {
-            ft_putstr_fd("exit: ", STDERR_FILENO);
-            error_str_code(cmd->cmd[1], ": numeric argument required\n", 255);
+            tmp = gc_strjoin("exit: ", cmd->cmd[1]);
+            error_str_code(tmp, ": numeric argument required\n", 255);
+            gc_free_one(get_data()->memblock, tmp);
         }
     }
     else

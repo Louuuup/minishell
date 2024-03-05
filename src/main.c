@@ -1,27 +1,5 @@
 #include "minishell.h"
 
-int wait_pid(t_data *data)
-{
-	int status;
-
-	while (data->cmd != NULL)
-	{
-		
-		waitpid(data->cmd->pid, &status, 0);
-		if (!data->cmd->next)
-		{
-			if (data->cmd->built_in == false)
-			{
-				if (WIFEXITED(status))
-					get_data()->code_exit = (WEXITSTATUS(status));
-				else if (WIFSIGNALED(status))
-					get_data()->code_exit = 128 +(WTERMSIG(status));
-			}
-		}	
-		data->cmd = data->cmd->next;
-	}		
-	return (1);
-}
 
 
 void close_fds(t_cmd *cmd)
@@ -102,6 +80,7 @@ int main(int argc, char *argv[], char *envp[])
 				clean_cmd(data->cmd);
 			}
 		}
+		printf("code_exit: %d\n", data->code_exit);
 	}
 	return (NO_ERROR); //renvoyé le dernier code d'erreur
 }

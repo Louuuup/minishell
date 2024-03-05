@@ -1,20 +1,27 @@
 #include "minishell.h"
 
-void close_fds_alt(t_cmd *cmd, int fd_in, int fd_out)
-{
-	t_cmd *tmp;
 
-	if (DEBUG_ON)
-		printf("(close_fds) close_fds called\n");
-	while (cmd)
+int wait_pid(t_data *data)
+{
+	int status;
+
+	while (data->cmd != NULL)
 	{
-		tmp = cmd->next;
-		if (cmd->fd_in != fd_in && cmd->fd_in != 0)
-			close(cmd->fd_in);
-		if (cmd->fd_out != fd_out && cmd->fd_out != 1)
-			close(cmd->fd_out);
-		cmd = tmp;
-	}
+		
+		waitpid(data->cmd->pid, &status, 0);
+		if (!data->cmd->next)
+		{
+			if (data->cmd->built_in == false)
+			{
+				if (WIFEXITED(status))
+					get_data()->code_exit = (WEXITSTATUS(status));
+				else if (WIFSIGNALED(status))
+					get_data()->code_exit = 128 +(WTERMSIG(status));
+			}
+		}	
+		data->cmd = data->cmd->next;
+	}		
+	return (1);
 }
 
 void fork_exec(t_cmd *cmd)

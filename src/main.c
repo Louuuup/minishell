@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
 		data->user_prompt = readline(PROMPT_NAME);
 		if (data->user_prompt && !ft_strncmp(data->user_prompt, "\0", 2)) //if user input is empty
 		{
-			get_data()->code_exit = 0;
+			exit_code(0);
 			free(data->user_prompt);
 			data->user_prompt = NULL;
 		}
@@ -75,10 +75,10 @@ int main(int argc, char *argv[], char *envp[])
 			{
 				exec_main(data);
 				wait_pid(data);
-				ft_freeparse(data);
-				close_fds(data->cmd);
-				clean_cmd(data->cmd);
 			}	
+			ft_freeparse(data);
+			close_fds(data->cmd);
+			clean_cmd(data->cmd);
 		}
 		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}

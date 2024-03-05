@@ -369,6 +369,8 @@ char *var_value(char *str);
 //====================builtin_exit.c====================//
 
 void b_exit(t_cmd *cmd);
+void exit_code(int code);
+
 //====================signal_handler.c====================//
 
 void sigchildquit(int i);

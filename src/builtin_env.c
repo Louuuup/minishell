@@ -38,7 +38,7 @@ char	*set_var(char **env, char *var, char *value)
 		{
 			new_var = gc_strjoin(var, "=");
 			new_var = gc_strjoin(new_var, value);
-			free_null(env[i]);
+			gc_free_one(get_data()->memblock, env[i]);
 			env[i] = new_var;
 			return (env[i]);
 		}
@@ -84,8 +84,6 @@ char	**rm_var(t_data *data, char *var)
 
 char    **add_var(char **env, char *var, char *value)
 {
-	if (DEBUG_ON)
-		printf("(add_var) var: %s, value: %s\n", var, value);
 	int i;
 	char **new_env;
 
@@ -97,13 +95,12 @@ char    **add_var(char **env, char *var, char *value)
 	while (env[i])
 	{
 		new_env[i] = env[i];
+		gc_free_one(get_data()->memblock, env[i]);
 		i++;
 	}
 	new_env[i] = ft_strjoin(var, "=");
 	new_env[i] = ft_strjoin(new_env[i], value);
-	env = arr_free((void **)env);
-	if (DEBUG_ON)
-		printf("(add_var) new_env: %s\n", new_env[i]);
+	// env = arr_free((void **)env);     Pu besoin :DDDD
 	free(env);
 	env = new_env;
 	return (NULL);
@@ -117,7 +114,7 @@ int b_env(t_cmd *cmd)
 	i = 0;
 	env = get_data()->env;
 	if (!env)
-		return (ERROR);
+		return (error_str("env: cannot find environment\n"));
 	while (env[i])
 	{
 		if (find_symbol('=', env[i]))

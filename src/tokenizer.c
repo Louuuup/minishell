@@ -11,7 +11,8 @@ int	syntax_check(char **str)
 			!ft_strcmp(str[i], ">") || !ft_strcmp(str[i], ">>"))\
 				&& !str[i + 1])
 				{
-					get_data()->code_exit = 1;
+					// get_data()->code_exit = 1;
+					exit_code(1);
 					error_str_file("syntax error with token ", str[i]);
 					return (0);
 				}

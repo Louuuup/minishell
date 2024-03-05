@@ -79,7 +79,8 @@ int	tok_cmd(char *str, t_idtok *id, t_cmd *tmp)
 	{
 		error_str_file("this is a directory : ", tmp->cmd[0]);
 		ft_clearcmdlst(&get_data()->cmd);
-		get_data()->code_exit = 126;
+		// get_data()->code_exit = 126;
+		exit_code(126);
 		return (0);
 	}
 	id->cmd = true;

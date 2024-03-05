@@ -14,9 +14,10 @@ int wait_pid(t_data *data)
 			if (data->cmd->built_in == false)
 			{
 				if (WIFEXITED(status))
-					get_data()->code_exit = (WEXITSTATUS(status));
+					exit_code((WEXITSTATUS(status)));
+
 				else if (WIFSIGNALED(status))
-					get_data()->code_exit = 128 +(WTERMSIG(status));
+					exit_code(128 +(WTERMSIG(status)));
 			}
 		}	
 		data->cmd = data->cmd->next;
@@ -36,7 +37,7 @@ void fork_exec(t_cmd *cmd)
 		signal(SIGQUIT, sigchildquit);
 		signal(SIGINT, sigchildint);
 		ft_dup2(cmd);
-		execve(cmd->path, cmd->cmd, NULL);
+		execve(cmd->path, cmd->cmd, get_data()->env);
         exit(EXIT_FAILURE);
     }
 	else

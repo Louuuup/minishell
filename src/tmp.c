@@ -28,7 +28,7 @@ void	cmd_status(t_cmd *cmd)
 		return ;
 	}
 	if (cmd->cmd[0])
-		dprintf(1, "cmd:%s\n", cmd->cmd[0]);
+		dprintf(1, "cmd: %s\n", cmd->cmd[0]);
 	int i = 1;
 	if (!cmd->cmd[i])
 		dprintf(1, "args: NULL\n");

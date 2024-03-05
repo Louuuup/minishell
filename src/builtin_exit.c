@@ -13,12 +13,21 @@ static void get_valid_err(int code)
         data->code_exit = code;
 }
 
+void exit_code(int code)
+{
+    t_data *data;
+
+    data = get_data();
+    if (DEBUG_ON)
+        printf("(exit_code) new code: %d\n", code);
+    // get_valid_err(code);
+    data->code_exit = code;
+}
+
 void b_exit(t_cmd *cmd)
 {
     char *tmp;
 
-    if (DEBUG_ON)
-        printf("(b_exit) b_exit called\n");
     if (cmd->index != 0) // si cmd n,est pas la premiere commande
         return ;
     if (cmd->cmd[1] && cmd->cmd[2])
@@ -34,10 +43,8 @@ void b_exit(t_cmd *cmd)
             gc_free_one(get_data()->memblock, tmp);
         }
     }
-    else
-    {
-        gc_free_all(get_data()->memblock);
-        exit(get_data()->code_exit); 
-    }
     get_valid_err(get_data()->code_exit);
+    write(1, "exit\n", 5);
+    gc_free_all(get_data()->memblock);
+    exit(get_data()->code_exit); 
 }

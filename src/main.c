@@ -52,12 +52,11 @@ void cleanup(t_data *data, t_cmd *cmd)
 
 static void main_process(t_data *data)
 {
-	if (parser(data))
-	{
-		exec_main(data);
-		wait_pid(data);
-		cleanup(data, data->cmd);
-	}
+
+	exec_main(data);
+	wait_pid(data);
+	cleanup(data, data->cmd);
+
 }
 
 int main(int argc, char *argv[], char *envp[])

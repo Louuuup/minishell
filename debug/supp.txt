@@ -23,6 +23,12 @@
 	obj:/usr/lib/libncurses.5.4.dylib
 }
 {
+	leak /usr/lib/system/libdyld.dylib
+	Memcheck:Leak
+	...
+	obj:/usr/lib/system/libdyld.dylib
+}
+{
 	leak /usr/lib/system/libsystem_info.dylib
 	Memcheck:Leak
 	...

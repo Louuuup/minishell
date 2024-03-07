@@ -6,15 +6,17 @@ int wait_pid(t_data *data)
 	int status;
 	t_cmd *cmd;
 
+	if (DEBUG_ON)
+		printf("(wait_pid) wait_pid called\n");
 	cmd = data->cmd;
-	while (data->cmd != NULL)
+	while (cmd != NULL)
 	{
 		waitpid(cmd->pid, &status, 0);
 		if (!cmd->next)
 		{
-			if (cmd->built_in == false || cmd->index != 0 && data->code_exit != 127)
+			if (cmd->built_in == false || data->code_exit != 127)
 			{
-				if (!data->cmd)
+				if (!cmd)
 					exit_code(0);
 				if (WIFEXITED(status))
 					exit_code((WEXITSTATUS(status)));
@@ -91,7 +93,6 @@ int	exec_builtin(t_cmd *cmd)
 	int err;
 
 	err = 0;
-	cmd_status(cmd);
 	if (cmd->index != 0)
 		cmd->pid = fork();
 	if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "echo", 5))
@@ -110,7 +111,7 @@ int	exec_builtin(t_cmd *cmd)
 		b_exit(cmd);
 	if (cmd->pid == 0 && cmd->index != 0)
 	{
-		cleanup(get_data(), cmd);
+		// cleanup(get_data(), cmd);
 		exit(err);
 	}
 	return (err);

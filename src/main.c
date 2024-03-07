@@ -78,7 +78,6 @@ int main(int argc, char *argv[], char *envp[])
 				exec_main(data);
 				wait_pid(data);
 			}	
-		cleanup(data, data->cmd);
 		}
 		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}

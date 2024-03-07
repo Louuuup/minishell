@@ -17,9 +17,10 @@ void	shlvl(t_data *data)
 	else
 		set_var(data->env, "SHLVL", "1");
 }
-t_data	*init_all(t_data *data, char **envp, char *argv[], int argc)
+t_data	*init_all(char **envp, char *argv[], int argc)
 {
 	int i;
+	t_data *data;
 
 	(void)argv;
 	(void)argc;

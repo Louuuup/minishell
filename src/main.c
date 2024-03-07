@@ -54,7 +54,7 @@ int main(int argc, char *argv[], char *envp[])
 {
 	t_data *data;
 
-	data = init_all(data, envp, argc, argv); //initialises all data
+	data = init_all(envp, argv, argc); //initialises all data
 	signal(SIGQUIT, SIG_IGN);//movable to init_all?
 	while (TRUE) //main loop
 	{

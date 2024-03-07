@@ -12,7 +12,6 @@ int	ft_pipe(t_cmd *cmd)
 		return (error_str("pipe error\n"));
 	cmd->fd_out = pipe_fd[1];
 	cmd->next->fd_in = pipe_fd[0];
-
 	return (NO_ERROR);
 }
 
@@ -24,12 +23,12 @@ int	ft_dup2(t_cmd *cmd)
 		printf("(ft_dup2) cmd->fd_in: %d\n", cmd->fd_in);
 		printf("(ft_dup2) cmd->fd_out: %d\n", cmd->fd_out);
 	}
-	if (cmd->fd_in != STDIN_FILENO)
+	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
 		close(cmd->fd_in);
 	}
-	if (cmd->fd_out != STDOUT_FILENO)
+	if (cmd->fd_out != STDOUT_FILENO && cmd->fd_in != -1)
 	{
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		close(cmd->fd_out);

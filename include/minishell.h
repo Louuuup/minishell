@@ -137,8 +137,9 @@ typedef struct s_data
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
+	int			*docfd;
 	t_tok		parser;	//struct used for parsing
-	t_memblock	*memblock; //head of allocated memory blocks 
+	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
 
 //flag for redirection
@@ -166,6 +167,7 @@ char **gc_split(char *str, char c);
 t_data	*get_data(void);
 //==================parsing_main.c===================//
 
+int		heredoccheck(t_data *data);
 int 	is_directory(char *cmd);
 int		parser(t_data *data);
 int 	setcmdlist(t_data *data);
@@ -288,7 +290,8 @@ void	*ft_free_2darray(char **array);
 void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
-void	exec_main(t_data *data);
+void 	cleanup(t_data *data, t_cmd *cmd);
+void		exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
 int		wait_pid(t_data *data);
 //==================exec_utils.c===================//
@@ -379,5 +382,5 @@ void sigchildint(int i);
 void sig_inthandler(int i);
 //=========================main.c=========================//
 
-
+void close_fds(t_cmd *cmd);
 #endif

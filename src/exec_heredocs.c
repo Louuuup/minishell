@@ -39,6 +39,7 @@ int heredoc_newfile(t_doc *doc)
 	doc->fd = open(doc->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (doc->fd == -1)
 		return (shell_error());
+	//data->docfd = &doc->fd;
 	return (NO_ERROR);
 }
 
@@ -64,7 +65,7 @@ int heredoc_create(t_cmd *cmd)
 		error_str("fork error\n");
 	if (pid == 0)
 	{
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, sigcdocint);
 	while(doc)
 	{
 		heredoc_newfile(doc);
@@ -75,8 +76,9 @@ int heredoc_create(t_cmd *cmd)
 	}
 	if (pid != 0)
 		waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status))
-		return (ERROR);
+	if (WIFSIGNALED(status)){
+		dprintf(2 ,"FUCK\n");
+		return (ERROR);}
 	return (NO_ERROR);
 }
 

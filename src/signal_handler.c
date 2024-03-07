@@ -28,8 +28,12 @@ void sigchildquit(int i)
 
 void sigcdocint(int i)
 {
-	if (i) 
-	{
-		printf("SIGINT received, breaking out of the loop\n");
-    }
+	if (i)
+		ft_putendl_fd("\0", 0);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	signal(SIGINT, SIG_DFL);
+	gc_free_all(get_data()->memblock);
+	kill(0, SIGINT);
 }

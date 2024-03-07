@@ -120,13 +120,11 @@ void	exec_main(t_data *data)
 	cmd = data->cmd;
 	if (!cmd)
 		return ;
-	if (data->code_exit == 127)
-		data->code_exit = 0;
 	while (cmd)
 	{
-		if (ft_pipe(cmd))
-			return ;
 		if (redirect_check(cmd))
+			return ;
+		if (ft_pipe(cmd))
 			return ;
 		if (DEBUG_ON)
 			cmd_status(cmd);

@@ -10,9 +10,9 @@ void close_fds(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		if (cmd->fd_in != 0)
+		if (cmd->fd_in != 0 && cmd->fd_in != -1)
 			close(cmd->fd_in);
-		if (cmd->fd_out != 1)
+		if (cmd->fd_out != 1 && cmd->fd_in != -1)
 			close(cmd->fd_out);
 		cmd = tmp;
 	}
@@ -76,6 +76,8 @@ int main(int argc, char *argv[], char *envp[])
 			add_history(data->user_prompt);
 			if (parser(data))
 			{
+				if(heredoccheck(data) == ERROR)
+					return(0);
 				exec_main(data);
 				wait_pid(data);
 				cleanup(data, data->cmd);

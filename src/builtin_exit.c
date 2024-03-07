@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:55 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/07 11:01:56 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:31:06 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	exit_code(int code)
 {
 	t_data	*data;
 
+    data = get_data();
+    if (DEBUG_ON)
+        printf("(exit_code) new code: %d\n", code);
+    data->code_exit = code;
 	data = get_data();
 	if (DEBUG_ON)
 		printf("(exit_code) new code: %d\n", code);
@@ -58,7 +62,8 @@ void	b_exit(t_cmd *cmd)
 		}
 	}
 	get_valid_err(get_data()->code_exit);
-	write(1, "exit\n", 5);
+	if(!write(1, "exit\n", 5))
+        return;
 	gc_free_all(get_data()->memblock);
 	exit(get_data()->code_exit);
 }

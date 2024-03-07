@@ -2,10 +2,8 @@
 
 int	tok_app(char *str, t_idtok *id, t_cmd *tmp)
 {
-	t_data *data;
 	int		fd;
 
-	data = get_data();
 	if (tmp->outfile)
 	{
 		fd = open(tmp->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -25,9 +23,6 @@ int	tok_app(char *str, t_idtok *id, t_cmd *tmp)
 
 int	tok_in(char *str, t_idtok *id, t_cmd *tmp)
 {
-	t_data *data;
-
-	data = get_data();
 	if (tmp->infile)
 	{
 		if (access(tmp->infile, R_OK) == -1)
@@ -46,9 +41,7 @@ int	tok_in(char *str, t_idtok *id, t_cmd *tmp)
 int	tok_out(char *str, t_idtok *id, t_cmd *tmp)
 {
 	int		fd;
-	t_data	*data;
 
-	data = get_data();
 	if (tmp->outfile)
 	{
 		fd = open(tmp->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -79,7 +72,6 @@ int	tok_cmd(char *str, t_idtok *id, t_cmd *tmp)
 	{
 		error_str_file("this is a directory : ", tmp->cmd[0]);
 		ft_clearcmdlst(&get_data()->cmd);
-		// get_data()->code_exit = 126;
 		exit_code(126);
 		return (0);
 	}

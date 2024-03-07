@@ -8,8 +8,8 @@ void heredoc_loop(t_doc *doc)
 	while (true)
 	{
 	line = readline("> ");
-	if (!line)
-		break;
+		if (!line)
+	break;
 	if (ft_strcmp(line, doc->eof) == 0)
 	{
 		free(line);
@@ -21,10 +21,10 @@ void heredoc_loop(t_doc *doc)
 		heredoc_addline(doc, tmp);
 	}
 	else
-		heredoc_addline(doc, line);
+	heredoc_addline(doc, line);
 	free(line);
-	}
-}
+	}}
+
 
 int heredoc_newfile(t_doc *doc)
 {
@@ -44,16 +44,27 @@ int heredoc_newfile(t_doc *doc)
 
 int heredoc_addline(t_doc *doc, char *line)
 {
-	write(doc->fd, line, ft_strlen(line));
-	write(doc->fd, "\n", 1);
+	if (!write(doc->fd, line, ft_strlen(line)))
+		return (ERROR);
+	if (!write(doc->fd, "\n", 1))
+		return (ERROR);
 	return (NO_ERROR);
 }
 
 int heredoc_create(t_cmd *cmd)
 {
-	t_doc *doc;
+	pid_t 	pid;
+	t_doc 	*doc;
+	int		status;
 
+	status = 0;
 	doc = cmd->doc;
+	pid = fork();
+	if (pid < 0)
+		error_str("fork error\n");
+	if (pid == 0)
+	{
+	signal(SIGINT, SIG_DFL);
 	while(doc)
 	{
 		heredoc_newfile(doc);
@@ -61,6 +72,11 @@ int heredoc_create(t_cmd *cmd)
     	close(doc->fd);
 		doc = doc->next;
 	}
+	}
+	if (pid != 0)
+		waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status))
+		return (ERROR);
 	return (NO_ERROR);
 }
 

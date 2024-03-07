@@ -12,11 +12,12 @@ int wait_pid(t_data *data)
 		waitpid(cmd->pid, &status, 0);
 		if (!cmd->next)
 		{
-			if (cmd->built_in == false || cmd->index != 0)
+			if (cmd->built_in == false || cmd->index != 0 && data->code_exit != 127)
 			{
+				if (!data->cmd)
+					exit_code(0);
 				if (WIFEXITED(status))
 					exit_code((WEXITSTATUS(status)));
-
 				else if (WIFSIGNALED(status))
 					exit_code(128 +(WTERMSIG(status)));
 			}
@@ -34,6 +35,8 @@ void fork_exec(t_cmd *cmd)
 		error_str("fork error\n");
     if (cmd->pid == 0)
 	{
+		if(cmd->next != NULL)
+			close(cmd->next->fd_in);
 		signal(SIGQUIT, sigchildquit);
 		signal(SIGINT, sigchildint);
 		ft_dup2(cmd);
@@ -120,6 +123,8 @@ void	exec_main(t_data *data)
 	cmd = data->cmd;
 	if (!cmd)
 		return ;
+	if (data->code_exit == 127)
+		data->code_exit = 0;
 	while (cmd)
 	{
 		if (ft_pipe(cmd))

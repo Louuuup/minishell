@@ -17,10 +17,13 @@ void	shlvl(t_data *data)
 	else
 		set_var(data->env, "SHLVL", "1");
 }
-void	init_all(t_data *data, char **envp)
+t_data	*init_all(t_data *data, char **envp, char *argv[], int argc)
 {
 	int i;
 
+	(void)argv;
+	(void)argc;
+	data = get_data();
 	i = 0;
 	if (DEBUG_ON)
 		printf("(init_all) start\n");
@@ -32,4 +35,5 @@ void	init_all(t_data *data, char **envp)
 	}
 	data->code_exit = 0;
 	shlvl(data);
+	return (data);
 }

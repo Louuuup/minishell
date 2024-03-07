@@ -43,8 +43,6 @@ void fork_exec(t_cmd *cmd)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		if (DEBUG_ON)
-			printf("(fork_exec) parent process\n");
         if (cmd->fd_in != STDIN_FILENO)
         {
 			if (close(cmd->fd_in) == -1)

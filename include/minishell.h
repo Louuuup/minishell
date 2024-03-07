@@ -154,7 +154,7 @@ enum e_redir_type
 
 //==================init.c===================//
 
-void	init_all(t_data *data, char **envp);
+t_data	*init_all(t_data *data, char **envp, char *argv[], int argc);
 //==================utils.c===================//
 
 // strdup with garbage collector

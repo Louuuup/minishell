@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 11:02:00 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/07 11:20:54 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	index_sort(char **arr, int str_count, int *index)
+void	index_sort(char **arr, int str_count, int *idx)
 {
 	int		i;
 	int		swapped;
@@ -9,19 +21,19 @@ void	index_sort(char **arr, int str_count, int *index)
 	i = -1;
 	swapped = 1;
 	while (++i < str_count)
-        index[i] = i;
+		idx[i] = i;
 	i = 0;
-	while (arr[index[i]] && swapped)
+	while (arr[idx[i]] && swapped)
 	{
 		swapped = 0;
 		i = 0;
 		while (i < str_count - 1)
 		{
-			if (ft_strncmp(arr[index[i]], arr[index[i + 1]], ft_strlen(arr[index[i]])) > 0)
+			if (ft_strncmp(arr[idx[i]], arr[idx[i + 1]], ft_strlen(arr[idx[i]])) > 0)
 			{
-				tmp = index[i];
-				index[i] = index[i + 1];
-				index[i + 1] = tmp;
+				tmp = idx[i];
+				idx[i] = idx[i + 1];
+				idx[i + 1] = tmp;
 				swapped = 1;
 			}
 			i++;

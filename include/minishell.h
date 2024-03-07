@@ -21,7 +21,7 @@
 # include <limits.h>
 
 //==================VALUES===================//
-# define DEBUG_ON 0
+# define DEBUG_ON 1
 # define TRUE 1
 # define FALSE 0
 # define YES 1
@@ -379,5 +379,6 @@ void sigchildint(int i);
 void sig_inthandler(int i);
 //=========================main.c=========================//
 
+void cleanup(t_data *data, t_cmd *cmd);
 
 #endif

@@ -43,7 +43,7 @@ static void	clean_cmd(t_cmd *cmd)
 	}
 }
 
-static void cleanup(t_data *data, t_cmd *cmd)
+void cleanup(t_data *data, t_cmd *cmd)
 {
 	ft_freeparse(data);
 	close_fds(cmd);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[], char *envp[])
 			data->user_prompt = free_null(data->user_prompt);
 		}
 		else if(data->user_prompt == NULL) //dans le cas d'un ctrl-D
-			b_exit(data);		
+			b_exit(NULL);		
 		else //if user input is not empty
 		{
 			add_history(data->user_prompt);

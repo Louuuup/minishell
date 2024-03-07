@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+
 void close_fds(t_cmd *cmd)
 {
 	t_cmd *tmp;
@@ -42,15 +43,19 @@ void	clean_cmd(t_cmd *cmd)
 	}
 }
 
+void cleanup(t_data *data, t_cmd *cmd)
+{
+	ft_freeparse(data);
+	close_fds(cmd);
+	clean_cmd(cmd);
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
 	t_data *data;
 
-	data = get_data();
-	(void)argv; //not needed
-	(void)argc; //not needed
-	init_all(data, envp); //initialises all data
-	signal(SIGQUIT, SIG_IGN);
+	data = init_all(data, envp, argc, argv); //initialises all data
+	signal(SIGQUIT, SIG_IGN);//movable to init_all?
 	while (TRUE) //main loop
 	{
 		signal(SIGINT, sig_inthandler);
@@ -58,27 +63,22 @@ int main(int argc, char *argv[], char *envp[])
 		if (data->user_prompt && !ft_strncmp(data->user_prompt, "\0", 2)) //if user input is empty
 		{
 			exit_code(0);
-			free(data->user_prompt);
-			data->user_prompt = NULL;
+			data->user_prompt = free_null(data->user_prompt);
 		}
 		else if(data->user_prompt == NULL) //dans le cas d'un ctrl-D
-		{
+		{ //IDEA: move this condition in while loop and gc after loop?
 			gc_free_all(data->memblock);
 			break; //free everyting and exit the shell
 		}
 		else //if user input is not empty
 		{
-			if (DEBUG_ON)
-				printf("(main) prompt detected\n");
 			add_history(data->user_prompt);
 			if (parser(data))
 			{
 				exec_main(data);
 				wait_pid(data);
-				ft_freeparse(data);
-				close_fds(data->cmd);
-				clean_cmd(data->cmd);
 			}	
+		cleanup(data, data->cmd);
 		}
 		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}

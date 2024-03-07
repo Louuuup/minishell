@@ -57,6 +57,7 @@ int	print_export(char **env, int fd)
 	}
 	return (NO_ERROR);
 }
+
 static void	env_addline(char *str)
 {
 	int i;
@@ -109,34 +110,3 @@ int    b_export(t_cmd *cmd)
     }
 	return (NO_ERROR);
 }
-
-//old, tmp
-// void    b_export(t_cmd *cmd)
-// {
-//     int		i;
-//     t_data	*data;
-// 	char	*var;
-
-//     i = 1;
-//     data = get_data();
-//     if (cmd->ac < 1)
-//         return (print_export(data->env, cmd->fd_out));
-//     else
-//     {
-//         while (cmd->cmd[i])
-//         {
-// 			if (export_valid(cmd->cmd[i]) == FALSE)
-// 			{
-// 				error_str("export: not a valid identifier");
-// 				return ;
-// 			}
-// 			var = var_name(cmd->cmd[i]);
-//             if (get_var(data->env, var) == NULL)
-//                 data->env = add_var(data->env, cmd->cmd[i], NULL);
-// 			else if (find_symbol('=', cmd->cmd[i]) && get_var(data->env, var) != NULL)
-// 				set_var(data->env, var, cmd->cmd[i]);
-//             i++;
-// 			var = free_null(var);
-//         }
-//     }
-// }

@@ -55,8 +55,6 @@ char	**rm_var(t_data *data, char *var)
 
     if (!data->env || !var || !get_var(data->env, var))
         return (NULL);
-    if (DEBUG_ON)
-        printf("(rm_var) arr_len: %d\n", arr_len(data->env));
     new_env = gc_calloc(arr_len(data->env), sizeof(char *));
     i = 0;
     while (data->env[i])
@@ -66,15 +64,11 @@ char	**rm_var(t_data *data, char *var)
             j++;
         if (ft_strncmp(data->env[i], var, j) != 0)
         {
-            if (DEBUG_ON)
-                printf("(rm_var) copying %s\n", data->env[i]);
             new_env[i] = data->env[i];
             i++;
         }
         else
         {
-            if (DEBUG_ON)
-                printf("(rm_var) freeing %s\n", data->env[i]);
             gc_free_one(data->memblock, data->env[i]);
             i++;
         }

@@ -12,9 +12,10 @@ int wait_pid(t_data *data)
 		{
 			if (data->cmd->built_in == false)
 			{
+				if (!data->cmd)
+					exit_code(0);
 				if (WIFEXITED(status))
 					exit_code((WEXITSTATUS(status)));
-
 				else if (WIFSIGNALED(status))
 					exit_code(128 +(WTERMSIG(status)));
 			}
@@ -33,6 +34,8 @@ void fork_exec(t_cmd *cmd)
 		error_str("fork error\n");
     if (pid == 0)
 	{
+		if(cmd->next != NULL)
+			close(cmd->next->fd_in);
 		signal(SIGQUIT, sigchildquit);
 		signal(SIGINT, sigchildint);
 		ft_dup2(cmd);

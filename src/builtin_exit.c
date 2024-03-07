@@ -20,7 +20,6 @@ void exit_code(int code)
     data = get_data();
     if (DEBUG_ON)
         printf("(exit_code) new code: %d\n", code);
-    // get_valid_err(code);
     data->code_exit = code;
 }
 

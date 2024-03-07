@@ -75,10 +75,10 @@ int main(int argc, char *argv[], char *envp[])
 			{
 				exec_main(data);
 				wait_pid(data);
+				ft_freeparse(data);
+				close_fds(data->cmd);
+				clean_cmd(data->cmd);
 			}	
-			ft_freeparse(data);
-			close_fds(data->cmd);
-			clean_cmd(data->cmd);
 		}
 		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}

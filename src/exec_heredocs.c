@@ -5,6 +5,7 @@ void heredoc_loop(t_doc *doc)
 	char *tmp;
 	char *line;
 
+	signal(SIGINT, sigcdocint);
 	while (true)
 	{
 	line = readline("> ");
@@ -24,6 +25,7 @@ void heredoc_loop(t_doc *doc)
 		heredoc_addline(doc, line);
 	free(line);
 	}
+	signal(SIGINT, sig_inthandler);
 }
 
 int heredoc_newfile(t_doc *doc)

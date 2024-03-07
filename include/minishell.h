@@ -373,6 +373,7 @@ void exit_code(int code);
 
 //====================signal_handler.c====================//
 
+void sigcdocint(int i);
 void sigchildquit(int i);
 void sigchildint(int i);
 void sig_inthandler(int i);

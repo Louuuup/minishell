@@ -34,7 +34,7 @@ int heredoc_newfile(t_doc *doc)
 	data = get_data();
 	tmp = ft_itoa(data->hd_count);
 	data->hd_count++;
-	doc->name = ft_strjoin("/tmp/heredoc_", tmp);
+	doc->name = gc_strjoin("/tmp/heredoc_", tmp);
 	free(tmp);
 	doc->fd = open(doc->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (doc->fd == -1)

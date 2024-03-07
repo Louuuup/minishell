@@ -30,7 +30,7 @@ void	clean_cmd(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		if (cmd->cmd)
+		if (cmd->cmd) 
 			gc_free_one(data->memblock, cmd->cmd);
 		if (cmd->infile)
 			gc_free_one(data->memblock, cmd->infile);
@@ -77,8 +77,8 @@ int main(int argc, char *argv[], char *envp[])
 			{
 				exec_main(data);
 				wait_pid(data);
+				cleanup(data, data->cmd);
 			}	
-		cleanup(data, data->cmd);
 		}
 		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}

@@ -25,3 +25,11 @@ void sigchildquit(int i)
 	exit_code(128 + SIGQUIT);
 	signal(SIGQUIT, SIG_DFL);
 }
+
+void sigcdocint(int i)
+{
+	if (i) 
+	{
+		printf("SIGINT received, breaking out of the loop\n");
+    }
+}

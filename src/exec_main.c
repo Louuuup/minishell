@@ -88,7 +88,7 @@ void	exec_builtin(t_cmd *cmd)
 
 	data = get_data();
 	if (DEBUG_ON)
-	{	
+	{
 		printf("(exec_builtin) exec_builtin called\n");
 		printf("(exec_builtin) cmd->cmd[0]: %s\n", cmd->cmd[0]);
 		printf("(exec_builtin) fd_in: %d\n", cmd->fd_in);

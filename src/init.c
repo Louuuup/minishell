@@ -17,6 +17,7 @@ void	shlvl(t_data *data)
 	else
 		set_var(data->env, "SHLVL", "1");
 }
+
 t_data	*init_all(char **envp, char *argv[], int argc)
 {
 	int i;
@@ -35,6 +36,7 @@ t_data	*init_all(char **envp, char *argv[], int argc)
 		i++;
 	}
 	data->code_exit = 0;
+	signal(SIGQUIT, SIG_IGN);
 	shlvl(data);
 	return (data);
 }

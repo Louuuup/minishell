@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 
-void close_fds(t_cmd *cmd)
+static void close_fds(t_cmd *cmd)
 {
 	t_cmd *tmp;
 
@@ -19,7 +19,7 @@ void close_fds(t_cmd *cmd)
 }
 
 
-void	clean_cmd(t_cmd *cmd)
+static void	clean_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	t_data *data;
@@ -43,11 +43,21 @@ void	clean_cmd(t_cmd *cmd)
 	}
 }
 
-void cleanup(t_data *data, t_cmd *cmd)
+static void cleanup(t_data *data, t_cmd *cmd)
 {
 	ft_freeparse(data);
 	close_fds(cmd);
 	clean_cmd(cmd);
+}
+
+static void main_process(t_data *data)
+{
+	if (parser(data))
+	{
+		exec_main(data);
+		wait_pid(data);
+		cleanup(data, data->cmd);
+	}
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -55,7 +65,6 @@ int main(int argc, char *argv[], char *envp[])
 	t_data *data;
 
 	data = init_all(envp, argv, argc); //initialises all data
-	signal(SIGQUIT, SIG_IGN);//movable to init_all?
 	while (TRUE) //main loop
 	{
 		signal(SIGINT, sig_inthandler);
@@ -66,19 +75,12 @@ int main(int argc, char *argv[], char *envp[])
 			data->user_prompt = free_null(data->user_prompt);
 		}
 		else if(data->user_prompt == NULL) //dans le cas d'un ctrl-D
-		{ //IDEA: move this condition in while loop and gc after loop?
-			gc_free_all(data->memblock);
-			break; //free everyting and exit the shell
-		}
+			b_exit(data);		
 		else //if user input is not empty
 		{
 			add_history(data->user_prompt);
 			if (parser(data))
-			{
-				exec_main(data);
-				wait_pid(data);
-				cleanup(data, data->cmd);
-			}	
+				main_process(data);
 		}
 		dprintf(2 ,"exit code : %d\n", data->code_exit);
 	}

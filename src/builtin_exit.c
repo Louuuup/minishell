@@ -43,7 +43,8 @@ void b_exit(t_cmd *cmd)
         }
     }
     get_valid_err(get_data()->code_exit);
-    write(1, "exit\n", 5);
+    if(!write(1, "exit\n", 5))
+        return;
     gc_free_all(get_data()->memblock);
     exit(get_data()->code_exit); 
 }

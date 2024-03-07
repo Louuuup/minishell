@@ -81,7 +81,7 @@ int main(int argc, char *argv[], char *envp[])
 				cleanup(data, data->cmd);
 			}	
 		}
-		dprintf(2 ,"exit code : %d\n", data->code_exit);
+		dprintf(2 ,"exit code :fuck %d\n", data->code_exit);
 	}
 	return (NO_ERROR); //renvoyé le dernier code d'erreur
 }

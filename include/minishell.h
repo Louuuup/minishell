@@ -50,7 +50,7 @@ typedef struct s_ibool
 
 typedef struct s_doc
 {
-	bool			expand; //if true call ft_expand I guess (WIP)
+	bool			expand;
 	int 			index;
 	int 			fd; 
 	char			*eof; 

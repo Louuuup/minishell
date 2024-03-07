@@ -10,7 +10,7 @@ int wait_pid(t_data *data)
 		waitpid(data->cmd->pid, &status, 0);
 		if (!data->cmd->next)
 		{
-			if (data->cmd->built_in == false)
+			if (data->cmd->built_in == false && data->code_exit != 127)
 			{
 				if (!data->cmd)
 					exit_code(0);
@@ -120,6 +120,8 @@ void	exec_main(t_data *data)
 	cmd = data->cmd;
 	if (!cmd)
 		return ;
+	if (data->code_exit == 127)
+		data->code_exit = 0;
 	while (cmd)
 	{
 		if (ft_pipe(cmd))

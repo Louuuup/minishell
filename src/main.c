@@ -30,7 +30,7 @@ void	clean_cmd(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		if (cmd->cmd)
+		if (cmd->cmd) 
 			gc_free_one(data->memblock, cmd->cmd);
 		if (cmd->infile)
 			gc_free_one(data->memblock, cmd->infile);
@@ -54,7 +54,8 @@ int main(int argc, char *argv[], char *envp[])
 {
 	t_data *data;
 
-	data = init_all(data, envp, argc, argv); //initialises all data
+	data = NULL;
+	data = init_all(data, envp, argv, argc); //initialises all data
 	signal(SIGQUIT, SIG_IGN);//movable to init_all?
 	while (TRUE) //main loop
 	{

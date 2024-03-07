@@ -7,7 +7,6 @@ int wait_pid(t_data *data)
 
 	while (data->cmd != NULL)
 	{
-		
 		waitpid(data->cmd->pid, &status, 0);
 		if (!data->cmd->next)
 		{

@@ -33,7 +33,8 @@ void sigcdocint(int i)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	signal(SIGINT, SIG_DFL);
+	close(*get_data()->docfd);
 	gc_free_all(get_data()->memblock);
+	signal(SIGINT, SIG_DFL);
 	kill(0, SIGINT);
 }

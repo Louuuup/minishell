@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/07 11:01:53 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*get_var(char **env, char *var)
@@ -53,33 +65,33 @@ char	**rm_var(t_data *data, char *var)
 	int		j;
 	char	**new_env;
 
-    if (!data->env || !var || !get_var(data->env, var))
-        return (NULL);
-    new_env = gc_calloc(arr_len(data->env), sizeof(char *));
-    i = 0;
-    while (data->env[i])
-    {
-        j = 0;
-        while (data->env[i][j] && data->env[i][j] != '=')
-            j++;
-        if (ft_strncmp(data->env[i], var, j) != 0)
-        {
-            new_env[i] = data->env[i];
-            i++;
-        }
-        else
-        {
-            gc_free_one(data->memblock, data->env[i]);
-            i++;
-        }
-    }
-    return (new_env);
+	if (!data->env || !var || !get_var(data->env, var))
+		return (NULL);
+	new_env = gc_calloc(arr_len(data->env), sizeof(char *));
+	i = 0;
+	while (data->env[i])
+	{
+		j = 0;
+		while (data->env[i][j] && data->env[i][j] != '=')
+			j++;
+		if (ft_strncmp(data->env[i], var, j) != 0)
+		{
+			new_env[i] = data->env[i];
+			i++;
+		}
+		else
+		{
+			gc_free_one(data->memblock, data->env[i]);
+			i++;
+		}
+	}
+	return (new_env);
 }
 
-char    **add_var(char **env, char *var, char *value)
+char	**add_var(char **env, char *var, char *value)
 {
-	int i;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	while (env[i])
@@ -94,16 +106,15 @@ char    **add_var(char **env, char *var, char *value)
 	}
 	new_env[i] = ft_strjoin(var, "=");
 	new_env[i] = ft_strjoin(new_env[i], value);
-	// env = arr_free((void **)env);     Pu besoin :DDDD
 	free(env);
 	env = new_env;
 	return (NULL);
 }
 
-int b_env(t_cmd *cmd)
+int	b_env(t_cmd *cmd)
 {
-	int i;
-	char **env;
+	int		i;
+	char	**env;
 
 	i = 0;
 	env = get_data()->env;

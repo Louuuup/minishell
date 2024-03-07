@@ -8,9 +8,7 @@ int	heredoccheck(t_data *data)
 	{
 		if (tmp->doc)
 			if(heredoc_create(tmp) == ERROR)
-			{
 				return (ERROR);
-			}
 		tmp = tmp->next;
 	}
 	return (NO_ERROR);

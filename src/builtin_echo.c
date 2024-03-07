@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 11:01:49 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/07 11:01:50 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-
-
-int n_flag(char *str)
+int	n_flag(char *str)
 {
 	int	i;
 
@@ -32,7 +42,7 @@ int	b_echo(t_cmd *cmd)
 			i++;
 	}
 	while (cmd->cmd[i])
-	{		
+	{
 		ft_putstr_fd(cmd->cmd[i], cmd->fd_out);
 		if (cmd->cmd[i + 1])
 			ft_putchar_fd(' ', cmd->fd_out);

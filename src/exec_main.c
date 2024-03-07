@@ -4,15 +4,19 @@
 int wait_pid(t_data *data)
 {
 	int status;
+	t_cmd *cmd;
 
-	while (data->cmd != NULL)
+	if (DEBUG_ON)
+		printf("(wait_pid) wait_pid called\n");
+	cmd = data->cmd;
+	while (cmd != NULL)
 	{
-		waitpid(data->cmd->pid, &status, 0);
-		if (!data->cmd->next)
+		waitpid(cmd->pid, &status, 0);
+		if (!cmd->next)
 		{
-			if (data->cmd->built_in == false && data->code_exit != 127)
+			if (cmd->built_in == false || data->code_exit != 127)
 			{
-				if (!data->cmd)
+				if (!cmd)
 					exit_code(0);
 				if (WIFEXITED(status))
 					exit_code((WEXITSTATUS(status)));
@@ -20,19 +24,18 @@ int wait_pid(t_data *data)
 					exit_code(128 +(WTERMSIG(status)));
 			}
 		}	
-		data->cmd = data->cmd->next;
+		cmd = cmd->next;
 	}		
 	return (1);
 }
 
 void fork_exec(t_cmd *cmd)
 {
-    pid_t pid;
 
-	pid = fork();
-	if (pid < 0)
+	cmd->pid = fork();
+	if (cmd->pid < 0)
 		error_str("fork error\n");
-    if (pid == 0)
+    if (cmd->pid == 0)
 	{
 		if(cmd->next != NULL)
 			close(cmd->next->fd_in);
@@ -85,32 +88,33 @@ void	exec_cmd(t_cmd *cmdt)
 }
 
 
-void	exec_builtin(t_cmd *cmd)
+int	exec_builtin(t_cmd *cmd)
 {
-	t_data	*data;
+	int err;
 
-	data = get_data();
-	if (DEBUG_ON)
-	{	
-		printf("(exec_builtin) exec_builtin called\n");
-		printf("(exec_builtin) cmd->cmd[0]: %s\n", cmd->cmd[0]);
-		printf("(exec_builtin) fd_in: %d\n", cmd->fd_in);
-		printf("(exec_builtin) fd_out: %d\n", cmd->fd_out);
-	}
-	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
-		data->code_exit = b_echo(cmd);
-	if (!ft_strncmp (cmd->cmd[0], "cd", 3))
-		data->code_exit = b_cd(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
-		data->code_exit = b_pwd(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "export", 7))
-		data->code_exit = b_export(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
-		data->code_exit = b_unset(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "env", 4))
-		data->code_exit = b_env(cmd);
-	else if (!ft_strncmp(cmd->cmd[0], "exit", 5))
+	err = 0;
+	if (cmd->index != 0)
+		cmd->pid = fork();
+	if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "echo", 5))
+		err = b_echo(cmd);
+	if (cmd->pid == 0 && !ft_strncmp (cmd->cmd[0], "cd", 3))
+		err = b_cd(cmd);
+	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "pwd", 4))
+		err = b_pwd(cmd);
+	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "export", 7))
+		err = b_export(cmd);
+	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "unset", 6))
+		err = b_unset(cmd);
+	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "env", 4))
+		err = b_env(cmd);
+	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "exit", 5))
 		b_exit(cmd);
+	if (cmd->pid == 0 && cmd->index != 0)
+	{
+		// cleanup(get_data(), cmd);
+		exit(err);
+	}
+	return (err);
 }
 
 void	exec_main(t_data *data)
@@ -129,7 +133,7 @@ void	exec_main(t_data *data)
 		if (DEBUG_ON)
 			cmd_status(cmd);
 		if (cmd->built_in)
-			exec_builtin(cmd);
+			data->code_exit = exec_builtin(cmd);
 		else
 			exec_cmd(cmd);
 		if (cmd->fd_in != STDIN_FILENO)

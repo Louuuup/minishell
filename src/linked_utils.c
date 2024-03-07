@@ -48,9 +48,8 @@ void	ft_clearcmdlst(t_cmd **lst)
 		while (*lst)
 		{
 			temp = (*lst)->next;
-			if((*lst)->doc)
-				ft_cleardoclst(&(*lst)->doc);
-			gc_free_one(data->memblock, *lst);
+			if(*lst)
+				gc_free_one(data->memblock, *lst);
 			*lst = temp;
 		}
 	}

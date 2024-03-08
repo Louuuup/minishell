@@ -1,17 +1,11 @@
 #include "minishell.h"
-int	heredoccheck(t_data *data)
-{
-	t_cmd *tmp;
 
-	tmp = data->cmd;
-	while (tmp)
-	{
-		if (tmp->doc)
-			if(heredoc_create(tmp) == ERROR)
-				return (ERROR);
-		tmp = tmp->next;
-	}
-	return (NO_ERROR);
+int	heredoccheck(void)
+{
+	t_data *data;
+	
+	data = get_data();
+	return(heredoc_create(data->cmd));
 }
 
 int is_directory(char *cmd) 

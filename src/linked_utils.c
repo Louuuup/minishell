@@ -65,4 +65,5 @@ void	ft_clearcmdlst(t_cmd **lst)
 		}
 	}
 	lst = NULL;
+	data->cmd = NULL;
 }

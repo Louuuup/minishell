@@ -50,8 +50,8 @@ void	ft_cleardoclst(t_doc **lst)
 		while (*lst)
 		{
 			temp = (*lst)->next;
-			gc_free_one(data->memblock, *lst);
-			gc_free_one(data->memblock, (*lst)->eof);
+			if(*lst)
+				gc_free_one(data->memblock, *lst);
 			*lst = temp;
 		}
 	}

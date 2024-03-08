@@ -49,14 +49,12 @@ void cleanup(t_data *data, t_cmd *cmd)
 	ft_freeparse(data);
 	close_fds(cmd);
 	//clean_cmd(&cmd);
-	printf("RETARD: %p\n", data->cmd);
 }
 
 static void main_process(t_data *data)
 {
 	if (heredoccheck() != ERROR)
 	{
-		printf("pid = [%d]\n", getpid());
 		exec_main(data);
 		wait_pid(data);
 		cleanup(data, data->cmd);
@@ -70,7 +68,6 @@ int main(int argc, char *argv[], char *envp[])
 	data = init_all(envp, argv, argc); //initialises all data
 	while (TRUE) //main loop
 	{
-		printf("HUMBLE BEGINNING\n");
 		signal(SIGINT, sig_inthandler);
 		data->user_prompt = readline(PROMPT_NAME);
 		if (data->user_prompt && !ft_strncmp(data->user_prompt, "\0", 2)) //if user input is empty
@@ -80,13 +77,11 @@ int main(int argc, char *argv[], char *envp[])
 		}
 		else if(data->user_prompt == NULL)
 		{
-			dprintf(2 ,"what the fuck\n");
-			//gc_free_all(data->memblock);
+			gc_free_all(data->memblock);
 			break;
 		}
 		else //if user input is not empty
 		{
-			printf("mainpid = [%d]\n", getpid());
 			add_history(data->user_prompt);
 			if (parser(data))
 				main_process(data);

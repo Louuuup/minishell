@@ -35,11 +35,7 @@ int parent_routine(pid_t pid)
     waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status)){
 		return (ERROR);}
-	printf("Parent: My child exited with status %d\n", status);
 	if (WIFEXITED(status))
-    {
         return(NO_ERROR);
-        printf("Parent: Child [%d] terminated normally.\n", pid);
-    }
     return (ERROR);
 }

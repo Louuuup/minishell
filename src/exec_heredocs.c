@@ -1,35 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_heredocs.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/08 13:31:41 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void heredoc_loop(t_doc *doc)
+void	heredoc_loop(t_doc *doc)
 {
-	char *tmp;
-	char *line;
+	char	*tmp;
+	char	*line;
 
 	while (true)
 	{
-	line = readline("> ");
+		line = readline("> ");
 		if (!line)
-	break;
-	if (ft_strcmp(line, doc->eof) == 0)
-	{
+			break ;
+		if (ft_strcmp(line, doc->eof) == 0)
+		{
+			free(line);
+			break ;
+		}
+		if (doc->expand == true)
+		{
+			ft_doc_exp(line, &tmp);
+			heredoc_addline(doc, tmp);
+		}
+		else
+			heredoc_addline(doc, line);
 		free(line);
-		break;
 	}
-	if (doc->expand == true)
-	{	
-		ft_doc_exp(line, &tmp);
-		heredoc_addline(doc, tmp);
-	}
-	else
-	heredoc_addline(doc, line);
-	free(line);
-	}}
+}
 
-
-int heredoc_newfile(t_doc *doc)
+int	heredoc_newfile(t_doc *doc)
 {
-	t_data *data;
-	char *tmp;
+	t_data	*data;
+	char	*tmp;
 
 	data = get_data();
 	tmp = ft_itoa(data->hd_count);
@@ -42,7 +54,7 @@ int heredoc_newfile(t_doc *doc)
 	return (NO_ERROR);
 }
 
-int heredoc_addline(t_doc *doc, char *line)
+int	heredoc_addline(t_doc *doc, char *line)
 {
 	if (!write(doc->fd, line, ft_strlen(line)))
 		return (ERROR);
@@ -51,10 +63,10 @@ int heredoc_addline(t_doc *doc, char *line)
 	return (NO_ERROR);
 }
 
-int heredoc_create(t_cmd *cmd)
+int	heredoc_create(t_cmd *cmd)
 {
-	pid_t 	pid;
-	t_doc 	*doc;
+	pid_t	pid;
+	t_doc	*doc;
 	int		status;
 
 	status = 0;
@@ -64,14 +76,14 @@ int heredoc_create(t_cmd *cmd)
 		error_str("fork error\n");
 	if (pid == 0)
 	{
-	signal(SIGINT, SIG_DFL);
-	while(doc)
-	{
-		heredoc_newfile(doc);
-		heredoc_loop(doc);
-    	close(doc->fd);
-		doc = doc->next;
-	}
+		signal(SIGINT, SIG_DFL);
+		while (doc)
+		{
+			heredoc_newfile(doc);
+			heredoc_loop(doc);
+			close(doc->fd);
+			doc = doc->next;
+		}
 	}
 	if (pid != 0)
 		waitpid(pid, &status, 0);
@@ -80,24 +92,24 @@ int heredoc_create(t_cmd *cmd)
 	return (NO_ERROR);
 }
 
-int heredoc_use(t_cmd *cmd)
+int	heredoc_use(t_cmd *cmd)
 {
-    t_doc *doc;
-    doc = cmd->doc;
+	t_doc	*doc;
 
-    while (doc)
-    {
-        if (doc->next)
-            doc = doc->next;
-        else
-            break;
-    }
-    doc->fd = open(doc->name, O_RDONLY);
-    if (doc->fd == -1)
-        return (shell_error());
-    if (access(doc->name, F_OK) != -1 && DEBUG_ON)
-        printf("(heredoc_use) file '%s' exists!\n", doc->name);
-    else if (DEBUG_ON)
-        printf("(heredoc_use) file '%s' does not exist!\n", doc->name);
-    return (doc->fd);
+	doc = cmd->doc;
+	while (doc)
+	{
+		if (doc->next)
+			doc = doc->next;
+		else
+			break ;
+	}
+	doc->fd = open(doc->name, O_RDONLY);
+	if (doc->fd == -1)
+		return (shell_error());
+	if (access(doc->name, F_OK) != -1 && DEBUG_ON)
+		printf("(heredoc_use) file '%s' exists!\n", doc->name);
+	else if (DEBUG_ON)
+		printf("(heredoc_use) file '%s' does not exist!\n", doc->name);
+	return (doc->fd);
 }

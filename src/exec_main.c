@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_main.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/08 14:10:54 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-
-int wait_pid(t_data *data)
+int	wait_pid(t_data *data)
 {
-	int status;
-	t_cmd *cmd;
+	int		status;
+	t_cmd	*cmd;
 
 	if (DEBUG_ON)
 		printf("(wait_pid) wait_pid called\n");
@@ -23,42 +34,41 @@ int wait_pid(t_data *data)
 				else if (WIFSIGNALED(status))
 					exit_code(128 +(WTERMSIG(status)));
 			}
-		}	
+		}
 		cmd = cmd->next;
-	}		
+	}
 	return (1);
 }
 
-void fork_exec(t_cmd *cmd)
+void	fork_exec(t_cmd *cmd)
 {
-
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 		error_str("fork error\n");
-    if (cmd->pid == 0)
+	if (cmd->pid == 0)
 	{
-		if(cmd->next != NULL)
+		if (cmd->next != NULL)
 			close(cmd->next->fd_in);
 		signal(SIGQUIT, sigchildquit);
 		signal(SIGINT, sigchildint);
 		ft_dup2(cmd);
 		execve(cmd->path, cmd->cmd, get_data()->env);
-        exit(EXIT_FAILURE);
-    }
+		exit(EXIT_FAILURE);
+	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-        if (cmd->fd_in != STDIN_FILENO)
-        {
+		if (cmd->fd_in != STDIN_FILENO)
+		{
 			if (close(cmd->fd_in) == -1)
 				shell_error();
 		}
-        if (cmd->fd_out != STDOUT_FILENO)
-        {
+		if (cmd->fd_out != STDOUT_FILENO)
+		{
 			if (close(cmd->fd_out) == -1)
 				shell_error();
 		}
-    }
+	}
 }
 
 void	exec_cmd(t_cmd *cmdt)
@@ -69,17 +79,18 @@ void	exec_cmd(t_cmd *cmdt)
 	{
 		if (cmdt->cmd[0][0] == 0)
 		{
-			get_data()->code_exit = 0;			
-			return;
+			get_data()->code_exit = 0;
+			return ;
 		}
 		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE && cmdt->path != NULL)
 		{
 			fork_exec(cmdt);
 		}
 		else
-		{	
+		{
 			get_data()->code_exit = 127;
-			if(!ft_strcmp(cmdt->cmd[0], "\"\"") || !ft_strcmp(cmdt->cmd[0], "\'\'"))
+			if (!ft_strcmp(cmdt->cmd[0], "\"\"") || \
+				!ft_strcmp(cmdt->cmd[0], "\'\'"))
 				error_str(gc_strjoin("", "command not found\n"));
 			else
 				error_str(gc_strjoin(cmdt->cmd[0], ": command not found\n"));
@@ -87,10 +98,9 @@ void	exec_cmd(t_cmd *cmdt)
 	}
 }
 
-
 int	exec_builtin(t_cmd *cmd)
 {
-	int err;
+	int	err;
 
 	err = 0;
 	if (cmd->index != 0)
@@ -102,7 +112,7 @@ int	exec_builtin(t_cmd *cmd)
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "pwd", 4))
 		err = b_pwd(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "export", 7))
-		err = b_export(cmd);
+		err = b_export(get_data(), cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "unset", 6))
 		err = b_unset(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "env", 4))

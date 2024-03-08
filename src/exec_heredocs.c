@@ -1,30 +1,22 @@
 #include "minishell.h"
 
-void heredoc_loop(t_doc *doc)
+int heredoc_loop(t_doc *doc)
 {
-	char *tmp;
-	char *line;
+	pid_t 	pid;
 
-	while (true)
+	pid = fork();
+	if (pid < 0)
+		error_str("fork error\n");
+	if (pid == 0)
 	{
-	line = readline("> ");
-		if (!line)
-	break;
-	if (ft_strcmp(line, doc->eof) == 0)
-	{
-		free(line);
-		break;
+		child_routine(doc);
+		exit(0);
 	}
-	if (doc->expand == true)
-	{	
-		ft_doc_exp(line, &tmp);
-		heredoc_addline(doc, tmp);
-	}
-	else
-	heredoc_addline(doc, line);
-	free(line);
-	}
+	else if (pid > 0)
+		return(parent_routine(pid));
+	return(ERROR);
 }
+
 
 
 int heredoc_newfile(t_doc *doc)

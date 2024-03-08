@@ -310,13 +310,13 @@ int		heredoc_create(t_cmd *cmd);
 
 int heredoc_newfile(t_doc *doc);
 int heredoc_addline(t_doc *doc, char *line);
-void heredoc_loop(t_doc *doc);
+int heredoc_loop(t_doc *doc);
 int heredoc_create(t_cmd *cmd);
 int heredoc_use(t_cmd *cmd);
 
 //===================heredoc_child.c=====================//
 
-void child_routine(pid_t pid);
+void child_routine(t_doc *doc);
 int parent_routine(pid_t pid);
 //==================garbage_handler.c===================//
 

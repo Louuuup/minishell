@@ -54,7 +54,7 @@ void cleanup(t_data *data, t_cmd *cmd)
 
 static void main_process(t_data *data)
 {
-	if (heredoccheck(data) != ERROR)
+	if (heredoccheck() != ERROR)
 	{
 		printf("pid = [%d]\n", getpid());
 		exec_main(data);

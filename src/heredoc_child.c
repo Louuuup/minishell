@@ -1,22 +1,31 @@
 #include "minishell.h"
 
 
-void child_routine(pid_t pid)
+void child_routine(t_doc *doc)
 {
-    t_data *data;
-    t_cmd   *tmp;
+   	char *tmp;
+	char *line;
 
-    printf("Child: I'm the child, my internal pid is %d.\n", pid);
-    data = get_data();
-	tmp = data->cmd;
-    signal(SIGINT, sigcdocint);
-	while (tmp)
+	while (true)
 	{
-		if (tmp->doc)
-			(heredoc_create(tmp));
-		tmp = tmp->next;
+	line = readline("> ");
+		if (!line)
+	break;
+	if (ft_strcmp(line, doc->eof) == 0)
+	{
+		free(line);
+		break;
 	}
-	//kill(pid, SIGTERM);
+	if (doc->expand == true)
+	{	
+		ft_doc_exp(line, &tmp);
+		heredoc_addline(doc, tmp);
+	}
+	else
+	heredoc_addline(doc, line);
+	free(line);
+    close(doc->fd);
+    }
 }
 
 int parent_routine(pid_t pid)

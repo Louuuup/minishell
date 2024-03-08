@@ -2,19 +2,10 @@
 
 int	heredoccheck(void)
 {
-	pid_t 	pid;
-
-	pid = fork();
-	if (pid < 0)
-		error_str("fork error\n");
-	if (pid == 0)
-		child_routine(pid);
-	else if (pid > 0)
-		return(parent_routine(pid));
-	if(pid == 0)
-		kill(0, SIGTERM);
-	printf("not suppose to be here\n");
-	return (ERROR);
+	t_data *data;
+	
+	data = get_data();
+	return(heredoc_create(data->cmd));
 }
 
 int is_directory(char *cmd) 

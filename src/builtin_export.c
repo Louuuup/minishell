@@ -1,12 +1,12 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*								                                            */
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:02:00 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/07 11:20:54 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:18:33 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	print_export(char **env, int fd)
 
 static void	env_addline(char *str)
 {
-	int i;
-	t_data *data;
-	char **new_env;
+	int		i;
+	t_data	*data;
+	char	**new_env;
 
 	i = 0;
 	data = get_data();
@@ -87,38 +87,36 @@ static void	env_addline(char *str)
 		new_env[i] = data->env[i];
 		i++;
 	}
-	new_env[i] = ft_strdup(str); 
+	new_env[i] = ft_strdup(str);
 	gc_free_one(data->memblock, data->env);
 	data->env = new_env;
 }
 
-
-int    b_export(t_cmd *cmd)
+int	b_export(t_data *data, t_cmd *cmd)
 {
-    int		i;
-    t_data	*data;
+	int		i;
 	char	*var;
 
-    i = 1;
-    data = get_data();
-    if (cmd->ac < 1)
-        return (print_export(data->env, cmd->fd_out));
-    else
-    {
-        while (cmd->cmd[i])
-        {
+	i = 1;
+	if (cmd->ac < 1)
+		return (print_export(data->env, cmd->fd_out));
+	else
+	{
+		while (cmd->cmd[i])
+		{
 			if (export_valid(cmd->cmd[i]) == FALSE)
 			{
 				return (error_str("export: not a valid identifier"));
 			}
 			var = var_name(cmd->cmd[i]);
-            if (get_var(data->env, var) == NULL)
-                env_addline(cmd->cmd[i]);
-			else if (find_symbol('=', cmd->cmd[i]) && get_var(data->env, var) != NULL)
+			if (get_var(data->env, var) == NULL)
+				env_addline(cmd->cmd[i]);
+			else if (find_symbol('=', cmd->cmd[i]) && \
+			 get_var(data->env, var) != NULL)
 				set_var(data->env, var, var_value(cmd->cmd[i]));
-            i++;
+			i++;
 			var = free_null(var);
-        }
-    }
+		}
+	}
 	return (NO_ERROR);
 }

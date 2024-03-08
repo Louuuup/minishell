@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_heredocs.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/08 14:59:52 by fboivin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int heredoc_loop(t_doc *doc)
+int	heredoc_loop(t_doc *doc)
 {
 	pid_t 	pid;
 
@@ -18,11 +30,10 @@ int heredoc_loop(t_doc *doc)
 }
 
 
-
-int heredoc_newfile(t_doc *doc)
+int	heredoc_newfile(t_doc *doc)
 {
-	t_data *data;
-	char *tmp;
+	t_data	*data;
+	char	*tmp;
 
 	data = get_data();
 	tmp = ft_itoa(data->hd_count);
@@ -36,7 +47,7 @@ int heredoc_newfile(t_doc *doc)
 	return (NO_ERROR);
 }
 
-int heredoc_addline(t_doc *doc, char *line)
+int	heredoc_addline(t_doc *doc, char *line)
 {
 	if (!write(doc->fd, line, ft_strlen(line)))
 		return (ERROR);
@@ -45,7 +56,7 @@ int heredoc_addline(t_doc *doc, char *line)
 	return (NO_ERROR);
 }
 
-int heredoc_create(t_cmd *cmd)
+int	heredoc_create(t_cmd *cmd)
 {
 	t_doc 	*doc;
 
@@ -60,24 +71,24 @@ int heredoc_create(t_cmd *cmd)
 	return (NO_ERROR);
 }
 
-int heredoc_use(t_cmd *cmd)
+int	heredoc_use(t_cmd *cmd)
 {
-    t_doc *doc;
-    doc = cmd->doc;
+	t_doc	*doc;
 
-    while (doc)
-    {
-        if (doc->next)
-            doc = doc->next;
-        else
-            break;
-    }
-    doc->fd = open(doc->name, O_RDONLY);
-    if (doc->fd == -1)
-        return (shell_error());
-    if (access(doc->name, F_OK) != -1 && DEBUG_ON)
-        printf("(heredoc_use) file '%s' exists!\n", doc->name);
-    else if (DEBUG_ON)
-        printf("(heredoc_use) file '%s' does not exist!\n", doc->name);
-    return (doc->fd);
+	doc = cmd->doc;
+	while (doc)
+	{
+		if (doc->next)
+			doc = doc->next;
+		else
+			break ;
+	}
+	doc->fd = open(doc->name, O_RDONLY);
+	if (doc->fd == -1)
+		return (shell_error());
+	if (access(doc->name, F_OK) != -1 && DEBUG_ON)
+		printf("(heredoc_use) file '%s' exists!\n", doc->name);
+	else if (DEBUG_ON)
+		printf("(heredoc_use) file '%s' does not exist!\n", doc->name);
+	return (doc->fd);
 }

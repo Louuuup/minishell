@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*																			*/
+/*			                                            :::      ::::::::   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/08 12:10:52 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/03/08 13:15:40 by ycyr-roy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int export_valid(char *str)
+int	export_valid(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
@@ -12,30 +24,30 @@ int export_valid(char *str)
 		if (str[i] == '=')
 			break ;
 		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-			return(FALSE);
+			return (FALSE);
 		i++;
 	}
 	return (TRUE);
 }
 
-char *var_name(char *str)
+char	*var_name(char *str)
 {
-    int i;
-    char *new_str;
+	int		i;
+	char	*new_str;
 
-    i = 0;
-    while (str[i] && str[i] != '=')
-        i++;
-    new_str = ft_substr(str, 0, i);
-    if (DEBUG_ON)
-        printf("(var_name) found %s in %s\n", new_str, str);
-    return (new_str);
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	new_str = ft_substr(str, 0, i);
+	if (DEBUG_ON)
+		printf("(var_name) found %s in %s\n", new_str, str);
+	return (new_str);
 }
 
-char *var_value(char *str)
+char	*var_value(char *str)
 {
-	int i;
-	char *new_str;
+	int		i;
+	char	*new_str;
 
 	i = 0;
 	while (str[i] && str[i] != '=')

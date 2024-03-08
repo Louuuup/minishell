@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*		                                                                    */
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -29,10 +29,10 @@ void	exit_code(int code)
 {
 	t_data	*data;
 
-    data = get_data();
-    if (DEBUG_ON)
-        printf("(exit_code) new code: %d\n", code);
-    data->code_exit = code;
+	data = get_data();
+	if (DEBUG_ON)
+		printf("(exit_code) new code: %d\n", code);
+	data->code_exit = code;
 	data = get_data();
 	if (DEBUG_ON)
 		printf("(exit_code) new code: %d\n", code);
@@ -62,8 +62,8 @@ void	b_exit(t_cmd *cmd)
 		}
 	}
 	get_valid_err(get_data()->code_exit);
-	if(!write(1, "exit\n", 5))
-        return;
+	if (!write(1, "exit\n", 5))
+		return ;
 	gc_free_all(get_data()->memblock);
 	exit(get_data()->code_exit);
 }

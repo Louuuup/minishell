@@ -367,7 +367,7 @@ int    b_echo(t_cmd *cmd);
 int    b_unset(t_cmd *cmd);
 //====================builtin_export.c====================//
 
-int    b_export(t_cmd *cmd);
+int	b_export(t_data *data, t_cmd *cmd);
 //====================builtin_utils.c====================//
 
 int export_valid(char *str);

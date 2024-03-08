@@ -167,7 +167,7 @@ char **gc_split(char *str, char c);
 t_data	*get_data(void);
 //==================parsing_main.c===================//
 
-int		heredoccheck(t_data *data);
+int		heredoccheck(void);
 int 	is_directory(char *cmd);
 int		parser(t_data *data);
 int 	setcmdlist(t_data *data);
@@ -314,6 +314,10 @@ void heredoc_loop(t_doc *doc);
 int heredoc_create(t_cmd *cmd);
 int heredoc_use(t_cmd *cmd);
 
+//===================heredoc_child.c=====================//
+
+void child_routine(pid_t pid);
+int parent_routine(pid_t pid);
 //==================garbage_handler.c===================//
 
 //adds a block on top of the list

@@ -23,7 +23,8 @@ void heredoc_loop(t_doc *doc)
 	else
 	heredoc_addline(doc, line);
 	free(line);
-	}}
+	}
+}
 
 
 int heredoc_newfile(t_doc *doc)
@@ -54,18 +55,9 @@ int heredoc_addline(t_doc *doc, char *line)
 
 int heredoc_create(t_cmd *cmd)
 {
-	pid_t 	pid;
 	t_doc 	*doc;
-	int		status;
 
-	status = 0;
 	doc = cmd->doc;
-	pid = fork();
-	if (pid < 0)
-		error_str("fork error\n");
-	if (pid == 0)
-	{
-	signal(SIGINT, sigcdocint);
 	while(doc)
 	{
 		heredoc_newfile(doc);
@@ -73,12 +65,6 @@ int heredoc_create(t_cmd *cmd)
     	close(doc->fd);
 		doc = doc->next;
 	}
-	}
-	if (pid != 0)
-		waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status)){
-		dprintf(2 ,"FUCK\n");
-		return (ERROR);}
 	return (NO_ERROR);
 }
 

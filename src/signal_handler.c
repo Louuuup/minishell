@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:15:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 14:58:50 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:07:03 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ void	sigchildquit(int i)
 void	sigcdocint(int i)
 {
 	if (i)
-	{
-		printf("SIGINT received, breaking out of the loop\n");
-	}
+		ft_putendl_fd("\0", 0);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	close(*get_data()->docfd);
+	gc_free_all(get_data()->memblock);
+	signal(SIGINT, SIG_DFL);
+	kill(0, SIGINT);
 }

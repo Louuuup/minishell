@@ -3,40 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 13:31:41 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:59:52 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	heredoc_loop(t_doc *doc)
+int	heredoc_loop(t_doc *doc)
 {
-	char	*tmp;
-	char	*line;
+	pid_t 	pid;
 
-	while (true)
+	pid = fork();
+	if (pid < 0)
+		error_str("fork error\n");
+	if (pid == 0)
 	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strcmp(line, doc->eof) == 0)
-		{
-			free(line);
-			break ;
-		}
-		if (doc->expand == true)
-		{
-			ft_doc_exp(line, &tmp);
-			heredoc_addline(doc, tmp);
-		}
-		else
-			heredoc_addline(doc, line);
-		free(line);
+		child_routine(doc);
+		exit(0);
 	}
+	else if (pid > 0)
+		return(parent_routine(pid));
+	return(ERROR);
 }
+
 
 int	heredoc_newfile(t_doc *doc)
 {
@@ -51,6 +43,7 @@ int	heredoc_newfile(t_doc *doc)
 	doc->fd = open(doc->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (doc->fd == -1)
 		return (shell_error());
+	data->docfd = &doc->fd;
 	return (NO_ERROR);
 }
 
@@ -65,30 +58,16 @@ int	heredoc_addline(t_doc *doc, char *line)
 
 int	heredoc_create(t_cmd *cmd)
 {
-	pid_t	pid;
-	t_doc	*doc;
-	int		status;
+	t_doc 	*doc;
 
-	status = 0;
 	doc = cmd->doc;
-	pid = fork();
-	if (pid < 0)
-		error_str("fork error\n");
-	if (pid == 0)
+	while(doc)
 	{
-		signal(SIGINT, SIG_DFL);
-		while (doc)
-		{
-			heredoc_newfile(doc);
-			heredoc_loop(doc);
-			close(doc->fd);
-			doc = doc->next;
-		}
+		heredoc_newfile(doc);
+		heredoc_loop(doc);
+    	close(doc->fd);
+		doc = doc->next;
 	}
-	if (pid != 0)
-		waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status))
-		return (ERROR);
 	return (NO_ERROR);
 }
 

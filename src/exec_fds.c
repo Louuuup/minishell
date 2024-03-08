@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 14:19:59 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:00:22 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	redirect_check(t_cmd *cmd)
 {
-	if (cmd->doc)
-		if (heredoc_create(cmd) == ERROR)
-			return (ERROR);
 	if (cmd->infile && cmd->in_flag == REDIR_INPUT)
 	{
 		cmd->fd_in = fd_redirect(cmd->fd_in, cmd->infile, cmd->in_flag);

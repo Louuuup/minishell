@@ -6,13 +6,13 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 14:56:36 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:06:37 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_fds(t_cmd *cmd)
+void	close_fds(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 
@@ -21,15 +21,15 @@ static void	close_fds(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		if (cmd->fd_in != 0)
+		if (cmd->fd_in != 0 && cmd->fd_in != -1)
 			close(cmd->fd_in);
-		if (cmd->fd_out != 1)
+		if (cmd->fd_out != 1 && cmd->fd_in != -1)
 			close(cmd->fd_out);
 		cmd = tmp;
 	}
 }
 
-static void	clean_cmd(t_cmd *cmd)
+/*static void	clean_cmd(t_cmd **cmd)
 {
 	t_cmd	*tmp;
 	t_data	*data;
@@ -37,34 +37,38 @@ static void	clean_cmd(t_cmd *cmd)
 	data = get_data();
 	if (DEBUG_ON)
 		printf("(clean_cmd) clean_cmd called\n");
-	while (cmd)
+	while (*cmd)
 	{
-		tmp = cmd->next;
-		if (cmd->cmd)
-			gc_free_one(data->memblock, cmd->cmd);
-		if (cmd->infile)
-			gc_free_one(data->memblock, cmd->infile);
-		if (cmd->outfile)
-			gc_free_one(data->memblock, cmd->outfile);
-		if (cmd->doc)
-			ft_cleardoclst(&cmd->doc);
+		tmp = (*cmd)->next;
+		if ((*cmd)->cmd) 
+			gc_free_one(data->memblock, (*cmd)->cmd);
+		if ((*cmd)->infile)
+			gc_free_one(data->memblock, (*cmd)->infile);
+		if ((*cmd)->outfile)
+			gc_free_one(data->memblock, (*cmd)->outfile);
+		if ((*cmd)->doc)
+			ft_cleardoclst(&(*cmd)->doc);
 		gc_free_one(data->memblock, cmd);
-		cmd = tmp;
+		*cmd = tmp;
 	}
-}
+	cmd = NULL;
+}*/
 
 void	cleanup(t_data *data, t_cmd *cmd)
 {
 	ft_freeparse(data);
 	close_fds(cmd);
-	clean_cmd(cmd);
+	//clean_cmd(&cmd);
 }
 
 static void	main_process(t_data *data)
 {
-	exec_main(data);
-	wait_pid(data);
-	cleanup(data, data->cmd);
+	if (heredoccheck() != ERROR)
+	{
+		exec_main(data);
+		wait_pid(data);
+		cleanup(data, data->cmd);
+	}
 }
 
 int	main(int argc, char *argv[], char *envp[])

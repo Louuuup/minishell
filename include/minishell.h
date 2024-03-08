@@ -137,8 +137,9 @@ typedef struct s_data
 	char		**env; //environnement, allocated and dynamicly updated (no garbo)
 	char		*user_prompt; //prompt entered by user. (no garbo)
 	int			code_exit;
+	int			*docfd;
 	t_tok		parser;	//struct used for parsing
-	t_memblock	*memblock; //head of allocated memory blocks 
+	t_memblock	*memblock; //head of allocated memory blocks
 }				t_data;
 
 //flag for redirection
@@ -166,6 +167,7 @@ char **gc_split(char *str, char c);
 t_data	*get_data(void);
 //==================parsing_main.c===================//
 
+int		heredoccheck(void);
 int 	is_directory(char *cmd);
 int		parser(t_data *data);
 int 	setcmdlist(t_data *data);
@@ -288,6 +290,7 @@ void	*ft_free_2darray(char **array);
 void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
+void 	cleanup(t_data *data, t_cmd *cmd);
 void	exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
 int		wait_pid(t_data *data);
@@ -307,10 +310,14 @@ int		heredoc_create(t_cmd *cmd);
 
 int heredoc_newfile(t_doc *doc);
 int heredoc_addline(t_doc *doc, char *line);
-void heredoc_loop(t_doc *doc);
+int heredoc_loop(t_doc *doc);
 int heredoc_create(t_cmd *cmd);
 int heredoc_use(t_cmd *cmd);
 
+//===================heredoc_child.c=====================//
+
+void child_routine(t_doc *doc);
+int parent_routine(pid_t pid);
 //==================garbage_handler.c===================//
 
 //adds a block on top of the list
@@ -379,6 +386,6 @@ void sigchildint(int i);
 void sig_inthandler(int i);
 //=========================main.c=========================//
 
-void cleanup(t_data *data, t_cmd *cmd);
+void close_fds(t_cmd *cmd);
 
 #endif

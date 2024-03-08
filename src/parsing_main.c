@@ -6,11 +6,19 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:47 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 14:57:39 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:08:22 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	heredoccheck(void)
+{
+	t_data *data;
+
+	data = get_data();
+	return(heredoc_create(data->cmd));
+}
 
 int	is_directory(char *cmd)
 {

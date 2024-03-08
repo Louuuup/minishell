@@ -6,19 +6,19 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:47 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:14:48 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:57:39 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_directory(char *cmd) 
+int	is_directory(char *cmd)
 {
-    struct stat statbuf;
-	
-    if (stat(cmd, &statbuf) != 0)
-        return 0;
-    return S_ISDIR(statbuf.st_mode);
+	struct stat	statbuf;
+
+	if (stat(cmd, &statbuf) != 0)
+		return (0);
+	return (S_ISDIR(statbuf.st_mode));
 }
 
 int	setcmdlist(t_data *data)
@@ -56,6 +56,6 @@ int	parser(t_data *data)
 		return (pipeerr(data));
 	setcmdlist(data);
 	if (!tokenizer(data))
-		return (0); //add different error maybe
+		return (0);
 	return (1);
 }

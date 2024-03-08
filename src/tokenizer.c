@@ -14,13 +14,13 @@
 
 int	syntax_check(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while(str[i])
 	{
-		if((!ft_strcmp(str[i], "<<") || !ft_strcmp(str[i], "<") ||\
-			!ft_strcmp(str[i], ">") || !ft_strcmp(str[i], ">>"))\
+		if((!ft_strcmp(str[i], "<<") || !ft_strcmp(str[i], "<") || \
+			!ft_strcmp(str[i], ">") || !ft_strcmp(str[i], ">>")) \
 				&& !str[i + 1])
 				{
 					exit_code(1);

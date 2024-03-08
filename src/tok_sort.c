@@ -76,8 +76,8 @@ int	tok_cmd(char *str, t_idtok *id, t_cmd *tmp)
 	tmp->cmd = gc_malloc((id->cmd_size + 1) * (sizeof(char *)));
 	ft_expansion(str, &tmp->cmd[0]);
 	if (tmp->cmd[0][0] == '\0')
-		return(0);
-	if(!ft_strcmp(tmp->cmd[0], "\"\"") || !ft_strcmp(tmp->cmd[0], "\'\'"))
+		return (0);
+	if (!ft_strcmp(tmp->cmd[0], "\"\"") || !ft_strcmp(tmp->cmd[0], "\'\'"))
 		return (1);
 	ft_removeqte(tmp->cmd[0]);
 	if (is_directory(tmp->cmd[0]))

@@ -39,6 +39,6 @@ int	tok_doc(char *str, t_idtok *id, t_cmd *tmp)
 	doc->eof = gc_strdup(str);
 	ft_removeqte(doc->eof);
 	tmp->in_flag = REDIR_HEREDOC;
-	id->here = false; 
+	id->here = false;
 	return (1);
 }

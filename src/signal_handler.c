@@ -6,13 +6,13 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:15:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:15:14 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:58:50 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sig_inthandler(int i)
+void	sig_inthandler(int i)
 {
 	if (i)
 	{
@@ -24,24 +24,24 @@ void sig_inthandler(int i)
 	}
 }
 
-void sigchildint(int i)
+void	sigchildint(int i)
 {
 	if (i)
-	exit_code(128 + SIGINT);
+		exit_code(128 + SIGINT);
 	signal(SIGINT, SIG_DFL);
 }
 
-void sigchildquit(int i)
+void	sigchildquit(int i)
 {
 	if (i)
-	exit_code(128 + SIGQUIT);
+		exit_code(128 + SIGQUIT);
 	signal(SIGQUIT, SIG_DFL);
 }
 
-void sigcdocint(int i)
+void	sigcdocint(int i)
 {
-	if (i) 
+	if (i)
 	{
 		printf("SIGINT received, breaking out of the loop\n");
-    }
+	}
 }

@@ -26,7 +26,6 @@ void	ft_builtincheck(t_cmd *cmd)
 		cmd->built_in = false;
 }
 
-
 int	ft_idheredoc(t_idtok *id)
 {
 	if (id->app || id->out || id->here || id->in)

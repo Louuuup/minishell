@@ -19,7 +19,7 @@ void close_fds(t_cmd *cmd)
 }
 
 
-static void	clean_cmd(t_cmd *cmd)
+/*static void	clean_cmd(t_cmd **cmd)
 {
 	t_cmd	*tmp;
 	t_data *data;
@@ -27,28 +27,29 @@ static void	clean_cmd(t_cmd *cmd)
 	data = get_data();
 	if (DEBUG_ON)
 		printf("(clean_cmd) clean_cmd called\n");
-	while (cmd)
+	while (*cmd)
 	{
-		tmp = cmd->next;
-		if (cmd->cmd) 
-			gc_free_one(data->memblock, cmd->cmd);
-		if (cmd->infile)
-			gc_free_one(data->memblock, cmd->infile);
-		if (cmd->outfile)
-			gc_free_one(data->memblock, cmd->outfile);
-		if (cmd->doc)
-			ft_cleardoclst(&cmd->doc);
+		tmp = (*cmd)->next;
+		if ((*cmd)->cmd) 
+			gc_free_one(data->memblock, (*cmd)->cmd);
+		if ((*cmd)->infile)
+			gc_free_one(data->memblock, (*cmd)->infile);
+		if ((*cmd)->outfile)
+			gc_free_one(data->memblock, (*cmd)->outfile);
+		if ((*cmd)->doc)
+			ft_cleardoclst(&(*cmd)->doc);
 		gc_free_one(data->memblock, cmd);
-		cmd = tmp;
+		*cmd = tmp;
 	}
 	cmd = NULL;
-}
+}*/
 
 void cleanup(t_data *data, t_cmd *cmd)
 {
 	ft_freeparse(data);
 	close_fds(cmd);
-	clean_cmd(cmd);
+	//clean_cmd(&cmd);
+	printf("RETARD HERE: %p\n", data->cmd);
 }
 
 static void main_process(t_data *data)

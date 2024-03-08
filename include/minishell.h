@@ -291,7 +291,7 @@ void 	*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
 void 	cleanup(t_data *data, t_cmd *cmd);
-void		exec_main(t_data *data);
+void	exec_main(t_data *data);
 void	exec_cmd(t_cmd *cmd);
 int		wait_pid(t_data *data);
 //==================exec_utils.c===================//

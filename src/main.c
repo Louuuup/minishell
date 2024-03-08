@@ -52,8 +52,7 @@ void cleanup(t_data *data, t_cmd *cmd)
 	printf("RETARD HERE: %p\n", data->cmd);
 }
 
-static void main_process(t_data *data)
-{
+static void main_process(t_data *data) {
 	if (heredoccheck(data) != ERROR)
 	{
 		exec_main(data);

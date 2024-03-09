@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 15:58:34 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/08 21:15:29 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ static void main_process(t_data *data)
 	{
 		exec_main(data);
 		wait_pid(data);
-		//cleanup(data, data->cmd);
+		cleanup(data, data->cmd);
 	}
-	cleanup(data, data->cmd);
+	else{(write(1, "\n", 2));
+		cleanup(data, data->cmd);}
 }
 
 int main(int argc, char *argv[], char *envp[])

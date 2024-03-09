@@ -105,9 +105,7 @@ int	b_export(t_data *data, t_cmd *cmd)
 		while (cmd->cmd[i])
 		{
 			if (export_valid(cmd->cmd[i]) == FALSE)
-			{
-				return (error_str("export: not a valid identifier"));
-			}
+				return (error_str_file("export: not a valid identifier :", (cmd->cmd[i])));
 			var = var_name(cmd->cmd[i]);
 			if (get_var(data->env, var) == NULL)
 				env_addline(cmd->cmd[i]);

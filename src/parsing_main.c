@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:47 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 15:20:54 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/09 01:05:27 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	heredoccheck(void)
 	{
 	if (heredoc_create(tmp) == ERROR)
 		return (ERROR);
-		tmp = tmp->next;
+	tmp = tmp->next;
 	}
 	return (NO_ERROR);
 }
@@ -72,6 +72,6 @@ int	parser(t_data *data)
 		return (pipeerr(data));
 	setcmdlist(data);
 	if (!tokenizer(data))
-		return (0); //add different error maybe
+		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 15:30:25 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/09 00:59:55 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	wait_pid(t_data *data)
 	{
 		waitpid(cmd->pid, &status, 0);
 		if (!cmd->next)
-		{
-			if (cmd->built_in == false || data->code_exit != 127)
+		{	
+			if (cmd->built_in == false && data->code_exit != 127)
 			{
-				if (!cmd)
+				if (!cmd->cmd)
 					exit_code(0);
-				if (WIFEXITED(status))
+				else if (WIFEXITED(status))
 					exit_code((WEXITSTATUS(status)));
 				else if (WIFSIGNALED(status))
 					exit_code(128 +(WTERMSIG(status)));

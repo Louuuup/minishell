@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:15:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 21:10:59 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:51:36 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void sig_inthandler(int i)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		get_data()->code_exit = 130;
 	}
 }
 

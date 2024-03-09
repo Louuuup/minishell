@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 01:05:13 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/09 14:47:14 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,21 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 	if (fd == -1)
 		return (shell_error());
 	return (fd);
+}
+
+void clean_heredocs_files(t_cmd *cmd)
+{
+	t_doc	*doc;
+	t_doc	*tmp;
+
+	doc = cmd->doc;
+	while (doc)
+	{
+		tmp = doc;
+		doc = doc->next;
+		unlink(tmp->name);
+		gc_free_one(get_data()->memblock, tmp->name);
+		gc_free_one(get_data()->memblock, tmp->eof);
+		gc_free_one(get_data()->memblock, tmp);
+	}
 }

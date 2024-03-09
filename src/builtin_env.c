@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/07 11:01:53 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:16:14 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,24 @@ char	*set_var(char **env, char *var, char *value)
 
 char	**rm_var(t_data *data, char *var)
 {
-	int		i;
-	int		j;
-	char	**new_env;
-
+	int	i[2];
+	int	j;
+	char **new_env;
+	
 	if (!data->env || !var || !get_var(data->env, var))
 		return (NULL);
+	i[0] = -1;
+	i[1] = -1;
 	new_env = gc_calloc(arr_len(data->env), sizeof(char *));
-	i = 0;
-	while (data->env[i])
+	while (new_env && data->env[++i[0]])
 	{
 		j = 0;
-		while (data->env[i][j] && data->env[i][j] != '=')
+		while (data->env[i[0]][j] && data->env[i[0]][j] != '=')
 			j++;
-		if (ft_strncmp(data->env[i], var, j) != 0)
-		{
-			new_env[i] = data->env[i];
-			i++;
-		}
+		if (ft_strncmp(data->env[i[0]], var, j) != 0)
+			new_env[++i[1]] = data->env[i[0]];
 		else
-		{
-			gc_free_one(data->memblock, data->env[i]);
-			i++;
-		}
+			gc_free_one(data->memblock, data->env[i[0]]);
 	}
 	return (new_env);
 }

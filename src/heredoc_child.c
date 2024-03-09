@@ -22,7 +22,7 @@ void child_routine(t_doc *doc)
 		heredoc_addline(doc, tmp);
 	}
 	else
-	heredoc_addline(doc, line);
+		heredoc_addline(doc, line);
 	free(line);
     close(doc->fd);
     }

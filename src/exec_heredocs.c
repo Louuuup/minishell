@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 15:37:38 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/09 14:41:32 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	heredoc_newfile(t_doc *doc)
 	data->hd_count++;
 	doc->name = gc_strjoin("/tmp/heredoc_", tmp);
 	free(tmp);
-	doc->fd = open(doc->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	doc->fd = open(doc->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (doc->fd == -1)
 		return (shell_error());
 	data->docfd = &doc->fd;
@@ -50,6 +50,8 @@ int	heredoc_newfile(t_doc *doc)
 
 int	heredoc_addline(t_doc *doc, char *line)
 {
+	printf("adding line in %s\n", doc->name);
+	printf("line: %s printed in fd:%d\n", line, doc->fd);
 	if (!write(doc->fd, line, ft_strlen(line)))
 		return (ERROR);
 	if (!write(doc->fd, "\n", 1))

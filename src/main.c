@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 09:43:50 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:54:36 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	close_fds(t_cmd *cmd)
 
 void	cleanup(t_data *data, t_cmd *cmd)
 {
+	clean_heredocs_files(cmd);
 	ft_freeparse(data);
 	close_fds(cmd);
 }

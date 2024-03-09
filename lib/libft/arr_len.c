@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:22:44 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/06 15:24:47 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:07:32 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	arr_len(char **arr)
 	i = 0;
 	if (!arr || !arr[i])
 		return (-1);
-	while (arr[i])
+	while (arr[i] != NULL)
 		i++;
 	return (i);
 }

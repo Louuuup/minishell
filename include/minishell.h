@@ -305,6 +305,7 @@ t_cmd 	*get_cmd(t_data *data, int idx);
 int		redirect_check(t_cmd *cmd);
 int		fd_redirect(int fd, char *file, int redir_flag);
 int		heredoc_create(t_cmd *cmd);
+void	clean_heredocs_files(t_cmd *cmd);
 
 //===================exec_heredocs.c=====================//
 

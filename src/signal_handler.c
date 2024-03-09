@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:15:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:15:14 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:01:22 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ void sigchildquit(int i)
 
 void sigcdocint(int i)
 {
-	if (i)
-		ft_putendl_fd("\0", 0);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	close(*get_data()->docfd);
-	gc_free_all(get_data()->memblock);
-	signal(SIGINT, SIG_DFL);
-	kill(0, SIGINT);
+	if (i == SIGINT)
+	{
+		ft_putendl_fd("\0", STDIN_FILENO);
+		rl_replace_line("", STDIN_FILENO);
+		rl_on_new_line();
+		close(*get_data()->docfd);
+		gc_free_all(get_data()->memblock);
+		signal(SIGINT, SIG_DFL);
+		//kill(0, SIGINT);
+		exit(1);
+	}
 }

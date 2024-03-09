@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 14:59:52 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:37:38 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	heredoc_loop(t_doc *doc)
 		error_str("fork error\n");
 	if (pid == 0)
 	{
+		signal(SIGINT, sigcdocint);
 		child_routine(doc);
 		exit(0);
 	}
@@ -64,7 +65,8 @@ int	heredoc_create(t_cmd *cmd)
 	while(doc)
 	{
 		heredoc_newfile(doc);
-		heredoc_loop(doc);
+		if(heredoc_loop(doc) == ERROR)
+			return (ERROR);
     	close(doc->fd);
 		doc = doc->next;
 	}

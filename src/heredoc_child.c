@@ -33,8 +33,8 @@ int parent_routine(pid_t pid)
     int		status;
 
     waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status)){
-		return (ERROR);}
+	if (WIFSIGNALED(status))
+		return (ERROR);
 	if (WIFEXITED(status))
         return(NO_ERROR);
     return (ERROR);

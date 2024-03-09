@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 15:00:22 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/09 01:05:13 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 		fd = fd_redirect_others(fd, file, redir_flag);
 	else
 		return (error_str_code("redir_flag error\n", NULL, 1));
-		// return (error_str("redir_flag error\n"));
 	if (fd == -1)
 		return (shell_error());
 	return (fd);

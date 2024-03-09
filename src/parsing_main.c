@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:47 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 15:08:22 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 09:47:08 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,17 @@
 int	heredoccheck(void)
 {
 	t_data *data;
+	t_cmd	*tmp;
 
 	data = get_data();
-	return(heredoc_create(data->cmd));
+	tmp = data->cmd;
+	while(tmp)
+	{
+	if (heredoc_create(tmp) == ERROR)
+		return (ERROR);
+	tmp = tmp->next;
+	}
+	return (NO_ERROR);
 }
 
 int	is_directory(char *cmd)

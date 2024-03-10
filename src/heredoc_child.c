@@ -28,7 +28,7 @@ void child_routine(t_doc *doc)
     }
 }
 
-int parent_routine(pid_t pid)
+int	parent_routine(pid_t pid)
 {
     int		status;
 

@@ -63,7 +63,12 @@ void	ft_cleardoclst(t_doc **lst)
 		{
 			temp = (*lst)->next;
 			if(*lst)
-				gc_free_one(data->memblock, *lst);
+			{
+				unlink((*lst)->name);
+				gc_free_one(get_data()->memblock, (*lst)->name); // makes invalid read when ctrl-c in heredoc
+				gc_free_one(get_data()->memblock, (*lst)->eof);
+				gc_free_one(data->memblock,*lst);
+			}
 			*lst = temp;
 		}
 	}

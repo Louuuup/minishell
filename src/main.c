@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 14:54:36 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 04:00:19 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	close_fds(t_cmd *cmd)
 
 void	cleanup(t_data *data, t_cmd *cmd)
 {
-	clean_heredocs_files(cmd);
+	//clean_heredocs_files(cmd);
 	ft_freeparse(data);
 	close_fds(cmd);
 }
@@ -47,7 +47,7 @@ static void	main_process(t_data *data)
 		cleanup(data, data->cmd);
 	}
 	else
-		cleanup(data, data->cmd);
+		cleanupdoc(data, data->cmd);
 }
 
 int	main(int argc, char *argv[], char *envp[])

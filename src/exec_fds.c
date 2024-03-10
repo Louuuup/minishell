@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 14:47:14 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:49:57 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,5 @@ void clean_heredocs_files(t_cmd *cmd)
 		tmp = doc;
 		doc = doc->next;
 		unlink(tmp->name);
-		gc_free_one(get_data()->memblock, tmp->name);
-		gc_free_one(get_data()->memblock, tmp->eof);
-		gc_free_one(get_data()->memblock, tmp);
 	}
 }

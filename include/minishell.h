@@ -129,33 +129,33 @@ typedef struct s_memblock
 	struct s_memblock	*next;
 }				t_memblock;
 
-
+//|
 typedef struct s_data
 {
 	t_cmd		*cmd;
-	int 		hd_count; //heredoc count
-	char		**env; //environnement, allocated and dynamicly updated (no garbo)
-	char		*user_prompt; //prompt entered by user. (no garbo)
+	int 		hd_count;
+	char		**env;
+	char		*user_prompt;
 	int			code_exit;
 	int			*docfd;
-	t_tok		parser;	//struct used for parsing
-	t_memblock	*memblock; //head of allocated memory blocks
+	t_tok		parser;
+	t_memblock	*memblock;
 }				t_data;
 
 //flag for redirection
 enum e_redir_type
 {
-	REDIR_NONE, 	 //stdin stdout
-	REDIR_INPUT,	 // <
-	REDIR_OVERWRITE, // >
-	REDIR_APPEND,	 // >>
-	REDIR_HEREDOC,	 // <<
-	REDIR_PIPE		 // |
+	REDIR_NONE,
+	REDIR_INPUT,
+	REDIR_OVERWRITE,
+	REDIR_APPEND,
+	REDIR_HEREDOC,
+	REDIR_PIPE
 };
 
 //==================init.c===================//
 
-t_data	*init_all(char **envp, char *argv[], int argc);
+t_data *init_all(char **envp, char **argv, int argc);
 //==================utils.c===================//
 
 // strdup with garbage collector
@@ -271,8 +271,9 @@ int	ft_checks_expdoc(char *str, int pos);
 
 int unclosedqtes(t_data *data);
 int pipeerr(t_data *data);
-//==================docquotes.c===================//
+//==================doclist.c===================//
 
+void	ft_cleardoctrlc(t_doc **lst);
 t_doc	*ft_lstnewdoc(char *str, int qts);
 t_doc	*ft_doclast(t_doc *lst);
 void	ft_docadd_back(t_doc **lst, t_doc *new_cmd);

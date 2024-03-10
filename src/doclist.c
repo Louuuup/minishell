@@ -74,3 +74,26 @@ void	ft_cleardoclst(t_doc **lst)
 	}
 	lst = NULL;
 }
+
+void	ft_cleardoctrlc(t_doc **lst)
+{
+	t_doc	*temp;
+	t_data	*data;
+
+	data = get_data();
+	if (lst)
+	{
+		while (*lst)
+		{
+			temp = (*lst)->next;
+			if (*lst)
+			{
+				unlink((*lst)->name);
+				gc_free_one(get_data()->memblock, (*lst)->eof);
+				gc_free_one(data->memblock,*lst);
+			}
+			*lst = temp;
+		}
+	}
+	lst = NULL;
+}

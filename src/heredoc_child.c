@@ -83,7 +83,7 @@ void	ft_clearcmddoc(t_cmd **lst)
 			if ((*lst)->outfile)
 				gc_free_one(data->memblock, (*lst)->outfile);
 			if ((*lst)->doc)
-				ft_cleardoclst(&(*lst)->doc);
+				ft_cleardoctrlc(&(*lst)->doc);
 			gc_free_one(data->memblock, lst);
 			*lst = temp;
 		}

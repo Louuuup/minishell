@@ -6,7 +6,7 @@
 #    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2024/03/04 14:32:33 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2024/03/10 16:00:44 by ycyr-roy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,11 +62,7 @@ SRC = ft_bzero.c \
 	find_symbol.c \
 	arr_len.c \
 	arr_dup.c \
-	ft_strcat.c \
 	ft_strcmp.c \
-	ft_split_length.c \
-	ft_strstr.c \
-	ft_printf_fd.c \
 	ft_split_fd.c \
 	ft_isspace.c \
 	ft_isnumber.c

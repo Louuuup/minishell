@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 04:00:19 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/10 15:35:12 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	close_fds(t_cmd *cmd)
 	}
 }
 
+//clean_heredocs_files(cmd); <- add to function or obsolete?
 void	cleanup(t_data *data, t_cmd *cmd)
 {
-	//clean_heredocs_files(cmd);
 	ft_freeparse(data);
 	close_fds(cmd);
 }
@@ -74,5 +74,5 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		dprintf(2, "exit code : %d\n", data->code_exit);
 	}
-	return (data->code_exit); //renvoyé le dernier code d'erreur
+	return (data->code_exit);
 }

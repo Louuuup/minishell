@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:43:09 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/12/04 13:43:18 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 15:49:40 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	find_symbol(char c, char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)

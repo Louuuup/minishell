@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:13:24 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 15:31:06 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_expcatdoc(t_expand *exp, char **final)
 	exp->h = 0;
 	exp->tmp = gc_malloc(explencheck(exp->str, exp->var) + 1 * (sizeof(char)));
 	exp_early_str(exp);
-	if(exp->symb)
+	if (exp->symb)
 		exp_symb(exp);
 	if (!exp->var)
 		exp_novar(exp);
@@ -64,11 +64,12 @@ int	ft_expandoc(int in, char *str, char **final)
 	ft_init_exp(&exp, in, str);
 	while (str[exp.i] == '$')
 		incr_exp(&exp);
-	if(str[exp.i])
+	if (str[exp.i])
 	{
-		if(!ft_strncmp(&str[exp.i], "?", 2) || !ft_strncmp(&str[exp.i], "?$", 2))
+		if (!ft_strncmp(&str[exp.i], "?", 2) || !ft_strncmp(&str[exp.i], \
+		"?$", 2))
 			incr_symb(str, &exp);
-		if(!exp.symb)
+		if (!exp.symb)
 		{
 			while (str[exp.i] && (ft_isalnum(str[exp.i]) || str[exp.i] == '_'))
 				exp.name[exp.j++] = str[exp.i++];

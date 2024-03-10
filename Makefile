@@ -8,7 +8,7 @@ SRC := \
 	main.c	error_handler.c init.c	garbage_handler.c \
 	t_utils.c	utils.c  tmp.c  garbage_tools.c
 SRC += \
-	exec_main.c	exec_utils.c \
+	exec_main.c	exec_utils.c exec_utils1.c\
 	builtin_cd.c builtin_env.c	builtin_echo.c builtin_export.c builtin_utils.c \
 	builtin_unset.c builtin_exit.c exec_fds.c exec_heredocs.c
 SRC += \
@@ -151,7 +151,9 @@ endif
 #------------------------------------NORM--------------------------------------#
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
 norm: all
-	norminette src
+	@norminette lib/libft
+	@norminette include/
+	@norminette src
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 #-------------------------------------HELP-------------------------------------#
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#

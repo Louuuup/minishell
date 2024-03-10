@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:24 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:14:25 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 15:33:52 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_freeparse(t_data *data)
 	if (data->parser.cmd_list)
 		gc_free_one(data->memblock, data->parser.cmd_list);
 	if (data->parser.free != NULL)
-		ft_free3darray(data->parser.free);	
+		ft_free3darray(data->parser.free);
 	ft_clearcmdlst(&data->cmd);
-    return (1);
+	return (1);
 }

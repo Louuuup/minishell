@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 18:19:56 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/10 15:01:05 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	heredoc_loop(t_doc *doc)
 {
-	pid_t 	pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
@@ -27,10 +27,9 @@ int	heredoc_loop(t_doc *doc)
 		exit(0);
 	}
 	else if (pid > 0)
-		return(parent_routine(pid));
-	return(NO_ERROR);
+		return (parent_routine(pid));
+	return (NO_ERROR);
 }
-
 
 int	heredoc_newfile(t_doc *doc)
 {
@@ -60,18 +59,18 @@ int	heredoc_addline(t_doc *doc, char *line)
 
 int	heredoc_create(t_cmd *cmd)
 {
-	t_doc 	*doc;
+	t_doc	*doc;
 
 	doc = cmd->doc;
-	while(doc)
+	while (doc)
 	{
 		heredoc_newfile(doc);
-		if(heredoc_loop(doc) == ERROR)
-		{	
+		if (heredoc_loop(doc) == ERROR)
+		{
 			close(doc->fd);
 			return (ERROR);
 		}
-    	close(doc->fd);
+		close(doc->fd);
 		doc = doc->next;
 	}
 	return (NO_ERROR);

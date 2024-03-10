@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxkramer <maxkramer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:23:33 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/01/13 16:17:13 by maxkramer        ###   ########.fr       */
+/*   Updated: 2024/03/10 15:49:55 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*free_null(void *ptr)
 {
 	if (ptr)
 		free(ptr);
-
 	return (NULL);
 }
 

@@ -6,13 +6,13 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:22 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:14:23 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 15:33:39 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int exp_symb(t_expand *exp)
+int	exp_symb(t_expand *exp)
 {
 	ft_strlcat(&exp->tmp[exp->h], exp->var, ((size_t)ft_strlen(exp->var) + 2));
 	exp->i = ft_strlen(exp->tmp);

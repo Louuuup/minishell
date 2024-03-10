@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 00:59:55 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/10 15:08:45 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	wait_pid(t_data *data)
 	{
 		waitpid(cmd->pid, &status, 0);
 		if (!cmd->next)
-		{	
+		{
 			if (cmd->built_in == false && data->code_exit != 127)
 			{
 				if (!cmd->cmd)
@@ -49,10 +49,7 @@ void	fork_exec(t_cmd *cmd)
 	{
 		if (cmd->next != NULL)
 			close(cmd->next->fd_in);
-		signal(SIGQUIT, sigchildquit);
-		signal(SIGINT, sigchildint);
-		ft_dup2(cmd);
-		execve(cmd->path, cmd->cmd, get_data()->env);
+		fork_exec_extra(cmd);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -120,10 +117,7 @@ int	exec_builtin(t_cmd *cmd)
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "exit", 5))
 		b_exit(cmd);
 	if (cmd->pid == 0 && cmd->index != 0)
-	{
-		// cleanup(get_data(), cmd);
 		exit(err);
-	}
 	return (err);
 }
 

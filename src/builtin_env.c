@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 13:16:14 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 14:47:10 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ char	*set_var(char **env, char *var, char *value)
 
 char	**rm_var(t_data *data, char *var)
 {
-	int	i[2];
-	int	j;
-	char **new_env;
-	
+	int		i[2];
+	int		j;
+	char	**new_env;
+
 	if (!data->env || !var || !get_var(data->env, var))
 		return (NULL);
 	i[0] = -1;

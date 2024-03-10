@@ -301,7 +301,11 @@ int		ft_dup2(t_cmd *cmd);
 int		command_valid(t_cmd *cmdt, char *cmd);
 t_cmd 	*get_cmd(t_data *data, int idx);
 
+//==================exec_utils1.c===================//
+
+void	fork_exec_extra(t_cmd *cmd);
 //=====================exec_fds.c=======================//
+
 int		redirect_check(t_cmd *cmd);
 int		fd_redirect(int fd, char *file, int redir_flag);
 int		heredoc_create(t_cmd *cmd);

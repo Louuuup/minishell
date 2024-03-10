@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 18:49:57 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/10 15:00:30 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	redirect_check(t_cmd *cmd)
 	return (NO_ERROR);
 }
 
-int fd_redirect_others(int fd, char *file, int redir_flag)
+int	fd_redirect_others(int fd, char *file, int redir_flag)
 {
 	fd = 0;
 	if (redir_flag == REDIR_OVERWRITE)
@@ -53,7 +53,7 @@ int fd_redirect_others(int fd, char *file, int redir_flag)
 	{
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if ((access(file, W_OK)) == -1)
-		{	
+		{
 			get_data()->code_exit = 1;
 			return (error_str_file("permission denied: ", file));
 		}
@@ -61,8 +61,7 @@ int fd_redirect_others(int fd, char *file, int redir_flag)
 	return (fd);
 }
 
-
-int	fd_redirect(int fd, char *file, int redir_flag) 
+int	fd_redirect(int fd, char *file, int redir_flag)
 {
 	if (fd > 2)
 		close(fd);
@@ -84,7 +83,7 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 	return (fd);
 }
 
-void clean_heredocs_files(t_cmd *cmd)
+void	clean_heredocs_files(t_cmd *cmd)
 {
 	t_doc	*doc;
 	t_doc	*tmp;

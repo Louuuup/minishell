@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/08 12:14:40 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 15:34:08 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	shlvl(t_data *data)
 
 t_data	*init_all(char **envp, char *argv[], int argc)
 {
-	int i;
-	t_data *data;
+	int		i;
+	t_data	*data;
 
 	(void)argv;
 	(void)argc;

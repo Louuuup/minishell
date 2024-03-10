@@ -12,13 +12,11 @@
 
 #include "minishell.h"
 
-void	index_sort(char **arr, int str_count, int *idx)
+void	index_sort(char **arr, int str_count, int *idx, int i)
 {
-	int		i;
 	int		swapped;
 	int		tmp;
 
-	i = -1;
 	swapped = 1;
 	while (++i < str_count)
 		idx[i] = i;
@@ -29,7 +27,8 @@ void	index_sort(char **arr, int str_count, int *idx)
 		i = 0;
 		while (i < str_count - 1)
 		{
-			if (ft_strncmp(arr[idx[i]], arr[idx[i + 1]], ft_strlen(arr[idx[i]])) > 0)
+			if (ft_strncmp(arr[idx[i]], arr[idx[i + 1]], \
+			ft_strlen(arr[idx[i]])) > 0)
 			{
 				tmp = idx[i];
 				idx[i] = idx[i + 1];
@@ -43,29 +42,29 @@ void	index_sort(char **arr, int str_count, int *idx)
 
 int	print_export(char **env, int fd)
 {
-	int	i;
-	int	j;
+	int	i[2];
 	int	equal;
-	int	index[arr_len(env)];
+	int	*index;
 
-	i = 0;
-	index_sort(env, arr_len(env), index);
-	while (env && env[i] != NULL)
+	index = gc_calloc(arr_len(env) + 1, sizeof(int));
+	i[0] = 0;
+	index_sort(env, arr_len(env), index, -1);
+	while (env && env[i[0]] != NULL)
 	{
-		j = 0;
+		i[1] = 0;
 		ft_putstr_fd(EXPORT_PREFIX, fd);
-		equal = find_symbol('=', env[index[i]]);
-		while (env[index[i]][j] != '\0')
+		equal = find_symbol('=', env[index[i[0]]]);
+		while (env[index[i[0]]][i[1]] != '\0')
 		{
-			ft_putchar_fd(env[index[i]][j], fd);
-			if (j > 0 && j == equal)
+			ft_putchar_fd(env[index[i[0]]][i[1]], fd);
+			if (i[1] > 0 && i[1] == equal)
 				ft_putchar_fd('"', fd);
-			j++;
+			i[1]++;
 		}
 		if (equal)
 			ft_putchar_fd('"', fd);
 		ft_putchar_fd('\n', fd);
-		i++;
+		i[0]++;
 	}
 	return (NO_ERROR);
 }
@@ -105,12 +104,13 @@ int	b_export(t_data *data, t_cmd *cmd)
 		while (cmd->cmd[i])
 		{
 			if (export_valid(cmd->cmd[i]) == FALSE)
-				return (error_str_file("export: not a valid identifier :", (cmd->cmd[i])));
+				return (error_str_file("export: not a valid identifier :", \
+				(cmd->cmd[i])));
 			var = var_name(cmd->cmd[i]);
 			if (get_var(data->env, var) == NULL)
 				env_addline(cmd->cmd[i]);
 			else if (find_symbol('=', cmd->cmd[i]) && \
-			 get_var(data->env, var) != NULL)
+			get_var(data->env, var) != NULL)
 				set_var(data->env, var, var_value(cmd->cmd[i]));
 			i++;
 			var = free_null(var);

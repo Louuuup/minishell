@@ -317,8 +317,10 @@ int heredoc_use(t_cmd *cmd);
 
 //===================heredoc_child.c=====================//
 
-void child_routine(t_doc *doc);
-int parent_routine(pid_t pid);
+void	ft_clearcmddoc(t_cmd **lst);
+void	cleanupdoc(t_data *data, t_cmd *cmd);
+void 	child_routine(t_doc *doc);
+int 	parent_routine(pid_t pid);
 //==================garbage_handler.c===================//
 
 //adds a block on top of the list

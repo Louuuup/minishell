@@ -1,0 +1,12 @@
+Makefile
+bin
+debug
+hello
+include
+instructions
+lib
+minishell
+minishell.dSYM
+old_shells
+src
+tmp

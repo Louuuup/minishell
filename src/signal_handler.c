@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:15:13 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 09:44:47 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:52:13 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,20 @@ void	sig_inthandler(int i)
 
 void	sigchildint(int i)
 {
-	if (i)
+	if (i == SIGINT)
+	{
 		exit_code(128 + SIGINT);
-	signal(SIGINT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+	}
 }
 
 void	sigchildquit(int i)
 {
-	if (i)
+	if (i == SIGQUIT)
+	{
 		exit_code(128 + SIGQUIT);
-	signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
 }
 
 void	sigcdocint(int i)
@@ -47,9 +51,5 @@ void	sigcdocint(int i)
 		gc_free_all(get_data()->memblock);
 		signal(SIGINT, SIG_DFL);
 		kill(0, SIGINT);
-		/*ft_putendl_fd("\0", 0);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();*/
 	}
 }

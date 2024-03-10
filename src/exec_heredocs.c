@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 14:41:32 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:19:56 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int	heredoc_loop(t_doc *doc)
 	{
 		signal(SIGINT, sigcdocint);
 		child_routine(doc);
+		gc_free_all(get_data()->memblock);
 		exit(0);
 	}
 	else if (pid > 0)
 		return(parent_routine(pid));
-	return(ERROR);
+	return(NO_ERROR);
 }
 
 
@@ -50,8 +51,6 @@ int	heredoc_newfile(t_doc *doc)
 
 int	heredoc_addline(t_doc *doc, char *line)
 {
-	printf("adding line in %s\n", doc->name);
-	printf("line: %s printed in fd:%d\n", line, doc->fd);
 	if (!write(doc->fd, line, ft_strlen(line)))
 		return (ERROR);
 	if (!write(doc->fd, "\n", 1))
@@ -68,7 +67,10 @@ int	heredoc_create(t_cmd *cmd)
 	{
 		heredoc_newfile(doc);
 		if(heredoc_loop(doc) == ERROR)
+		{	
+			close(doc->fd);
 			return (ERROR);
+		}
     	close(doc->fd);
 		doc = doc->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredocs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 15:01:05 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 19:23:24 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	heredoc_loop(t_doc *doc)
 	if (pid == 0)
 	{
 		signal(SIGINT, sigcdocint);
-		child_routine(doc);
+		if (child_routine(doc) == ERROR)
+			kill(pid, SIGINT);
 		gc_free_all(get_data()->memblock);
 		exit(0);
 	}
@@ -65,6 +66,8 @@ int	heredoc_create(t_cmd *cmd)
 	while (doc)
 	{
 		heredoc_newfile(doc);
+		doc->f = stat(doc->name, &doc->init);
+		doc->mode = doc->init.st_mode;
 		if (heredoc_loop(doc) == ERROR)
 		{
 			close(doc->fd);

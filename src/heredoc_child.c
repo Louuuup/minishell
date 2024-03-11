@@ -12,7 +12,32 @@
 
 #include "minishell.h"
 
-void	child_routine(t_doc *doc)
+int	ft_mode_check(t_doc *doc, char *line)
+{
+	if (!line)
+	{
+		close(doc->fd);
+		return (NO_ERROR);
+	}
+	if (ft_strcmp(line, doc->eof) == 0)
+	{
+		free(line);
+		close(doc->fd);
+		return (NO_ERROR);
+	}
+	if (doc->f == 0)
+	{
+		doc->f = stat(doc->name, &doc->inloopmod);
+		if (doc->f != 0 || doc->mode != doc->inloopmod.st_mode)
+		{
+			ft_putstr_fd("File was tempered\n", 2);
+			return (ERROR);
+		}
+	}
+	return (1);
+}
+
+int	child_routine(t_doc *doc)
 {
 	char	*tmp;
 	char	*line;
@@ -20,14 +45,11 @@ void	child_routine(t_doc *doc)
 	while (true)
 	{
 		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strcmp(line, doc->eof) == 0)
-		{
-			free(line);
-			break ;
-		}
-		if (doc->expand == true)
+		if (!ft_mode_check(doc, line))
+			return (NO_ERROR);
+		else if (ft_mode_check(doc, line) < 0)
+			return (ERROR);
+		else if (doc->expand == true)
 		{
 			ft_doc_exp(line, &tmp);
 			heredoc_addline(doc, tmp);
@@ -36,7 +58,6 @@ void	child_routine(t_doc *doc)
 			heredoc_addline(doc, line);
 		free(line);
 	}
-	close(doc->fd);
 }
 
 int	parent_routine(pid_t pid)
@@ -46,7 +67,10 @@ int	parent_routine(pid_t pid)
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
+	{
+		exit_code(128 + (WTERMSIG(status)));
 		return (ERROR);
+	}
 	if (WIFEXITED(status))
 		return (NO_ERROR);
 	return (ERROR);
@@ -83,7 +107,7 @@ void	ft_clearcmddoc(t_cmd **lst)
 			if ((*lst)->outfile)
 				gc_free_one(data->memblock, (*lst)->outfile);
 			if ((*lst)->doc)
-				ft_cleardoclst(&(*lst)->doc);
+				ft_cleardoctrlc(&(*lst)->doc);
 			gc_free_one(data->memblock, lst);
 			*lst = temp;
 		}

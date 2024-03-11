@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 22:43:09 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 03:21:35 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,10 @@ void	exec_main(t_data *data)
 		return ;
 	while (cmd)
 	{
-		if (redirect_check(cmd))
-			return ;
 		if (ft_pipe(cmd))
 			return ;
-		if (DEBUG_ON)
-			cmd_status(cmd);
+		if (redirect_check(cmd))
+			return ;
 		if (cmd->built_in)
 			data->code_exit = exec_builtin(cmd);
 		else

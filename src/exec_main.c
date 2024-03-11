@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 15:08:45 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 20:59:50 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	exec_builtin(t_cmd *cmd)
 	return (err);
 }
 
-void	exec_main(t_data *data)
+int	exec_main(t_data *data)
 {
 	t_cmd	*cmd;
 
@@ -130,10 +130,8 @@ void	exec_main(t_data *data)
 		return ;
 	while (cmd)
 	{
-		if (redirect_check(cmd))
-			return ;
-		if (ft_pipe(cmd))
-			return ;
+		if (redirect_check(cmd) || ft_pipe(cmd))
+			return (ERROR);
 		if (DEBUG_ON)
 			cmd_status(cmd);
 		if (cmd->built_in)
@@ -146,4 +144,5 @@ void	exec_main(t_data *data)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
+	return (NO_ERROR);
 }

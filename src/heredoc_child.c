@@ -25,12 +25,13 @@ int	ft_mode_check(t_doc *doc, char *line)
 		close(doc->fd);
 		return (NO_ERROR);
 	}
+	printf("MOTHERFUCKER [%d]\n", getpid());
 	if (doc->f == 0)
 	{
 		doc->f = stat(doc->name, &doc->inloopmod);
 		if (doc->f != 0 || doc->mode != doc->inloopmod.st_mode)
 		{
-			ft_putstr_fd("File was tempered\n", 2);
+			error_str_file("File was tempered : ", doc->name);
 			return (ERROR);
 		}
 	}

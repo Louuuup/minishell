@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 23:14:46 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 03:10:51 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,10 +301,16 @@ void		ft_sglboolqte(bool *single, bool *dbl, t_countok *tmp);
 int			ft_freeparse(t_data *data);
 void		*ft_free_2darray(char **array);
 void		*ft_free3darray(char ***array);
+
+//==================clean_error.c===================//
+
+void	clean_err(t_data *data, t_cmd *cmd);
+int		ft_free_err(t_data *data);
+void	ft_clear_lst_err(t_cmd **lst);
 //==================exec_main.c===================//
 
 void		cleanup(t_data *data, t_cmd *cmd);
-void			exec_main(t_data *data);
+int 		exec_main(t_data *data);
 void		exec_cmd(t_cmd *cmd);
 int			wait_pid(t_data *data);
 //==================exec_utils.c===================//

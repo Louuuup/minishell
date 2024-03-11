@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 23:14:54 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 03:11:04 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ static void	main_process(t_data *data)
 	{
 		if (data->code_exit == 127)
 			data->code_exit = 0;
-		exec_main(data);
+		if(exec_main(data) == ERROR)
+		{
+			clean_err(data, data->cmd);
+			return ;
+		}
 		wait_pid(data);
 		cleanup(data, data->cmd);
 	}

@@ -15,7 +15,7 @@ SRC += \
 	parsing_main.c tokenizer.c split_tok.c count_tok.c split_tok_utils.c token_id.c \
 	linked_utils.c parsing_utils.c pipe_parsing.c ft_freeparse.c expansion.c \
 	removequotes.c doclist.c parsingerror.c tok_sort.c tok_sort_doc.c tok_sort2.c \
-	expcat_utils.c exp_utils.c signal_handler.c exp_doc.c heredoc_child.c
+	expcat_utils.c exp_utils.c signal_handler.c exp_doc.c heredoc_child.c clean_error.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))

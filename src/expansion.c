@@ -84,7 +84,7 @@ int	ft_expand(int in, char *str, char **final)
 		incr_exp(&exp);
 	if (str[exp.i])
 	{
-		if (!ft_strncmp(&str[exp.i], "?", 2) || \
+		if (!ft_strncmp(&str[exp.i], "?", 1) || \
 		!ft_strncmp(&str[exp.i], "?$", 2))
 			incr_symb(str, &exp);
 		if (!exp.symb)

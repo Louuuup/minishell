@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:28 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 22:45:12 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 00:31:47 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	gc_free_all(t_memblock *memblock)
 	while (memblock)
 	{
 		tmp = memblock->next;
+		printf("[%s]\n", (char *)memblock->ptr);
 		free(memblock->ptr);
 		free(memblock);
 		memblock = tmp;

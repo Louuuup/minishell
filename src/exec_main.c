@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 22:43:09 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 03:15:47 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,21 +121,17 @@ int	exec_builtin(t_cmd *cmd)
 	return (err);
 }
 
-void	exec_main(t_data *data)
+int	exec_main(t_data *data)
 {
 	t_cmd	*cmd;
 
 	cmd = data->cmd;
 	if (!cmd)
-		return ;
+		return (NO_ERROR);
 	while (cmd)
 	{
-		if (redirect_check(cmd))
-			return ;
-		if (ft_pipe(cmd))
-			return ;
-		if (DEBUG_ON)
-			cmd_status(cmd);
+		if (ft_pipe(cmd) || redirect_check(cmd))
+			return (ERROR);
 		if (cmd->built_in)
 			data->code_exit = exec_builtin(cmd);
 		else
@@ -146,4 +142,5 @@ void	exec_main(t_data *data)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
+	return(NO_ERROR);
 }

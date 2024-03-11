@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 03:21:35 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 12:24:07 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	exec_builtin(t_cmd *cmd)
 	int	err;
 
 	err = 0;
-	if (cmd->index != 0)
+	if (get_data()->cmd->next)
 		cmd->pid = fork();
 	if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "echo", 5))
 		err = b_echo(cmd);

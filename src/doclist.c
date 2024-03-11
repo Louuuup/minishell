@@ -65,7 +65,6 @@ void	ft_cleardoclst(t_doc **lst)
 			if (*lst)
 			{
 				unlink((*lst)->name);
-				//gc_free_one(get_data()->memblock, (*lst)->name);
 				gc_free_one(get_data()->memblock, (*lst)->eof);
 				gc_free_one(data->memblock,*lst);
 			}

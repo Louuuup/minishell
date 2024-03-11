@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:26:55 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:55:40 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,6 +317,7 @@ t_cmd		*get_cmd(t_data *data, int idx);
 //==================exec_utils1.c===================//
 
 void		fork_exec_extra(t_cmd *cmd);
+void		builtin_exit(t_cmd *cmd);
 //=====================exec_fds.c=======================//
 
 int			redirect_check(t_cmd *cmd);

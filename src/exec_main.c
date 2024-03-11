@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:51:17 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:55:59 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,7 @@ int	exec_builtin(t_cmd *cmd)
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "exit", 5))
 		get_data()->code_exit = b_exit(cmd, cmd->fd_out);
 	if (cmd->pid == 0 && get_data()->cmd->next)
-	{
-		if (cmd->fd_out != STDOUT_FILENO)
-			close (cmd->fd_out);
-		exit(get_data()->code_exit);
-	}
+		builtin_exit(cmd);
 	return (get_data()->code_exit);
 }
 
@@ -143,7 +139,6 @@ void	exec_main(t_data *data)
 			return ;
 		if (cmd->built_in)
 			exec_builtin(cmd);
-		}
 		else
 			exec_cmd(cmd);
 		if (cmd->fd_in != STDIN_FILENO)

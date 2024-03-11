@@ -150,7 +150,7 @@ enum e_redir_type
 	REDIR_OVERWRITE, // >
 	REDIR_APPEND,	 // >>
 	REDIR_HEREDOC,	 // <<
-	REDIR_PIPE		 // |
+	REDIR_PIPE
 };
 
 //==================init.c===================//
@@ -159,18 +159,18 @@ t_data	*init_all(char **envp, char *argv[], int argc);
 //==================utils.c===================//
 
 // strdup with garbage collector
-char *gc_strdup(char *str);
+char	*gc_strdup(char *str);
 // split with garbage collector
-char **gc_split(char *str, char c);
+char	**gc_split(char *str, char c);
 //==================t_utils.c===================//
 
-t_data	*get_data(void);
+t_data	*get_data(void *allo, char **coou);
 //==================parsing_main.c===================//
 
 int		heredoccheck(void);
-int 	is_directory(char *cmd);
+int		is_directory(char *cmd);
 int		parser(t_data *data);
-int 	setcmdlist(t_data *data);
+int		setcmdlist(t_data *data);
 //==================pipe_parsing.c===================//
 
 int		iboolinit(t_ibool *ibool);

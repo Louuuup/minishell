@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:47:13 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:51:17 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void	exec_main(t_data *data)
 			return ;
 		if (cmd->built_in)
 			exec_builtin(cmd);
+		}
 		else
 			exec_cmd(cmd);
 		if (cmd->fd_in != STDIN_FILENO)

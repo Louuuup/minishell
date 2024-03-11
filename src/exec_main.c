@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 12:48:09 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:33:19 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,28 +97,26 @@ void	exec_cmd(t_cmd *cmdt)
 
 int	exec_builtin(t_cmd *cmd)
 {
-	int	err;
-
-	err = 0;
 	if (get_data()->cmd->next)
 		cmd->pid = fork();
 	if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "echo", 5))
-		err = b_echo(cmd);
+		get_data()->code_exit = b_echo(cmd);
 	if (cmd->pid == 0 && !ft_strncmp (cmd->cmd[0], "cd", 3))
-		err = b_cd(cmd);
+		get_data()->code_exit = b_cd(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "pwd", 4))
-		err = b_pwd(cmd);
+		get_data()->code_exit = b_pwd(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "export", 7))
-		err = b_export(get_data(), cmd);
+		get_data()->code_exit = b_export(get_data(), cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "unset", 6))
-		err = b_unset(cmd);
+		get_data()->code_exit = b_unset(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "env", 4))
-		err = b_env(cmd);
+		get_data()->code_exit = b_env(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "exit", 5))
-		err = b_exit(cmd, cmd->fd_out);
-	if (cmd->pid == 0 && cmd->index != 0)
-		exit(err);
-	return (err);
+		get_data()->code_exit = b_exit(cmd, cmd->fd_out);
+	if (cmd->pid == 0 && get_data()->cmd->next)
+		exit(get_data()->code_exit);
+	wait(&cmd->pid);
+	return (get_data()->code_exit);
 }
 
 void	exec_main(t_data *data)
@@ -136,8 +134,8 @@ void	exec_main(t_data *data)
 			return ;
 		if (cmd->built_in)
 		{
-			data->code_exit = exec_builtin(cmd);
-			printf("code_exit: %d\n", data->code_exit);
+			exec_builtin(cmd);
+			printf("(exec main) code_exit: %d\n", data->code_exit);
 		}
 		else
 			exec_cmd(cmd);

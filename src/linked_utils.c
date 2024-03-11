@@ -62,16 +62,10 @@ void	ft_clearcmdlst(t_cmd **lst)
 			temp = (*lst)->next;
 			if ((*lst)->cmd)
 				gc_free_one(data->memblock, (*lst)->cmd);
-			/*if ((*lst)->infile)
-				gc_free_one(data->memblock, (*lst)->infile);
-			if ((*lst)->outfile)
-				gc_free_one(data->memblock, (*lst)->outfile);*/
 			if ((*lst)->doc)
 				ft_cleardoclst(&(*lst)->doc);
 			gc_free_one(data->memblock, lst);
 			*lst = temp;
 		}
 	}
-	//lst = NULL;
-	//data->cmd = NULL;
 }

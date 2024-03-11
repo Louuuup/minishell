@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 12:07:35 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:43:03 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char *argv[], char *envp[])
 			data->user_prompt = free_null(data->user_prompt);
 		}
 		else if (data->user_prompt == NULL)
-			b_exit(NULL);
+			b_exit(NULL, STDOUT_FILENO);
 		else
 		{
 			add_history(data->user_prompt);

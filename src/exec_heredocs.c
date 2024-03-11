@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 23:37:36 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:25:39 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ int	heredoc_create(t_cmd *cmd)
 	return (NO_ERROR);
 }
 
-int	heredoc_use(t_cmd *cmd)
+int	heredoc_use(int fd, t_cmd *cmd)
 {
 	t_doc	*doc;
 
+	if (fd > 2)
+		close(fd);
 	doc = cmd->doc;
 	while (doc)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 12:41:30 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:26:55 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,7 @@ int			heredoc_newfile(t_doc *doc);
 int			heredoc_addline(t_doc *doc, char *line);
 int			heredoc_loop(t_doc *doc);
 int			heredoc_create(t_cmd *cmd);
-int			heredoc_use(t_cmd *cmd);
+int			heredoc_use(int fd, t_cmd *cmd);
 
 //===================heredoc_child.c=====================//
 

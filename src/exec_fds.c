@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 23:36:20 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:27:23 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	redirect_check(t_cmd *cmd)
 			return (ERROR);
 	}
 	if (cmd->in_flag == REDIR_HEREDOC)
-		cmd->fd_in = heredoc_use(cmd);
+		cmd->fd_in = heredoc_use(cmd->fd_in, cmd);
 	return (NO_ERROR);
 }
 

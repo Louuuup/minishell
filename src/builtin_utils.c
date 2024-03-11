@@ -48,11 +48,14 @@ char	*var_value(char *str)
 {
 	int		i;
 	char	*new_str;
+	char	*tmp;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
-	new_str = ft_strdup(str + i + 1);
+	tmp = ft_strdup(str + i + 1);
+	new_str = ft_strtrim(tmp, " ");
+	tmp = free_null(tmp);
 	if (DEBUG_ON)
 		printf("(var_value) found %s in %s\n", new_str, str);
 	return (new_str);

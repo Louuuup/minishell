@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 14:47:10 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 21:45:09 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*set_var(char **env, char *var, char *value)
 	return (NULL);
 }
 
-char	**rm_var(t_data *data, char *var)
+char	**rm_var(t_data *data, char *var, char *alt_var)
 {
 	int		i[2];
 	int		j;
@@ -73,12 +73,17 @@ char	**rm_var(t_data *data, char *var)
 	while (new_env && data->env[++i[0]])
 	{
 		j = 0;
+		alt_var = ft_strjoin(var, "=");
 		while (data->env[i[0]][j] && data->env[i[0]][j] != '=')
 			j++;
-		if (ft_strncmp(data->env[i[0]], var, j) != 0)
+		if (ft_strncmp(data->env[i[0]], alt_var, j + 1) != 0)
 			new_env[++i[1]] = data->env[i[0]];
 		else
+		{
+			printf("rm_var: %s\n", data->env[i[0]]);
 			gc_free_one(data->memblock, data->env[i[0]]);
+		}
+		alt_var = free_null(alt_var);
 	}
 	return (new_env);
 }

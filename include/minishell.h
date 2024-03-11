@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 20:11:37 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:35:58 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,7 +373,7 @@ int			b_env(t_cmd *cmd);
 char		*get_var(char **env, char *var);
 char		**add_var(char **env, char *var, char *value);
 char		*set_var(char **env, char *var, char *value);
-char		**rm_var(t_data *data, char *var);
+char		**rm_var(t_data *data, char *var, char *alt_var);
 
 //====================builtin_cd.c====================//
 

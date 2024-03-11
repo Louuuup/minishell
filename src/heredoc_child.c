@@ -30,7 +30,7 @@ int	ft_mode_check(t_doc *doc, char *line)
 		doc->f = stat(doc->name, &doc->inloopmod);
 		if (doc->f != 0 || doc->mode != doc->inloopmod.st_mode)
 		{
-			ft_putstr_fd("File was tempered\n", 2);
+			error_str_file("File was tempered : ", doc->name);
 			return (ERROR);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 15:00:30 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 23:36:20 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ int	redirect_check(t_cmd *cmd)
 		if (!cmd->fd_in || cmd->fd_in == ERROR)
 			return (ERROR);
 	}
-	else if (cmd->outfile && cmd->out_flag == REDIR_OVERWRITE)
+	if (cmd->outfile && cmd->out_flag == REDIR_OVERWRITE)
 	{
 		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
 		if (!cmd->fd_out || cmd->fd_out == ERROR)
 			return (ERROR);
 	}
-	else if (cmd->outfile && cmd->out_flag == REDIR_APPEND)
+	if (cmd->outfile && cmd->out_flag == REDIR_APPEND)
 	{
 		cmd->fd_out = fd_redirect(cmd->fd_out, cmd->outfile, cmd->out_flag);
 		if (!cmd->fd_out || cmd->fd_out == ERROR)
 			return (ERROR);
 	}
-	else if (cmd->in_flag == REDIR_HEREDOC)
+	if (cmd->in_flag == REDIR_HEREDOC)
 		cmd->fd_in = heredoc_use(cmd);
 	return (NO_ERROR);
 }

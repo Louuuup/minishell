@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 20:12:10 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 03:21:35 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ void	exec_main(t_data *data)
 		return ;
 	while (cmd)
 	{
-		if (redirect_check(cmd))
-			return ;
 		if (ft_pipe(cmd))
+			return ;
+		if (redirect_check(cmd))
 			return ;
 		if (cmd->built_in)
 			data->code_exit = exec_builtin(cmd);

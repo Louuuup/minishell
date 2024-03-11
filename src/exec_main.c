@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:17:18 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:35:39 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void	exec_main(t_data *data)
 		if (cmd->built_in)
 		{
 			exec_builtin(cmd);
-			printf("(exec main) code_exit: %d\n", data->code_exit);
 		}
 		else
 			exec_cmd(cmd);

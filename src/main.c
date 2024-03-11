@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 22:05:14 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 11:47:38 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	main(int argc, char *argv[], char *envp[])
 			if (parser(data))
 				main_process(data);
 		}
-		dprintf(2, "exit code : %d\n", data->code_exit);
 	}
 	return (data->code_exit);
 }

@@ -25,7 +25,6 @@ int	ft_mode_check(t_doc *doc, char *line)
 		close(doc->fd);
 		return (NO_ERROR);
 	}
-	printf("MOTHERFUCKER [%d]\n", getpid());
 	if (doc->f == 0)
 	{
 		doc->f = stat(doc->name, &doc->inloopmod);

@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:14:28 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 18:07:24 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/10 22:45:12 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void	gc_free_one(t_memblock *memblock, void *ptr)
 				prev->next = tmp->next;
 			else
 				memblock = tmp->next;
-			if (tmp->ptr != NULL)
-				free(tmp->ptr);
+			free(tmp->ptr);
 			free(tmp);
 			return ;
 		}

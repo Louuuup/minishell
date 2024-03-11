@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 20:11:37 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/10 23:11:23 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ void		*ft_free3darray(char ***array);
 //==================exec_main.c===================//
 
 void		cleanup(t_data *data, t_cmd *cmd);
-void		exec_main(t_data *data);
+void			exec_main(t_data *data);
 void		exec_cmd(t_cmd *cmd);
 int			wait_pid(t_data *data);
 //==================exec_utils.c===================//
@@ -360,6 +360,8 @@ int			error_str_file(char *str, char *file);
 int			shell_error(void);
 int			error_str(char *str);
 int			error_str_code(char *err, char *str, int code);
+
+
 //======================tmp.c=========================//
 
 //tmp f		nction to test parser and tokener

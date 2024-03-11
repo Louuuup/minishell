@@ -22,6 +22,7 @@ int	tok_app(char *str, t_idtok *id, t_cmd *tmp)
 		close(fd);
 		if ((access(tmp->outfile, W_OK)) == -1)
 		{
+			exit_code(1);
 			error_str_file("permission denied: ", tmp->outfile);
 			return (0);
 		}
@@ -39,6 +40,7 @@ int	tok_in(char *str, t_idtok *id, t_cmd *tmp)
 	{
 		if (access(tmp->infile, R_OK) == -1)
 		{
+			exit_code(1);
 			error_str_file("permission denied: ", tmp->infile);
 			return (0);
 		}
@@ -60,6 +62,7 @@ int	tok_out(char *str, t_idtok *id, t_cmd *tmp)
 		close(fd);
 		if ((access(tmp->outfile, W_OK)) == -1)
 		{
+			exit_code(1);
 			error_str_file("permission denied: ", tmp->outfile);
 			return (0);
 		}

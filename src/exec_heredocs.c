@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:30:39 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/10 19:23:24 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/10 23:37:36 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	heredoc_loop(t_doc *doc)
 	{
 		signal(SIGINT, sigcdocint);
 		if (child_routine(doc) == ERROR)
-			kill(pid, SIGINT);
+			sigcdocint(SIGINT);
 		gc_free_all(get_data()->memblock);
 		exit(0);
 	}

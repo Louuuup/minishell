@@ -74,6 +74,7 @@ static void	env_addline(char *str)
 	int		i;
 	t_data	*data;
 	char	**new_env;
+	char	*tmp;
 
 	i = 0;
 	data = get_data();
@@ -86,7 +87,9 @@ static void	env_addline(char *str)
 		new_env[i] = data->env[i];
 		i++;
 	}
-	new_env[i] = ft_strdup(str);
+	tmp = ft_strtrim(str, " ");
+	new_env[i] = gc_strdup(tmp);
+	tmp = free_null(tmp);
 	gc_free_one(data->memblock, data->env);
 	data->env = new_env;
 }

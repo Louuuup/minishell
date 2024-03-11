@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 12:24:07 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:33:10 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	exec_builtin(t_cmd *cmd)
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "env", 4))
 		err = b_env(cmd);
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "exit", 5))
-		b_exit(cmd);
+		err = b_exit(cmd, cmd->fd_out);
 	if (cmd->pid == 0 && cmd->index != 0)
 		exit(err);
 	return (err);
@@ -135,7 +135,10 @@ void	exec_main(t_data *data)
 		if (redirect_check(cmd))
 			return ;
 		if (cmd->built_in)
+		{
 			data->code_exit = exec_builtin(cmd);
+			printf("code_exit: %d\n", data->code_exit);
+		}
 		else
 			exec_cmd(cmd);
 		if (cmd->fd_in != STDIN_FILENO)

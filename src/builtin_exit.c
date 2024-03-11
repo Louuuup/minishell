@@ -39,7 +39,7 @@ void	exit_code(int code)
 	data->code_exit = code;
 }
 
-void	b_exit(t_cmd *cmd)
+int	b_exit(t_cmd *cmd, int fd_out)
 {
 	char	*tmp;
 
@@ -50,7 +50,7 @@ void	b_exit(t_cmd *cmd)
 		else if (cmd->cmd[1])
 		{
 			if (ft_isnumber(cmd->cmd[1]))
-				get_data()->code_exit = ft_atoi(cmd->cmd[1]);
+				return (ft_atoi(cmd->cmd[1]));
 			else
 			{
 				tmp = gc_strjoin("exit: ", cmd->cmd[1]);
@@ -60,8 +60,8 @@ void	b_exit(t_cmd *cmd)
 		}
 	}
 	get_valid_err(get_data()->code_exit);
-	if (!write(cmd->fd_out, "exit\n", 5))
-		return ;
+	if (!write(fd_out, "exit\n", 5))
+		return (get_data()->code_exit);
 	gc_free_all(get_data()->memblock);
 	exit(get_data()->code_exit);
 }

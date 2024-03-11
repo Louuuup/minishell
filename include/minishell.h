@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 12:06:45 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:41:30 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,7 +396,7 @@ char		*var_name(char *str);
 char		*var_value(char *str);
 //====================builtin_exit.c====================//
 
-void		b_exit(t_cmd *cmd);
+int			b_exit(t_cmd *cmd, int fd_out);
 void		exit_code(int code);
 
 //====================signal_handler.c====================//

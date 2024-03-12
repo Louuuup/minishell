@@ -6,17 +6,26 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:45 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/07 11:01:46 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:56:47 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	cd_chdir(char *pwd)
+{
+	if (chdir(pwd) == ERROR)
+		return (error_str("cd: error"));
+	return (NO_ERROR);
+}
 
 int	b_cd(t_cmd *cmd)
 {
 	char	*oldpwd;
 	char	*pwd;
 
+	if (access(cmd->cmd[1], F_OK) != ERROR)
+		return (cd_fullpath(cmd->cmd[1]) == 1);
 	pwd = NULL;
 	oldpwd = get_var(get_data()->env, "PWD");
 	if (cmd->ac > 0)
@@ -34,7 +43,7 @@ int	b_cd(t_cmd *cmd)
 			return (error_str("cd: error"));
 	}
 	else
-		error_str("cd: no such file or directory");
+		return (error_str_code("cd: no such file or directory\n", pwd, 1));
 	set_var(get_data()->env, "OLDPWD", oldpwd);
 	set_var(get_data()->env, "PWD", getcwd(NULL, 0));
 	return (NO_ERROR);

@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:55:59 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:29:56 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,8 @@ int	exec_builtin(t_cmd *cmd)
 		cmd->pid = fork();
 	if (cmd->pid == 0 && cmd->fd_in != STDIN_FILENO)
 		close(cmd->fd_in);
-	if (cmd->next)
+	if (cmd->pid == 0 && cmd->next)
 		close(cmd->next->fd_in);
-	if (cmd->pid == 0 && cmd->fd_in != STDIN_FILENO)
-		close(cmd->fd_out);
 	if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "echo", 5))
 		get_data()->code_exit = b_echo(cmd);
 	if (cmd->pid == 0 && !ft_strncmp (cmd->cmd[0], "cd", 3))

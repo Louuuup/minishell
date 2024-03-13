@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/12 14:55:11 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:18:09 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	exec_cmd(t_cmd *cmdt)
 			get_data()->code_exit = 0;
 			return ;
 		}
-		if (command_valid(cmdt, cmdt->cmd[0]) == TRUE)
+		if (command_valid(cmdt, cmdt->cmd[0], -1) == TRUE)
 			fork_exec(cmdt);
 		else
 		{

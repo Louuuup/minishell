@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:55:40 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:18:33 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,7 +311,7 @@ int			wait_pid(t_data *data);
 
 int			ft_pipe(t_cmd *cmd);
 int			ft_dup2(t_cmd *cmd);
-int			command_valid(t_cmd *cmdt, char *cmd);
+int			command_valid(t_cmd *cmdt, char *cmd, int i);
 t_cmd		*get_cmd(t_data *data, int idx);
 
 //==================exec_utils1.c===================//

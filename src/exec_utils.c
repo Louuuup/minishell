@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 09:43:56 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:17:54 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ static char	*cmd_access(char *cmd, char **paths)
 	return (NULL);
 }
 
-int	command_valid(t_cmd *cmdt, char *cmd)
+int	command_valid(t_cmd *cmdt, char *cmd, int i)
 {
 	char	*cmd_path;
 	char	**paths;
-	int		i;
 
-	i = 0;
+	if (access(cmdt->cmd[0], F_OK | X_OK) == 0)
+	{
+		cmdt->path = gc_strdup(cmdt->cmd[0]);
+		return (TRUE);
+	}
 	cmd_path = get_var(get_data()->env, "PATH");
 	if (!cmd_path)
 		return (FALSE);
@@ -92,11 +95,9 @@ int	command_valid(t_cmd *cmdt, char *cmd)
 	cmd_path = paths[0];
 	paths[0] = ft_strtrim(paths[0], "PATHS=");
 	cmd_path = free_null(cmd_path);
-	while (paths[i])
-	{
+	i = -1;
+	while (paths[i++])
 		paths[i] = charjoinfree(paths[i], '/');
-		i++;
-	}
 	cmdt->path = cmd_access(cmd, paths);
 	paths = arr_free((void **)paths);
 	if (!cmdt->path)

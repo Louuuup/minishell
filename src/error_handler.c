@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:46 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/09 12:04:33 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:15:31 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int	error_str_code(char *err, char *str, int code)
 {
 	get_data()->code_exit = code;
 	ft_putstr_fd(MINISHELL_ERR, STDERR_FILENO);
-	ft_putstr_fd(err, STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
+	if (err)
+		ft_putstr_fd(err, STDERR_FILENO);
+	if (str)
+		ft_putstr_fd(str, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
 	return (ERROR);
 }

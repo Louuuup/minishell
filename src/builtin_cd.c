@@ -6,11 +6,27 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:45 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/12 14:47:43 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:17:35 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*slash_join(char *s1, char *s2)
+{
+	char	*tmp;
+
+	tmp = gc_strjoin(s1, "/");
+	tmp = gc_strjoin(tmp, s2);
+	return (tmp);
+}
+
+static int	error_code(int error, t_cmd *cmdt)
+{
+	if (error == ERROR)
+		return (error_str_code("cd: unable to access ", cmdt->cmd[1], error));
+	return (NO_ERROR);
+}
 
 int	b_cd(t_cmd *cmd)
 {
@@ -20,25 +36,25 @@ int	b_cd(t_cmd *cmd)
 
 	error = NO_ERROR;
 	pwd = NULL;
-	oldpwd = get_var(get_data()->env, "PWD");
+	oldpwd = getcwd(NULL, 42);
 	if (cmd->ac > 0)
-	{
-		pwd = gc_strjoin(oldpwd, "/");
-		pwd = gc_strjoin(pwd, cmd->cmd[1]);
-	}
+		pwd = slash_join(oldpwd, cmd->cmd[1]);
 	else
 		pwd = get_var(get_data()->env, "HOME");
 	if (access(cmd->cmd[1], F_OK) != ERROR)
 		error = chdir(cmd->cmd[1]);
 	else if (access(pwd, F_OK) != ERROR)
-		error = chdir(pwd) == ERROR;
+		error = chdir(pwd);
 	else
-		error_str("cd: no such file or directory\n");
-	if (error == ERROR)
-		return (error_str_code("cd: unable to access ", cmd->cmd[1], 1));
+	{
+		oldpwd = free_null(oldpwd);
+		return (error_str_code(cmd->cmd[1], " : no such file or dir\n", 1));
+	}
 	set_var(get_data()->env, "OLDPWD", oldpwd);
 	set_var(get_data()->env, "PWD", getcwd(NULL, 0));
-	return (NO_ERROR);
+	if (oldpwd)
+		oldpwd = free_null(oldpwd);
+	return (error_code(error, cmd));
 }
 
 int	b_pwd(t_cmd *cmd)

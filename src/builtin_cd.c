@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:45 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 20:54:56 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/13 22:19:15 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	b_cd(t_cmd *cmd)
 	if (access(cmd->cmd[1], F_OK) != ERROR)
 		error = chdir(cmd->cmd[1]);
 	else if (access(pwd, F_OK) != ERROR)
-		error = chdir(pwd) == ERROR;
+		error = chdir(pwd);
 	else
 		error_str("cd: no such file or directory\n");
 	if (error == ERROR)

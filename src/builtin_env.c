@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 15:15:52 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:00:35 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*set_var(char **env, char *var, char *value)
 	char	*new_var;
 
 	i = 0;
+	if (!get_data()->env || !var || !get_var(get_data()->env, var))
+		return (NULL);
 	while (env[i])
 	{
 		j = 0;

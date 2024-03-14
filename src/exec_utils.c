@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 19:17:54 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:51:26 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	command_valid(t_cmd *cmdt, char *cmd, int i)
 	paths[0] = ft_strtrim(paths[0], "PATHS=");
 	cmd_path = free_null(cmd_path);
 	i = -1;
-	while (paths[i++])
+	while (paths[++i])
 		paths[i] = charjoinfree(paths[i], '/');
 	cmdt->path = cmd_access(cmd, paths);
 	paths = arr_free((void **)paths);

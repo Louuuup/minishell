@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 19:18:09 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:15:39 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	exec_builtin(t_cmd *cmd)
 	else if (cmd->pid == 0 && !ft_strncmp(cmd->cmd[0], "exit", 5))
 		get_data()->code_exit = b_exit(cmd, cmd->fd_out);
 	if (cmd->pid == 0 && get_data()->cmd->next)
-		builtin_exit(cmd);
+		builtin_exit(cmd, TRUE);
 	return (get_data()->code_exit);
 }
 

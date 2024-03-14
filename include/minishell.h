@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 19:18:33 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:15:41 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ t_cmd		*get_cmd(t_data *data, int idx);
 //==================exec_utils1.c===================//
 
 void		fork_exec_extra(t_cmd *cmd);
-void		builtin_exit(t_cmd *cmd);
+void		builtin_exit(t_cmd *cmd, int do_exit);
 //=====================exec_fds.c=======================//
 
 int			redirect_check(t_cmd *cmd);

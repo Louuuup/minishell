@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:35:16 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:55:28 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:14:47 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	fork_exec_extra(t_cmd *cmd)
 	execve(cmd->path, cmd->cmd, get_data()->env);
 }
 
-void	builtin_exit(t_cmd *cmd)
+void	builtin_exit(t_cmd *cmd, int do_exit)
 {
 	if (cmd->fd_out != STDOUT_FILENO)
 		close (cmd->fd_out);
-	exit(get_data()->code_exit);
+	if (do_exit == TRUE)
+		exit(get_data()->code_exit);
 }

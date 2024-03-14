@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:45 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/12 14:47:43 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:54:56 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,15 @@ int	b_cd(t_cmd *cmd)
 	return (NO_ERROR);
 }
 
-int	b_pwd(t_cmd *cmd)
+int	b_pwd(void)
 {
-	ft_putstr_fd(get_var(get_data()->env, "PWD"), cmd->fd_out);
-	ft_putchar_fd('\n', cmd->fd_out);
+	char	pwd[PATH_MAX];
+
+	if (!getcwd(pwd, PATH_MAX))
+	{
+		perror("Minishell");
+		return (ERROR);
+	}
+	printf("%s\n", pwd);
 	return (NO_ERROR);
 }

@@ -57,7 +57,6 @@ int	b_exit(t_cmd *cmd, int fd_out)
 			{
 				tmp = gc_strjoin("exit: ", cmd->cmd[1]);
 				error_str_code(tmp, ": numeric argument required\n", 255);
-				gc_free_one(get_data()->memblock, tmp);
 			}
 		}
 	}

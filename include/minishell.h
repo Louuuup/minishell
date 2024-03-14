@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 19:18:33 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:55:25 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,7 +380,7 @@ char		**rm_var(t_data *data, char *var, char *alt_var);
 //====================builtin_cd.c====================//
 
 int			b_cd(t_cmd *cmd);
-int			b_pwd(t_cmd *cmd);
+int			b_pwd(void);
 //====================builtin_echo.c====================//
 
 int			b_echo(t_cmd *cmd);

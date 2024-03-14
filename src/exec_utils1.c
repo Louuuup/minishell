@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:35:16 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 21:14:47 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:31:07 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	fork_exec_extra(t_cmd *cmd)
 
 void	builtin_exit(t_cmd *cmd, int do_exit)
 {
-	if (cmd->fd_out != STDOUT_FILENO)
+	if (cmd && cmd->fd_out != STDOUT_FILENO)
 		close (cmd->fd_out);
 	if (do_exit == TRUE)
 		exit(get_data()->code_exit);

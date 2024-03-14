@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 20:11:36 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 20:55:25 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/13 21:18:17 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ t_cmd		*get_cmd(t_data *data, int idx);
 //==================exec_utils1.c===================//
 
 void		fork_exec_extra(t_cmd *cmd);
-void		builtin_exit(t_cmd *cmd);
+void		builtin_exit(t_cmd *cmd, int do_exit);
 //=====================exec_fds.c=======================//
 
 int			redirect_check(t_cmd *cmd);

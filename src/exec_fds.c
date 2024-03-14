@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:26 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 14:27:23 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/13 23:11:04 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	fd_redirect(int fd, char *file, int redir_flag)
 		close(fd);
 	if (redir_flag == REDIR_INPUT)
 	{
-		fd = open(file, O_RDONLY);
+		fd = open(file, O_RDONLY, 0644);
 		if (access(file, R_OK) == -1)
 		{
 			get_data()->code_exit = 1;

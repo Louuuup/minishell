@@ -18,13 +18,13 @@ int	export_valid(char *str)
 
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (error_str_code("export: invalid identifier :", (str), 1));
+		return (error_str_code("invalid identifier :", (str), 1));
 	while (str[i])
 	{
 		if (str[i] == '=')
 			break ;
 		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-			return (error_str_code("export: invalid identifier :", (str), 1));
+			return (error_str_code("invalid identifier :", (str), 1));
 		i++;
 	}
 	return (NO_ERROR);

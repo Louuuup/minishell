@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/15 12:37:44 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/15 16:13:43 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_var(char **env, char *var)
 		while (env[i][j] && env[i][j] != '=')
 			j++;
 		if (ft_strncmp(env[i], var, j) == 0 && ft_strlen(var) == j)
-			return (env[i] + j + 1);
+			return (env[i] + j);
 		i++;
 	}
 	return (NULL);
@@ -79,7 +79,8 @@ char	**rm_var(t_data *data, char *var, char *alt_var)
 		alt_var = ft_strjoin(var, "=");
 		while (data->env[i[0]][j] && data->env[i[0]][j] != '=')
 			j++;
-		if (ft_strncmp(data->env[i[0]], alt_var, j + 1) != 0)
+		printf("comparing %s with %s\n", data->env[i[0]], alt_var);
+		if (ft_strncmp(data->env[i[0]], alt_var, j) != 0)
 			new_env[++i[1]] = data->env[i[0]];
 		else
 		{

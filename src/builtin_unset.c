@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:28:54 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/15 11:55:02 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:13:37 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	b_unset(t_cmd *cmdt)
 	i = 1;
 	while (cmdt->cmd[i])
 	{
-		if (export_valid(cmdt->cmd[i]) == FALSE)
+		if (export_valid(cmdt->cmd[i]) == ERROR)
 			error_str_code("Unset: not a valid identifier : ", \
 			cmdt->cmd[i], 1);
 		else if (get_var(data->env, cmdt->cmd[i]) == NULL)

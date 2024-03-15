@@ -107,8 +107,8 @@ int	b_export(t_data *data, t_cmd *cmd)
 		while (cmd->cmd[i])
 		{
 			if (export_valid(cmd->cmd[i]) == FALSE)
-				error_str_file("export: not a valid identifier :", \
-				(cmd->cmd[i]));
+				error_str_code("export: not a valid identifier :", \
+				(cmd->cmd[i]), 1);
 			var = var_name(cmd->cmd[i]);
 			if (get_var(data->env, var) == NULL)
 				env_addline(cmd->cmd[i]);
@@ -119,5 +119,5 @@ int	b_export(t_data *data, t_cmd *cmd)
 			var = free_null(var);
 		}
 	}
-	return (NO_ERROR);
+	return (data->code_exit);
 }

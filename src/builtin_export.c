@@ -106,15 +106,15 @@ int	b_export(t_data *data, t_cmd *cmd)
 	{
 		while (cmd->cmd[i])
 		{
-			if (export_valid(cmd->cmd[i]) == FALSE)
-				error_str_code("export: not a valid identifier :", \
-				(cmd->cmd[i]), 1);
 			var = var_name(cmd->cmd[i]);
-			if (get_var(data->env, var) == NULL)
-				env_addline(cmd->cmd[i]);
-			else if (find_symbol('=', cmd->cmd[i]) && \
-			get_var(data->env, var) != NULL)
-				set_var(data->env, var, var_value(cmd->cmd[i]));
+			if (export_valid(cmd->cmd[i]) == NO_ERROR)
+			{
+				if (get_var(data->env, var) == NULL)
+					env_addline(cmd->cmd[i]);
+				else if (find_symbol('=', cmd->cmd[i]) && \
+				get_var(data->env, var) != NULL)
+					set_var(data->env, var, var_value(cmd->cmd[i]));
+			}
 			i++;
 			var = free_null(var);
 		}

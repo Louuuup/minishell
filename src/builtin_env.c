@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:01:52 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/11 15:15:52 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:17:03 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_var(char **env, char *var)
 		printf("(get_var) var: %s\n", var);
 	if (ft_strcmp(var, "?") == 0)
 		return (ft_itoa(get_data()->code_exit));
-	while (env[i])
+	while (env && env[i])
 	{
 		j = 0;
 		while (env[i][j] && env[i][j] != '=')
@@ -54,6 +54,7 @@ char	*set_var(char **env, char *var, char *value)
 			env[i] = new_var;
 			return (env[i]);
 		}
+		get_data()->code_exit = 0;
 		i++;
 	}
 	return (NULL);

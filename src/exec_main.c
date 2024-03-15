@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:13:19 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 21:18:36 by fboivin          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:35:12 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	wait_pid(t_data *data)
 	int		status;
 	t_cmd	*cmd;
 
-	if (DEBUG_ON)
-		printf("(wait_pid) wait_pid called\n");
+	status = 0;
 	cmd = data->cmd;
 	while (cmd != NULL)
 	{
@@ -29,6 +28,8 @@ int	wait_pid(t_data *data)
 			{
 				if (!cmd->cmd)
 					exit_code(0);
+				if (cmd->built_in == true && !data->cmd->next)
+					exit_code(data->code_exit);
 				else if (WIFEXITED(status))
 					exit_code((WEXITSTATUS(status)));
 				else if (WIFSIGNALED(status))

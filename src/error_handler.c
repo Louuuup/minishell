@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:10:46 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/03/13 22:15:31 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:29:51 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	error_str_file(char *str, char *file)
 	ft_putstr_fd(MINISHELL_ERR, STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd(file, STDERR_FILENO);
-	return (ERROR);
+	return (1);
 }
 
 // error str with modifier to error code
